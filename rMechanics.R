@@ -36,3 +36,13 @@ for(i in 1:mdim){
 }
 
 indFin <- indMark
+
+
+tempMatrix <- matrix(rep(0,15), nrow=5)
+
+tempMatrix[,4]
+
+tempTab <- data.frame(tempMatrix)
+
+tempTab[,X9 := 4]
+

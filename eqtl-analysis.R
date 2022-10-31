@@ -1,5 +1,7 @@
 #use this to save plots to secretariat somehow
 library(ggplot2)
+library(dplyr)
+library(tidyr)
 
 
 rm(list=ls())
@@ -46,12 +48,14 @@ for(i in 1:starveDim){
 #remove initial index(zero) from vector
 indFin <- indMark[2:length(indMark)]
 
+#extract all columns EXCEPT where NA
+starveFinal <- starveRaw[-indFin,]
+
 #Number of lines with no data/data
 none <- length(indFin)
 trait <- starveDim - none
 
-#extract all columns EXCEPT where NA
-starveFinal <- starveRaw[-indFin,]
+
 
 #dim(starveFinal)
 
@@ -83,10 +87,13 @@ write.csv(fFin,"/home/nklimko/R/dgrp-starve/fFin.csv")
 mFin <- read.csv("/home/nklimko/R/dgrp-starve/mFin.csv")
 fFin <- read.csv("/home/nklimko/R/dgrp-starve/fFin.csv")
 
-mFin
+mFin[133,]
+fFin[133,]
+
+mFin <- mFin[,c(2,3)]
+fFin <- fFin[,c(2,3)]
 fFin
-
-
+mFin
 mDim <- dim(mFin)[1]
 fDim <- dim(fFin)[1]
 dim(fFin)
@@ -110,6 +117,7 @@ for(m in 1:mDim){
   }
 }
 
+final <- data.frame(matchNet)
 
 mFin
 fFin
@@ -119,8 +127,24 @@ sameLines
 
 matchNet
 
+mfRaw <- data.frame(matchNet)
+mfRaw
 
 
+mfRaw[,4] <- mfRaw[,2] - mfRaw[,3]
+mfRaw
+
+mfDim <- dim(mfRaw)[1]
+mfDim
+
+mfRaw <- tibble(mfRaw)
+mfRaw
+colnames(mfRaw) <- c("line", "mStrave", "fStarve")
+mfRaw[1,]
+mfMod1 <- mfRaw %>% select(mStrave, fStarve) %>% mutate(newCol = mfRaw$mStarve - mfRaw$fStarve)
+
+mfMod1mutate(starveDiff = mfRaw$mStarve - mfRaw$fStarve)
+mfMod1
 
 
 
