@@ -6,7 +6,6 @@ rm(list=ls())
 
 par(mfrow=c(2,2))
 
-
 histBox <- function(csvPath, dataSet){
   
   #Read in table
@@ -16,7 +15,7 @@ histBox <- function(csvPath, dataSet){
   
   #histogram and boxplot
   hist(starveRaw$starvation, main=paste("Histogram of",dataSet,"Starvation"), xlab="Starvation Resistance")
-  boxplot(starveRaw$starvation, horizontal = TRUE)
+  #boxplot(starveRaw$starvation, , horizontal = TRUE)
   return(starveRaw)
 }
 
@@ -33,29 +32,23 @@ dataSetF <- "Female"
 starveRawM <- histBox(csvPathM, dataSetM)
 starveRawF <- histBox(csvPathF, dataSetF)
 
-
-
+boxplot(starveRawM$starvation, starveRawF$starvation, names=c("Male", "Female"), main="Sex Comparison of Starvation Resistance", xlab="Starvation Resistance", ylab="Sex", horizontal = TRUE)
 
 summary(starveRawM$starvation)
 summary(starveRawF$starvation)
 
+colnames(starveRawF) <- c("line", "fStarve")
+colnames(starveRawM) <- c("line", "mStarve")
 
-colnames(starveRawF) <- c("line", "f-starve")
-colnames(starveRawM) <- c("line", "m-starve")
 
-starveAll <- tibble(cbind(starveRawF$line, starveRawM$m-starve, starveRawM$m-starve))
+starveAll <- starveRawF %>% mutate(mStarve = starveRawM$mStarve)
 
 starveAll
-starveAll <- starveRawM %>% select(line,starvation) %>% mutate(starveRawM$f-starve = starveRawF$starvation)
 
-colnames(starveAll) <- c("line", "m-starve", "f-starve")
+write.csv(starveAll,"/home/nklimko/R/dgrp-starve/starveAll.csv")
+write.csv(starveRawM,"/home/nklimko/R/dgrp-starve/starveM.csv")
+write.csv(starveRawF,"/home/nklimko/R/dgrp-starve/starveF.csv")
 
-
-
-
-write.csv(mFin,"/home/nklimko/R/dgrp-starve/mFin.csv")
-write.csv(fFin,"/home/nklimko/R/dgrp-starve/fFin.csv")
-
-mFin <- read.csv("/home/nklimko/R/dgrp-starve/mFin.csv")
-fFin <- read.csv("/home/nklimko/R/dgrp-starve/fFin.csv")
-
+mFin <- tibble(read.csv("/home/nklimko/R/dgrp-starve/starveM.csv"))
+fFin <- tibble(read.csv("/home/nklimko/R/dgrp-starve/starveF.csv"))
+aFin <- tibble(read.csv("/home/nklimko/R/dgrp-starve/starveAll.csv"))
