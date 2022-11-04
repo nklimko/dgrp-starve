@@ -130,4 +130,8 @@ lm(formula = y~x)
 
 wflow_git_push()
 install.packages("git2r")
+par(mfrow=c(1,2))
 
+#Comparative Boxplot
+boxplot(starveDiff$mStarve, starveDiff$fStarve, names=c("Male", "Female"), main="Sex Comparison of Starvation Resistance", xlab="Starvation Resistance", ylab="Sex", horizontal = TRUE)
+hist(starveDiff$diff, main=paste("Histogram of Starvation Diff"), xlab="Starvation Difference")

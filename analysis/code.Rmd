@@ -8,3 +8,33 @@ editor_options:
 ---
 
 insertion of code hyperlinks to go here
+
+
+SpongeBob: It is after closing, and I'd Like to Die... of anticipation
+
+*italy*
+**bold**
+
+*list1
+*l2
+*l3
+
+
+link: square brackets text with parantheses hyperlink
+
+[link text](www.github.com)
+
+
+R code is triple backtick with r in brackets as header, code in center
+
+
+'''{r}
+dim(iris)
+2 ^ 2
+1+8
+'''
+
+eval=FALSE in brackets to prevent code from running, display only
+echo=FALSE to hide code, results only
+
+
