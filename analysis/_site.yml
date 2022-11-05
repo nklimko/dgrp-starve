@@ -7,8 +7,10 @@ navbar:
     href: index.html
   - text: About
     href: about.html
-  - text: Code
+  - text: Formatting Guide
     href: code.html
+  - text: Starvation Analysis
+    href: starve.html
   - text: License
     href: license.html
 output:

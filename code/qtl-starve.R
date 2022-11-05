@@ -6,10 +6,6 @@ library(dplyr)
 library(tidyr)
 #library("workflowr")
 
-
-#install.packages("workflowr")
-
-
 par(mfrow=c(2,3))
 
 #create csv from hist
@@ -128,10 +124,56 @@ lm(formula = y~x)
 
 #scatterplot, qq/normality
 
-wflow_git_push()
-install.packages("git2r")
-par(mfrow=c(1,2))
+#wflow_git_push()
+#install.packages("git2r")
+
 
 #Comparative Boxplot
 boxplot(starveDiff$mStarve, starveDiff$fStarve, names=c("Male", "Female"), main="Sex Comparison of Starvation Resistance", xlab="Starvation Resistance", ylab="Sex", horizontal = TRUE)
 hist(starveDiff$diff, main=paste("Histogram of Starvation Diff"), xlab="Starvation Difference")
+
+
+
+starveAll <- starveDiff
+
+starveAll <- starveAll %>% select_all() %>% mutate(avgStarve=(fStarve+mStarve)/2)
+starveAll <- arrange(starveAll, starveAll$diff)
+print(starveAll, n=204)
+
+sAll <- starveAll
+sAll
+plot(sAll$diff, sAll$avgStarve)
+
+plot(density(sAll$diff))
+plot(density(sAll$avgStarve))
+
+
+write.csv(starveAll, "/data/morgante_lab/nklimko/rep/dgrp-starve/data/starveAll.csv")
+starve <- tibble(read.csv("/data/morgante_lab/nklimko/rep/dgrp-starve/data/starveAll.csv")) %>% select(-X)
+sAll2 <- sAll2 %>% select(-X)
+
+colnames(sAll2)
+
+starveAll
+
+
+
+starve
+colnames(starveAll) <- c("line", "f", "m", "dif", "avg")
+
+colnames(starveAll)
+
+
+summary(starve$f, starve$m)
+fS <- summary(starve$f)
+mS <- summary(starve$m)
+
+data.class(fS)
+
+fS[1:3]
+tableM <- rbind(fS, mS)
+tableM[]
+
+starveAll
+
+shapiro.test(starve$f)

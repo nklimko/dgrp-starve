@@ -4,7 +4,7 @@
 x <- starveDiff$fStarve
 y <- starveDiff$mStarve
 
-t.test(x)
+t.test(starve$f)
 mu <- mean(x)
 s <- sd(x)
 n <- length(x)
