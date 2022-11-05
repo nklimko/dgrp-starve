@@ -1,0 +1,174 @@
+---
+title: "Starvation Resistance"
+output:
+  workflowr::wflow_html:
+    toc: false
+    latex_engine: "xelatex"
+editor_options:
+  chunk_output_type: console
+---
+
+
+
+
+
+# Background
+### More info, picture of fly
+
+
+Starvation resistance in *Drosophila melanogaster* measures the duration flies can survive with no food source. DGRP2 citation, male vs female explanation, the data
+
+
+
+```{r, echo= FALSE , eval= TRUE, results='hide', include=FALSE}
+
+library(tidyr)
+library(dplyr)
+library(tibble)
+starve <- tibble(read.csv("data/starveAll.csv")) %>% select(-X)
+x <- starve$f
+y <- starve$m
+
+```
+
+
+### Histograms of Starvation Resistance
+#### Add normal curves
+```{r, echo=FALSE}
+
+par(mfrow=c(1,2))
+
+#Female
+hist(x, 
+     col="red",
+     border="black",
+     prob = TRUE,
+     xlab = "Starvation Resistance",
+     main = "Female Lines")
+
+lines(density(x),
+      lwd = 2,
+      col = "black")
+
+#Male
+hist(y, 
+     col="blue",
+     border="black",
+     prob = TRUE,
+     xlab = "Starvation Resistance",
+     main = "Male Lines")
+
+lines(density(y),
+      lwd = 2,
+      col = "black")
+
+```
+
+
+
+
+### Comparative Boxplot
+#### Swap order? xy in code, yx in vertical descent
+```{r, echo = FALSE}
+boxplot(x,
+        y,
+        col = c("red","blue"),
+        names=c("Female", "Male"),
+        main="Sex Comparison of Starvation Resistance",
+        xlab="Starvation Resistance",
+        ylab="Sex",
+        horizontal = TRUE)
+
+```
+
+
+
+### Summary Table
+#### Gridlines, make a table something
+```{r, echo = FALSE}
+test <- rbind(summary(x), summary(y))
+rownames(test) <- c("Female", "Male")
+print(test)
+```
+
+
+### Scatter Plot
+#### Appropriate Title, equation for trendline: Least Squares analysis?
+```{r, echo = FALSE}
+plot(x,
+     y,
+     col="black",
+     xlab="Female Starvation Resistance",
+     ylab="Male Starvation Resistance",
+     abline(reg=lm(y~x), 
+            col="green"))
+
+
+text(x = 85, y = 25,
+     "y = 14.2347x + 0.5192",
+     cex = 0.75)
+text(x = 85, y = 22.5,
+     "R=0.4693, p-value < 2.2e-16",
+     cex = 0.75)
+
+summary(lm(y~x))
+#
+
+```
+
+
+
+### QQ Plots
+```{r, echo = FALSE}
+par(mfrow=c(1,2))
+
+qqnorm(x, main="Female Distribution")
+qqline(x)
+qqnorm(y, main="Male Distribution")
+qqline(y)
+
+
+```
+
+There is some systematic deviation from linearity on both tails in Females and on the upper tail in Males. Eyeballing is not an exhaustive measure of discerning normality. Quantitative methods are needed:
+
+## Shapiro-Wilk Tests for Normality
+
+The Shapiro-Wilk method was chosen as it retains the best power
+
+
+The test statistic can be calculated as such:
+$$
+W = \frac{(\sum_{i=1}^{n}a_ix_{(i)})^{2}}{\sum_{i=1}^{n}(x_i-\overline x)^{2}}
+$$
+
+W values closer to 0 indicate
+
+
+
+```{r, echo = FALSE}
+
+Female_Starvation <- x
+
+Male_Starvation <- y
+
+shapiro.test(Female_Starvation)
+shapiro.test(Male_Starvation)
+```
+
+
+
+At an $\alpha$ level of 0.05, we have sufficient evidence to reject that the Female population is normally distributed as p < $\alpha$ (0.001826 < 0.05).
+
+At an $\alpha$ level of 0.05, we do not have sufficient evidence to reject that the Male population is normally distributed as p > $\alpha$ (0.07023 > 0.05).
+
+
+
+
+
+```{r, echo = FALSE}
+```
+
+
+
+
