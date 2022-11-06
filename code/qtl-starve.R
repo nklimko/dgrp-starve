@@ -177,3 +177,24 @@ tableM[]
 starveAll
 
 shapiro.test(starve$f)
+
+
+#define data
+data <- rnorm(1000)
+
+#create histogram
+hist(x)
+
+#define x and y values to use for normal curve
+xNorm <- seq(min(x), max(x), length = (max(x) - min(x)))
+yNorm <- dnorm(xNorm, mean = mean(x), sd = sd(x))
+
+#overlay normal curve on histogram
+plot(xNorm, yNorm)
+
+
+
+x
+
+
+y

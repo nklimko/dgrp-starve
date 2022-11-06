@@ -1,5 +1,5 @@
 ---
-title: "Code"
+title: "Style Practice"
 output:
   workflowr::wflow_html:
     toc: false

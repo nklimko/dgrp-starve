@@ -1,5 +1,5 @@
 ---
-title: "Starvation Resistance"
+title: "Starvation Resistance Analysis: Phase 1.1"
 output:
   workflowr::wflow_html:
     toc: false
@@ -9,18 +9,7 @@ editor_options:
 ---
 
 
-
-
-
-# Background
-### More info, picture of fly
-
-
-Starvation resistance in *Drosophila melanogaster* measures the duration flies can survive with no food source. DGRP2 citation, male vs female explanation, the data
-
-
-
-```{r, echo= FALSE , eval= TRUE, results='hide', include=FALSE}
+```{r, include=FALSE}
 
 library(tidyr)
 library(dplyr)
@@ -30,10 +19,11 @@ x <- starve$f
 y <- starve$m
 
 ```
+## Setup
+The analysis begins with the data files prepared in [Phase 1](www.google.com). MAKE THIS LINK TO DATA PREP. The goal of these steps was to visually characterize the data and form the basis for groupings of DGRP lines for further analysis.
 
 
 ### Histograms of Starvation Resistance
-#### Add normal curves
 ```{r, echo=FALSE}
 
 par(mfrow=c(1,2))
@@ -42,7 +32,6 @@ par(mfrow=c(1,2))
 hist(x, 
      col="red",
      border="black",
-     prob = TRUE,
      xlab = "Starvation Resistance",
      main = "Female Lines")
 
@@ -54,7 +43,6 @@ lines(density(x),
 hist(y, 
      col="blue",
      border="black",
-     prob = TRUE,
      xlab = "Starvation Resistance",
      main = "Male Lines")
 
@@ -63,12 +51,12 @@ lines(density(y),
       col = "black")
 
 ```
+First impressions on histograms are that both are unimodal with light skew to the right.
 
 
 
 
 ### Comparative Boxplot
-#### Swap order? xy in code, yx in vertical descent
 ```{r, echo = FALSE}
 boxplot(x,
         y,
@@ -80,20 +68,11 @@ boxplot(x,
         horizontal = TRUE)
 
 ```
+Plotting the distributions on the same axis gives a more accurate representation of distribution between sexes. The average female has a much greate starvation resistance of `r round(mean(x), digits=3)` compared to the average male `r round(mean(y), digits=3)`. Outliers to the right of both boxplots indicate right skew. 
 
-
-
-### Summary Table
-#### Gridlines, make a table something
-```{r, echo = FALSE}
-test <- rbind(summary(x), summary(y))
-rownames(test) <- c("Female", "Male")
-print(test)
-```
 
 
 ### Scatter Plot
-#### Appropriate Title, equation for trendline: Least Squares analysis?
 ```{r, echo = FALSE}
 plot(x,
      y,
@@ -101,9 +80,7 @@ plot(x,
      xlab="Female Starvation Resistance",
      ylab="Male Starvation Resistance",
      abline(reg=lm(y~x), 
-            col="green"))
-
-
+            col="purple"))
 text(x = 85, y = 25,
      "y = 14.2347x + 0.5192",
      cex = 0.75)
@@ -111,11 +88,10 @@ text(x = 85, y = 22.5,
      "R=0.4693, p-value < 2.2e-16",
      cex = 0.75)
 
-summary(lm(y~x))
-#
+#summary(lm(y~x))
 
 ```
-
+The trendline is a Simple Linear Regression 'reg=lm(y~x)' with R and p values extracted from summary statistics. The slope indicates a positive correlation between male and female starvation resistance while the R value of 0.4693 indicates that the correlation is not close to linear.
 
 
 ### QQ Plots
@@ -134,22 +110,23 @@ There is some systematic deviation from linearity on both tails in Females and o
 
 ## Shapiro-Wilk Tests for Normality
 
-The Shapiro-Wilk method was chosen as it retains the best power
+The Shapiro-Wilk method was chosen as it retains the best power 
 
 
-The test statistic can be calculated as such:
+The test statistic formula is:
 $$
 W = \frac{(\sum_{i=1}^{n}a_ix_{(i)})^{2}}{\sum_{i=1}^{n}(x_i-\overline x)^{2}}
 $$
 
-W values closer to 0 indicate
+More about the Shapiro-Wilk test statistic can be found [here](https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test#Theory). 
+
+$W$ values closer to 1 indicate normality, with $W = 1$ being perfectly normal.
 
 
 
 ```{r, echo = FALSE}
 
 Female_Starvation <- x
-
 Male_Starvation <- y
 
 shapiro.test(Female_Starvation)
@@ -160,7 +137,36 @@ shapiro.test(Male_Starvation)
 
 At an $\alpha$ level of 0.05, we have sufficient evidence to reject that the Female population is normally distributed as p < $\alpha$ (0.001826 < 0.05).
 
-At an $\alpha$ level of 0.05, we do not have sufficient evidence to reject that the Male population is normally distributed as p > $\alpha$ (0.07023 > 0.05).
+At an $\alpha$ level of 0.05, we do not have sufficient evidence to reject that the Male population is normally distributed as p > $\alpha$ (0.07023 > 0.05). Notably the correlation is not strong as the p-value is close to 0.05.
+
+
+
+### Group selection
+
+
+```{r, echo = FALSE}
+
+par(mfrow=c(1,2))
+
+#Difference
+hist(starve$dif, 
+     col="purple",
+     border="black",
+     xlab = "Change in Starvation Resistance",
+     main = "Difference of Female and Male Lines")
+
+#Average
+hist(starve$avg, 
+     col="pink",
+     border="black",
+     xlab = "Average Starvation Resistance",
+     main = "Avg of Female and Male Lines")
+
+```
+The two groups of interest were extreme values on both ends
+
+
+Along with this, I wanted to look at the highest and lowest averages. Twenty lines from the top and bottom were partitioned for further analysis. With these four groups, I sought to look for difference in genotype and fold-change in gene expression [here](www)LINK to PHASE ??? not sure yet
 
 
 

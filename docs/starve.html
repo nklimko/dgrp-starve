@@ -11,7 +11,7 @@
 
 
 
-<title>Style Practice</title>
+<title>Starvation Resistance Analysis: Phase 1.1</title>
 
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -283,7 +283,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Style Practice</h1>
+<h1 class="title toc-ignore">Starvation Resistance Analysis: Phase 1.1</h1>
 
 </div>
 
@@ -419,6 +419,7 @@ Ignored files:
     Ignored:    analysis/.Rhistory
 
 Untracked files:
+    Untracked:  analysis/stylePractice.Rmd
     Untracked:  data/sAll.csv
     Untracked:  dataCleanup.R
     Untracked:  dataPrep.Rmd
@@ -445,7 +446,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/code.Rmd</code>) and HTML (<code>docs/code.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/starve.Rmd</code>) and HTML (<code>docs/starve.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -474,7 +475,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/e9314cef92a6ece427d027f3a4579ba52e2bdd21/analysis/code.Rmd" target="_blank">e9314ce</a>
+<a href="https://github.com/nklimko/dgrp-starve/blob/d0a5cb116cf12fd2c174a8863630523808a12675/analysis/starve.Rmd" target="_blank">d0a5cb1</a>
 </td>
 <td>
 nklimko
@@ -483,92 +484,7 @@ nklimko
 2022-11-05
 </td>
 <td>
-wflow_git_commit(all = TRUE)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/e9314cef92a6ece427d027f3a4579ba52e2bdd21/docs/code.html" target="_blank">e9314ce</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-05
-</td>
-<td>
-wflow_git_commit(all = TRUE)
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/1911edb0b5406da2f13c8a1b65339104746a01d1/analysis/code.Rmd" target="_blank">1911edb</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-04
-</td>
-<td>
-wflow_git_commit(all = TRUE)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/1911edb0b5406da2f13c8a1b65339104746a01d1/docs/code.html" target="_blank">1911edb</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-04
-</td>
-<td>
-wflow_git_commit(all = TRUE)
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/3dab5a85fe8dda8c976cdf51db2df31921367d48/analysis/code.Rmd" target="_blank">3dab5a8</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-01
-</td>
-<td>
-all files for me
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/3dab5a85fe8dda8c976cdf51db2df31921367d48/docs/code.html" target="_blank">3dab5a8</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-01
-</td>
-<td>
-all files for me
+Baseline analysis 11/5, horrendous formatting
 </td>
 </tr>
 </tbody>
@@ -578,23 +494,51 @@ all files for me
 </div>
 </div>
 </div>
-<p>insertion of code hyperlinks to go here</p>
-<p>SpongeBob: It is after closing, and I’d Like to Die… of anticipation</p>
-<p><em>italy</em> <strong>bold</strong></p>
-<p><em>list1 </em>l2 *l3</p>
-<p>link: square brackets text with parantheses hyperlink</p>
-<p><a href="www.github.com">link text</a> #link is broken in OOD, tried to run out /session/docs</p>
-<p>R code is triple backtick with r in brackets as header, code in center</p>
-<p>backtick is lowercase tilda, not single apostrophe</p>
-<p>’’‘{r} dim(iris) 2 ^ 2 1+8’’’</p>
-<p>versus</p>
-<pre class="r"><code>dim(iris)</code></pre>
-<pre><code>[1] 150   5</code></pre>
-<pre class="r"><code>2 ^ 2</code></pre>
-<pre><code>[1] 4</code></pre>
-<pre class="r"><code>1+8</code></pre>
-<pre><code>[1] 9</code></pre>
-<p>eval=FALSE in brackets to prevent code from running, display only echo=FALSE to hide code, results only</p>
+<div id="setup" class="section level2">
+<h2>Setup</h2>
+<p>The analysis begins with the data files prepared in <a href="www.google.com">Phase 1</a>. MAKE THIS LINK TO DATA PREP. The goal of these steps was to visually characterize the data and form the basis for groupings of DGRP lines for further analysis.</p>
+<div id="histograms-of-starvation-resistance" class="section level3">
+<h3>Histograms of Starvation Resistance</h3>
+<p><img src="figure/starve.Rmd/unnamed-chunk-2-1.svg" width="672" style="display: block; margin: auto;" /> First impressions on histograms are that both are unimodal with light skew to the right.</p>
+</div>
+<div id="comparative-boxplot" class="section level3">
+<h3>Comparative Boxplot</h3>
+<p><img src="figure/starve.Rmd/unnamed-chunk-3-1.svg" width="672" style="display: block; margin: auto;" /> Plotting the distributions on the same axis gives a more accurate representation of distribution between sexes. The average female has a much greate starvation resistance of 60.665 compared to the average male 45.732. Outliers to the right of both boxplots indicate right skew.</p>
+</div>
+<div id="scatter-plot" class="section level3">
+<h3>Scatter Plot</h3>
+<p><img src="figure/starve.Rmd/unnamed-chunk-4-1.svg" width="672" style="display: block; margin: auto;" /> The trendline is a Simple Linear Regression ‘reg=lm(y~x)’ with R and p values extracted from summary statistics. The slope indicates a positive correlation between male and female starvation resistance while the R value of 0.4693 indicates that the correlation is not close to linear.</p>
+</div>
+<div id="qq-plots" class="section level3">
+<h3>QQ Plots</h3>
+<p><img src="figure/starve.Rmd/unnamed-chunk-5-1.svg" width="672" style="display: block; margin: auto;" /></p>
+<p>There is some systematic deviation from linearity on both tails in Females and on the upper tail in Males. Eyeballing is not an exhaustive measure of discerning normality. Quantitative methods are needed:</p>
+</div>
+</div>
+<div id="shapiro-wilk-tests-for-normality" class="section level2">
+<h2>Shapiro-Wilk Tests for Normality</h2>
+<p>The Shapiro-Wilk method was chosen as it retains the best power</p>
+<p>The test statistic formula is: <span class="math display">\[
+W = \frac{(\sum_{i=1}^{n}a_ix_{(i)})^{2}}{\sum_{i=1}^{n}(x_i-\overline x)^{2}}
+\]</span></p>
+<p>More about the Shapiro-Wilk test statistic can be found <a href="https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test#Theory">here</a>.</p>
+<p><span class="math inline">\(W\)</span> values closer to 1 indicate normality, with <span class="math inline">\(W = 1\)</span> being perfectly normal.</p>
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  Female_Starvation
+W = 0.97662, p-value = 0.001826</code></pre>
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  Male_Starvation
+W = 0.98745, p-value = 0.07023</code></pre>
+<p>At an <span class="math inline">\(\alpha\)</span> level of 0.05, we have sufficient evidence to reject that the Female population is normally distributed as p &lt; <span class="math inline">\(\alpha\)</span> (0.001826 &lt; 0.05).</p>
+<p>At an <span class="math inline">\(\alpha\)</span> level of 0.05, we do not have sufficient evidence to reject that the Male population is normally distributed as p &gt; <span class="math inline">\(\alpha\)</span> (0.07023 &gt; 0.05). Notably the correlation is not strong as the p-value is close to 0.05.</p>
+<div id="group-selection" class="section level3">
+<h3>Group selection</h3>
+<p><img src="figure/starve.Rmd/unnamed-chunk-7-1.svg" width="672" style="display: block; margin: auto;" /> The two groups of interest were extreme values on both ends</p>
+<p>Along with this, I wanted to look at the highest and lowest averages. Twenty lines from the top and bottom were partitioned for further analysis. With these four groups, I sought to look for difference in genotype and fold-change in gene expression <a href="www">here</a>LINK to PHASE ??? not sure yet</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -622,20 +566,23 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] workflowr_1.7.0
+[1] tibble_3.1.6 dplyr_1.0.8  tidyr_1.2.0 
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.8.3     bslib_0.3.1      compiler_4.0.3   pillar_1.7.0    
- [5] later_1.3.0      git2r_0.30.1     jquerylib_0.1.4  tools_4.0.3     
- [9] getPass_0.2-2    digest_0.6.29    jsonlite_1.8.0   evaluate_0.15   
-[13] tibble_3.1.6     lifecycle_1.0.1  pkgconfig_2.0.3  rlang_1.0.4     
-[17] cli_3.3.0        rstudioapi_0.13  yaml_2.3.5       xfun_0.30       
-[21] fastmap_1.1.0    httr_1.4.2       stringr_1.4.0    knitr_1.38      
-[25] sass_0.4.1       fs_1.5.2         vctrs_0.4.1      rprojroot_2.0.3 
-[29] glue_1.6.2       R6_2.5.1         processx_3.5.3   fansi_1.0.3     
-[33] rmarkdown_2.16   callr_3.7.0      magrittr_2.0.3   whisker_0.4     
-[37] ps_1.6.0         promises_1.2.0.1 htmltools_0.5.2  ellipsis_0.3.2  
-[41] httpuv_1.6.5     utf8_1.2.2       stringi_1.7.6    crayon_1.5.1    </code></pre>
+ [1] Rcpp_1.0.8.3     highr_0.9        pillar_1.7.0     compiler_4.0.3  
+ [5] bslib_0.3.1      later_1.3.0      jquerylib_0.1.4  git2r_0.30.1    
+ [9] workflowr_1.7.0  tools_4.0.3      digest_0.6.29    jsonlite_1.8.0  
+[13] evaluate_0.15    lifecycle_1.0.1  pkgconfig_2.0.3  rlang_1.0.4     
+[17] DBI_1.1.2        cli_3.3.0        rstudioapi_0.13  yaml_2.3.5      
+[21] xfun_0.30        fastmap_1.1.0    stringr_1.4.0    knitr_1.38      
+[25] generics_0.1.2   fs_1.5.2         vctrs_0.4.1      sass_0.4.1      
+[29] tidyselect_1.1.2 rprojroot_2.0.3  glue_1.6.2       R6_2.5.1        
+[33] fansi_1.0.3      rmarkdown_2.16   purrr_0.3.4      magrittr_2.0.3  
+[37] whisker_0.4      promises_1.2.0.1 ellipsis_0.3.2   htmltools_0.5.2 
+[41] assertthat_0.2.1 httpuv_1.6.5     utf8_1.2.2       stringi_1.7.6   
+[45] crayon_1.5.1    </code></pre>
+</div>
+</div>
 </div>
 
 
