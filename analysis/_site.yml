@@ -7,8 +7,8 @@ navbar:
     href: index.html
   - text: About
     href: about.html
-  - text: Formatting Guide
-    href: code.html
+  - text: Data Preparation
+    href: dataPrep.html
   - text: Starvation Analysis
     href: starve.html
   - text: License

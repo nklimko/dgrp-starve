@@ -11,10 +11,8 @@ editor_options:
 
 ```{r, include=FALSE}
 
-library(tidyr)
 library(dplyr)
-library(tibble)
-starve <- tibble(read.csv("data/starveAll.csv")) %>% select(-X)
+starve <- tibble(read.csv("data/starve.csv")) %>% select(-X)
 x <- starve$f
 y <- starve$m
 
@@ -32,6 +30,7 @@ par(mfrow=c(1,2))
 hist(x, 
      col="red",
      border="black",
+     prob=TRUE,
      xlab = "Starvation Resistance",
      main = "Female Lines")
 
@@ -43,6 +42,7 @@ lines(density(x),
 hist(y, 
      col="blue",
      border="black",
+     prob=TRUE,
      xlab = "Starvation Resistance",
      main = "Male Lines")
 
@@ -163,7 +163,29 @@ hist(starve$avg,
      main = "Avg of Female and Male Lines")
 
 ```
-The two groups of interest were extreme values on both ends
+The two groups of interest were extreme values on both ends.
+
+
+
+### Scatter Plot
+```{r, echo = FALSE}
+plot(starve$avg,
+     starve$dif,
+     col="black",
+     xlab="Line Average",
+     ylab="Intersex Difference",
+     abline(reg=lm(starve$dif~starve$avg), 
+            col="purple"))
+text(x = 72, y = -12.5,
+     "y = 0.3258 - 2.3984",
+     cex = 0.75)
+text(x = 72, y = -15,
+     "R=0.1293, p-value < 1.37e-7",
+     cex = 0.75)
+
+#summary(lm(starve$dif~starve$avg))
+
+```
 
 
 Along with this, I wanted to look at the highest and lowest averages. Twenty lines from the top and bottom were partitioned for further analysis. With these four groups, I sought to look for difference in genotype and fold-change in gene expression [here](www)LINK to PHASE ??? not sure yet

@@ -1,6 +1,8 @@
 
 
 
+
+
 test <- tibble(read.csv("/data/morgante_lab/data/dgrp/genotypes/dgrp2_tgeno_filtered_meanimputed.txt"))
 
 
