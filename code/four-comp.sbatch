@@ -13,10 +13,10 @@
 module load R/4.0.3
 
 ###Run script
-Rscript avgMinus.R
-Rscript avgPlus.R
-Rscript difMinus.R
-Rscript difPlus.R
+Rscript line_avgMinus.R
+Rscript line_avgPlus.R
+Rscript line_difMinus.R
+Rscript line_difPlus.R
 
 ###Unload loaded modules
 module unload R/4.0.3

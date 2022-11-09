@@ -1,3 +1,14 @@
+######################################
+#
+# Noah Klimkowski
+# line_comp.R
+# 11/7/2022
+#
+# Annotated script for line analysis 
+# of difference/ratio of means. Input 
+# parameters at top change per job
+#
+#######################################
 
 
 ### Libraries
@@ -7,8 +18,8 @@ library("dplyr")
 
 ##change per job
 dataPath <- "/data/morgante_lab/data/dgrp/genotypes/dgrp2_tgeno_filtered_meanimputed.txt"
-targetPath <- "/data/morgante_lab/nklimko/rep/dgrp-starve/data/INPUT.txt"
-finalPath <- "/data/morgante_lab/nklimko/rep/dgrp-starve/data/CHANGE.txt"
+targetPath <- "/data/morgante_lab/nklimko/rep/dgrp-starve/data/difMinus.txt"
+finalPath <- "/data/morgante_lab/nklimko/rep/dgrp-starve/output/difMinus-result.txt"
 
 #number of results to save
 finalCount <- 200

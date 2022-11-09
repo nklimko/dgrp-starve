@@ -19,36 +19,52 @@ starve <- tibble(read.csv("data/starve.csv")) %>% select(-X)
 # Phase 1
 
 
+Data was extracted from two tables of eQTL male/female traits. 
 
-for each file, 
+First, each file was filtered for non-null values
+
+```{r, eval=false}
+  # csvPath dependent upon female/male file
+  allRaw <- tibble(read.csv(csvPath))
+  starveRaw <- allRaw %>% select(line,starvation) %>% filter(!is.na(starvation))
+```
 
 
 
+```{r}
+#Combine mf
+starve <- starveF %>% mutate(m = starveM$m)
 
+#compute difference and average
+starve <- starve %>% select(line, f, m) %>% mutate(dif = f - m, avg = (f+m)/2)
+```
 
 
 
 # Phase 2
 
+Lines were manually selected and hard coded into the following extractions. 
 
-
-```{r echo=FALSE} 
+```{r eval=FALSE} 
 #print(arrange(starve, starve$dif), n=205)
+#print(arrange(starve, starve$avg), n=205)
 
+# Lines with male SR high than female SR
 difMinus <- starve %>% filter(dif < 0) %>% arrange(line) %>% select(line)
 difMinus <- as.data.table(difMinus)
 fwrite(difMinus, "./data/difMinus.txt")
 
+# Lines with largest gap from male SR to female SR
 difPlus <- starve %>% filter(dif >= 30) %>% arrange(line) %>% select(line)
 difPlus <- as.data.table(difPlus)
 fwrite(difPlus, "./data/difPlus.txt")
 
-#print(arrange(starve, starve$avg), n=205)
-
+# Lowest average SR between males and females
 avgMinus <- starve %>% filter(avg < 40) %>% arrange(line) %>% select(line)
 avgMinus <- as.data.table(avgMinus)
 fwrite(avgMinus, "./data/avgMinus.txt")
 
+# Highest average SR between males and females
 avgPlus <- starve %>% filter(dif >= 30) %>% arrange(line) %>% select(line)
 avgPlus <- as.data.table(avgPlus)
 fwrite(avgPlus, "./data/avgPlus.txt")
@@ -56,7 +72,7 @@ fwrite(avgPlus, "./data/avgPlus.txt")
 ```
 
 
-```{r inclde=FALSE}
+```{r include=FALSE}
 #dupeCheck <- rbind(difMinus, difPlus, avgMinus, avgPlus)
 #print(arrange(dupeCheck, dupeCheck$line), n=55)
 #8 of them repeat between dif and avg
@@ -71,7 +87,7 @@ Following analysis of trait difference by sex alone, I sought to compare groups 
 
 
 
-Data was taken from [this table]("/data/morgante_lab/data/dgrp/dgrp2_tgeno_filtered_meanimputed.txt") of SNP variations by line
+Data was taken from [imputed SNP table]("/data/morgante_lab/data/dgrp/dgrp2_tgeno_filtered_meanimputed.txt") 
 
 
 

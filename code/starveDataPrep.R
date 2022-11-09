@@ -14,37 +14,31 @@
 library(dplyr)
 library(tidyr)
 
-#create csv from hist, deprecated
-histCsv <- function(csvPath, dataSet){
+### Function: create tibble from data path
+antiNull <- function(csvPath){
   
   #Read in table
   allRaw <- tibble(read.csv(csvPath))
   
+  #filter for non-null values
   starveRaw <- allRaw %>% select(line,starvation) %>% filter(!is.na(starvation))
   
-  #histogram
-  #hist(starveRaw$starvation, main=paste("Histogram of",dataSet,"Starvation"), xlab="Starvation Resistance")
   return(starveRaw)
 }
 
-#plot space for hist
-#par(mfrow=c(1,2))
-
-#Female case
+#Female data
 csvPathF <- "/data/morgante_lab/data/dgrp/phenotypes/eQTL_traits_females.csv"
-dataSetF <- "Female"
-starveF <- histCsv(csvPathF, dataSetF)
+starveF <- antiNull(csvPathF)
 
-#Male case
+#Male data
 csvPathM <- "/data/morgante_lab/data/dgrp/phenotypes/eQTL_traits_males.csv"
-dataSetM <- "Male"
-starveM <- histCsv(csvPathM, dataSetM)
+starveM <- antiNull(csvPathM)
 
 #rename columns for combination
 colnames(starveF) <- c("line", "f")
 colnames(starveM) <- c("line", "m")
 
-#Combine mf
+#Combine data
 starve <- starveF %>% mutate(m = starveM$m)
 
 #compute difference and average
@@ -53,5 +47,5 @@ starve <- starve %>% select(line, f, m) %>% mutate(dif = f - m, avg = (f+m)/2)
 #Sort by difference, cosmetic
 starve <- arrange(starve, starve$dif)
 
-#Save
+#Save, colnames are lin,f,m,dif,avg
 write.csv(starve, "/data/morgante_lab/nklimko/rep/dgrp-starve/data/starve.csv")
