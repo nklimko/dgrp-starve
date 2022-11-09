@@ -11,6 +11,8 @@ navbar:
     href: dataPrep.html
   - text: Starvation Analysis
     href: starve.html
+  - text: Database
+    href: database.html
   - text: License
     href: license.html
 output:

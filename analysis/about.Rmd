@@ -19,7 +19,12 @@ gravid isofemale lines that have had their whole genomes sequenced.
 
 Beyond this, extensive data collection has been performed on behavioral, fitness, and morphological traits for both
  [males]("/data/morgante_lab/data/phenotypes/eQTL_traits_males.csv") and [females]("/data/morgante_lab/data/phenotypes/eQTL_traits_females.csv").
-Note: Males have an additional behavioral trait, **aggression**, which was collected from [this study](https://www.nature.com/articles/nprot.2007.404). fake
+Note: Males have an additional behavioral trait, **aggression**, which was collected from [this study](https://www.nature.com/articles/nprot.2007.404). FAKE, not sure which study
+
+
+
+
+
 
 
 In this project, I looked at starvation resistance alone to practice data analysis and hopefully uncover interesting patterns.

@@ -1,4 +1,5 @@
 #######################################
+#
 #  Noah Klimkowski
 #  combineSNP.R
 #  11/9/2022
@@ -8,11 +9,12 @@
 #
 #######################################
 
+### Libraries
 library(dplyr)
 library(data.table)
 
 
-# Shiny insert?
+# Set max number of results
 index <- 50
 
 #read in "index" number of results, set above
@@ -30,7 +32,7 @@ aP[,ori:="avgPlus"]
 #combine tables
 snpList <- rbind(dM, dP, aM, aP)
 
-#remove data columns, not needed for this
+#remove data columns by assigning to NULL
 snpList[,':='(inMean=NULL, outMean=NULL, result=NULL)]
 
 #Save file

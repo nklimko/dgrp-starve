@@ -7,7 +7,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r , include=FALSE}
+```{r setup, include=FALSE}
 library(tidyr)
 library(dplyr)
 library(data.table)
@@ -17,21 +17,23 @@ starve <- tibble(read.csv("data/starve.csv")) %>% select(-X)
 ```
 
 # Phase 1
+### [Full code]("../code/starveDataPrep.R")
 
 
 Data was extracted from two tables of eQTL male/female traits. 
 
 First, each file was filtered for non-null values
 
-```{r, eval=false}
+```{r qtl-readin, eval=FALSE}
   # csvPath dependent upon female/male file
   allRaw <- tibble(read.csv(csvPath))
   starveRaw <- allRaw %>% select(line,starvation) %>% filter(!is.na(starvation))
 ```
 
+Two tables, starveF and starveM, were then joined one.
+Difference and average of each line were calculated and added
 
-
-```{r}
+```{r combineMF, eval=FALSE}
 #Combine mf
 starve <- starveF %>% mutate(m = starveM$m)
 
@@ -42,10 +44,11 @@ starve <- starve %>% select(line, f, m) %>% mutate(dif = f - m, avg = (f+m)/2)
 
 
 # Phase 2
+### [Full code]("../code/fourLinePrep.R")
 
 Lines were manually selected and hard coded into the following extractions. 
 
-```{r eval=FALSE} 
+```{r , eval=FALSE} 
 #print(arrange(starve, starve$dif), n=205)
 #print(arrange(starve, starve$avg), n=205)
 
@@ -72,7 +75,7 @@ fwrite(avgPlus, "./data/avgPlus.txt")
 ```
 
 
-```{r include=FALSE}
+```{r dupeCheck, include=FALSE}
 #dupeCheck <- rbind(difMinus, difPlus, avgMinus, avgPlus)
 #print(arrange(dupeCheck, dupeCheck$line), n=55)
 #8 of them repeat between dif and avg
@@ -81,23 +84,9 @@ fwrite(avgPlus, "./data/avgPlus.txt")
 ```
 
 # Phase 3
+### [Full code]("../code/combineSNP.R")
 
-Following analysis of trait difference by sex alone, I sought to compare groups of interest on SNP Difference
-
-
-
-
-Data was taken from [imputed SNP table]("/data/morgante_lab/data/dgrp/dgrp2_tgeno_filtered_meanimputed.txt") 
-
-
-
-#### Groups of Interest
-
-Male > Female
-
-Top 20 Mean
-
-Top 20 Difference
+After creating the groups of interest, I 
 
 
 

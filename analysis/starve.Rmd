@@ -1,5 +1,5 @@
 ---
-title: "Starvation Resistance Analysis: Phase 1.1"
+title: "Phase 1: Starvation Resistance Analysis"
 output:
   workflowr::wflow_html:
     toc: false
@@ -9,7 +9,7 @@ editor_options:
 ---
 
 
-```{r, include=FALSE}
+```{r setup, include=FALSE}
 library(dplyr)
 starve <- tibble(read.csv("data/starve.csv")) %>% select(-X)
 x <- starve$f
@@ -21,7 +21,7 @@ The analysis begins with the data files prepared in [Phase 1](www.google.com). M
 
 
 ### Histograms of Starvation Resistance
-```{r, echo=FALSE}
+```{r base-hist, echo=FALSE}
 
 par(mfrow=c(1,2))
 
@@ -56,7 +56,7 @@ First impressions on histograms are that both are unimodal with light skew to th
 
 
 ### Comparative Boxplot
-```{r, echo = FALSE}
+```{r boxplot, echo = FALSE}
 boxplot(x,
         y,
         col = c("red","blue"),
@@ -72,7 +72,7 @@ Plotting the distributions on the same axis gives a more accurate representation
 
 
 ### Scatter Plot
-```{r, echo = FALSE}
+```{r fm-scatter, echo = FALSE}
 plot(x,
      y,
      col="black",
@@ -94,7 +94,7 @@ The trendline is a Simple Linear Regression 'reg=lm(y~x)' with R and p values ex
 
 
 ### QQ Plots
-```{r, echo = FALSE}
+```{r qqplot, echo = FALSE}
 par(mfrow=c(1,2))
 
 qqnorm(x, main="Female Distribution")
@@ -123,7 +123,7 @@ $W$ values closer to 1 indicate normality, with $W = 1$ being perfectly normal.
 
 
 
-```{r, echo = FALSE}
+```{r shapiro, echo = FALSE}
 
 Female_Starvation <- x
 Male_Starvation <- y
@@ -143,7 +143,7 @@ At an $\alpha$ level of 0.05, we do not have sufficient evidence to reject that 
 ### Group selection
 
 
-```{r, echo = FALSE}
+```{r dif-avg-hist, echo = FALSE}
 
 par(mfrow=c(1,2))
 
@@ -167,7 +167,7 @@ The two groups of interest were extreme values on both ends.
 
 
 ### Scatter Plot
-```{r, echo = FALSE}
+```{r dif-avg-scatter, echo = FALSE}
 plot(starve$avg,
      starve$dif,
      col="black",

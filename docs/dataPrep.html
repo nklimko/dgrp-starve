@@ -13,6 +13,7 @@
 
 <title>Data Preparation</title>
 
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -39,6 +40,8 @@ div.section {
   padding-top: 12px;
 }
 </style>
+
+
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -290,7 +293,9 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -299,7 +304,9 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -308,17 +315,27 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-11-08
+<strong>Last updated:</strong> 2022-11-09
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 1
 </p>
 <p>
-<strong>Knit directory:</strong> <code>dgrp-starve/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>dgrp-starve/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -327,127 +344,168 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20221101code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20221101)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20221101code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20221101)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed20221101code" class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed20221101code"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20221101)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(20221101)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
 <div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree22502a706bf5261908cc24fc16ac25caa3fab503targetblank22502a7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/22502a706bf5261908cc24fc16ac25caa3fab503" target="_blank">22502a7</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree81037cc126bd17fa21accfe4362f79110103ffc8targetblank81037cca">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/nklimko/dgrp-starve/tree/81037cc126bd17fa21accfe4362f79110103ffc8" target="_blank">81037cc</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree22502a706bf5261908cc24fc16ac25caa3fab503targetblank22502a7a" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree81037cc126bd17fa21accfe4362f79110103ffc8targetblank81037cca"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/22502a706bf5261908cc24fc16ac25caa3fab503" target="_blank">22502a7</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/nklimko/dgrp-starve/tree/81037cc126bd17fa21accfe4362f79110103ffc8" target="_blank">81037cc</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
-Ignored files:
-    Ignored:    analysis/.RData
-    Ignored:    analysis/.Rhistory
-
-Untracked files:
-    Untracked:  code/baseScript-lineComp.R
-    Untracked:  code/combineSNP.R
-    Untracked:  code/four-comp.76979.err
-    Untracked:  code/four-comp.76979.out
-    Untracked:  code/four-comp.sbatch
-    Untracked:  code/line_avgMinus.R
-    Untracked:  code/line_avgPlus.R
-    Untracked:  code/line_difMinus.R
-    Untracked:  code/line_difPlus.R
-    Untracked:  data/avgMinus-result.txt
-    Untracked:  data/avgPlus-result.txt
-    Untracked:  data/difMinus-result.txt
-    Untracked:  data/difPlus-result.txt
-    Untracked:  data/snpList.txt
-    Untracked:  output/avgMinus-result.txt
-    Untracked:  output/avgPlus-result.txt
-    Untracked:  output/difMinus-result.txt
-    Untracked:  output/difPlus-result.txt
-
 Unstaged changes:
     Modified:   analysis/dataPrep.Rmd
     Modified:   analysis/starve.Rmd
-    Deleted:    code/line_comp.R
-    Deleted:    code/stat-methods.R
-    Modified:   jobs/line_comp.sbatch
+    Modified:   code/combineSNP.R
+    Modified:   code/fourLinePrep.R
+    Deleted:    code/largeDataManip.R
+    Deleted:    code/rowMean.R
+    Deleted:    code/sort.R
+    Modified:   code/starveDataPrep.R
+    Deleted:    code/tempWFR.R
+    Modified:   data/README.md
+    Deleted:    data/g1-result.txt
+    Deleted:    data/group1.txt
+    Deleted:    data/testComp.txt
+    Deleted:    jobs/line_comp.76967.err
+    Deleted:    jobs/line_comp.76967.out
+    Deleted:    jobs/line_comp.sbatch
+    Deleted:    output/Summary.png
+    Deleted:    output/Summary2.png
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -458,7 +516,12 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/dataPrep.Rmd</code>) and HTML (<code>docs/dataPrep.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/dataPrep.Rmd</code>) and HTML
+(<code>docs/dataPrep.html</code>) files. If you’ve configured a remote
+Git repository (see <code>?wflow_git_remote</code>), click on the
+hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -487,6 +550,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/81037cc126bd17fa21accfe4362f79110103ffc8/analysis/dataPrep.Rmd" target="_blank">81037cc</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-11-09
+</td>
+<td>
+html reworking, snp success
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/81037cc126bd17fa21accfe4362f79110103ffc8/docs/dataPrep.html" target="_blank">81037cc</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-11-09
+</td>
+<td>
+html reworking, snp success
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/41de4a88be30888f7f8343b90d36afae626d0792/analysis/dataPrep.Rmd" target="_blank">41de4a8</a>
 </td>
 <td>
@@ -508,32 +605,62 @@ difMinus success, reframe for all four genotype analysis
 </div>
 <div id="phase-1" class="section level1">
 <h1>Phase 1</h1>
-<p>for each file,</p>
+<div id="full-code" class="section level3">
+<h3><a href="%22../code/starveDataPrep.R%22">Full code</a></h3>
+<p>Data was extracted from two tables of eQTL male/female traits.</p>
+<p>First, each file was filtered for non-null values</p>
+<pre class="r"><code>  # csvPath dependent upon female/male file
+  allRaw &lt;- tibble(read.csv(csvPath))
+  starveRaw &lt;- allRaw %&gt;% select(line,starvation) %&gt;% filter(!is.na(starvation))</code></pre>
+<p>Two tables, starveF and starveM, were then joined one. Difference and
+average of each line were calculated and added</p>
+<pre class="r"><code>#Combine mf
+starve &lt;- starveF %&gt;% mutate(m = starveM$m)
+
+#compute difference and average
+starve &lt;- starve %&gt;% select(line, f, m) %&gt;% mutate(dif = f - m, avg = (f+m)/2)</code></pre>
+</div>
 </div>
 <div id="phase-2" class="section level1">
 <h1>Phase 2</h1>
-<pre class="r"><code>#dupeCheck &lt;- rbind(difMinus, difPlus, avgMinus, avgPlus)
-#print(arrange(dupeCheck, dupeCheck$line), n=55)
-#8 of them repeat between dif and avg
-#broken with data.table format</code></pre>
+<div id="full-code-1" class="section level3">
+<h3><a href="%22../code/fourLinePrep.R%22">Full code</a></h3>
+<p>Lines were manually selected and hard coded into the following
+extractions.</p>
+<pre class="r"><code>#print(arrange(starve, starve$dif), n=205)
+#print(arrange(starve, starve$avg), n=205)
+
+# Lines with male SR high than female SR
+difMinus &lt;- starve %&gt;% filter(dif &lt; 0) %&gt;% arrange(line) %&gt;% select(line)
+difMinus &lt;- as.data.table(difMinus)
+fwrite(difMinus, &quot;./data/difMinus.txt&quot;)
+
+# Lines with largest gap from male SR to female SR
+difPlus &lt;- starve %&gt;% filter(dif &gt;= 30) %&gt;% arrange(line) %&gt;% select(line)
+difPlus &lt;- as.data.table(difPlus)
+fwrite(difPlus, &quot;./data/difPlus.txt&quot;)
+
+# Lowest average SR between males and females
+avgMinus &lt;- starve %&gt;% filter(avg &lt; 40) %&gt;% arrange(line) %&gt;% select(line)
+avgMinus &lt;- as.data.table(avgMinus)
+fwrite(avgMinus, &quot;./data/avgMinus.txt&quot;)
+
+# Highest average SR between males and females
+avgPlus &lt;- starve %&gt;% filter(dif &gt;= 30) %&gt;% arrange(line) %&gt;% select(line)
+avgPlus &lt;- as.data.table(avgPlus)
+fwrite(avgPlus, &quot;./data/avgPlus.txt&quot;)</code></pre>
+</div>
 </div>
 <div id="phase-3" class="section level1">
 <h1>Phase 3</h1>
-<p>Following analysis of trait difference by sex alone, I sought to compare groups of interest on SNP Difference</p>
-<p>Data was taken from <a href="%22/data/morgante_lab/data/dgrp/dgrp2_tgeno_filtered_meanimputed.txt%22">this table</a> of SNP variations by line</p>
-</div>
-<div id="aksjdsadlas" class="section level1">
-<h1>AKSJDSADLAS</h1>
-<p><a href="../data/difMinus.txt">this table</a></p>
-<div id="groups-of-interest" class="section level4">
-<h4>Groups of Interest</h4>
-<p>Male &gt; Female</p>
-<p>Top 20 Mean</p>
-<p>Top 20 Difference</p>
+<div id="full-code-2" class="section level3">
+<h3><a href="%22../code/combineSNP.R%22">Full code</a></h3>
+<p>After creating the groups of interest, I</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
@@ -546,32 +673,33 @@ Matrix products: default
 BLAS/LAPACK: /opt/ohpc/pub/Software/openblas_0.3.10/lib/libopenblas_haswellp-r0.3.10.dev.so
 
 locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [1] LC_CTYPE=en_US.utf-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.utf-8        LC_COLLATE=en_US.utf-8    
+ [5] LC_MONETARY=en_US.utf-8    LC_MESSAGES=en_US.utf-8   
+ [7] LC_PAPER=en_US.utf-8       LC_NAME=C                 
  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+[11] LC_MEASUREMENT=en_US.utf-8 LC_IDENTIFICATION=C       
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] data.table_1.14.2 dplyr_1.0.8       tidyr_1.2.0      
+[1] data.table_1.14.2 dplyr_1.0.8       tidyr_1.2.0       workflowr_1.7.0  
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.8.3     pillar_1.7.0     compiler_4.0.3   bslib_0.3.1     
- [5] later_1.3.0      jquerylib_0.1.4  git2r_0.30.1     workflowr_1.7.0 
- [9] tools_4.0.3      digest_0.6.29    jsonlite_1.8.0   evaluate_0.15   
-[13] lifecycle_1.0.1  tibble_3.1.6     pkgconfig_2.0.3  rlang_1.0.4     
+ [1] Rcpp_1.0.8.3     bslib_0.3.1      jquerylib_0.1.4  compiler_4.0.3  
+ [5] pillar_1.7.0     later_1.3.0      git2r_0.30.1     tools_4.0.3     
+ [9] getPass_0.2-2    digest_0.6.29    jsonlite_1.8.0   evaluate_0.15   
+[13] tibble_3.1.6     lifecycle_1.0.1  pkgconfig_2.0.3  rlang_1.0.4     
 [17] DBI_1.1.2        cli_3.3.0        rstudioapi_0.13  yaml_2.3.5      
-[21] xfun_0.30        fastmap_1.1.0    stringr_1.4.0    knitr_1.38      
-[25] generics_0.1.2   fs_1.5.2         vctrs_0.4.1      sass_0.4.1      
-[29] tidyselect_1.1.2 rprojroot_2.0.3  glue_1.6.2       R6_2.5.1        
-[33] fansi_1.0.3      rmarkdown_2.16   purrr_0.3.4      magrittr_2.0.3  
-[37] whisker_0.4      promises_1.2.0.1 ellipsis_0.3.2   htmltools_0.5.2 
-[41] assertthat_0.2.1 httpuv_1.6.5     utf8_1.2.2       stringi_1.7.6   
-[45] crayon_1.5.1    </code></pre>
+[21] xfun_0.30        fastmap_1.1.0    httr_1.4.2       stringr_1.4.0   
+[25] knitr_1.38       generics_0.1.2   sass_0.4.1       fs_1.5.2        
+[29] vctrs_0.4.1      tidyselect_1.1.2 rprojroot_2.0.3  glue_1.6.2      
+[33] R6_2.5.1         processx_3.5.3   fansi_1.0.3      rmarkdown_2.16  
+[37] purrr_0.3.4      callr_3.7.0      magrittr_2.0.3   whisker_0.4     
+[41] ps_1.6.0         promises_1.2.0.1 htmltools_0.5.2  ellipsis_0.3.2  
+[45] assertthat_0.2.1 httpuv_1.6.5     utf8_1.2.2       stringi_1.7.6   
+[49] crayon_1.5.1    </code></pre>
 </div>
 </div>
 </div>
@@ -588,6 +716,8 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
+
+
 
 
 
