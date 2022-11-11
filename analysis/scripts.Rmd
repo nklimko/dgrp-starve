@@ -1,0 +1,338 @@
+---
+title: "Script Progression"
+output:
+  workflowr::wflow_html:
+    toc: true
+editor_options:
+  chunk_output_type: console
+---
+
+## SR Data Prep
+
+```{r, eval=FALSE}
+
+##### Libraries
+library(dplyr)
+library(tidyr)
+
+### Function: create tibble from data path
+antiNull <- function(csvPath){
+  
+  #Read in table
+  allRaw <- tibble(read.csv(csvPath))
+  
+  #filter for non-null values
+  starveRaw <- allRaw %>% select(line,starvation) %>% filter(!is.na(starvation))
+  
+  return(starveRaw)
+}
+
+#Female data
+csvPathF <- "/data/morgante_lab/data/dgrp/phenotypes/eQTL_traits_females.csv"
+starveF <- antiNull(csvPathF)
+
+#Male data
+csvPathM <- "/data/morgante_lab/data/dgrp/phenotypes/eQTL_traits_males.csv"
+starveM <- antiNull(csvPathM)
+
+#rename columns for combination
+colnames(starveF) <- c("line", "f")
+colnames(starveM) <- c("line", "m")
+
+#Combine data
+starve <- starveF %>% mutate(m = starveM$m)
+
+#compute difference and average
+starve <- starve %>% select(line, f, m) %>% mutate(dif = f - m, avg = (f+m)/2)
+
+#Sort by difference, cosmetic
+starve <- arrange(starve, starve$dif)
+
+#Save, colnames are lin,f,m,dif,avg
+write.csv(starve, "/data/morgante_lab/nklimko/rep/dgrp-starve/data/starve.csv")
+```
+
+## SR Analysis
+
+```{r, eval=FALSE}
+#Libraries and setup
+library(dplyr)
+library(data.table)
+library(tidyr)
+starve <- tibble(read.csv("/data/morgante_lab/nklimko/rep/dgrp-starve/data/starve.csv")) %>% select(-X)
+x <- starve$f
+y <- starve$m
+
+#plot parameters
+par(mfrow=c(1,2))
+
+#Female Histogram
+hist(x, 
+     col="red",
+     border="black",
+     prob=TRUE,
+     xlab = "Starvation Resistance",
+     main = "Female Lines")
+
+lines(density(x),
+      lwd = 2,
+      col = "black")
+
+#Male Histogram
+hist(y, 
+     col="blue",
+     border="black",
+     prob=TRUE,
+     xlab = "Starvation Resistance",
+     main = "Male Lines")
+
+lines(density(y),
+      lwd = 2,
+      col = "black")
+
+#Summary stats
+cbind(summary(x), summary(y))
+
+
+# Comparative Boxplot
+boxplot(x,
+        y,
+        col = c("red","blue"),
+        names=c("Female", "Male"),
+        main="Sex Comparison of Starvation Resistance",
+        xlab="Starvation Resistance",
+        ylab="Sex",
+        horizontal = TRUE)
+
+# Scatter Plot
+plot(x,
+     y,
+     col="black",
+     xlab="Female Starvation Resistance",
+     ylab="Male Starvation Resistance",
+     abline(reg=lm(y~x), 
+            col="purple"))
+text(x = 85, y = 25,
+     "y = 14.2347x + 0.5192",
+     cex = 0.75)
+text(x = 85, y = 22.5,
+     "R=0.4693, p-value < 2.2e-16",
+     cex = 0.75)
+
+#Trendline parameter determination
+summary(lm(y~x))
+
+# QQ Plots
+#plot parameters
+par(mfrow=c(1,2))
+
+qqnorm(x, main="Female Distribution")
+qqline(x)
+qqnorm(y, main="Male Distribution")
+qqline(y)
+
+#Shapiro-Wilk Normality Tests
+Female_Starvation <- x
+Male_Starvation <- y
+
+shapiro.test(Female_Starvation)
+shapiro.test(Male_Starvation)
+
+
+### Group selection
+
+#plot parameters
+par(mfrow=c(1,2))
+
+#Difference
+hist(starve$dif, 
+     col="purple",
+     border="black",
+     xlab = "Change in Starvation Resistance",
+     main = "Difference of Female and Male Lines")
+
+#Average
+hist(starve$avg, 
+     col="pink",
+     border="black",
+     xlab = "Average Starvation Resistance",
+     main = "Avg of Female and Male Lines")
+
+### Scatter Plot
+plot(starve$avg,
+     starve$dif,
+     col="black",
+     xlab="Line Average",
+     ylab="Intersex Difference",
+     abline(reg=lm(starve$dif~starve$avg), 
+            col="purple"))
+text(x = 72, y = -12.5,
+     "y = 0.3258 - 2.3984",
+     cex = 0.75)
+text(x = 72, y = -15,
+     "R=0.1293, p-value < 1.37e-7",
+     cex = 0.75)
+
+#Trendline parameter determination
+summary(lm(starve$dif~starve$avg))
+
+
+```
+
+## Ingroup Prep
+
+```{r, eval=FALSE}
+
+##### Libraries
+library(dplyr)
+library(tidyr)
+library(data.table)
+
+#Read in data
+starve <- tibble(read.csv("data/starve.csv")) %>% select(-X)
+
+#Manual inspection of data to create cutoffs for ingroups
+print(arrange(starve, starve$dif), n=205)
+print(arrange(starve, starve$avg), n=205)
+
+# Lines with male SR high than female SR
+difMinus <- starve %>% filter(dif < 0) %>% arrange(line) %>% select(line)
+difMinus <- as.data.table(difMinus)
+fwrite(difMinus, "../data/difMinus.txt")
+
+# Lines with largest gap from male SR to female SR
+difPlus <- starve %>% filter(dif >= 30) %>% arrange(line) %>% select(line)
+difPlus <- as.data.table(difPlus)
+fwrite(difPlus, "../data/difPlus.txt")
+
+# Lowest average SR between males and females
+avgMinus <- starve %>% filter(avg < 40) %>% arrange(line) %>% select(line)
+avgMinus <- as.data.table(avgMinus)
+fwrite(avgMinus, "../data/avgMinus.txt")
+
+# Highest average SR between males and females
+avgPlus <- starve %>% filter(dif >= 30) %>% arrange(line) %>% select(line)
+avgPlus <- as.data.table(avgPlus)
+fwrite(avgPlus, "../data/avgPlus.txt")
+
+
+```
+
+## SNP Gathering
+
+```{r, eval=FALSE}
+
+### Libraries
+library("data.table")
+library("dplyr")
+
+##change per job
+dataPath <- "/data/morgante_lab/data/dgrp/genotypes/dgrp2_tgeno_filtered_meanimputed.txt"
+targetPath <- "/data/morgante_lab/nklimko/rep/dgrp-starve/data/INPUT.txt"
+finalPath <- "/data/morgante_lab/nklimko/rep/dgrp-starve/data/CHANGE.txt"
+
+#number of results to save
+finalCount <- 200
+
+#files read in
+data <- fread(dataPath) 
+inGroup <- fread(targetPath)
+
+#modification of inGroup to vector type, clunky
+inGroup <- inGroup[,line]
+
+#IDs saved and removed
+var_id <- data[,var_id]
+data <- data[, var_id:=NULL]
+
+#data partitioned by column
+inData <- data[,colnames(data) %in% inGroup, with=FALSE]
+outData <- data[,!(colnames(data) %in% inGroup), with=FALSE]
+
+#means calculated for every row
+inMean <- rowMeans(inData)
+outMean <- rowMeans(outData)
+  
+#table constructed of marker IDs and group means
+phaseA <- data.table(var_id, inMean, outMean)
+
+#calculates difference of group means
+trueData <-  phaseA[, result:=inMean - outMean]
+#trueData <-  phaseA[, result:=inMean / outMean]
+
+#orders data by absolute value of difference, largest first
+trueSort <- trueData[order(-abs(result))]
+
+#index controls number of top results to save
+finalSet<- trueSort[1:finalCount]
+
+#writes top (finalCount) to designated path
+fwrite(finalSet, finalPath)
+
+```
+
+## SNP to Gene
+
+```{r, eval=FALSE}
+### Libraries
+library(data.table)
+library(dplyr)
+library(stringr)
+
+#input paths
+genePath <- "/data/databases/flybase/fb-r5.57/fb-r5.57.clean.gene.bound"
+snpPath <- "/data/morgante_lab/nklimko/rep/dgrp-starve/data/snpList.txt"
+
+#read data in
+genBank <- fread(genePath, col.names = c("leg","start", "stop", "strand","gene"))
+snpList <- fread(snpPath)
+
+#split SNP tag to search gene data correctly
+snpList[, arm := tstrsplit(var_id, split="_",fixed = TRUE)[1]]
+snpList[, pos := tstrsplit(var_id, split="_",fixed = TRUE)[2]]
+snpList[, pos := as.numeric(pos)]
+
+#set start and stop to numeric type
+genBank[, ':='(start=as.numeric(start), stop=as.numeric(stop))]
+
+#extract gene where position contained and arm matches
+geneHits <- genBank[snpList, on = .(start <= pos, stop >= pos,leg==arm), .(ori, geneFind = gene)][!is.na(geneFind)]
+
+#save file
+fwrite(geneHits, "/data/morgante_lab/nklimko/rep/dgrp-starve/data/geneHits.txt")
+```
+
+## Gene to GO
+
+```{r, eval=FALSE}
+### Libraries
+library(data.table)
+library(dplyr)
+
+#input paths
+goPath <- "/data/databases/flybase/fb-r5.57/gene_go.table"
+genePath <- "/data/morgante_lab/nklimko/rep/dgrp-starve/data/geneHits.txt"
+
+#read data in
+genList <- fread(genePath, col.names = c("ori", "gene"))
+goBank <- fread(goPath, col.names = c("gene", "mf", "bp", "cc"))
+
+#match go terms to gene
+genList <- goBank[genList, on = .(gene)]
+
+#save
+fwrite(genList, "./goGroups.txt")
+
+#No origin
+table(genList[,mf])
+table(genList[,cc])
+table(genList[,bp])
+
+##This one
+table(genList[,gene, by=ori])
+table(genList[,mf, by=ori])
+table(genList[,cc, by=ori])
+table(genList[,bp, by=ori])
+```
+
+

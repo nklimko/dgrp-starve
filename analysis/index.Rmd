@@ -1,5 +1,5 @@
 ---
-title: "Tabale of Contents"
+title: "Table of Contents"
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
@@ -9,35 +9,5 @@ editor_options:
 ---
 
 Welcome to my research website. 
-
-link testing
-
-[data folder](../data/avgMinus.txt)
-
-
-
-### [About](about.html)
-#### details background information and the premise of this project
-
-### [Starvation Resistance Curation]()
-#### Gathering of starvation resistance data from female and male lines and column calculation
-
-### [Analysis of SR by Sex]()
-#### Standard analysis of distribution, normality, and trends within the base data
-
-### [Selecting Ingroups]()
-#### Manual selection of groups of interest for futher comparison using additional data layers
-
-### [SNP Extraction]()
-#### Selection of SNPs by comparison of prevalence in chosen sample versus remaining lines
-
-### [SNP Curation]()
-#### Combination of all sample SNPs to streamline analysis
-
-### [Gene Extraction]()
-#### Mapping extracted SNPs to genes using flybase annotations
-
-### [GO Term Extraction]()
-#### Compilation of GO terms from affected genes to measure impact
 
 

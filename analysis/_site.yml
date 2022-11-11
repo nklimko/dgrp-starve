@@ -5,12 +5,10 @@ navbar:
   left:
   - text: Home
     href: index.html
-  - text: About
-    href: about.html
   - text: Analysis
     href: starve.html
-  - text: Database
-    href: database.html
+  - text: Scripts
+    href: scripts.html
   - text: License
     href: license.html
 output:

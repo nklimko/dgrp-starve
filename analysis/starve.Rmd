@@ -2,7 +2,7 @@
 title: "Starvation Resistance Analysis"
 output:
   workflowr::wflow_html:
-    toc: false
+    toc: true
     latex_engine: "xelatex"
 editor_options:
   chunk_output_type: console
@@ -19,38 +19,19 @@ y <- starve$m
 
 ```
 
-# [About](about.html)
-#### details background information and the premise of this project
+# About
 
-# [Starvation Resistance Curation]()
-#### Gathering of starvation resistance data from female and male lines and column calculation
+The lesser fruit fly, *Drosophila melanogaster*, is a model oganism due to short life cycles, small genomes that allow targetted manipulation, and analogous organ systems to humans. This allows for an accelerated rate of genetic testing and manipulation while bypassing major ethical concerns of experimenting on humans. 
 
-Data was extracted from two tables of eQTL male/female traits. 
+Extensive data collection has been performed on behavioral, fitness, and morphological traits for both male and female lines. In this project, I looked at starvation analysis between male and female lines in the DGRP.
 
-First, each file was filtered for non-null values
+# Starvation Resistance Data Prep
 
-```{r 1-qtl-readin, eval=FALSE}
-  # csvPath dependent upon female/male file
-  allRaw <- tibble(read.csv(csvPath))
-  starveRaw <- allRaw %>% select(line,starvation) %>% filter(!is.na(starvation))
-```
+The first step in this project was to determine which lines could be used for comparison. Not all lines have experimental data for every trait, so all lines with NA for starvation resistance had to be excluded as no comparisons could be made. After doing this, I created a table with line ID, male resistance, and female resistance. On top of this, I calculated the average resistance and the change in resistance between sexes and recorded these in additional columns.
 
-Two tables, starveF and starveM, were then joined into one.
-Difference and average of each line were calculated and added
+# Analysis of Starvation Resistance
 
-```{r 1-combineMF, eval=FALSE}
-#Combine mf
-starve <- starveF %>% mutate(m = starveM$m)
-
-#compute difference and average
-starve <- starve %>% select(line, f, m) %>% mutate(dif = f - m, avg = (f+m)/2)
-```
-
-
-
-
-# [Analysis of SR by Sex](../code/dgrpSR.R)
-#### Standard analysis of distribution, normality, and trends within the base data
+In order to get a better understanding of what I was working with, I plotted the data using various methods. 
 
 ### Histograms of Starvation Resistance
 ```{r 2-base-hist, echo=FALSE}
@@ -82,10 +63,8 @@ lines(density(y),
       col = "black")
 
 ```
-First impressions on histograms are that both are unimodal with light skew to the right.
 
-
-
+Plotting histograms of each sex reveals both are unimodal with mild skew to the right. This skew demonstrates he effect of selective pressures as low starvation resistance decreases overall fitness of the fly. 
 
 ### Comparative Boxplot
 ```{r 2-boxplot, echo = FALSE}
@@ -99,9 +78,8 @@ boxplot(x,
         horizontal = TRUE)
 
 ```
-Plotting the distributions on the same axis gives a more accurate representation of distribution between sexes. The average female has a much greate starvation resistance of `r round(mean(x), digits=3)` compared to the average male `r round(mean(y), digits=3)`. Outliers to the right of both boxplots indicate right skew. 
 
-
+Plotting the distributions on the same axis gives a more accurate representation of distribution between sexes. The average female has a much greater starvation resistance of `r round(mean(x), digits=3)` compared to the average male `r round(mean(y), digits=3)`. Outliers to the right of both boxplots confirm right skew seen in the histograms. 
 
 ### Scatter Plot
 ```{r 2-fm-scatter, echo = FALSE}
@@ -122,8 +100,8 @@ text(x = 85, y = 22.5,
 #summary(lm(y~x))
 
 ```
-The trendline is a Simple Linear Regression 'reg=lm(y~x)' with R and p values extracted from summary statistics. The slope indicates a positive correlation between male and female starvation resistance while the R value of 0.4693 indicates that the correlation is not close to linear.
 
+The trendline is a simple linear regression with R and p values extracted from summary statistics. The slope indicates a positive correlation between male and female starvation resistance while the R value of 0.4693 indicates that the correlation is not strong. 
 
 ### QQ Plots
 ```{r 2-qqplot, echo = FALSE}
@@ -137,23 +115,16 @@ qqline(y)
 
 ```
 
-There is some systematic deviation from linearity on both tails in Females and on the upper tail in Males. Eyeballing is not an exhaustive measure of discerning normality. Quantitative methods are needed:
+There is some systematic deviation from linearity on both tails in females and on the upper tail in males. In order to more accurately assess normality, I found the Shapiro-Wilk Test for normality and chose his method due to its retention of power and prior implementation in R.
 
-## Shapiro-Wilk Tests for Normality
+### Shapiro-Wilk Tests for Normality
 
-The Shapiro-Wilk method was chosen as it retains the best power 
-
-
-The test statistic formula is:
+The test statistic formula for the Shapiro-Wilk test is:
 $$
 W = \frac{(\sum_{i=1}^{n}a_ix_{(i)})^{2}}{\sum_{i=1}^{n}(x_i-\overline x)^{2}}
 $$
 
-More about the Shapiro-Wilk test statistic can be found [here](https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test#Theory). 
-
-$W$ values closer to 1 indicate normality, with $W = 1$ being perfectly normal.
-
-
+More about the Shapiro-Wilk test statistic can be found [here](https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test#Theory). The closer this statistic is to 1 indicates how normal a distribution is, with 1 being perfectly normal.
 
 ```{r 2-shapiro, echo = FALSE}
 
@@ -164,17 +135,18 @@ shapiro.test(Female_Starvation)
 shapiro.test(Male_Starvation)
 ```
 
-
+The W values indicate that both samples are mostly normal with slightly more deviation in females than in males.
 
 At an $\alpha$ level of 0.05, we have sufficient evidence to reject that the Female population is normally distributed as p < $\alpha$ (0.001826 < 0.05).
 
 At an $\alpha$ level of 0.05, we do not have sufficient evidence to reject that the Male population is normally distributed as p > $\alpha$ (0.07023 > 0.05). Notably the correlation is not strong as the p-value is close to 0.05.
 
 
+# Ingroup Preparation
 
-### Group selection
+In order to dig durther into starvation resistance, I started looking for possible trends between difference in starvation resistance and average resistance per line. 
 
-
+### Histograms
 ```{r 2-dif-avg-hist, echo = FALSE}
 
 par(mfrow=c(1,2))
@@ -184,19 +156,17 @@ hist(starve$dif,
      col="purple",
      border="black",
      xlab = "Change in Starvation Resistance",
-     main = "Difference of Female and Male Lines")
+     main = "Difference of Female/Male Lines")
 
 #Average
 hist(starve$avg, 
      col="pink",
      border="black",
      xlab = "Average Starvation Resistance",
-     main = "Avg of Female and Male Lines")
+     main = "Avg of Female/Male Lines")
 
 ```
-The two groups of interest were extreme values on both ends.
-
-
+The histograms of each reveal another unimodal distribution. What I did not expect was to see any negative values in line difference. These lines had males with higher starvation resistance than females. 
 
 ### Scatter Plot
 ```{r 2-dif-avg-scatter, echo = FALSE}
@@ -218,48 +188,33 @@ text(x = 72, y = -15,
 
 ```
 
+There is almost no correlation between the traits as R is 0.1293 for the trendline. This plot was mostly for practice with scatter plots and linear regression.
 
-Along with this, I wanted to look at the highest and lowest averages. Twenty lines from the top and bottom were partitioned for further analysis. With these four groups, I sought to look for difference in genotype and fold-change in gene expression [here](www)LINK to PHASE ??? not sure yet
+The histograms, however, led in another direction. I figured that looking at the extremities of differences and averages was correlated to some genetic difference. I began by extracting the line IDs of each group of interest(inGroups) to separae files to run further analyses.
 
-
-
-
-# [Selecting Ingroups](../code/fourLinePrep.R)
-#### Manual selection of groups of interest for futher comparison using additional data layers
-
-Lines were manually selected and hard coded into the following extractions. 
+Example line extraction for the negative male difference is shown here:
 
 ```{r 3-ingroup, eval=FALSE} 
-#print(arrange(starve, starve$dif), n=205)
-#print(arrange(starve, starve$avg), n=205)
-
 # Lines with male SR high than female SR
 difMinus <- starve %>% filter(dif < 0) %>% arrange(line) %>% select(line)
 difMinus <- as.data.table(difMinus)
 fwrite(difMinus, "./data/difMinus.txt")
-
-# Lines with largest gap from male SR to female SR
-difPlus <- starve %>% filter(dif >= 30) %>% arrange(line) %>% select(line)
-difPlus <- as.data.table(difPlus)
-fwrite(difPlus, "./data/difPlus.txt")
-
-# Lowest average SR between males and females
-avgMinus <- starve %>% filter(avg < 40) %>% arrange(line) %>% select(line)
-avgMinus <- as.data.table(avgMinus)
-fwrite(avgMinus, "./data/avgMinus.txt")
-
-# Highest average SR between males and females
-avgPlus <- starve %>% filter(dif >= 30) %>% arrange(line) %>% select(line)
-avgPlus <- as.data.table(avgPlus)
-fwrite(avgPlus, "./data/avgPlus.txt")
-
 ```
 
+The four groups of interest created were:
+- avgMinus: Lines with low average starvation resistance
+- avgPlus: Lines with high average starvation resistance
+- difMinus: Lines with higher male than female starvation resistance
+- difPlus: Lines with higher female than male starvation resistance
 
 
+# SNP Extraction
 
-# [SNP Extraction](../code/baseScript-lineComp.R)
-#### Selection of SNPs by comparison of prevalence in chosen sample versus remaining lines
+With these groups, I wanted to look at SNP variation in the ingroup and compare SNP prevalence to the remainder of the lines. I reasoned that any locus that varies dramatically between ingroup and outgroup may contribute to starvation resistance.
+
+The math behind this operation looked at the average SNP value for each group at each locus and copmuted the difference. High differences(closer to 2) indicate that a SNP existed in one group at much higher rates than the other. The data was then ordered by absolute value to catch cases where the ingroup had an snp across lines and where all lines had an untouched region.  
+
+This template was used on each ingroup to find SNPs of interest using the methodology above.
 
 ```{r 4-snpExtraction, eval=FALSE}
 
@@ -295,7 +250,6 @@ phaseA <- data.table(var_id, inMean, outMean)
 
 #calculates difference of group means
 trueData <-  phaseA[, result:=inMean - outMean]
-#trueData <-  phaseA[, result:=inMean / outMean]
 
 #orders data by absolute value of difference, largest first
 trueSort <- trueData[order(-abs(result))]
@@ -307,13 +261,9 @@ finalSet<- trueSort[1:finalCount]
 fwrite(finalSet, finalPath)
 ```
 
+# SNP Curation
 
-
-
-
-
-# [SNP Curation]()
-#### Combination of all sample SNPs to streamline analysis
+After this job was run, I compiled all four groups into a single data sheet and keyed them to the original group they had come from to streamline data analysis.
 
 ```{r 5-snp, eval=FALSE}
 # Set max number of results
@@ -341,9 +291,9 @@ snpList[,':='(inMean=NULL, outMean=NULL, result=NULL)]
 fwrite(snpList, "/data/morgante_lab/nklimko/rep/dgrp-starve/data/snpList.txt")
 ```
 
+# Gene Extraction
 
-### [Gene Extraction]()
-#### Mapping extracted SNPs to genes using flybase annotations
+With this list of SNPs, I wanted to match the SNPs to their location in the *D. melanogaster* genome. This was done by joining the SNP compilation table to the Flybase gene boundary table in order to extract gene codes in the FlyBase gene format(FBgn0000000).
 
 ```{r 6-geneExtract, eval=FALSE}
 ### Libraries
@@ -374,5 +324,31 @@ geneHits <- genBank[snpList, on = .(start <= pos, stop >= pos,leg==arm), .(ori, 
 fwrite(geneHits, "/data/morgante_lab/nklimko/rep/dgrp-starve/data/geneHits.txt")
 ```
 
-### [GO Term Extraction]()
-#### Compilation of GO terms from affected genes to measure impact
+# GO Term Extraction
+For my final data.table, I matched extracted genes to their corresponding GO terms in the flybase gene_go.table file. From there, I summarized the GO terms present within each group to determine what processes or structures were most affected that could potentially cause observable differences in starvation resistance between lines. [amiGO browser](http://amigo.geneontology.org/amigo/medial_search)
+
+Extracted GO terms using code below
+
+```{r7, eval=FALSE}
+#No origin
+table(genList[,mf])
+table(genList[,cc])
+table(genList[,bp])
+
+##This one
+table(genList[,gene, by=ori])
+table(genList[,mf, by=ori])
+table(genList[,cc, by=ori])
+table(genList[,bp, by=ori])
+```
+
+## Future Directions
+
+Fix GO Term Extraction. 
+
+Theoretically, this analysis could also be applied to gene expression instead of SNPs as an initial step and follow through with the same material. Gene expression and SNP data could be compared to see which functions are affected by both or only one group
+
+On a different track, multiple regression using other traits in the eQTL csv would be a logical next step. Probably should have attempted this with one of the sugar traits.
+
+## Reflection
+Altogether, I realized that I strayed from a purely statistical analysis to more of a GWAS. That aside, this project has been good practice for using data.table and Rmarkdown. Most of the initial scripting and some of the later scripts are hard-coded to these examples which is not great is I wanted to extend this analysis to other traits. 

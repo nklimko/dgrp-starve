@@ -7,25 +7,4 @@ editor_options:
   chunk_output_type: console
 ---
 
-The common fruit fly, *Drosophila melanogaster*, is a model oganism due to short life cycles, small genomes that allow targetted manipulation,
-and analogous organ systems to humans. This allows for an accelerated rate of genetic testing and manipulation while bypassing major ethical concerns of
-experimenting on humans. 
-
-
-
-
-Diligent work in fly breeding and line isolation gave way to the Drosophila Reference Genetic Panel, known as DGRP2. This database contains over 200
-gravid isofemale lines that have had their whole genomes sequenced. 
-
-Beyond this, extensive data collection has been performed on behavioral, fitness, and morphological traits for both
- [males]("/data/morgante_lab/data/phenotypes/eQTL_traits_males.csv") and [females]("/data/morgante_lab/data/phenotypes/eQTL_traits_females.csv").
-Note: Males have an additional behavioral trait, **aggression**, which was collected from [this study](https://www.nature.com/articles/nprot.2007.404). FAKE, not sure which study
-
-
-
-
-
-
-
-In this project, I looked at starvation resistance alone to practice data analysis and hopefully uncover interesting patterns.
 
