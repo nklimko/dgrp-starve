@@ -1,7 +1,7 @@
-name: "dgrp-starve"
+name: dgrp-starve
 output_dir: ../docs
 navbar:
-  title: "dgrp-starve"
+  title: dgrp-starve
   left:
   - text: Home
     href: index.html
@@ -11,6 +11,10 @@ navbar:
     href: scripts.html
   - text: License
     href: license.html
+  right:
+  - icon: fab fa-github
+    text: Source code
+    href: https://github.com/nklimko/dgrp-starve
 output:
   workflowr::wflow_html:
     toc: yes
