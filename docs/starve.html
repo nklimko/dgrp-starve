@@ -11,9 +11,8 @@
 
 
 
-<title>Phase 1: Starvation Resistance Analysis</title>
+<title>Starvation Resistance Analysis</title>
 
-<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -40,8 +39,6 @@ div.section {
   padding-top: 12px;
 }
 </style>
-
-
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -266,10 +263,10 @@ $(document).ready(function () {
   <a href="about.html">About</a>
 </li>
 <li>
-  <a href="dataPrep.html">Data Preparation</a>
+  <a href="starve.html">Analysis</a>
 </li>
 <li>
-  <a href="starve.html">Starvation Analysis</a>
+  <a href="database.html">Database</a>
 </li>
 <li>
   <a href="license.html">License</a>
@@ -286,17 +283,14 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Phase 1: Starvation Resistance
-Analysis</h1>
+<h1 class="title toc-ignore">Starvation Resistance Analysis</h1>
 
 </div>
 
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -305,9 +299,7 @@ aria-hidden="true"></span>
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -316,197 +308,189 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-11-09
+<strong>Last updated:</strong> 2022-11-10
 </p>
 <p>
-<strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 2
 </p>
 <p>
-<strong>Knit directory:</strong> <code>dgrp-starve/</code> <span
-class="glyphicon glyphicon-question-sign" aria-hidden="true"
-title="This is the local directory in which the code in this file was executed.">
-</span>
+<strong>Knit directory:</strong> <code>dgrp-starve/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
 </p>
 <p>
-This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
-analysis was created with <a
-  href="https://github.com/workflowr/workflowr">workflowr</a> (version
-1.7.0). The <em>Checks</em> tab describes the reproducibility checks
-that were applied when the results were created. The <em>Past
-versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
 <div id="checks" class="tab-pane fade">
-<div id="workflowr-checks" class="panel-group">
+<div class="panel-group" id="workflowr-checks">
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
-class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the
-global environment can affect the analysis in your R Markdown file in
-unknown ways. For reproduciblity it’s best to always run the code in an
-empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20221101code">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Seed:</strong>
-<code>set.seed(20221101)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20221101code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20221101)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed20221101code"
-class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed20221101code" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20221101)</code> was run prior to running
-the code in the R Markdown file. Setting a seed ensures that any results
-that rely on randomness, e.g. subsampling or permutations, are
-reproducible.</p>
+<p>The command <code>set.seed(20221101)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Session information:</strong>
-recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded"
-class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package
-versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be
-confident that you successfully produced the results during this
-run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongabsolute"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>File paths:</strong> absolute </a>
 </p>
 </div>
-<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div id="strongFilepathsstrongabsolute" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr
-project makes it easier to run your code on other machines.</p>
+<p>
+Using absolute paths to the files within your workflowr project makes it difficult for you and others to run your code on a different machine. Change the absolute path(s) below to the suggested relative path(s) to make your code more reproducible.
+</p>
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th style="text-align:left;">
+absolute
+</th>
+<th style="text-align:left;">
+relative
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+/data/morgante_lab/nklimko/rep/dgrp-starve/data/INPUT.txt
+</td>
+<td style="text-align:left;">
+data/INPUT.txt
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+/data/morgante_lab/nklimko/rep/dgrp-starve/data/CHANGE.txt
+</td>
+<td style="text-align:left;">
+data/CHANGE.txt
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+/data/morgante_lab/nklimko/rep/dgrp-starve/data/snpList.txt
+</td>
+<td style="text-align:left;">
+data/snpList.txt
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+/data/morgante_lab/nklimko/rep/dgrp-starve/data/geneHits.txt
+</td>
+<td style="text-align:left;">
+data/geneHits.txt
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree81037cc126bd17fa21accfe4362f79110103ffc8targetblank81037cca">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/nklimko/dgrp-starve/tree/81037cc126bd17fa21accfe4362f79110103ffc8" target="_blank">81037cc</a>
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreefdbbbf081e7d9cc20fec020a6dc2d05d57245832targetblankfdbbbf0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/fdbbbf081e7d9cc20fec020a6dc2d05d57245832" target="_blank">fdbbbf0</a> </a>
 </p>
 </div>
-<div
-id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree81037cc126bd17fa21accfe4362f79110103ffc8targetblank81037cca"
-class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreefdbbbf081e7d9cc20fec020a6dc2d05d57245832targetblankfdbbbf0a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development
-and connecting the code version to the results is critical for
-reproducibility.
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version
-<a href="https://github.com/nklimko/dgrp-starve/tree/81037cc126bd17fa21accfe4362f79110103ffc8" target="_blank">81037cc</a>.
-See the <em>Past versions</em> tab to see a history of the changes made
-to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/fdbbbf081e7d9cc20fec020a6dc2d05d57245832" target="_blank">fdbbbf0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for
-the analysis have been committed to Git prior to generating the results
-(you can use <code>wflow_publish</code> or
-<code>wflow_git_commit</code>). workflowr only checks the R Markdown
-file, but you know if there are other scripts or data files that it
-depends on. Below is the status of the Git repository when the results
-were generated:
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
+Ignored files:
+    Ignored:    code/.RData
+    Ignored:    code/.Rhistory
+
+Untracked files:
+    Untracked:  analysis/starveBackup
+    Untracked:  code/THEREISNOSTAT.R
+    Untracked:  code/geneGO.R
+    Untracked:  code/snpGene.77509.err
+    Untracked:  code/snpGene.77509.out
+    Untracked:  code/snpGene.77515.err
+    Untracked:  code/snpGene.77515.out
+    Untracked:  code/snpGene.sbatch
+    Untracked:  dataPrep.Rmd
+    Untracked:  tempDL
+
 Unstaged changes:
-    Modified:   analysis/dataPrep.Rmd
+    Modified:   analysis/_site.yml
+    Deleted:    analysis/dataPrep.Rmd
     Modified:   analysis/starve.Rmd
-    Modified:   code/combineSNP.R
-    Modified:   code/fourLinePrep.R
-    Deleted:    code/largeDataManip.R
-    Deleted:    code/rowMean.R
-    Deleted:    code/sort.R
-    Modified:   code/starveDataPrep.R
-    Deleted:    code/tempWFR.R
-    Modified:   data/README.md
-    Deleted:    data/g1-result.txt
-    Deleted:    data/group1.txt
-    Deleted:    data/testComp.txt
-    Deleted:    jobs/line_comp.76967.err
-    Deleted:    jobs/line_comp.76967.out
-    Deleted:    jobs/line_comp.sbatch
-    Deleted:    output/Summary.png
-    Deleted:    output/Summary2.png
+    Modified:   code/snpGene.R
+
+Staged changes:
+    New:        code/snpGene.R
+    New:        data/geneHits.txt
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not
-included in this status report because it is ok for generated content to
-have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
 </p>
 </div>
 </div>
@@ -517,11 +501,7 @@ have uncommitted changes.
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were
-made to the R Markdown (<code>analysis/starve.Rmd</code>) and HTML
-(<code>docs/starve.html</code>) files. If you’ve configured a remote Git
-repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
-in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/starve.Rmd</code>) and HTML (<code>docs/starve.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -545,6 +525,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/b90e54038b40f0c360dc050a8c726c5e7ed34081/analysis/starve.Rmd" target="_blank">b90e540</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-11-09
+</td>
+<td>
+wflow_git_commit(all = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/b90e54038b40f0c360dc050a8c726c5e7ed34081/docs/starve.html" target="_blank">b90e540</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-11-09
+</td>
+<td>
+wflow_git_commit(all = TRUE)
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -671,55 +685,59 @@ Baseline analysis 11/5, horrendous formatting
 </div>
 </div>
 </div>
-<div id="setup" class="section level2">
-<h2>Setup</h2>
-<p>The analysis begins with the data files prepared in <a
-href="www.google.com">Phase 1</a>. MAKE THIS LINK TO DATA PREP. The goal
-of these steps was to visually characterize the data and form the basis
-for groupings of DGRP lines for further analysis.</p>
+<div id="about" class="section level1">
+<h1><a href="about.html">About</a></h1>
+<div id="details-background-information-and-the-premise-of-this-project" class="section level4">
+<h4>details background information and the premise of this project</h4>
+</div>
+</div>
+<div id="starvation-resistance-curation" class="section level1">
+<h1><a href="">Starvation Resistance Curation</a></h1>
+<div id="gathering-of-starvation-resistance-data-from-female-and-male-lines-and-column-calculation" class="section level4">
+<h4>Gathering of starvation resistance data from female and male lines and column calculation</h4>
+<p>Data was extracted from two tables of eQTL male/female traits.</p>
+<p>First, each file was filtered for non-null values</p>
+<pre class="r"><code>  # csvPath dependent upon female/male file
+  allRaw &lt;- tibble(read.csv(csvPath))
+  starveRaw &lt;- allRaw %&gt;% select(line,starvation) %&gt;% filter(!is.na(starvation))</code></pre>
+<p>Two tables, starveF and starveM, were then joined into one. Difference and average of each line were calculated and added</p>
+<pre class="r"><code>#Combine mf
+starve &lt;- starveF %&gt;% mutate(m = starveM$m)
+
+#compute difference and average
+starve &lt;- starve %&gt;% select(line, f, m) %&gt;% mutate(dif = f - m, avg = (f+m)/2)</code></pre>
+</div>
+</div>
+<div id="analysis-of-sr-by-sex" class="section level1">
+<h1><a href="">Analysis of SR by Sex</a></h1>
+<div id="standard-analysis-of-distribution-normality-and-trends-within-the-base-data" class="section level4">
+<h4>Standard analysis of distribution, normality, and trends within the base data</h4>
+</div>
 <div id="histograms-of-starvation-resistance" class="section level3">
 <h3>Histograms of Starvation Resistance</h3>
-<p><img src="figure/starve.Rmd/base-hist-1.png" width="672" style="display: block; margin: auto;" />
-First impressions on histograms are that both are unimodal with light
-skew to the right.</p>
+<p><img src="figure/starve.Rmd/2-base-hist-1.svg" width="672" style="display: block; margin: auto;" /> First impressions on histograms are that both are unimodal with light skew to the right.</p>
 </div>
 <div id="comparative-boxplot" class="section level3">
 <h3>Comparative Boxplot</h3>
-<p><img src="figure/starve.Rmd/boxplot-1.png" width="672" style="display: block; margin: auto;" />
-Plotting the distributions on the same axis gives a more accurate
-representation of distribution between sexes. The average female has a
-much greate starvation resistance of 60.665 compared to the average male
-45.732. Outliers to the right of both boxplots indicate right skew.</p>
+<p><img src="figure/starve.Rmd/2-boxplot-1.svg" width="672" style="display: block; margin: auto;" /> Plotting the distributions on the same axis gives a more accurate representation of distribution between sexes. The average female has a much greate starvation resistance of 60.665 compared to the average male 45.732. Outliers to the right of both boxplots indicate right skew.</p>
 </div>
 <div id="scatter-plot" class="section level3">
 <h3>Scatter Plot</h3>
-<p><img src="figure/starve.Rmd/fm-scatter-1.png" width="672" style="display: block; margin: auto;" />
-The trendline is a Simple Linear Regression ‘reg=lm(y~x)’ with R and p
-values extracted from summary statistics. The slope indicates a positive
-correlation between male and female starvation resistance while the R
-value of 0.4693 indicates that the correlation is not close to
-linear.</p>
+<p><img src="figure/starve.Rmd/2-fm-scatter-1.svg" width="672" style="display: block; margin: auto;" /> The trendline is a Simple Linear Regression ‘reg=lm(y~x)’ with R and p values extracted from summary statistics. The slope indicates a positive correlation between male and female starvation resistance while the R value of 0.4693 indicates that the correlation is not close to linear.</p>
 </div>
 <div id="qq-plots" class="section level3">
 <h3>QQ Plots</h3>
-<p><img src="figure/starve.Rmd/qqplot-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>There is some systematic deviation from linearity on both tails in
-Females and on the upper tail in Males. Eyeballing is not an exhaustive
-measure of discerning normality. Quantitative methods are needed:</p>
-</div>
+<p><img src="figure/starve.Rmd/2-qqplot-1.svg" width="672" style="display: block; margin: auto;" /></p>
+<p>There is some systematic deviation from linearity on both tails in Females and on the upper tail in Males. Eyeballing is not an exhaustive measure of discerning normality. Quantitative methods are needed:</p>
 </div>
 <div id="shapiro-wilk-tests-for-normality" class="section level2">
 <h2>Shapiro-Wilk Tests for Normality</h2>
 <p>The Shapiro-Wilk method was chosen as it retains the best power</p>
 <p>The test statistic formula is: <span class="math display">\[
-W = \frac{(\sum_{i=1}^{n}a_ix_{(i)})^{2}}{\sum_{i=1}^{n}(x_i-\overline
-x)^{2}}
+W = \frac{(\sum_{i=1}^{n}a_ix_{(i)})^{2}}{\sum_{i=1}^{n}(x_i-\overline x)^{2}}
 \]</span></p>
-<p>More about the Shapiro-Wilk test statistic can be found <a
-href="https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test#Theory">here</a>.</p>
-<p><span class="math inline">\(W\)</span> values closer to 1 indicate
-normality, with <span class="math inline">\(W = 1\)</span> being
-perfectly normal.</p>
+<p>More about the Shapiro-Wilk test statistic can be found <a href="https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test#Theory">here</a>.</p>
+<p><span class="math inline">\(W\)</span> values closer to 1 indicate normality, with <span class="math inline">\(W = 1\)</span> being perfectly normal.</p>
 <pre><code>
     Shapiro-Wilk normality test
 
@@ -730,33 +748,164 @@ W = 0.97662, p-value = 0.001826</code></pre>
 
 data:  Male_Starvation
 W = 0.98745, p-value = 0.07023</code></pre>
-<p>At an <span class="math inline">\(\alpha\)</span> level of 0.05, we
-have sufficient evidence to reject that the Female population is
-normally distributed as p &lt; <span
-class="math inline">\(\alpha\)</span> (0.001826 &lt; 0.05).</p>
-<p>At an <span class="math inline">\(\alpha\)</span> level of 0.05, we
-do not have sufficient evidence to reject that the Male population is
-normally distributed as p &gt; <span
-class="math inline">\(\alpha\)</span> (0.07023 &gt; 0.05). Notably the
-correlation is not strong as the p-value is close to 0.05.</p>
+<p>At an <span class="math inline">\(\alpha\)</span> level of 0.05, we have sufficient evidence to reject that the Female population is normally distributed as p &lt; <span class="math inline">\(\alpha\)</span> (0.001826 &lt; 0.05).</p>
+<p>At an <span class="math inline">\(\alpha\)</span> level of 0.05, we do not have sufficient evidence to reject that the Male population is normally distributed as p &gt; <span class="math inline">\(\alpha\)</span> (0.07023 &gt; 0.05). Notably the correlation is not strong as the p-value is close to 0.05.</p>
 <div id="group-selection" class="section level3">
 <h3>Group selection</h3>
-<p><img src="figure/starve.Rmd/dif-avg-hist-1.png" width="672" style="display: block; margin: auto;" />
-The two groups of interest were extreme values on both ends.</p>
+<p><img src="figure/starve.Rmd/2-dif-avg-hist-1.svg" width="672" style="display: block; margin: auto;" /> The two groups of interest were extreme values on both ends.</p>
 </div>
 <div id="scatter-plot-1" class="section level3">
 <h3>Scatter Plot</h3>
-<p><img src="figure/starve.Rmd/dif-avg-scatter-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Along with this, I wanted to look at the highest and lowest averages.
-Twenty lines from the top and bottom were partitioned for further
-analysis. With these four groups, I sought to look for difference in
-genotype and fold-change in gene expression <a href="www">here</a>LINK
-to PHASE ??? not sure yet</p>
+<p><img src="figure/starve.Rmd/2-dif-avg-scatter-1.svg" width="672" style="display: block; margin: auto;" /></p>
+<p>Along with this, I wanted to look at the highest and lowest averages. Twenty lines from the top and bottom were partitioned for further analysis. With these four groups, I sought to look for difference in genotype and fold-change in gene expression <a href="www">here</a>LINK to PHASE ??? not sure yet</p>
+</div>
+</div>
+</div>
+<div id="selecting-ingroups" class="section level1">
+<h1><a href="../code/fourLinePrep.R">Selecting Ingroups</a></h1>
+<div id="manual-selection-of-groups-of-interest-for-futher-comparison-using-additional-data-layers" class="section level4">
+<h4>Manual selection of groups of interest for futher comparison using additional data layers</h4>
+<p>Lines were manually selected and hard coded into the following extractions.</p>
+<pre class="r"><code>#print(arrange(starve, starve$dif), n=205)
+#print(arrange(starve, starve$avg), n=205)
+
+# Lines with male SR high than female SR
+difMinus &lt;- starve %&gt;% filter(dif &lt; 0) %&gt;% arrange(line) %&gt;% select(line)
+difMinus &lt;- as.data.table(difMinus)
+fwrite(difMinus, &quot;./data/difMinus.txt&quot;)
+
+# Lines with largest gap from male SR to female SR
+difPlus &lt;- starve %&gt;% filter(dif &gt;= 30) %&gt;% arrange(line) %&gt;% select(line)
+difPlus &lt;- as.data.table(difPlus)
+fwrite(difPlus, &quot;./data/difPlus.txt&quot;)
+
+# Lowest average SR between males and females
+avgMinus &lt;- starve %&gt;% filter(avg &lt; 40) %&gt;% arrange(line) %&gt;% select(line)
+avgMinus &lt;- as.data.table(avgMinus)
+fwrite(avgMinus, &quot;./data/avgMinus.txt&quot;)
+
+# Highest average SR between males and females
+avgPlus &lt;- starve %&gt;% filter(dif &gt;= 30) %&gt;% arrange(line) %&gt;% select(line)
+avgPlus &lt;- as.data.table(avgPlus)
+fwrite(avgPlus, &quot;./data/avgPlus.txt&quot;)</code></pre>
+</div>
+</div>
+<div id="snp-extraction" class="section level1">
+<h1><a href="../code/baseScript-lineComp.R">SNP Extraction</a></h1>
+<div id="selection-of-snps-by-comparison-of-prevalence-in-chosen-sample-versus-remaining-lines" class="section level4">
+<h4>Selection of SNPs by comparison of prevalence in chosen sample versus remaining lines</h4>
+<pre class="r"><code>##change per job
+dataPath &lt;- &quot;/data/morgante_lab/data/dgrp/genotypes/dgrp2_tgeno_filtered_meanimputed.txt&quot;
+targetPath &lt;- &quot;/data/morgante_lab/nklimko/rep/dgrp-starve/data/INPUT.txt&quot;
+finalPath &lt;- &quot;/data/morgante_lab/nklimko/rep/dgrp-starve/data/CHANGE.txt&quot;
+
+#number of results to save
+finalCount &lt;- 200
+
+#files read in
+data &lt;- fread(dataPath) 
+inGroup &lt;- fread(targetPath)
+
+#modification of inGroup to vector type, clunky
+inGroup &lt;- inGroup[,line]
+
+#IDs saved and removed
+var_id &lt;- data[,var_id]
+data &lt;- data[, var_id:=NULL]
+
+#data partitioned by column
+inData &lt;- data[,colnames(data) %in% inGroup, with=FALSE]
+outData &lt;- data[,!(colnames(data) %in% inGroup), with=FALSE]
+
+#means calculated for every row
+inMean &lt;- rowMeans(inData)
+outMean &lt;- rowMeans(outData)
+  
+#table constructed of marker IDs and group means
+phaseA &lt;- data.table(var_id, inMean, outMean)
+
+#calculates difference of group means
+trueData &lt;-  phaseA[, result:=inMean - outMean]
+#trueData &lt;-  phaseA[, result:=inMean / outMean]
+
+#orders data by absolute value of difference, largest first
+trueSort &lt;- trueData[order(-abs(result))]
+
+#index controls number of top results to save
+finalSet&lt;- trueSort[1:finalCount]
+
+#writes top (finalCount) to designated path
+fwrite(finalSet, finalPath)</code></pre>
+</div>
+</div>
+<div id="snp-curation" class="section level1">
+<h1><a href="">SNP Curation</a></h1>
+<div id="combination-of-all-sample-snps-to-streamline-analysis" class="section level4">
+<h4>Combination of all sample SNPs to streamline analysis</h4>
+<pre class="r"><code># Set max number of results
+index &lt;- 50
+
+#read in &quot;index&quot; number of results, set above
+dM &lt;- fread(&quot;../data/difMinus-result.txt&quot;, nrows = index)
+dP &lt;- fread(&quot;../data/difPlus-result.txt&quot;, nrows = index)
+aM &lt;- fread(&quot;../data/avgMinus-result.txt&quot;, nrows = index)
+aP &lt;- fread(&quot;../data/avgPlus-result.txt&quot;, nrows = index)
+
+#mark origin of SNP
+dM[,ori:=&quot;difMinus&quot;]
+dP[,ori:=&quot;difPlus&quot;]
+aM[,ori:=&quot;avgMinus&quot;]
+aP[,ori:=&quot;avgPlus&quot;]
+
+#combine tables
+snpList &lt;- rbind(dM, dP, aM, aP)
+
+#remove data columns by assigning to NULL
+snpList[,&#39;:=&#39;(inMean=NULL, outMean=NULL, result=NULL)]
+
+#Save file
+fwrite(snpList, &quot;/data/morgante_lab/nklimko/rep/dgrp-starve/data/snpList.txt&quot;)</code></pre>
+</div>
+<div id="gene-extraction" class="section level3">
+<h3><a href="">Gene Extraction</a></h3>
+<div id="mapping-extracted-snps-to-genes-using-flybase-annotations" class="section level4">
+<h4>Mapping extracted SNPs to genes using flybase annotations</h4>
+<pre class="r"><code>### Libraries
+library(data.table)
+library(dplyr)
+library(stringr)
+
+#input paths
+genePath &lt;- &quot;/data/databases/flybase/fb-r5.57/fb-r5.57.clean.gene.bound&quot;
+snpPath &lt;- &quot;/data/morgante_lab/nklimko/rep/dgrp-starve/data/snpList.txt&quot;
+
+#read data in
+genBank &lt;- fread(genePath, col.names = c(&quot;leg&quot;,&quot;start&quot;, &quot;stop&quot;, &quot;strand&quot;,&quot;gene&quot;))
+snpList &lt;- fread(snpPath)
+
+#split SNP tag to search gene data correctly
+snpList[, arm := tstrsplit(var_id, split=&quot;_&quot;,fixed = TRUE)[1]]
+snpList[, pos := tstrsplit(var_id, split=&quot;_&quot;,fixed = TRUE)[2]]
+snpList[, pos := as.numeric(pos)]
+
+#set start and stop to numeric type
+genBank[, &#39;:=&#39;(start=as.numeric(start), stop=as.numeric(stop))]
+
+#extract gene where position contained and arm matches
+geneHits &lt;- genBank[snpList, on = .(start &lt;= pos, stop &gt;= pos,leg==arm), .(ori, geneFind = gene)][!is.na(geneFind)]
+
+#write file
+fwrite(geneHits, &quot;/data/morgante_lab/nklimko/rep/dgrp-starve/data/geneHits.txt&quot;)</code></pre>
+</div>
+</div>
+<div id="go-term-extraction" class="section level3">
+<h3><a href="">GO Term Extraction</a></h3>
+<div id="compilation-of-go-terms-from-affected-genes-to-measure-impact" class="section level4">
+<h4>Compilation of GO terms from affected genes to measure impact</h4>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
@@ -769,33 +918,33 @@ Matrix products: default
 BLAS/LAPACK: /opt/ohpc/pub/Software/openblas_0.3.10/lib/libopenblas_haswellp-r0.3.10.dev.so
 
 locale:
- [1] LC_CTYPE=en_US.utf-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.utf-8        LC_COLLATE=en_US.utf-8    
- [5] LC_MONETARY=en_US.utf-8    LC_MESSAGES=en_US.utf-8   
- [7] LC_PAPER=en_US.utf-8       LC_NAME=C                 
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.utf-8 LC_IDENTIFICATION=C       
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] dplyr_1.0.8     workflowr_1.7.0
+[1] tidyr_1.2.0       stringr_1.4.0     data.table_1.14.2 dplyr_1.0.8      
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.8.3     highr_0.9        bslib_0.3.1      jquerylib_0.1.4 
- [5] compiler_4.0.3   pillar_1.7.0     later_1.3.0      git2r_0.30.1    
- [9] tools_4.0.3      getPass_0.2-2    digest_0.6.29    jsonlite_1.8.0  
-[13] evaluate_0.15    tibble_3.1.6     lifecycle_1.0.1  pkgconfig_2.0.3 
+ [1] Rcpp_1.0.8.3     pillar_1.7.0     compiler_4.0.3   bslib_0.3.1     
+ [5] later_1.3.0      jquerylib_0.1.4  git2r_0.30.1     highr_0.9       
+ [9] workflowr_1.7.0  tools_4.0.3      digest_0.6.29    jsonlite_1.8.0  
+[13] evaluate_0.15    lifecycle_1.0.1  tibble_3.1.6     pkgconfig_2.0.3 
 [17] rlang_1.0.4      DBI_1.1.2        cli_3.3.0        rstudioapi_0.13 
-[21] yaml_2.3.5       xfun_0.30        fastmap_1.1.0    httr_1.4.2      
-[25] stringr_1.4.0    knitr_1.38       generics_0.1.2   sass_0.4.1      
-[29] fs_1.5.2         vctrs_0.4.1      tidyselect_1.1.2 rprojroot_2.0.3 
-[33] glue_1.6.2       R6_2.5.1         processx_3.5.3   fansi_1.0.3     
-[37] rmarkdown_2.16   purrr_0.3.4      callr_3.7.0      magrittr_2.0.3  
-[41] whisker_0.4      ps_1.6.0         promises_1.2.0.1 htmltools_0.5.2 
-[45] ellipsis_0.3.2   assertthat_0.2.1 httpuv_1.6.5     utf8_1.2.2      
-[49] stringi_1.7.6    crayon_1.5.1    </code></pre>
+[21] yaml_2.3.5       xfun_0.30        fastmap_1.1.0    knitr_1.38      
+[25] generics_0.1.2   fs_1.5.2         vctrs_0.4.1      sass_0.4.1      
+[29] tidyselect_1.1.2 rprojroot_2.0.3  glue_1.6.2       R6_2.5.1        
+[33] fansi_1.0.3      rmarkdown_2.16   purrr_0.3.4      magrittr_2.0.3  
+[37] whisker_0.4      promises_1.2.0.1 ellipsis_0.3.2   htmltools_0.5.2 
+[41] assertthat_0.2.1 httpuv_1.6.5     utf8_1.2.2       stringi_1.7.6   
+[45] crayon_1.5.1    </code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -812,8 +961,6 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
-
-
 
 
 

@@ -7,9 +7,7 @@ navbar:
     href: index.html
   - text: About
     href: about.html
-  - text: Data Preparation
-    href: dataPrep.html
-  - text: Starvation Analysis
+  - text: Analysis
     href: starve.html
   - text: Database
     href: database.html
