@@ -9,6 +9,8 @@ navbar:
     href: starve.html
   - text: Scripts
     href: scripts.html
+  - text: Multiple Comparison
+    href: multiComp.html
   - text: License
     href: license.html
   right:

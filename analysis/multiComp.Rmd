@@ -1,0 +1,108 @@
+---
+title: "Multiple Comparison of Starvation Resistance Against Other Traits"
+output:
+  workflowr::wflow_html:
+    toc: true
+    latex_engine: "xelatex"
+    code_folding: "hide"
+editor_options:
+  chunk_output_type: console
+---
+
+```{r 0-setup, include=FALSE}
+library(dplyr)
+library(data.table)
+library(ggplot2)
+
+```
+
+
+```{r}
+# Read in tables
+dtf <- fread("data/eQTL_traits_females.csv")
+dtm <- fread("data/eQTL_traits_males.csv")
+
+#Change column order to line, starvation, everything else
+setcolorder(dtf, c(1,10,2:9,11:19))
+#male has aggression moved to end to line up all other column indices
+setcolorder(dtm, c(1,11,3:10,12:20,2))
+
+# Bind tables on line
+bound <- dtm[dtf, on=.(line)]
+
+x <- (bound[,2,with=FALSE] + bound[,21,with=FALSE]) / 2
+
+par(mfrow=c(2,2))
+
+
+
+
+  # AGGRESSION, male only
+title <- paste("starvation resistance vs",colnames(bound[, 20, with=FALSE]))
+x <- bound[,2] 
+y <- bound[,20]
+raw <- cbind(x,y)
+clean <- setDT(raw)
+plot(clean)
+
+
+
+varList <- rep(1:20)
+for(i in 1:length(varList)) {
+  varList[i] <- paste0("g",varList[i])
+  
+}
+
+varList
+
+storage <- rep(0,20)
+
+# Determine average of each trait
+for(i in 3:19)
+{
+  title <- paste("starvation resistance vs",colnames(bound[, i, with=FALSE]))
+    j <- i + 19
+  y <- (bound[,i,with=FALSE] + bound[,j,with=FALSE]) / 2
+  raw <- cbind(x,y)
+  clean <- setDT(raw)
+  plot(clean)
+
+  colnames(clean) <- c("starvation", "trait")
+  
+  tempPlot <- ggplot(clean, aes(x=clean$starvation, y=clean$trait)) +
+    geom_point() + geom_smooth(method=lm)
+  
+  tempPlot
+  
+  storage[i-2] <- tempPlot 
+  
+  #plot(clean, main=title)
+
+}
+
+  
+
+#storage
+
+for(i in 1:17)
+{
+  
+  
+  
+}  
+
+
+```
+
+bound
+
+
+```{r part2}
+
+
+#nothing
+
+
+```
+
+# About
