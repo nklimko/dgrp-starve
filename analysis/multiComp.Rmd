@@ -11,8 +11,13 @@ editor_options:
 
 ```{r 0-setup, include=FALSE}
 library(dplyr)
+library(stringr)
 library(data.table)
 library(ggplot2)
+
+library(cowplot)
+
+#gg[[1]],gg[[2]],gg[[3]],gg[[4]],gg[[5]],gg[[6]],gg[[7]],gg[[8]],gg[[9]],gg[[10]],gg[[11]],gg[[12]],gg[[13]],gg[[14]],gg[[15]],gg[[16]],gg[[17]]
 
 ```
 
@@ -30,79 +35,89 @@ setcolorder(dtm, c(1,11,3:10,12:20,2))
 # Bind tables on line
 bound <- dtm[dtf, on=.(line)]
 
+colnames(bound)
+
+# create average starvation
 x <- (bound[,2,with=FALSE] + bound[,21,with=FALSE]) / 2
 
-par(mfrow=c(2,2))
-
-
-
+storage <- rep(0,20)
+gg <- vector(mode='list', length=18)
 
   # AGGRESSION, male only
-title <- paste("starvation resistance vs",colnames(bound[, 20, with=FALSE]))
+
+
+yL <- colnames(bound[, 20, with=FALSE])
+
 x <- bound[,2] 
 y <- bound[,20]
-raw <- cbind(x,y)
+raw <- na.omit(cbind(x,y))
 clean <- setDT(raw)
-plot(clean)
+colnames(clean) <- c("starvation", "trait")
 
+corCoeff <- str_sub(as.character(cor.test(clean$starvation, clean$trait)[4]), 8,16)
+storage[1] <- as.numeric(corCoeff)
 
+graphTitle <- paste0(colnames(bound[, 20, with=FALSE]),": R=",corCoeff)
 
-varList <- rep(1:20)
-for(i in 1:length(varList)) {
-  varList[i] <- paste0("g",varList[i])
-  
-}
-
-varList
-
-storage <- rep(0,20)
+gg[[1]] <- ggplot(clean, aes(x=starvation, y=trait)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method=lm) +
+  labs(title = graphTitle, x="starvation",y=yL)
 
 # Determine average of each trait
 for(i in 3:19)
 {
-  title <- paste("starvation resistance vs",colnames(bound[, i, with=FALSE]))
-    j <- i + 19
+  #title <- paste("starvation resistance vs",colnames(bound[, i, with=FALSE]))
+  j <- i + 19
   y <- (bound[,i,with=FALSE] + bound[,j,with=FALSE]) / 2
-  raw <- cbind(x,y)
-  clean <- setDT(raw)
-  plot(clean)
 
-  colnames(clean) <- c("starvation", "trait")
-  
-  tempPlot <- ggplot(clean, aes(x=clean$starvation, y=clean$trait)) +
-    geom_point() + geom_smooth(method=lm)
-  
-  tempPlot
-  
-  storage[i-2] <- tempPlot 
-  
-  #plot(clean, main=title)
 
+yL <- colnames(bound[, i, with=FALSE])
+
+raw <- na.omit(cbind(x,y))
+clean <- setDT(raw)
+colnames(clean) <- c("starvation", "trait")
+
+
+corCoeff <- str_sub(as.character(cor.test(clean$starvation, clean$trait)[4]), 8,16)
+storage[i-1] <- as.numeric(corCoeff)
+
+graphTitle <- paste0(colnames(bound[, i, with=FALSE]),": R=",corCoeff)
+
+gg[[i-1]] <- ggplot(clean, aes(x=starvation, y=trait)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method=lm) +
+  labs(title = graphTitle, x="starvation",y=yL)
+  
+  
 }
 
-  
+par(mfrow=c(2,2))
+plot_grid(gg[[1]],gg[[2]],gg[[3]],gg[[4]],ncol=2)
+plot_grid(gg[[5]],gg[[6]],gg[[7]],gg[[8]],ncol=2)
+plot_grid(gg[[9]],gg[[10]],gg[[11]],gg[[12]],ncol=2)
+plot_grid(gg[[13]],gg[[14]],gg[[15]],gg[[16]],ncol=2)
+plot_grid(gg[[17]])
 
-#storage
+```
 
-for(i in 1:17)
-{
-  
-  
-  
-}  
+
+
+
+```{r damageZone}
+
+
+
+
+
+
+
+
+
+
 
 
 ```
 
-bound
-
-
-```{r part2}
-
-
-#nothing
-
-
-```
 
 # About
