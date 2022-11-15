@@ -13,6 +13,7 @@
 
 <title>Multiple Comparison of Starvation Resistance Against Other Traits</title>
 
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -45,6 +46,8 @@ div.section {
   padding-top: 12px;
 }
 </style>
+
+
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -379,14 +382,17 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Multiple Comparison of Starvation Resistance Against Other Traits</h1>
+<h1 class="title toc-ignore">Multiple Comparison of Starvation
+Resistance Against Other Traits</h1>
 
 </div>
 
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -395,7 +401,9 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -407,14 +415,24 @@ div.tocify {
 <strong>Last updated:</strong> 2022-11-15
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>dgrp-starve/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>dgrp-starve/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -423,98 +441,141 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20221101code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20221101)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20221101code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20221101)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed20221101code" class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed20221101code"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20221101)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(20221101)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
 <div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreeca79c225b0a9f2ccdb7f1ea499da4635af83e55atargetblankca79c22a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/ca79c225b0a9f2ccdb7f1ea499da4635af83e55a" target="_blank">ca79c22</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreeafd22f84e9eb3e9e029c0c7b56ea25f9ddc0c13ftargetblankafd22f8a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/nklimko/dgrp-starve/tree/afd22f84e9eb3e9e029c0c7b56ea25f9ddc0c13f" target="_blank">afd22f8</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreeca79c225b0a9f2ccdb7f1ea499da4635af83e55atargetblankca79c22a" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreeafd22f84e9eb3e9e029c0c7b56ea25f9ddc0c13ftargetblankafd22f8a"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/ca79c225b0a9f2ccdb7f1ea499da4635af83e55a" target="_blank">ca79c22</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/nklimko/dgrp-starve/tree/afd22f84e9eb3e9e029c0c7b56ea25f9ddc0c13f" target="_blank">afd22f8</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
-Ignored files:
-    Ignored:    analysis/site_libs/
-
 Untracked files:
-    Untracked:  analysis/scripts.knit.md
     Untracked:  code/analysisSR.R
     Untracked:  code/geneGO.R
     Untracked:  code/multiPrep.R
@@ -529,13 +590,14 @@ Untracked files:
 
 Unstaged changes:
     Deleted:    analysis/database.Rmd
-    Modified:   analysis/multiComp.Rmd
     Modified:   code/baseScript-lineComp.R
     Modified:   code/fourLinePrep.R
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -546,7 +608,12 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/multiComp.Rmd</code>) and HTML (<code>docs/multiComp.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/multiComp.Rmd</code>) and HTML
+(<code>docs/multiComp.html</code>) files. If you’ve configured a remote
+Git repository (see <code>?wflow_git_remote</code>), click on the
+hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -575,6 +642,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/afd22f84e9eb3e9e029c0c7b56ea25f9ddc0c13f/analysis/multiComp.Rmd" target="_blank">afd22f8</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-11-15
+</td>
+<td>
+wflow_publish("analysis/*")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/79e98ca129310232141bbab69da3f597907100ae/docs/multiComp.html" target="_blank">79e98ca</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-11-15
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/ca79c225b0a9f2ccdb7f1ea499da4635af83e55a/analysis/multiComp.Rmd" target="_blank">ca79c22</a>
 </td>
 <td>
@@ -584,7 +685,7 @@ nklimko
 2022-11-15
 </td>
 <td>
-wflow_publish(&quot;analysis/*&quot;)
+wflow_publish("analysis/*")
 </td>
 </tr>
 </tbody>
@@ -606,60 +707,288 @@ setcolorder(dtm, c(1,11,3:10,12:20,2))
 # Bind tables on line
 bound &lt;- dtm[dtf, on=.(line)]
 
-# create average starvation
+colnames(bound)</code></pre>
+<pre><code> [1] &quot;line&quot;                &quot;starvation&quot;          &quot;cafe&quot;               
+ [4] &quot;chillcoma&quot;           &quot;day.bout.number&quot;     &quot;day.sleep&quot;          
+ [7] &quot;night.bout.number&quot;   &quot;night.sleep&quot;         &quot;phototaxis.4day&quot;    
+[10] &quot;startle&quot;             &quot;waking.activity&quot;     &quot;free.glucose&quot;       
+[13] &quot;glycogen&quot;            &quot;free.glycerol&quot;       &quot;triglyceride&quot;       
+[16] &quot;protein&quot;             &quot;body.weight&quot;         &quot;thorax.length&quot;      
+[19] &quot;thorax.width&quot;        &quot;aggression&quot;          &quot;i.starvation&quot;       
+[22] &quot;i.cafe&quot;              &quot;i.chillcoma&quot;         &quot;i.day.bout.number&quot;  
+[25] &quot;i.day.sleep&quot;         &quot;i.night.bout.number&quot; &quot;i.night.sleep&quot;      
+[28] &quot;i.phototaxis.4day&quot;   &quot;i.startle&quot;           &quot;i.waking.activity&quot;  
+[31] &quot;i.free.glucose&quot;      &quot;i.glycogen&quot;          &quot;i.free.glycerol&quot;    
+[34] &quot;i.triglyceride&quot;      &quot;i.protein&quot;           &quot;i.body.weight&quot;      
+[37] &quot;i.thorax.length&quot;     &quot;i.thorax.width&quot;     </code></pre>
+<pre class="r"><code># create average starvation
 x &lt;- (bound[,2,with=FALSE] + bound[,21,with=FALSE]) / 2
 
-par(mfrow=c(2,2))
-
-
-
+storage &lt;- rep(0,20)
+gg &lt;- vector(mode=&#39;list&#39;, length=18)
 
   # AGGRESSION, male only
-title &lt;- paste(&quot;starvation resistance vs&quot;,colnames(bound[, 20, with=FALSE]))
+
+
+yL &lt;- colnames(bound[, 20, with=FALSE])
+
 x &lt;- bound[,2] 
 y &lt;- bound[,20]
-raw &lt;- cbind(x,y)
+raw &lt;- na.omit(cbind(x,y))
 clean &lt;- setDT(raw)
-plot(clean)
+colnames(clean) &lt;- c(&quot;starvation&quot;, &quot;trait&quot;)
 
+corCoeff &lt;- str_sub(as.character(cor.test(clean$starvation, clean$trait)[4]), 8,16)
+storage[1] &lt;- as.numeric(corCoeff)
 
+graphTitle &lt;- paste0(colnames(bound[, 20, with=FALSE]),&quot;: R=&quot;,corCoeff)
 
-varList &lt;- rep(1:20)
-for(i in 1:length(varList)) {
-  varList[i] &lt;- paste0(&quot;g&quot;,varList[i])
-}
-
-storage &lt;- rep(0,20)
+gg[[1]] &lt;- ggplot(clean, aes(x=starvation, y=trait)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method=lm) +
+  labs(title = graphTitle, x=&quot;starvation&quot;,y=yL)
 
 # Determine average of each trait
 for(i in 3:19)
 {
-  title &lt;- paste(&quot;starvation resistance vs&quot;,colnames(bound[, i, with=FALSE]))
+  #title &lt;- paste(&quot;starvation resistance vs&quot;,colnames(bound[, i, with=FALSE]))
   j &lt;- i + 19
   y &lt;- (bound[,i,with=FALSE] + bound[,j,with=FALSE]) / 2
-  raw &lt;- cbind(x,y)
-  clean &lt;- setDT(raw)
-  plot(clean)
 
-  colnames(clean) &lt;- c(&quot;starvation&quot;, &quot;trait&quot;)
-  
-  tempPlot &lt;- ggplot(clean, aes(x=clean$starvation, y=clean$trait)) +
-    geom_point() + geom_smooth(method=lm)
-  
-  #tempPlot
-  
-  #storage[i-2] &lt;- tempPlot 
-  
-  #plot(clean, main=title)
 
-}</code></pre>
-<p><img src="figure/multiComp.Rmd/unnamed-chunk-1-1.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/unnamed-chunk-1-2.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/unnamed-chunk-1-3.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/unnamed-chunk-1-4.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/unnamed-chunk-1-5.svg" width="672" style="display: block; margin: auto;" /></p>
+yL &lt;- colnames(bound[, i, with=FALSE])
+
+raw &lt;- na.omit(cbind(x,y))
+clean &lt;- setDT(raw)
+colnames(clean) &lt;- c(&quot;starvation&quot;, &quot;trait&quot;)
+
+
+corCoeff &lt;- str_sub(as.character(cor.test(clean$starvation, clean$trait)[4]), 8,16)
+storage[i-1] &lt;- as.numeric(corCoeff)
+
+graphTitle &lt;- paste0(colnames(bound[, i, with=FALSE]),&quot;: R=&quot;,corCoeff)
+
+gg[[i-1]] &lt;- ggplot(clean, aes(x=starvation, y=trait)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method=lm) +
+  labs(title = graphTitle, x=&quot;starvation&quot;,y=yL)
+  
+  
+}
+
+par(mfrow=c(2,2))
+plot_grid(gg[[1]],gg[[2]],gg[[3]],gg[[4]],ncol=2)</code></pre>
+<pre><code>Warning in grid.Call.graphics(C_polygon, x$x, x$y, index): semi-transparency is
+not supported on this device: reported only once per page</code></pre>
+<p><img src="figure/multiComp.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-1">
+Past versions of unnamed-chunk-1-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-1-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/79e98ca129310232141bbab69da3f597907100ae/docs/figure/multiComp.Rmd/unnamed-chunk-1-1.png" target="_blank">79e98ca</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-11-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>plot_grid(gg[[5]],gg[[6]],gg[[7]],gg[[8]],ncol=2)</code></pre>
+<pre><code>Warning in grid.Call.graphics(C_polygon, x$x, x$y, index): semi-transparency is
+not supported on this device: reported only once per page</code></pre>
+<p><img src="figure/multiComp.Rmd/unnamed-chunk-1-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-2">
+Past versions of unnamed-chunk-1-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-1-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/79e98ca129310232141bbab69da3f597907100ae/docs/figure/multiComp.Rmd/unnamed-chunk-1-2.png" target="_blank">79e98ca</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-11-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>plot_grid(gg[[9]],gg[[10]],gg[[11]],gg[[12]],ncol=2)</code></pre>
+<pre><code>Warning in grid.Call.graphics(C_polygon, x$x, x$y, index): semi-transparency is
+not supported on this device: reported only once per page</code></pre>
+<p><img src="figure/multiComp.Rmd/unnamed-chunk-1-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-3">
+Past versions of unnamed-chunk-1-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-1-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/79e98ca129310232141bbab69da3f597907100ae/docs/figure/multiComp.Rmd/unnamed-chunk-1-3.png" target="_blank">79e98ca</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-11-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>plot_grid(gg[[13]],gg[[14]],gg[[15]],gg[[16]],ncol=2)</code></pre>
+<pre><code>Warning in grid.Call.graphics(C_polygon, x$x, x$y, index): semi-transparency is
+not supported on this device: reported only once per page</code></pre>
+<p><img src="figure/multiComp.Rmd/unnamed-chunk-1-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-4">
+Past versions of unnamed-chunk-1-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-1-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/79e98ca129310232141bbab69da3f597907100ae/docs/figure/multiComp.Rmd/unnamed-chunk-1-4.png" target="_blank">79e98ca</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-11-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>plot_grid(gg[[17]])</code></pre>
+<pre><code>Warning in grid.Call.graphics(C_polygon, x$x, x$y, index): semi-transparency is
+not supported on this device: reported only once per page</code></pre>
+<p><img src="figure/multiComp.Rmd/unnamed-chunk-1-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-5">
+Past versions of unnamed-chunk-1-5.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-1-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/79e98ca129310232141bbab69da3f597907100ae/docs/figure/multiComp.Rmd/unnamed-chunk-1-5.png" target="_blank">79e98ca</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-11-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div id="about" class="section level1">
 <h1>About</h1>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
@@ -672,33 +1001,37 @@ Matrix products: default
 BLAS/LAPACK: /opt/ohpc/pub/Software/openblas_0.3.10/lib/libopenblas_haswellp-r0.3.10.dev.so
 
 locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [1] LC_CTYPE=en_US.utf-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.utf-8        LC_COLLATE=en_US.utf-8    
+ [5] LC_MONETARY=en_US.utf-8    LC_MESSAGES=en_US.utf-8   
+ [7] LC_PAPER=en_US.utf-8       LC_NAME=C                 
  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+[11] LC_MEASUREMENT=en_US.utf-8 LC_IDENTIFICATION=C       
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] ggplot2_3.3.5     data.table_1.14.2 dplyr_1.0.8      
+[1] cowplot_1.1.1     ggplot2_3.3.5     data.table_1.14.2 stringr_1.4.0    
+[5] dplyr_1.0.8       workflowr_1.7.0  
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.8.3     highr_0.9        pillar_1.7.0     compiler_4.0.3  
- [5] bslib_0.3.1      later_1.3.0      jquerylib_0.1.4  git2r_0.30.1    
- [9] workflowr_1.7.0  tools_4.0.3      digest_0.6.29    gtable_0.3.0    
-[13] jsonlite_1.8.0   evaluate_0.15    lifecycle_1.0.1  tibble_3.1.6    
-[17] pkgconfig_2.0.3  rlang_1.0.4      DBI_1.1.2        cli_3.3.0       
-[21] rstudioapi_0.13  yaml_2.3.5       xfun_0.30        fastmap_1.1.0   
-[25] withr_2.5.0      stringr_1.4.0    knitr_1.38       generics_0.1.2  
-[29] fs_1.5.2         vctrs_0.4.1      sass_0.4.1       grid_4.0.3      
-[33] tidyselect_1.1.2 rprojroot_2.0.3  glue_1.6.2       R6_2.5.1        
-[37] fansi_1.0.3      rmarkdown_2.16   purrr_0.3.4      magrittr_2.0.3  
-[41] whisker_0.4      scales_1.2.0     promises_1.2.0.1 ellipsis_0.3.2  
-[45] htmltools_0.5.2  assertthat_0.2.1 colorspace_2.0-3 httpuv_1.6.5    
-[49] utf8_1.2.2       stringi_1.7.6    munsell_0.5.0    crayon_1.5.1    </code></pre>
+ [1] tidyselect_1.1.2 xfun_0.30        bslib_0.3.1      purrr_0.3.4     
+ [5] lattice_0.20-45  splines_4.0.3    colorspace_2.0-3 vctrs_0.4.1     
+ [9] generics_0.1.2   htmltools_0.5.2  mgcv_1.8-40      yaml_2.3.5      
+[13] utf8_1.2.2       rlang_1.0.4      later_1.3.0      pillar_1.7.0    
+[17] jquerylib_0.1.4  withr_2.5.0      glue_1.6.2       DBI_1.1.2       
+[21] lifecycle_1.0.1  munsell_0.5.0    gtable_0.3.0     evaluate_0.15   
+[25] labeling_0.4.2   knitr_1.38       callr_3.7.0      fastmap_1.1.0   
+[29] httpuv_1.6.5     ps_1.6.0         fansi_1.0.3      highr_0.9       
+[33] Rcpp_1.0.8.3     promises_1.2.0.1 scales_1.2.0     jsonlite_1.8.0  
+[37] farver_2.1.0     fs_1.5.2         digest_0.6.29    stringi_1.7.6   
+[41] processx_3.5.3   getPass_0.2-2    rprojroot_2.0.3  grid_4.0.3      
+[45] cli_3.3.0        tools_4.0.3      magrittr_2.0.3   sass_0.4.1      
+[49] tibble_3.1.6     crayon_1.5.1     whisker_0.4      pkgconfig_2.0.3 
+[53] Matrix_1.4-1     ellipsis_0.3.2   assertthat_0.2.1 rmarkdown_2.16  
+[57] httr_1.4.2       rstudioapi_0.13  R6_2.5.1         nlme_3.1-157    
+[61] git2r_0.30.1     compiler_4.0.3  </code></pre>
 </div>
 </div>
 
@@ -714,6 +1047,8 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
+
+
 
 
 </div>
