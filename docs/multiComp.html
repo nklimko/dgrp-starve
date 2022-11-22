@@ -412,7 +412,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-11-15
+<strong>Last updated:</strong> 2022-11-22
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -543,15 +543,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreeafd22f84e9eb3e9e029c0c7b56ea25f9ddc0c13ftargetblankafd22f8a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreefc90dac9e4a1f2a39ec46771c0c6b749e2da51b1targetblankfc90daca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/nklimko/dgrp-starve/tree/afd22f84e9eb3e9e029c0c7b56ea25f9ddc0c13f" target="_blank">afd22f8</a>
+<a href="https://github.com/nklimko/dgrp-starve/tree/fc90dac9e4a1f2a39ec46771c0c6b749e2da51b1" target="_blank">fc90dac</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreeafd22f84e9eb3e9e029c0c7b56ea25f9ddc0c13ftargetblankafd22f8a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreefc90dac9e4a1f2a39ec46771c0c6b749e2da51b1targetblankfc90daca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -561,7 +561,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/nklimko/dgrp-starve/tree/afd22f84e9eb3e9e029c0c7b56ea25f9ddc0c13f" target="_blank">afd22f8</a>.
+<a href="https://github.com/nklimko/dgrp-starve/tree/fc90dac9e4a1f2a39ec46771c0c6b749e2da51b1" target="_blank">fc90dac</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -587,6 +587,10 @@ Untracked files:
     Untracked:  data/eQTL_traits_females.csv
     Untracked:  data/eQTL_traits_males.csv
     Untracked:  data/goGroups.txt
+    Untracked:  data/xp-f.txt
+    Untracked:  data/xp-m.txt
+    Untracked:  scoreAnalysisMulticomp.R
+    Untracked:  temp.Rmd
 
 Unstaged changes:
     Deleted:    analysis/database.Rmd
@@ -637,6 +641,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/fc90dac9e4a1f2a39ec46771c0c6b749e2da51b1/analysis/multiComp.Rmd" target="_blank">fc90dac</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-11-22
+</td>
+<td>
+wflow_publish("analysis/*")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/f1d6437766ad9ecd416ac54f034cbad7f7bdcf9d/docs/multiComp.html" target="_blank">f1d6437</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-11-15
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -695,6 +733,13 @@ wflow_publish("analysis/*")
 </div>
 </div>
 </div>
+<div id="multiple-comparison" class="section level1">
+<h1>Multiple Comparison</h1>
+<p>Starvation was plotted against every other trait and correlations
+were calculated. Ideally, strong correlation between traits can be used
+to increase the impact of PCA as traits with strong correlations can be
+used to reduce dimensions. Strong correlations allow for calculated
+columns.</p>
 <pre class="r"><code># Read in tables
 dtf &lt;- fread(&quot;data/eQTL_traits_females.csv&quot;)
 dtm &lt;- fread(&quot;data/eQTL_traits_males.csv&quot;)
@@ -707,24 +752,10 @@ setcolorder(dtm, c(1,11,3:10,12:20,2))
 # Bind tables on line
 bound &lt;- dtm[dtf, on=.(line)]
 
-colnames(bound)</code></pre>
-<pre><code> [1] &quot;line&quot;                &quot;starvation&quot;          &quot;cafe&quot;               
- [4] &quot;chillcoma&quot;           &quot;day.bout.number&quot;     &quot;day.sleep&quot;          
- [7] &quot;night.bout.number&quot;   &quot;night.sleep&quot;         &quot;phototaxis.4day&quot;    
-[10] &quot;startle&quot;             &quot;waking.activity&quot;     &quot;free.glucose&quot;       
-[13] &quot;glycogen&quot;            &quot;free.glycerol&quot;       &quot;triglyceride&quot;       
-[16] &quot;protein&quot;             &quot;body.weight&quot;         &quot;thorax.length&quot;      
-[19] &quot;thorax.width&quot;        &quot;aggression&quot;          &quot;i.starvation&quot;       
-[22] &quot;i.cafe&quot;              &quot;i.chillcoma&quot;         &quot;i.day.bout.number&quot;  
-[25] &quot;i.day.sleep&quot;         &quot;i.night.bout.number&quot; &quot;i.night.sleep&quot;      
-[28] &quot;i.phototaxis.4day&quot;   &quot;i.startle&quot;           &quot;i.waking.activity&quot;  
-[31] &quot;i.free.glucose&quot;      &quot;i.glycogen&quot;          &quot;i.free.glycerol&quot;    
-[34] &quot;i.triglyceride&quot;      &quot;i.protein&quot;           &quot;i.body.weight&quot;      
-[37] &quot;i.thorax.length&quot;     &quot;i.thorax.width&quot;     </code></pre>
-<pre class="r"><code># create average starvation
+# create average starvation
 x &lt;- (bound[,2,with=FALSE] + bound[,21,with=FALSE]) / 2
 
-storage &lt;- rep(0,20)
+storage &lt;- rep(0,18)
 gg &lt;- vector(mode=&#39;list&#39;, length=18)
 
   # AGGRESSION, male only
@@ -772,218 +803,452 @@ gg[[i-1]] &lt;- ggplot(clean, aes(x=starvation, y=trait)) +
   geom_point() +
   geom_smooth(formula = y ~ x, method=lm) +
   labs(title = graphTitle, x=&quot;starvation&quot;,y=yL)
-  
-  
 }
+
+
+gg &lt;- cbind(gg,storage)
+
+gg &lt;- gg[order(abs(storage),decreasing=TRUE),]
+
+
 
 par(mfrow=c(2,2))
 plot_grid(gg[[1]],gg[[2]],gg[[3]],gg[[4]],ncol=2)</code></pre>
 <pre><code>Warning in grid.Call.graphics(C_polygon, x$x, x$y, index): semi-transparency is
 not supported on this device: reported only once per page</code></pre>
-<p><img src="figure/multiComp.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-1">
-Past versions of unnamed-chunk-1-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-1-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/79e98ca129310232141bbab69da3f597907100ae/docs/figure/multiComp.Rmd/unnamed-chunk-1-1.png" target="_blank">79e98ca</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/multiComp.Rmd/multicomp-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>plot_grid(gg[[5]],gg[[6]],gg[[7]],gg[[8]],ncol=2)</code></pre>
 <pre><code>Warning in grid.Call.graphics(C_polygon, x$x, x$y, index): semi-transparency is
 not supported on this device: reported only once per page</code></pre>
-<p><img src="figure/multiComp.Rmd/unnamed-chunk-1-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-2">
-Past versions of unnamed-chunk-1-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-1-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/79e98ca129310232141bbab69da3f597907100ae/docs/figure/multiComp.Rmd/unnamed-chunk-1-2.png" target="_blank">79e98ca</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/multiComp.Rmd/multicomp-2.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>plot_grid(gg[[9]],gg[[10]],gg[[11]],gg[[12]],ncol=2)</code></pre>
 <pre><code>Warning in grid.Call.graphics(C_polygon, x$x, x$y, index): semi-transparency is
 not supported on this device: reported only once per page</code></pre>
-<p><img src="figure/multiComp.Rmd/unnamed-chunk-1-3.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-3">
-Past versions of unnamed-chunk-1-3.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-1-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/79e98ca129310232141bbab69da3f597907100ae/docs/figure/multiComp.Rmd/unnamed-chunk-1-3.png" target="_blank">79e98ca</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/multiComp.Rmd/multicomp-3.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>plot_grid(gg[[13]],gg[[14]],gg[[15]],gg[[16]],ncol=2)</code></pre>
 <pre><code>Warning in grid.Call.graphics(C_polygon, x$x, x$y, index): semi-transparency is
 not supported on this device: reported only once per page</code></pre>
-<p><img src="figure/multiComp.Rmd/unnamed-chunk-1-4.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-4">
-Past versions of unnamed-chunk-1-4.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-1-4" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/79e98ca129310232141bbab69da3f597907100ae/docs/figure/multiComp.Rmd/unnamed-chunk-1-4.png" target="_blank">79e98ca</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>plot_grid(gg[[17]])</code></pre>
+<p><img src="figure/multiComp.Rmd/multicomp-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>par(mfrow=c(2,1))
+plot_grid(gg[[17]],gg[[18]])</code></pre>
 <pre><code>Warning in grid.Call.graphics(C_polygon, x$x, x$y, index): semi-transparency is
 not supported on this device: reported only once per page</code></pre>
-<p><img src="figure/multiComp.Rmd/unnamed-chunk-1-5.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-5">
-Past versions of unnamed-chunk-1-5.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-1-5" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/79e98ca129310232141bbab69da3f597907100ae/docs/figure/multiComp.Rmd/unnamed-chunk-1-5.png" target="_blank">79e98ca</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-15
-</td>
-</tr>
-</tbody>
-</table>
+<p><img src="figure/multiComp.Rmd/multicomp-5.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
+<div id="principle-component-analyses" class="section level1">
+<h1>Principle Component Analyses</h1>
+<p>The goal of PCA with any dataset is to reduce the dimensionality into
+simpler and more intuitive bases.</p>
+<div id="useful-links" class="section level4">
+<h4>Useful Links</h4>
+<p><a href="https://youtu.be/FgakZw6K1QQ">Thorough explanation of
+PCA</a></p>
+<p><a href="https://www.youtube.com/watch?v=0Jp4gsfOLMs">PCA in
+R</a></p>
+<p><a
+href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/prcomp">prcomp
+function</a></p>
 </div>
-<div id="about" class="section level1">
-<h1>About</h1>
+<div id="combined" class="section level2">
+<h2>Combined</h2>
+<p>This approach will mostly capture the difference between male and
+female expression levels with the intention of revealing starvatino
+resistance patterns within each subgroup.</p>
+<pre class="r"><code>dtf &lt;- fread(&quot;data/eQTL_traits_females.csv&quot;)
+dtm &lt;- fread(&quot;data/eQTL_traits_males.csv&quot;)
+xpf &lt;- fread(&quot;data/xp-f.txt&quot;)
+xpm &lt;- fread(&quot;data/xp-m.txt&quot;)
+
+#extract starvation and line
+lsf &lt;- dtf[,c(1,10)]
+lsm &lt;- dtm[,c(1,11)]
+
+testF &lt;- merge(xpf,lsf,all.x=TRUE)
+testM &lt;- merge(xpm,lsm,all.x=TRUE)
+
+testF[,group:=&quot;female&quot;]
+testM[,group:=&quot;male&quot;]
+
+#move starvation label to front, after line
+setcolorder(testF, c(1,11340:11341,2:11339))
+setcolorder(testM, c(1,13577:13578,2:13576))
+
+xpa &lt;- rbind(testF, testM, fill=TRUE)
+
+#set all NULL to zero
+xpa[is.na(xpa)] &lt;- 0
+
+
+#PCA analysis
+pcs &lt;- prcomp(xpa[,c(-1,-2,-3)], scale=TRUE)
+
+#compute variance and normalize to 100%
+pcVar &lt;- pcs$sdev^2
+pcVarNorm &lt;- round(pcVar/sum(pcVar)*100,2)
+
+#Scree plot data of first 10 PCs
+scree &lt;- data.frame(1:10, pcVarNorm[1:10])
+colnames(scree) &lt;- c(&quot;PC&quot;, &quot;variance&quot;)
+ 
+#ggplot arguments - Scree plot
+ggplot(data=scree, aes(x=PC, y=variance)) +
+  geom_bar(stat=&quot;identity&quot;) +
+  geom_text(aes(label=variance), vjust=-0.3, size=3.5) +
+  ggtitle(&quot;Combined Scree Plot&quot;)</code></pre>
+<p><img src="figure/multiComp.Rmd/combinedPCA-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#plot data from PCA to ggplot
+pcaPlot &lt;- data.frame(xpa[,1:3], X=pcs$x[,1], Y=pcs$x[,2])
+
+#Group identification
+ggplot(data=pcaPlot, aes(x=X, y=Y, color=group)) +
+  geom_point() +
+  xlab(paste(&quot;PC1: &quot;,pcVarNorm[1],&quot;%&quot;, sep=&quot;&quot;)) +
+  ylab(paste(&quot;PC2: &quot;,pcVarNorm[2],&quot;%&quot;, sep=&quot;&quot;)) +
+  ggtitle(&quot;Combined PCA&quot;)</code></pre>
+<p><img src="figure/multiComp.Rmd/combinedPCA-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#starvation patterns
+ggplot(data=pcaPlot, aes(x=X, y=Y, color=starvation)) +
+  geom_point() +
+  scale_color_gradient(low=&quot;yellow&quot;, high=&quot;red&quot;) +
+  xlab(paste(&quot;PC1: &quot;,pcVarNorm[1],&quot;%&quot;, sep=&quot;&quot;)) +
+  ylab(paste(&quot;PC2: &quot;,pcVarNorm[2],&quot;%&quot;, sep=&quot;&quot;)) +
+  ggtitle(&quot;Combined PCA&quot;)</code></pre>
+<p><img src="figure/multiComp.Rmd/combinedPCA-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>genCor &lt;- cor(xpa[,c(-1,-2,-3)], pcaPlot[,4:5])
+
+genCor &lt;- as.data.frame(genCor)
+
+
+corPC1 &lt;- arrange(genCor,desc(abs(X)))
+corPC2 &lt;- arrange(genCor,desc(abs(Y)))
+
+corPC1[1:25,1:2]</code></pre>
+<pre><code>                     X           Y
+FBgn0036574 -0.9994476 0.015503581
+FBgn0030813 -0.9994402 0.014481880
+FBgn0000166 -0.9994341 0.007468500
+FBgn0029173 -0.9994116 0.014316733
+FBgn0026149 -0.9994104 0.019171857
+FBgn0260243 -0.9993800 0.017290305
+FBgn0030710 -0.9993777 0.015469014
+FBgn0035033 -0.9993673 0.015053230
+FBgn0030970 -0.9993623 0.015048133
+FBgn0036994 -0.9993527 0.011451261
+FBgn0025635 -0.9993428 0.017545967
+FBgn0029713 -0.9993422 0.011735793
+FBgn0027490 -0.9993383 0.010063889
+FBgn0040298 -0.9993369 0.010599945
+FBgn0052343 -0.9993329 0.015196623
+FBgn0035405 -0.9993285 0.010931830
+FBgn0035488 -0.9993278 0.015839537
+FBgn0038549 -0.9993264 0.006661995
+FBgn0003687 -0.9993259 0.016413408
+FBgn0040294 -0.9993204 0.017713218
+FBgn0015553 -0.9993095 0.021006507
+FBgn0034271 -0.9993047 0.019315042
+FBgn0036761 -0.9992942 0.018037500
+FBgn0030680 -0.9992926 0.022556194
+FBgn0037922 -0.9992923 0.015828708</code></pre>
+<pre class="r"><code>corPC2[1:25,1:2]</code></pre>
+<pre><code>                      X          Y
+FBgn0011725 -0.18674818 -0.8524200
+FBgn0027615  0.02965564 -0.8305274
+FBgn0033673 -0.31828954 -0.8285839
+FBgn0030025 -0.12913106 -0.8253212
+FBgn0033916  0.20735194 -0.8002971
+FBgn0040011  0.20408119 -0.7994841
+FBgn0037710 -0.38276062 -0.7977241
+FBgn0031061  0.21115675 -0.7723355
+FBgn0011737 -0.39816655 -0.7661666
+FBgn0035036  0.38189513 -0.7660016
+FBgn0261397  0.05399896 -0.7651525
+FBgn0051108 -0.15780029 -0.7621477
+FBgn0016038 -0.45363605 -0.7617378
+FBgn0027498  0.52434469 -0.7432742
+FBgn0030625 -0.30107470 -0.7364380
+FBgn0032723  0.31281137 -0.7351905
+FBgn0265174 -0.10977290 -0.7350450
+FBgn0037780  0.32092572 -0.7326972
+FBgn0036685 -0.18851093 -0.7322960
+FBgn0031191 -0.03150697 -0.7273204
+FBgn0038515  0.51041263 -0.7261009
+FBgn0037359 -0.21303338 -0.7162617
+FBgn0001280  0.01511300 -0.7065890
+FBgn0038788  0.26647160 -0.7049349
+FBgn0033925 -0.56711475 -0.7021368</code></pre>
+</div>
+<div id="female" class="section level2">
+<h2>Female</h2>
+<p>Looking at female expression alone against female starvation
+resistance to identify patterns in population structure.</p>
+<pre class="r"><code># Read in data
+xpf &lt;- fread(&quot;data/xp-f.txt&quot;)
+
+xpa &lt;- xpf
+
+#store lines, remove, convert to matrix, and label rows
+xpaLines &lt;- xpa[,line]
+xpa &lt;- xpa[,line:=NULL]
+xpa &lt;- as.matrix(xpa)
+row.names(xpa) &lt;- xpaLines
+
+# performs PCA, scale=TRUE autocenters data around means
+pcs &lt;- prcomp(xpa, scale=TRUE)
+
+#compute variance and normalize to 100%
+pcVar &lt;- pcs$sdev^2
+pcVarNorm &lt;- round(pcVar/sum(pcVar)*100,2)
+
+#Scree plot data of first 10 PCs
+scree &lt;- data.frame(1:10, pcVarNorm[1:10])
+colnames(scree) &lt;- c(&quot;PC&quot;, &quot;variance&quot;)
+
+#ggplot arguments - Scree plot
+ggplot(data=scree, aes(x=PC, y=variance)) +
+  geom_bar(stat=&quot;identity&quot;) +
+  geom_text(aes(label=variance), vjust=-0.3, size=3.5) +
+  ggtitle(&quot;Female Scree Plot&quot;)</code></pre>
+<p><img src="figure/multiComp.Rmd/femalePCA-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#PCA data
+pcaPlot &lt;- data.frame(line=rownames(pcs$x), pcs$x[,1], pcs$x[,2])
+starveLines &lt;- as.data.frame(dtf[,1:2])
+pcaPlot &lt;- na.omit(merge(x=pcaPlot,y=starveLines, by=&quot;line&quot;))
+colnames(pcaPlot) &lt;- c(&quot;line&quot;,&quot;X&quot;,&quot;Y&quot;,&quot;starve&quot;)
+
+
+#ggplot arguments - PC plot
+ggplot(data=pcaPlot, aes(x=X, y=Y, label=line, color=starve)) +
+  geom_point() +
+  scale_color_gradient(low=&quot;yellow&quot;, high=&quot;red&quot;) +
+  xlab(paste(&quot;PC1: &quot;,pcVarNorm[1],&quot;%&quot;, sep=&quot;&quot;)) +
+  ylab(paste(&quot;PC2: &quot;,pcVarNorm[2],&quot;%&quot;, sep=&quot;&quot;)) +
+  ggtitle(&quot;Female PCA&quot;)</code></pre>
+<p><img src="figure/multiComp.Rmd/femalePCA-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Quantitative approach: correlations for the top 25 genes for each
+principal component.</p>
+<pre class="r"><code>genCor &lt;- cor(xpa, pcs$x[,1:2])
+
+genCor &lt;- as.data.frame(genCor)
+
+corPC1 &lt;- arrange(genCor,desc(abs(PC1)))
+corPC2 &lt;- arrange(genCor,desc(abs(PC2)))
+
+print(&quot;Top 25 genes for PC1:&quot;)</code></pre>
+<pre><code>[1] &quot;Top 25 genes for PC1:&quot;</code></pre>
+<pre class="r"><code>corPC1[1:25,1:2]</code></pre>
+<pre><code>                   PC1           PC2
+FBgn0002542 -0.9551091  0.0017007079
+FBgn0026149 -0.9497579  0.0272471774
+FBgn0027537 -0.9484541  0.0752546764
+FBgn0024371 -0.9436779  0.0695918769
+FBgn0003655 -0.9419791  0.0169838876
+FBgn0086855 -0.9407986 -0.0893283133
+FBgn0022213 -0.9397589 -0.0227156170
+FBgn0024909 -0.9384338  0.0366265988
+FBgn0039379 -0.9384321  0.0207904517
+FBgn0260012 -0.9380160 -0.0655277575
+FBgn0003124 -0.9380058  0.0134330351
+FBgn0259978 -0.9375631  0.0180059645
+FBgn0000404 -0.9373698  0.0570064514
+FBgn0004510 -0.9353250  0.0138995494
+FBgn0039293 -0.9346592  0.0187638594
+FBgn0036574 -0.9345518 -0.1521812235
+FBgn0046222 -0.9345403 -0.0461430451
+FBgn0023423 -0.9339787 -0.0212875231
+FBgn0261004 -0.9330182 -0.1110362511
+FBgn0005777 -0.9329613  0.0023893919
+FBgn0015509 -0.9327292  0.0051775809
+FBgn0002283 -0.9326834  0.0008162528
+FBgn0033713 -0.9324083 -0.0150418792
+FBgn0000147 -0.9320814  0.0322442146
+FBgn0025463 -0.9316539  0.1104685462</code></pre>
+<pre class="r"><code>print(&quot;Top 25 genes for PC2&quot;)</code></pre>
+<pre><code>[1] &quot;Top 25 genes for PC2&quot;</code></pre>
+<pre class="r"><code>corPC2[1:25,1:2]</code></pre>
+<pre><code>                    PC1        PC2
+FBgn0266557 -0.44405752 -0.7144736
+FBgn0039633 -0.21975906 -0.6945128
+FBgn0261934 -0.28917005 -0.6944519
+FBgn0004656 -0.40540860 -0.6775090
+FBgn0261710 -0.46244941 -0.6757103
+FBgn0261885 -0.43099439 -0.6643269
+FBgn0035046  0.14527954  0.6599874
+FBgn0260938 -0.35034056 -0.6554511
+FBgn0003415 -0.49280541 -0.6442147
+FBgn0031505  0.23686539  0.6384478
+FBgn0033734 -0.25935346  0.6336896
+FBgn0014391  0.14443586  0.6292862
+FBgn0086655 -0.39976549 -0.6291383
+FBgn0260794 -0.52508401 -0.6202584
+FBgn0031118 -0.32588375 -0.6143818
+FBgn0031698 -0.57669406 -0.6113601
+FBgn0050373 -0.18425451  0.6108915
+FBgn0037358 -0.29868080  0.6097206
+FBgn0037098 -0.49601674 -0.6089022
+FBgn0015269 -0.31830670 -0.6030480
+FBgn0035424 -0.62947752 -0.6020936
+FBgn0003048 -0.55242393 -0.6016356
+FBgn0033460 -0.53606309 -0.5989068
+FBgn0031107 -0.15900360 -0.5943350
+FBgn0039214 -0.03120886 -0.5917226</code></pre>
+</div>
+<div id="male" class="section level2">
+<h2>Male</h2>
+<p>Looking at male expression alone against male starvation resistance
+to identify patterns in population structure.</p>
+<pre class="r"><code># Read in data
+xpm &lt;- fread(&quot;data/xp-m.txt&quot;)
+
+xpa &lt;- xpm
+
+
+#store lines, remove, convert to matrix, and label rows
+xpaLines &lt;- xpa[,line]
+xpa &lt;- xpa[,line:=NULL]
+xpa &lt;- as.matrix(xpa)
+row.names(xpa) &lt;- xpaLines
+
+# performs PCA, scale=TRUE autocenters data around means
+pcs &lt;- prcomp(xpa, scale=TRUE)
+
+#compute variance and normalize to 100%
+pcVar &lt;- pcs$sdev^2
+pcVarNorm &lt;- round(pcVar/sum(pcVar)*100,2)
+
+#Scree plot data of first 10 PCs
+scree &lt;- data.frame(1:10, pcVarNorm[1:10])
+colnames(scree) &lt;- c(&quot;PC&quot;, &quot;variance&quot;)
+
+#ggplot arguments - Scree plot
+ggplot(data=scree, aes(x=PC, y=variance)) +
+  geom_bar(stat=&quot;identity&quot;) +
+  geom_text(aes(label=variance), vjust=-0.3, size=3.5) +
+  ggtitle(&quot;Male Scree Plot&quot;)</code></pre>
+<p><img src="figure/multiComp.Rmd/malePCA-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#PCA data
+pcaPlot &lt;- data.frame(line=rownames(pcs$x), pcs$x[,1], pcs$x[,2])
+starveLines &lt;- as.data.frame(dtf[,1:2])
+pcaPlot &lt;- na.omit(merge(x=pcaPlot,y=starveLines, by=&quot;line&quot;))
+colnames(pcaPlot) &lt;- c(&quot;line&quot;,&quot;X&quot;,&quot;Y&quot;,&quot;starve&quot;)
+
+
+#ggplot arguments - PC plot
+ggplot(data=pcaPlot, aes(x=X, y=Y, label=line, color=starve)) +
+  geom_point() +
+  scale_color_gradient(low=&quot;yellow&quot;, high=&quot;red&quot;) +
+  xlab(paste(&quot;PC1: &quot;,pcVarNorm[1],&quot;%&quot;, sep=&quot;&quot;)) +
+  ylab(paste(&quot;PC2: &quot;,pcVarNorm[2],&quot;%&quot;, sep=&quot;&quot;)) +
+  ggtitle(&quot;Male PCA&quot;)</code></pre>
+<p><img src="figure/multiComp.Rmd/malePCA-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Quantitative approach: correlations for the top 25 genes for each
+principal component.</p>
+<pre class="r"><code>genCor &lt;- cor(xpa, pcs$x[,1:2])
+
+genCor &lt;- as.data.frame(genCor)
+
+corPC1 &lt;- arrange(genCor,desc(abs(PC1)))
+corPC2 &lt;- arrange(genCor,desc(abs(PC2)))
+
+print(&quot;Top 25 genes for PC1:&quot;)</code></pre>
+<pre><code>[1] &quot;Top 25 genes for PC1:&quot;</code></pre>
+<pre class="r"><code>corPC1[1:25,1:2]</code></pre>
+<pre><code>                  PC1         PC2
+FBgn0040237 0.9516356 -0.06059154
+FBgn0028997 0.9477636 -0.09561773
+FBgn0028868 0.9463304 -0.02885302
+FBgn0046332 0.9458636 -0.14317497
+FBgn0035047 0.9458169 -0.11578090
+FBgn0035852 0.9447429 -0.15573131
+FBgn0039379 0.9440381 -0.17524985
+FBgn0034132 0.9393418 -0.07575502
+FBgn0032061 0.9392847 -0.11918686
+FBgn0052351 0.9391388 -0.04602165
+FBgn0045770 0.9379436 -0.15279889
+FBgn0039651 0.9356158 -0.09571697
+FBgn0031831 0.9355991 -0.12338666
+FBgn0028379 0.9353622 -0.10770702
+FBgn0039501 0.9351160 -0.18025622
+FBgn0038630 0.9349758 -0.17174711
+FBgn0052392 0.9349020 -0.04451645
+FBgn0034826 0.9348962 -0.18968749
+FBgn0037086 0.9348207 -0.11353418
+FBgn0035707 0.9345246 -0.19945730
+FBgn0031240 0.9344893 -0.21706268
+FBgn0031171 0.9344854 -0.18792717
+FBgn0003889 0.9340815 -0.13655950
+FBgn0036687 0.9338887 -0.16467928
+FBgn0039398 0.9330492 -0.21657000</code></pre>
+<pre class="r"><code>print(&quot;Top 25 genes for PC2&quot;)</code></pre>
+<pre><code>[1] &quot;Top 25 genes for PC2&quot;</code></pre>
+<pre class="r"><code>corPC2[1:25,1:2]</code></pre>
+<pre><code>                    PC1       PC2
+FBgn0029785  0.12192458 0.7608525
+FBgn0033699  0.15443441 0.7498466
+FBgn0000319 -0.01177530 0.7409928
+FBgn0010612  0.04694470 0.7390495
+FBgn0004403  0.11596149 0.7348360
+FBgn0024846 -0.04181795 0.7290463
+FBgn0013987 -0.10979224 0.7267325
+FBgn0037671  0.09382307 0.7262965
+FBgn0005533  0.18251398 0.7227590
+FBgn0003178 -0.05280979 0.7225617
+FBgn0010198  0.05957415 0.7220613
+FBgn0086472  0.10375612 0.7144960
+FBgn0029529  0.14138145 0.7144605
+FBgn0015521  0.16818631 0.7106158
+FBgn0261606  0.14410943 0.7079210
+FBgn0261592  0.12640064 0.7077203
+FBgn0001092 -0.01211316 0.7070597
+FBgn0040773 -0.01047885 0.7045846
+FBgn0024814  0.22501129 0.7043728
+FBgn0038834  0.17599833 0.7012447
+FBgn0032480  0.14436031 0.7005844
+FBgn0002590  0.12586372 0.6998639
+FBgn0015756  0.14363694 0.6928994
+FBgn0029888  0.09985687 0.6888837
+FBgn0034245  0.03126595 0.6888511</code></pre>
+</div>
+<div id="troubleshooting" class="section level2">
+<h2>Troubleshooting</h2>
+<p>I plotted the top ten principal components against each other to
+visally identify any clustering among any of the components. all
+principal components fail to separate cleanly.</p>
+<pre class="r"><code># Read in data
+xpm &lt;- fread(&quot;data/xp-m.txt&quot;)
+
+xpa &lt;- xpm
+
+
+#store lines, remove, convert to matrix, and label rows
+xpaLines &lt;- xpa[,line]
+xpa &lt;- xpa[,line:=NULL]
+xpa &lt;- as.matrix(xpa)
+row.names(xpa) &lt;- xpaLines
+
+# performs PCA, scale=TRUE autocenters data around means
+pcs &lt;- prcomp(xpa, scale=TRUE)
+
+#compute variance and normalize to 100%
+pcVar &lt;- pcs$sdev^2
+pcVarNorm &lt;- round(pcVar/sum(pcVar)*100,2)
+
+#PCA data
+pcaPlot &lt;- data.frame(pcs$x[,1:10])
+
+par(mfrow=c(2,3))
+
+for(i in 1:10){
+  for(j in 1:10){
+    if(i!=j){
+      plot(pcaPlot[,i], pcaPlot[,j])
+      
+    }else{
+      #nothing
+    }
+  }
+}</code></pre>
+<p><img src="figure/multiComp.Rmd/groupingcheck-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-10.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-11.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-12.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-13.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-14.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-15.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#ggplot arguments - PC plot</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1032,6 +1297,7 @@ loaded via a namespace (and not attached):
 [53] Matrix_1.4-1     ellipsis_0.3.2   assertthat_0.2.1 rmarkdown_2.16  
 [57] httr_1.4.2       rstudioapi_0.13  R6_2.5.1         nlme_3.1-157    
 [61] git2r_0.30.1     compiler_4.0.3  </code></pre>
+</div>
 </div>
 </div>
 
