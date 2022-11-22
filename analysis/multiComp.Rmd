@@ -9,9 +9,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r 0-setup, include=FALSE}
-rm(list=ls())
-
+```{r 0-setup}
 library(dplyr)
 library(stringr)
 library(data.table)
@@ -99,7 +97,10 @@ gg <- cbind(gg,storage)
 
 gg <- gg[order(abs(storage),decreasing=TRUE),]
 
+```
 
+
+```{r plots, echo=FALSE}
 
 par(mfrow=c(2,2))
 plot_grid(gg[[1]],gg[[2]],gg[[3]],gg[[4]],ncol=2)
