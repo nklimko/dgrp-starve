@@ -10,11 +10,12 @@ editor_options:
 ---
 
 ```{r 0-setup, include=FALSE}
+rm(list=ls())
+
 library(dplyr)
 library(stringr)
 library(data.table)
 library(ggplot2)
-
 library(cowplot)
 
 #gg[[1]],gg[[2]],gg[[3]],gg[[4]],gg[[5]],gg[[6]],gg[[7]],gg[[8]],gg[[9]],gg[[10]],gg[[11]],gg[[12]],gg[[13]],gg[[14]],gg[[15]],gg[[16]],gg[[17]]
@@ -22,7 +23,12 @@ library(cowplot)
 ```
 
 
-```{r}
+# Multiple Comparison
+
+Starvation was plotted against every other trait and correlations were calculated. Ideally, strong correlation between traits can be used to increase the impact of PCA as traits with strong correlations can be used to reduce dimensions. Strong correlations allow for calculated columns.
+
+```{r multicomp}
+
 # Read in tables
 dtf <- fread("data/eQTL_traits_females.csv")
 dtm <- fread("data/eQTL_traits_males.csv")
@@ -35,12 +41,10 @@ setcolorder(dtm, c(1,11,3:10,12:20,2))
 # Bind tables on line
 bound <- dtm[dtf, on=.(line)]
 
-colnames(bound)
-
 # create average starvation
 x <- (bound[,2,with=FALSE] + bound[,21,with=FALSE]) / 2
 
-storage <- rep(0,20)
+storage <- rep(0,18)
 gg <- vector(mode='list', length=18)
 
   # AGGRESSION, male only
@@ -88,36 +92,336 @@ gg[[i-1]] <- ggplot(clean, aes(x=starvation, y=trait)) +
   geom_point() +
   geom_smooth(formula = y ~ x, method=lm) +
   labs(title = graphTitle, x="starvation",y=yL)
-  
-  
 }
+
+
+gg <- cbind(gg,storage)
+
+gg <- gg[order(abs(storage),decreasing=TRUE),]
+
+
 
 par(mfrow=c(2,2))
 plot_grid(gg[[1]],gg[[2]],gg[[3]],gg[[4]],ncol=2)
 plot_grid(gg[[5]],gg[[6]],gg[[7]],gg[[8]],ncol=2)
 plot_grid(gg[[9]],gg[[10]],gg[[11]],gg[[12]],ncol=2)
 plot_grid(gg[[13]],gg[[14]],gg[[15]],gg[[16]],ncol=2)
-plot_grid(gg[[17]])
-
-```
-
-
-
-
-```{r damageZone}
-
-
-
-
-
-
-
-
-
+par(mfrow=c(2,1))
+plot_grid(gg[[17]],gg[[18]])
 
 
 
 ```
 
 
-# About
+# Principle Component Analyses
+
+The goal of PCA with any dataset is to reduce the dimensionality into simpler and more intuitive bases. 
+
+
+
+#### Useful Links
+
+[Thorough explanation of PCA](https://youtu.be/FgakZw6K1QQ)
+
+[PCA in R](https://www.youtube.com/watch?v=0Jp4gsfOLMs)
+
+[prcomp function](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/prcomp)
+
+## Combined
+
+This approach will mostly capture the difference between male and female expression levels with the intention of revealing starvatino resistance patterns within each subgroup.
+
+```{r combinedPCA}
+
+dtf <- fread("data/eQTL_traits_females.csv")
+dtm <- fread("data/eQTL_traits_males.csv")
+xpf <- fread("data/xp-f.txt")
+xpm <- fread("data/xp-m.txt")
+
+#extract starvation and line
+lsf <- dtf[,c(1,10)]
+lsm <- dtm[,c(1,11)]
+
+testF <- merge(xpf,lsf,all.x=TRUE)
+testM <- merge(xpm,lsm,all.x=TRUE)
+
+testF[,group:="female"]
+testM[,group:="male"]
+
+#move starvation label to front, after line
+setcolorder(testF, c(1,11340:11341,2:11339))
+setcolorder(testM, c(1,13577:13578,2:13576))
+
+xpa <- rbind(testF, testM, fill=TRUE)
+
+#set all NULL to zero
+xpa[is.na(xpa)] <- 0
+
+
+#PCA analysis
+pcs <- prcomp(xpa[,c(-1,-2,-3)], scale=TRUE)
+
+#compute variance and normalize to 100%
+pcVar <- pcs$sdev^2
+pcVarNorm <- round(pcVar/sum(pcVar)*100,2)
+
+#Scree plot data of first 10 PCs
+scree <- data.frame(1:10, pcVarNorm[1:10])
+colnames(scree) <- c("PC", "variance")
+ 
+#ggplot arguments - Scree plot
+ggplot(data=scree, aes(x=PC, y=variance)) +
+  geom_bar(stat="identity") +
+  geom_text(aes(label=variance), vjust=-0.3, size=3.5) +
+  ggtitle("Combined Scree Plot")
+
+#plot data from PCA to ggplot
+pcaPlot <- data.frame(xpa[,1:3], X=pcs$x[,1], Y=pcs$x[,2])
+
+#Group identification
+ggplot(data=pcaPlot, aes(x=X, y=Y, color=group)) +
+  geom_point() +
+  xlab(paste("PC1: ",pcVarNorm[1],"%", sep="")) +
+  ylab(paste("PC2: ",pcVarNorm[2],"%", sep="")) +
+  ggtitle("Combined PCA")
+
+#starvation patterns
+ggplot(data=pcaPlot, aes(x=X, y=Y, color=starvation)) +
+  geom_point() +
+  scale_color_gradient(low="yellow", high="red") +
+  xlab(paste("PC1: ",pcVarNorm[1],"%", sep="")) +
+  ylab(paste("PC2: ",pcVarNorm[2],"%", sep="")) +
+  ggtitle("Combined PCA")
+
+  
+
+
+genCor <- cor(xpa[,c(-1,-2,-3)], pcaPlot[,4:5])
+
+genCor <- as.data.frame(genCor)
+
+
+corPC1 <- arrange(genCor,desc(abs(X)))
+corPC2 <- arrange(genCor,desc(abs(Y)))
+
+corPC1[1:25,1:2]
+corPC2[1:25,1:2]
+
+
+
+```
+
+
+## Female
+
+Looking at female expression alone against female starvation resistance to identify patterns in population structure.
+
+```{r femalePCA}
+
+# Read in data
+xpf <- fread("data/xp-f.txt")
+
+xpa <- xpf
+
+#store lines, remove, convert to matrix, and label rows
+xpaLines <- xpa[,line]
+xpa <- xpa[,line:=NULL]
+xpa <- as.matrix(xpa)
+row.names(xpa) <- xpaLines
+
+# performs PCA, scale=TRUE autocenters data around means
+pcs <- prcomp(xpa, scale=TRUE)
+
+#compute variance and normalize to 100%
+pcVar <- pcs$sdev^2
+pcVarNorm <- round(pcVar/sum(pcVar)*100,2)
+
+#Scree plot data of first 10 PCs
+scree <- data.frame(1:10, pcVarNorm[1:10])
+colnames(scree) <- c("PC", "variance")
+
+#ggplot arguments - Scree plot
+ggplot(data=scree, aes(x=PC, y=variance)) +
+  geom_bar(stat="identity") +
+  geom_text(aes(label=variance), vjust=-0.3, size=3.5) +
+  ggtitle("Female Scree Plot")
+
+
+#PCA data
+pcaPlot <- data.frame(line=rownames(pcs$x), pcs$x[,1], pcs$x[,2])
+starveLines <- as.data.frame(dtf[,1:2])
+pcaPlot <- na.omit(merge(x=pcaPlot,y=starveLines, by="line"))
+colnames(pcaPlot) <- c("line","X","Y","starve")
+
+
+#ggplot arguments - PC plot
+ggplot(data=pcaPlot, aes(x=X, y=Y, label=line, color=starve)) +
+  geom_point() +
+  scale_color_gradient(low="yellow", high="red") +
+  xlab(paste("PC1: ",pcVarNorm[1],"%", sep="")) +
+  ylab(paste("PC2: ",pcVarNorm[2],"%", sep="")) +
+  ggtitle("Female PCA")
+  
+
+
+```
+
+Quantitative approach: correlations for the top 25 genes for each principal component.
+
+```{r}
+
+genCor <- cor(xpa, pcs$x[,1:2])
+
+genCor <- as.data.frame(genCor)
+
+corPC1 <- arrange(genCor,desc(abs(PC1)))
+corPC2 <- arrange(genCor,desc(abs(PC2)))
+
+print("Top 25 genes for PC1:")
+corPC1[1:25,1:2]
+
+print("Top 25 genes for PC2")
+corPC2[1:25,1:2]
+
+
+
+```
+
+## Male
+
+Looking at male expression alone against male starvation resistance to identify patterns in population structure.
+
+```{r malePCA}
+# Read in data
+xpm <- fread("data/xp-m.txt")
+
+xpa <- xpm
+
+
+#store lines, remove, convert to matrix, and label rows
+xpaLines <- xpa[,line]
+xpa <- xpa[,line:=NULL]
+xpa <- as.matrix(xpa)
+row.names(xpa) <- xpaLines
+
+# performs PCA, scale=TRUE autocenters data around means
+pcs <- prcomp(xpa, scale=TRUE)
+
+#compute variance and normalize to 100%
+pcVar <- pcs$sdev^2
+pcVarNorm <- round(pcVar/sum(pcVar)*100,2)
+
+#Scree plot data of first 10 PCs
+scree <- data.frame(1:10, pcVarNorm[1:10])
+colnames(scree) <- c("PC", "variance")
+
+#ggplot arguments - Scree plot
+ggplot(data=scree, aes(x=PC, y=variance)) +
+  geom_bar(stat="identity") +
+  geom_text(aes(label=variance), vjust=-0.3, size=3.5) +
+  ggtitle("Male Scree Plot")
+
+
+#PCA data
+pcaPlot <- data.frame(line=rownames(pcs$x), pcs$x[,1], pcs$x[,2])
+starveLines <- as.data.frame(dtf[,1:2])
+pcaPlot <- na.omit(merge(x=pcaPlot,y=starveLines, by="line"))
+colnames(pcaPlot) <- c("line","X","Y","starve")
+
+
+#ggplot arguments - PC plot
+ggplot(data=pcaPlot, aes(x=X, y=Y, label=line, color=starve)) +
+  geom_point() +
+  scale_color_gradient(low="yellow", high="red") +
+  xlab(paste("PC1: ",pcVarNorm[1],"%", sep="")) +
+  ylab(paste("PC2: ",pcVarNorm[2],"%", sep="")) +
+  ggtitle("Male PCA")
+  
+
+
+```
+
+Quantitative approach: correlations for the top 25 genes for each principal component.
+
+```{r}
+
+genCor <- cor(xpa, pcs$x[,1:2])
+
+genCor <- as.data.frame(genCor)
+
+corPC1 <- arrange(genCor,desc(abs(PC1)))
+corPC2 <- arrange(genCor,desc(abs(PC2)))
+
+print("Top 25 genes for PC1:")
+corPC1[1:25,1:2]
+
+print("Top 25 genes for PC2")
+corPC2[1:25,1:2]
+
+
+
+```
+
+
+
+
+## Troubleshooting
+
+I plotted the top ten principal components against each other to visally identify any clustering among any of the components. all principal components fail to separate cleanly. 
+
+
+
+```{r groupingcheck}
+
+# Read in data
+xpm <- fread("data/xp-m.txt")
+
+xpa <- xpm
+
+
+#store lines, remove, convert to matrix, and label rows
+xpaLines <- xpa[,line]
+xpa <- xpa[,line:=NULL]
+xpa <- as.matrix(xpa)
+row.names(xpa) <- xpaLines
+
+# performs PCA, scale=TRUE autocenters data around means
+pcs <- prcomp(xpa, scale=TRUE)
+
+#compute variance and normalize to 100%
+pcVar <- pcs$sdev^2
+pcVarNorm <- round(pcVar/sum(pcVar)*100,2)
+
+#PCA data
+pcaPlot <- data.frame(pcs$x[,1:10])
+
+par(mfrow=c(2,3))
+
+for(i in 1:10){
+  for(j in 1:10){
+    if(i!=j){
+      plot(pcaPlot[,i], pcaPlot[,j])
+      
+    }else{
+      #nothing
+    }
+  }
+}
+
+#ggplot arguments - PC plot
+
+
+
+
+
+
+
+```
+
+
+
+
+
+
+
