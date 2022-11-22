@@ -543,15 +543,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreefc90dac9e4a1f2a39ec46771c0c6b749e2da51b1targetblankfc90daca">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreee82e73c2fe383dcb0cc7a3f70564bc6ba061e23ctargetblanke82e73ca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/nklimko/dgrp-starve/tree/fc90dac9e4a1f2a39ec46771c0c6b749e2da51b1" target="_blank">fc90dac</a>
+<a href="https://github.com/nklimko/dgrp-starve/tree/e82e73c2fe383dcb0cc7a3f70564bc6ba061e23c" target="_blank">e82e73c</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreefc90dac9e4a1f2a39ec46771c0c6b749e2da51b1targetblankfc90daca"
+id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreee82e73c2fe383dcb0cc7a3f70564bc6ba061e23ctargetblanke82e73ca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -561,7 +561,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/nklimko/dgrp-starve/tree/fc90dac9e4a1f2a39ec46771c0c6b749e2da51b1" target="_blank">fc90dac</a>.
+<a href="https://github.com/nklimko/dgrp-starve/tree/e82e73c2fe383dcb0cc7a3f70564bc6ba061e23c" target="_blank">e82e73c</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -641,6 +641,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/e82e73c2fe383dcb0cc7a3f70564bc6ba061e23c/analysis/multiComp.Rmd" target="_blank">e82e73c</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-11-22
+</td>
+<td>
+wflow_publish("analysis/*")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/f09779ec190667ec4bd3e7d1b1dd24f717eb9970/docs/multiComp.html" target="_blank">f09779e</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-11-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -733,6 +767,26 @@ wflow_publish("analysis/*")
 </div>
 </div>
 </div>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>
+Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>The following objects are masked from &#39;package:stats&#39;:
+
+    filter, lag</code></pre>
+<pre><code>The following objects are masked from &#39;package:base&#39;:
+
+    intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(stringr)
+library(data.table)</code></pre>
+<pre><code>
+Attaching package: &#39;data.table&#39;</code></pre>
+<pre><code>The following objects are masked from &#39;package:dplyr&#39;:
+
+    between, first, last</code></pre>
+<pre class="r"><code>library(ggplot2)
+library(cowplot)
+
+#gg[[1]],gg[[2]],gg[[3]],gg[[4]],gg[[5]],gg[[6]],gg[[7]],gg[[8]],gg[[9]],gg[[10]],gg[[11]],gg[[12]],gg[[13]],gg[[14]],gg[[15]],gg[[16]],gg[[17]]</code></pre>
 <div id="multiple-comparison" class="section level1">
 <h1>Multiple Comparison</h1>
 <p>Starvation was plotted against every other trait and correlations
@@ -808,32 +862,8 @@ gg[[i-1]] &lt;- ggplot(clean, aes(x=starvation, y=trait)) +
 
 gg &lt;- cbind(gg,storage)
 
-gg &lt;- gg[order(abs(storage),decreasing=TRUE),]
-
-
-
-par(mfrow=c(2,2))
-plot_grid(gg[[1]],gg[[2]],gg[[3]],gg[[4]],ncol=2)</code></pre>
-<pre><code>Warning in grid.Call.graphics(C_polygon, x$x, x$y, index): semi-transparency is
-not supported on this device: reported only once per page</code></pre>
-<p><img src="figure/multiComp.Rmd/multicomp-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>plot_grid(gg[[5]],gg[[6]],gg[[7]],gg[[8]],ncol=2)</code></pre>
-<pre><code>Warning in grid.Call.graphics(C_polygon, x$x, x$y, index): semi-transparency is
-not supported on this device: reported only once per page</code></pre>
-<p><img src="figure/multiComp.Rmd/multicomp-2.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>plot_grid(gg[[9]],gg[[10]],gg[[11]],gg[[12]],ncol=2)</code></pre>
-<pre><code>Warning in grid.Call.graphics(C_polygon, x$x, x$y, index): semi-transparency is
-not supported on this device: reported only once per page</code></pre>
-<p><img src="figure/multiComp.Rmd/multicomp-3.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>plot_grid(gg[[13]],gg[[14]],gg[[15]],gg[[16]],ncol=2)</code></pre>
-<pre><code>Warning in grid.Call.graphics(C_polygon, x$x, x$y, index): semi-transparency is
-not supported on this device: reported only once per page</code></pre>
-<p><img src="figure/multiComp.Rmd/multicomp-4.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>par(mfrow=c(2,1))
-plot_grid(gg[[17]],gg[[18]])</code></pre>
-<pre><code>Warning in grid.Call.graphics(C_polygon, x$x, x$y, index): semi-transparency is
-not supported on this device: reported only once per page</code></pre>
-<p><img src="figure/multiComp.Rmd/multicomp-5.png" width="672" style="display: block; margin: auto;" /></p>
+gg &lt;- gg[order(abs(storage),decreasing=TRUE),]</code></pre>
+<p><img src="figure/multiComp.Rmd/plots-1.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/plots-2.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/plots-3.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/plots-4.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/plots-5.svg" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="principle-component-analyses" class="section level1">
 <h1>Principle Component Analyses</h1>
@@ -895,7 +925,7 @@ ggplot(data=scree, aes(x=PC, y=variance)) +
   geom_bar(stat=&quot;identity&quot;) +
   geom_text(aes(label=variance), vjust=-0.3, size=3.5) +
   ggtitle(&quot;Combined Scree Plot&quot;)</code></pre>
-<p><img src="figure/multiComp.Rmd/combinedPCA-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/multiComp.Rmd/combinedPCA-1.svg" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>#plot data from PCA to ggplot
 pcaPlot &lt;- data.frame(xpa[,1:3], X=pcs$x[,1], Y=pcs$x[,2])
 
@@ -905,7 +935,7 @@ ggplot(data=pcaPlot, aes(x=X, y=Y, color=group)) +
   xlab(paste(&quot;PC1: &quot;,pcVarNorm[1],&quot;%&quot;, sep=&quot;&quot;)) +
   ylab(paste(&quot;PC2: &quot;,pcVarNorm[2],&quot;%&quot;, sep=&quot;&quot;)) +
   ggtitle(&quot;Combined PCA&quot;)</code></pre>
-<p><img src="figure/multiComp.Rmd/combinedPCA-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/multiComp.Rmd/combinedPCA-2.svg" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>#starvation patterns
 ggplot(data=pcaPlot, aes(x=X, y=Y, color=starvation)) +
   geom_point() +
@@ -913,7 +943,7 @@ ggplot(data=pcaPlot, aes(x=X, y=Y, color=starvation)) +
   xlab(paste(&quot;PC1: &quot;,pcVarNorm[1],&quot;%&quot;, sep=&quot;&quot;)) +
   ylab(paste(&quot;PC2: &quot;,pcVarNorm[2],&quot;%&quot;, sep=&quot;&quot;)) +
   ggtitle(&quot;Combined PCA&quot;)</code></pre>
-<p><img src="figure/multiComp.Rmd/combinedPCA-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/multiComp.Rmd/combinedPCA-3.svg" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>genCor &lt;- cor(xpa[,c(-1,-2,-3)], pcaPlot[,4:5])
 
 genCor &lt;- as.data.frame(genCor)
@@ -1008,7 +1038,7 @@ ggplot(data=scree, aes(x=PC, y=variance)) +
   geom_bar(stat=&quot;identity&quot;) +
   geom_text(aes(label=variance), vjust=-0.3, size=3.5) +
   ggtitle(&quot;Female Scree Plot&quot;)</code></pre>
-<p><img src="figure/multiComp.Rmd/femalePCA-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/multiComp.Rmd/femalePCA-1.svg" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>#PCA data
 pcaPlot &lt;- data.frame(line=rownames(pcs$x), pcs$x[,1], pcs$x[,2])
 starveLines &lt;- as.data.frame(dtf[,1:2])
@@ -1023,7 +1053,7 @@ ggplot(data=pcaPlot, aes(x=X, y=Y, label=line, color=starve)) +
   xlab(paste(&quot;PC1: &quot;,pcVarNorm[1],&quot;%&quot;, sep=&quot;&quot;)) +
   ylab(paste(&quot;PC2: &quot;,pcVarNorm[2],&quot;%&quot;, sep=&quot;&quot;)) +
   ggtitle(&quot;Female PCA&quot;)</code></pre>
-<p><img src="figure/multiComp.Rmd/femalePCA-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/multiComp.Rmd/femalePCA-2.svg" width="672" style="display: block; margin: auto;" /></p>
 <p>Quantitative approach: correlations for the top 25 genes for each
 principal component.</p>
 <pre class="r"><code>genCor &lt;- cor(xpa, pcs$x[,1:2])
@@ -1124,7 +1154,7 @@ ggplot(data=scree, aes(x=PC, y=variance)) +
   geom_bar(stat=&quot;identity&quot;) +
   geom_text(aes(label=variance), vjust=-0.3, size=3.5) +
   ggtitle(&quot;Male Scree Plot&quot;)</code></pre>
-<p><img src="figure/multiComp.Rmd/malePCA-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/multiComp.Rmd/malePCA-1.svg" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>#PCA data
 pcaPlot &lt;- data.frame(line=rownames(pcs$x), pcs$x[,1], pcs$x[,2])
 starveLines &lt;- as.data.frame(dtf[,1:2])
@@ -1139,7 +1169,7 @@ ggplot(data=pcaPlot, aes(x=X, y=Y, label=line, color=starve)) +
   xlab(paste(&quot;PC1: &quot;,pcVarNorm[1],&quot;%&quot;, sep=&quot;&quot;)) +
   ylab(paste(&quot;PC2: &quot;,pcVarNorm[2],&quot;%&quot;, sep=&quot;&quot;)) +
   ggtitle(&quot;Male PCA&quot;)</code></pre>
-<p><img src="figure/multiComp.Rmd/malePCA-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/multiComp.Rmd/malePCA-2.svg" width="672" style="display: block; margin: auto;" /></p>
 <p>Quantitative approach: correlations for the top 25 genes for each
 principal component.</p>
 <pre class="r"><code>genCor &lt;- cor(xpa, pcs$x[,1:2])
@@ -1247,7 +1277,7 @@ for(i in 1:10){
     }
   }
 }</code></pre>
-<p><img src="figure/multiComp.Rmd/groupingcheck-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-10.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-11.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-12.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-13.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-14.png" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-15.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/multiComp.Rmd/groupingcheck-1.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-2.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-3.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-4.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-5.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-6.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-7.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-8.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-9.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-10.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-11.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-12.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-13.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-14.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/groupingcheck-15.svg" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>#ggplot arguments - PC plot</code></pre>
 <br>
 <p>
