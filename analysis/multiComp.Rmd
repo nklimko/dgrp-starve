@@ -9,7 +9,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r 0-setup, echo=FALSE, warning=FALSE}
+```{r 0-setup, include=FALSE, echo=FALSE, warning=FALSE}
 library(dplyr)
 library(stringr)
 library(data.table)
