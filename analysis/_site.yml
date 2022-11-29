@@ -11,6 +11,8 @@ navbar:
     href: scripts.html
   - text: Multiple Comparison
     href: multiComp.html
+  - text: PCA
+    href: pca.html
   - text: License
     href: license.html
   right:
