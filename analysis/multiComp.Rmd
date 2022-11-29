@@ -16,6 +16,7 @@ library(data.table)
 library(ggplot2)
 library(cowplot)
 library(ggvenn)
+options(bitmapType="cairo")
 
 ```
 
