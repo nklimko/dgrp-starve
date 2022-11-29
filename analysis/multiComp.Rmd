@@ -291,7 +291,7 @@ corCoeff <- str_sub(as.character(cor.test(aMeans$xpfMean, aMeans$xpmMean)[4]), 8
 ggplot(aMeans, aes(x=xpfMean, y=xpmMean)) +
 geom_point(color="purple") +
 geom_smooth(formula = y ~ x, method=lm) +
-labs(x="Female Expression", y="Female Expression", subtitle=paste0("R: ",corCoeff)) +
+labs(x="Female Expression", y="Male Expression", subtitle=paste0("R: ",corCoeff)) +
 ggtitle("Male vs Female Mean Expression")
 
 ```
