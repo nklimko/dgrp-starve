@@ -83,10 +83,10 @@ gg <- gg[order(abs(corKeep),decreasing=TRUE),]
 
 par(mfrow=c(2,2))
 plot_grid(gg[[1]],gg[[2]],gg[[3]],gg[[4]],ncol=2)
-plot_grid(gg[[5]],gg[[6]],gg[[7]],gg[[8]],ncol=2)
-plot_grid(gg[[9]],gg[[10]],gg[[11]],gg[[12]],ncol=2)
-plot_grid(gg[[13]],gg[[14]],gg[[15]],gg[[16]],ncol=2)
-plot_grid(gg[[17]],NULL,NULL,NULL, ncol=2)
+#plot_grid(gg[[5]],gg[[6]],gg[[7]],gg[[8]],ncol=2)
+#plot_grid(gg[[9]],gg[[10]],gg[[11]],gg[[12]],ncol=2)
+#plot_grid(gg[[13]],gg[[14]],gg[[15]],gg[[16]],ncol=2)
+#plot_grid(gg[[17]],NULL,NULL,NULL, ncol=2)
 
 ```
 
@@ -148,10 +148,12 @@ gg <- gg[order(abs(corKeep),decreasing=TRUE),]
 
 par(mfrow=c(2,2))
 plot_grid(gg[[1]],gg[[2]],gg[[3]],gg[[4]],ncol=2)
-plot_grid(gg[[5]],gg[[6]],gg[[7]],gg[[8]],ncol=2)
-plot_grid(gg[[9]],gg[[10]],gg[[11]],gg[[12]],ncol=2)
-plot_grid(gg[[13]],gg[[14]],gg[[15]],gg[[16]],ncol=2)
-plot_grid(gg[[17]],gg[[18]],NULL,NULL, ncol=2)
+plot_grid(gg[[5]],gg[[6]],NULL,NULL,ncol=2)
+
+#,gg[[7]],gg[[8]],ncol=2)
+#plot_grid(gg[[9]],gg[[10]],gg[[11]],gg[[12]],ncol=2)
+#plot_grid(gg[[13]],gg[[14]],gg[[15]],gg[[16]],ncol=2)
+#plot_grid(gg[[17]],gg[[18]],NULL,NULL, ncol=2)
 
 ```
 
