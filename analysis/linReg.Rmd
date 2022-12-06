@@ -1,0 +1,323 @@
+---
+title: "Simple Regression"
+output:
+  workflowr::wflow_html:
+  toc: true
+latex_engine: "xelatex"
+code_folding: "hide"
+editor_options:
+  chunk_output_type: console
+---
+  
+```{r 0-setup, include=FALSE, warning=FALSE}
+library(dplyr)
+library(data.table)
+library(ggplot2)
+library(cowplot)
+
+set.seed(1)
+
+```
+
+
+# Prep
+
+```{r f-prep, evaluate=FALSE}
+
+# The following was run to prepare a data table for job submission
+
+#expression data
+xpf <- fread("data/xp-f.txt")
+
+#line/trait data
+dtf <- fread("data/eQTL_traits_females.csv")
+
+#select line and starvation only, remove nulls
+dtf <- na.omit(dtf[,c(1,10)])
+
+fwrite(dtf, "data/starve-f.txt")
+
+
+fMeans <- dtf[xpf, on = .(line), nomatch=NULL, all=TRUE]
+
+fwrite(fMeans, "data/fMeans.txt")
+```
+
+
+```{r m-prep, evaluate=FALSE}
+
+# The following was run to prepare a data table for job submission
+
+#expression data
+xpm <- fread("data/xp-m.txt")
+
+#line/trait data
+dtm <- fread("data/eQTL_traits_males.csv")
+
+#select line and starvation only, remove nulls
+dtm <- na.omit(dtm[,c(1,11)])
+
+fwrite(dtm, "data/starve-m.txt")
+
+
+mMeans <- dtm[xpm, on = .(line), nomatch=NULL, all=TRUE]
+
+fwrite(mMeans, "data/mMeans.txt")
+```
+
+
+# Demo
+
+As a demo, I've walked through the process for finding a correlation for the first gene. Below is a plot of starvation vs flybase gene 3:
+```{r process}
+
+plot(mMeans[,c(3,2), with=FALSE])
+
+```
+
+
+lm() returns the simple regression of y to x, giving parameters for a slope-intercept form equation
+```{r process-lm}
+
+y <- mMeans[,starvation]
+x <- mMeans[,3,with=FALSE]
+lm(formula=unlist(y)~unlist(x), na.action=na.omit)
+```
+
+
+Plotting this line show the effect of the particular gene(y) on starvation resistance(x)
+
+
+
+```{r process-abline}
+
+plot(mMeans[,c(3,2), with=FALSE])
+abline(22.91, 5.01)
+
+```
+
+summary() returns a variety of useful statistics regarding simple regression. 
+
+```{r process-summary}
+summary(lm(mMeans[,c(2,3), with=FALSE], na.action=na.omit))
+```
+
+The p-value is what we're interested in, and can be accessed from the summary object at [[4]][8]
+
+
+The following line of code combine all of these parts into one to extract the p-value from the correlation between starvation resistance and any gene denoted by column i. 
+
+```{r product, eval=FALSE}
+summary(lm(mMeans[,c(2,3), with=FALSE], na.action=na.omit))[[4]][8]
+```
+
+
+This will need to be run over 24 thousand times to capture every gene expressed in both mfemales and males. 
+
+# Correlations
+
+In order to save time, I used secretariat's computational resources to perform the correlation calculations in parallel. The following two sections of code were submission scripts performed in secretariat. 
+```{r f-correlations, eval=FALSE}
+
+library(dplyr)
+library(data.table)
+library(doParallel)
+
+registerDoParallel(cores = 12)
+
+# file path for final table
+filePath <- "/data/morgante_lab/nklimko/rep/dgrp-starve/data/fRegress.txt"
+
+# gene expression data from earlier bound to line and starvation
+fMeans <- fread("/data/morgante_lab/nklimko/rep/dgrp-starve/data/fMeans.txt")
+
+start <- 3
+end <- 11340
+#f 11340
+#m 13577
+
+# foreach creates a list with index indicating position in loop
+# function grabs the p-value from correlation of starvation to expression of trait
+pvalList <- foreach(i=start:end) %dopar% {  
+  temp <- summary(lm(fMeans[,c(2,i), with=FALSE], na.action=na.omit))[[4]][8]  
+}
+
+# converts list to vector
+part <- unlist(pvalList, use.names = FALSE)
+
+# binds p-vals to column index 
+id <- start:end
+part <- data.table(id,pvalList)
+
+# write table to file
+fwrite(part, filePath)
+
+```
+
+
+```{r m-correlations, eval=FALSE}
+library(dplyr)
+library(data.table)
+library(doParallel)
+
+registerDoParallel(cores = 12)
+
+# file path for final table
+filePath <- "/data/morgante_lab/nklimko/rep/dgrp-starve/data/mRegress.txt"
+
+# gene expression data from earlier bound to line and starvation
+mMeans <- fread("/data/morgante_lab/nklimko/rep/dgrp-starve/data/mMeans.txt")
+
+start <- 3
+end <- 13577
+
+# foreach creates a list with index indicating position in loop
+# function grabs the p-value from correlation of starvation to expression of trait
+pvalList <- foreach(i=start:end) %dopar% {
+  
+  temp <- summary(lm(mMeans[,c(2,i), with=FALSE], na.action=na.omit))[[4]][8]  
+}
+
+# converts list to vector
+part <- unlist(pvalList, use.names = FALSE)
+
+# binds p-vals to column index 
+id <- start:end
+part <- data.table(id,pvalList)
+
+#writes table to file
+fwrite(part, filePath)
+
+```
+
+
+# Manhattan and QQ Plots
+
+
+```{r f-qq}
+
+#f 11340
+#m 13577
+
+gg <- vector(mode='list', length=4)
+
+
+#read in results from compute node
+fReg <- fread("data/fRegress.txt")
+
+#number of data points
+n <- dim(fReg)[1]
+
+#uniform distribution
+uniform <- 1:n/(n+1)
+
+#sorted p values
+empirical <- sort(fReg[,pvalList])
+
+#-log 10
+logPlot <- -log10(fReg[,pvalList])
+
+#table for qqplot
+qqdata <- data.table(uniform, empirical, logPlot)
+
+# ggplot of data to fpr, qqplot
+gg[[1]] <- ggplot(qqdata, aes(x=uniform, y=empirical)) +
+  geom_point(color="red") +  
+  geom_segment(aes(x=0,y=0,xend=1,yend=1), linewidth=1) + 
+  xlab("Uniform Distribution") +
+  ylab("Sorted p-values") +
+  ggtitle("Female Expression QQ Plot")
+
+
+gg[[2]] <- ggplot(qqdata, aes(x=uniform, y=logPlot)) +
+  geom_point(color="red") + 
+  geom_hline(yintercept= -log10(0.05/n), color="magenta") +
+  xlab("Uniform Distribution") +
+  ylab("-log10 p-values") +
+  ggtitle("Female Expression Manhattan Plot")
+
+
+
+## Code for looking at specific genes
+#fMeans <- fread("data/fMeans.txt")
+#genes <- colnames(fMeans)
+#genes <- genes[3:length(genes)]
+#fReg <- fReg[, gene:=genes]
+
+```
+
+
+```{r m-qq}
+#read in results from compute node
+mReg <- fread("data/mRegress.txt")
+
+#number of data points
+n <- dim(mReg)[1]
+
+#uniform distribution
+uniform <- 1:n/(n+1)
+
+#sorted p values
+empirical <- sort(mReg[,pvalList])
+
+#-log 10
+logPlot <- -log10(mReg[,pvalList])
+
+#table for qqplot
+qqdata <- data.table(uniform, empirical, logPlot)
+
+# ggplot of data to fpr, qqplot
+gg[[3]] <- ggplot(qqdata, aes(x=uniform, y=empirical)) +
+  geom_point(color="blue") +  
+  geom_segment(aes(x=0,y=0,xend=1,yend=1), linewidth=1) + 
+  xlab("Uniform Distribution") +
+  ylab("Sorted p-values") +
+  ggtitle("Male Expression QQ Plot")
+
+gg[[4]] <- ggplot(qqdata, aes(x=uniform, y=logPlot)) +
+  geom_point(color="blue") + 
+  geom_hline(yintercept= -log10(0.05/n), color="cyan") +
+  xlab("Uniform Distribution") +
+  ylab("-log10 p-values") +
+  ggtitle("Male Expression Manhattan Plot")
+
+## Code for looking at specific genes
+#mMeans <- fread("data/mMeans.txt")
+#genes <- colnames(mMeans)
+#genes <- genes[3:length(genes)]
+#mReg <- mReg[, gene:=genes]
+
+```
+
+
+```{r f-plot, warning=FALSE}
+
+par(mfrow=c(1,2))
+
+plot_grid(gg[[1]],gg[[2]], ncol=2)
+
+
+```
+
+```{r m-plot, warning=FALSE}
+
+par(mfrow=c(1,2))
+
+plot_grid(gg[[3]],gg[[4]], ncol=2)
+
+
+```
+
+Part of the reason both plots deviate from linearity because we did not account for genes that were correlated with each other.
+
+
+
+
+
+
+
+
+
+
+
+
