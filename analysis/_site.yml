@@ -15,6 +15,8 @@ navbar:
     href: pca.html
   - text: License
     href: license.html
+  - text: Regression
+    href: linReg.html
   right:
   - icon: fab fa-github
     text: Source code
