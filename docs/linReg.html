@@ -16,7 +16,7 @@
 <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -29,8 +29,12 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
@@ -235,7 +239,73 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
 
 
 
@@ -245,6 +315,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -297,6 +377,14 @@ $(document).ready(function () {
 </div><!--/.navbar -->
 
 <div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
 
 
 
@@ -510,15 +598,15 @@ data/mMeans.txt
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree0277abe614e4a55ec3174c36c3a7918389323fb0targetblank0277abea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree90d18bcaf0abe2a9fd0162e179f54c5b6e83d957targetblank90d18bca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/nklimko/dgrp-starve/tree/0277abe614e4a55ec3174c36c3a7918389323fb0" target="_blank">0277abe</a>
+<a href="https://github.com/nklimko/dgrp-starve/tree/90d18bcaf0abe2a9fd0162e179f54c5b6e83d957" target="_blank">90d18bc</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree0277abe614e4a55ec3174c36c3a7918389323fb0targetblank0277abea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree90d18bcaf0abe2a9fd0162e179f54c5b6e83d957targetblank90d18bca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -528,7 +616,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/nklimko/dgrp-starve/tree/0277abe614e4a55ec3174c36c3a7918389323fb0" target="_blank">0277abe</a>.
+<a href="https://github.com/nklimko/dgrp-starve/tree/90d18bcaf0abe2a9fd0162e179f54c5b6e83d957" target="_blank">90d18bc</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -631,6 +719,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/90d18bcaf0abe2a9fd0162e179f54c5b6e83d957/analysis/linReg.Rmd" target="_blank">90d18bc</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-12-06
+</td>
+<td>
+wflow_publish("analysis/linReg.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/03fa2812ae1580eeeca5235f6a923826553d46d0/docs/linReg.html" target="_blank">03fa281</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-12-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/0277abe614e4a55ec3174c36c3a7918389323fb0/analysis/linReg.Rmd" target="_blank">0277abe</a>
 </td>
 <td>
@@ -693,6 +815,43 @@ fwrite(mMeans, &quot;data/mMeans.txt&quot;)</code></pre>
 for the first gene. Below is a plot of starvation vs flybase gene 3:</p>
 <pre class="r"><code>plot(mMeans[,c(3,2), with=FALSE])</code></pre>
 <p><img src="figure/linReg.Rmd/process-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-process-1">
+Past versions of process-1.png
+</button>
+</p>
+<div id="fig-process-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/03fa2812ae1580eeeca5235f6a923826553d46d0/docs/figure/linReg.Rmd/process-1.png" target="_blank">03fa281</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-12-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>lm() returns the simple regression of y to x, giving parameters for a
 slope-intercept form equation</p>
 <pre class="r"><code>y &lt;- mMeans[,starvation]
@@ -710,6 +869,43 @@ starvation resistance(x)</p>
 <pre class="r"><code>plot(mMeans[,c(3,2), with=FALSE])
 abline(22.91, 5.01)</code></pre>
 <p><img src="figure/linReg.Rmd/process-abline-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-process-abline-1">
+Past versions of process-abline-1.png
+</button>
+</p>
+<div id="fig-process-abline-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/03fa2812ae1580eeeca5235f6a923826553d46d0/docs/figure/linReg.Rmd/process-abline-1.png" target="_blank">03fa281</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-12-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>summary() returns a variety of useful statistics regarding simple
 regression.</p>
 <pre class="r"><code>summary(lm(mMeans[,c(2,3), with=FALSE], na.action=na.omit))</code></pre>
@@ -899,10 +1095,84 @@ gg[[3]] &lt;- ggplot(qqdata, aes(x=uniform, y=empirical)) +
 
 plot_grid(gg[[1]],gg[[2]], ncol=2)</code></pre>
 <p><img src="figure/linReg.Rmd/f-plot-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-f-plot-1">
+Past versions of f-plot-1.png
+</button>
+</p>
+<div id="fig-f-plot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/03fa2812ae1580eeeca5235f6a923826553d46d0/docs/figure/linReg.Rmd/f-plot-1.png" target="_blank">03fa281</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-12-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>par(mfrow=c(1,2))
 
 plot_grid(gg[[3]],gg[[4]], ncol=2)</code></pre>
 <p><img src="figure/linReg.Rmd/m-plot-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-m-plot-1">
+Past versions of m-plot-1.png
+</button>
+</p>
+<div id="fig-m-plot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/03fa2812ae1580eeeca5235f6a923826553d46d0/docs/figure/linReg.Rmd/m-plot-1.png" target="_blank">03fa281</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-12-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Part of the reason both plots deviate from linearity because we did
 not account for genes that were correlated with each other.</p>
 <br>
@@ -971,6 +1241,8 @@ footer is added to webpages before the MathJax javascript. -->
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -1002,7 +1274,41 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
