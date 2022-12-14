@@ -14,11 +14,12 @@ library(dplyr)
 library(data.table)
 library(ggplot2)
 library(cowplot)
-
+library(qqman)
 set.seed(1)
 
-```
+options(bitmapType = "cairo")
 
+```
 
 # Prep
 
@@ -37,12 +38,10 @@ dtf <- na.omit(dtf[,c(1,10)])
 
 fwrite(dtf, "data/starve-f.txt")
 
-
 fMeans <- dtf[xpf, on = .(line), nomatch=NULL, all=TRUE]
 
 fwrite(fMeans, "data/fMeans.txt")
 ```
-
 
 ```{r m-prep, evaluate=FALSE}
 
@@ -59,24 +58,23 @@ dtm <- na.omit(dtm[,c(1,11)])
 
 fwrite(dtm, "data/starve-m.txt")
 
-
 mMeans <- dtm[xpm, on = .(line), nomatch=NULL, all=TRUE]
 
 fwrite(mMeans, "data/mMeans.txt")
 ```
 
-
 # Demo
 
 As a demo, I've walked through the process for finding a correlation for the first gene. Below is a plot of starvation vs flybase gene 3:
+
 ```{r process}
 
 plot(mMeans[,c(3,2), with=FALSE])
 
 ```
 
-
 lm() returns the simple regression of y to x, giving parameters for a slope-intercept form equation
+
 ```{r process-lm}
 
 y <- mMeans[,starvation]
@@ -84,10 +82,7 @@ x <- mMeans[,3,with=FALSE]
 lm(formula=unlist(y)~unlist(x), na.action=na.omit)
 ```
 
-
 Plotting this line show the effect of the particular gene(y) on starvation resistance(x)
-
-
 
 ```{r process-abline}
 
@@ -97,13 +92,11 @@ abline(22.91, 5.01)
 ```
 
 summary() returns a variety of useful statistics regarding simple regression. 
-
 ```{r process-summary}
 summary(lm(mMeans[,c(2,3), with=FALSE], na.action=na.omit))
 ```
 
 The p-value is what we're interested in, and can be accessed from the summary object at [[4]][8]
-
 
 The following line of code combine all of these parts into one to extract the p-value from the correlation between starvation resistance and any gene denoted by column i. 
 
@@ -111,12 +104,12 @@ The following line of code combine all of these parts into one to extract the p-
 summary(lm(mMeans[,c(2,3), with=FALSE], na.action=na.omit))[[4]][8]
 ```
 
-
-This will need to be run over 24 thousand times to capture every gene expressed in both mfemales and males. 
+This will need to be run over 24 thousand times to capture every gene expressed in both females and males. 
 
 # Correlations
 
-In order to save time, I used secretariat's computational resources to perform the correlation calculations in parallel. The following two sections of code were submission scripts performed in secretariat. 
+In order to save time, I used secretariat's computational resources to perform the correlation calculations in parallel. The following two sections of code were submission scripts performed in secretariat.
+
 ```{r f-correlations, eval=FALSE}
 
 library(dplyr)
@@ -154,6 +147,7 @@ fwrite(part, filePath)
 
 ```
 
+Both of these are available by clicking the drop down buttons on the right ->
 
 ```{r m-correlations, eval=FALSE}
 library(dplyr)
@@ -190,17 +184,16 @@ fwrite(part, filePath)
 
 ```
 
-
-# Manhattan and QQ Plots
-
+#### QQ and Manthattan Data Prep ->
 
 ```{r f-qq}
+
+# Female qq prep
 
 #f 11340
 #m 13577
 
 gg <- vector(mode='list', length=4)
-
 
 #read in results from compute node
 fReg <- fread("data/fRegress.txt")
@@ -220,14 +213,17 @@ logPlot <- -log10(fReg[,pvalList])
 #table for qqplot
 qqdata <- data.table(uniform, empirical, logPlot)
 
+qqdataF <- qqdata
+
 # ggplot of data to fpr, qqplot
+if(FALSE){
 gg[[1]] <- ggplot(qqdata, aes(x=uniform, y=empirical)) +
   geom_point(color="red") +  
-  geom_segment(aes(x=0,y=0,xend=1,yend=1), linewidth=1) + 
+  geom_segment(aes(x=0,y=0,xend=1,yend=1)) + 
   xlab("Uniform Distribution") +
   ylab("Sorted p-values") +
   ggtitle("Female Expression QQ Plot")
-
+}
 
 gg[[2]] <- ggplot(qqdata, aes(x=uniform, y=logPlot)) +
   geom_point(color="red") + 
@@ -246,8 +242,10 @@ gg[[2]] <- ggplot(qqdata, aes(x=uniform, y=logPlot)) +
 
 ```
 
-
 ```{r m-qq}
+
+# Male qq prep
+
 #read in results from compute node
 mReg <- fread("data/mRegress.txt")
 
@@ -266,13 +264,19 @@ logPlot <- -log10(mReg[,pvalList])
 #table for qqplot
 qqdata <- data.table(uniform, empirical, logPlot)
 
+qqdataM <- qqdata
+
+
 # ggplot of data to fpr, qqplot
+if(FALSE){
 gg[[3]] <- ggplot(qqdata, aes(x=uniform, y=empirical)) +
   geom_point(color="blue") +  
   geom_segment(aes(x=0,y=0,xend=1,yend=1), linewidth=1) + 
   xlab("Uniform Distribution") +
   ylab("Sorted p-values") +
   ggtitle("Male Expression QQ Plot")
+}
+
 
 gg[[4]] <- ggplot(qqdata, aes(x=uniform, y=logPlot)) +
   geom_point(color="blue") + 
@@ -289,35 +293,27 @@ gg[[4]] <- ggplot(qqdata, aes(x=uniform, y=logPlot)) +
 
 ```
 
+# QQ Plots
 
-```{r f-plot, warning=FALSE}
+```{r qq-plot, warning=FALSE}
 
 par(mfrow=c(1,2))
 
-plot_grid(gg[[1]],gg[[2]], ncol=2)
-
+qq(qqdataF[,empirical], main="Female Gene p-values")
+qq(qqdataM[,empirical], main="Male Gene p-values")
 
 ```
 
-```{r m-plot, warning=FALSE}
+# Manhattan Plots
+
+```{r manhattan-plot, warning=FALSE}
 
 par(mfrow=c(1,2))
 
-plot_grid(gg[[3]],gg[[4]], ncol=2)
-
+plot_grid(gg[[2]],gg[[4]], ncol=2)
 
 ```
 
 Part of the reason both plots deviate from linearity because we did not account for genes that were correlated with each other.
-
-
-
-
-
-
-
-
-
-
 
 
