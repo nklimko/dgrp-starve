@@ -598,15 +598,15 @@ data/mMeans.txt
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreed011087d01e7731dcfd80fda5edfa7ae3111f948targetblankd011087a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree48531146f6e7196fe50e471a9712eb58af6d11d6targetblank4853114a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/nklimko/dgrp-starve/tree/d011087d01e7731dcfd80fda5edfa7ae3111f948" target="_blank">d011087</a>
+<a href="https://github.com/nklimko/dgrp-starve/tree/48531146f6e7196fe50e471a9712eb58af6d11d6" target="_blank">4853114</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreed011087d01e7731dcfd80fda5edfa7ae3111f948targetblankd011087a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree48531146f6e7196fe50e471a9712eb58af6d11d6targetblank4853114a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -616,7 +616,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/nklimko/dgrp-starve/tree/d011087d01e7731dcfd80fda5edfa7ae3111f948" target="_blank">d011087</a>.
+<a href="https://github.com/nklimko/dgrp-starve/tree/48531146f6e7196fe50e471a9712eb58af6d11d6" target="_blank">4853114</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -713,6 +713,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/48531146f6e7196fe50e471a9712eb58af6d11d6/analysis/linReg.Rmd" target="_blank">4853114</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-12-14
+</td>
+<td>
+wflow_publish("analysis/*.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/e7adcbcc8bbeddfbbf080ebdc4dc745e32b64f6a/docs/linReg.html" target="_blank">e7adcbc</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-12-14
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -870,6 +904,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/e7adcbcc8bbeddfbbf080ebdc4dc745e32b64f6a/docs/figure/linReg.Rmd/process-1.png" target="_blank">e7adcbc</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-12-14
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/03fa2812ae1580eeeca5235f6a923826553d46d0/docs/figure/linReg.Rmd/process-1.png" target="_blank">03fa281</a>
 </td>
 <td>
@@ -895,8 +940,8 @@ lm(formula = unlist(y) ~ unlist(x), na.action = na.omit)
 Coefficients:
 (Intercept)    unlist(x)  
       22.91         5.01  </code></pre>
-<p>Plotting this line show the effect of the particular gene(y) on
-starvation resistance(x)</p>
+<p>Plotting this line shows the effect of the particular gene(x) on
+starvation resistance(y).</p>
 <pre class="r"><code>plot(mMeans[,c(3,2), with=FALSE])
 abline(22.91, 5.01)</code></pre>
 <p><img src="figure/linReg.Rmd/process-abline-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -922,6 +967,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/e7adcbcc8bbeddfbbf080ebdc4dc745e32b64f6a/docs/figure/linReg.Rmd/process-abline-1.png" target="_blank">e7adcbc</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-12-14
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/03fa2812ae1580eeeca5235f6a923826553d46d0/docs/figure/linReg.Rmd/process-abline-1.png" target="_blank">03fa281</a>
@@ -1145,6 +1201,43 @@ gg[[4]] &lt;- ggplot(qqdata, aes(x=uniform, y=logPlot)) +
 qq(qqdataF[,empirical], main=&quot;Female Gene p-values&quot;)
 qq(qqdataM[,empirical], main=&quot;Male Gene p-values&quot;)</code></pre>
 <p><img src="figure/linReg.Rmd/qq-plot-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-qq-plot-1">
+Past versions of qq-plot-1.png
+</button>
+</p>
+<div id="fig-qq-plot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/e7adcbcc8bbeddfbbf080ebdc4dc745e32b64f6a/docs/figure/linReg.Rmd/qq-plot-1.png" target="_blank">e7adcbc</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-12-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="manhattan-plots" class="section level1">
 <h1>Manhattan Plots</h1>
@@ -1152,6 +1245,43 @@ qq(qqdataM[,empirical], main=&quot;Male Gene p-values&quot;)</code></pre>
 
 plot_grid(gg[[2]],gg[[4]], ncol=2)</code></pre>
 <p><img src="figure/linReg.Rmd/manhattan-plot-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-manhattan-plot-1">
+Past versions of manhattan-plot-1.png
+</button>
+</p>
+<div id="fig-manhattan-plot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/e7adcbcc8bbeddfbbf080ebdc4dc745e32b64f6a/docs/figure/linReg.Rmd/manhattan-plot-1.png" target="_blank">e7adcbc</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-12-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Part of the reason both plots deviate from linearity because we did
 not account for genes that were correlated with each other.</p>
 <br>
