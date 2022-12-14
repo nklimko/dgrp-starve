@@ -82,7 +82,7 @@ x <- mMeans[,3,with=FALSE]
 lm(formula=unlist(y)~unlist(x), na.action=na.omit)
 ```
 
-Plotting this line show the effect of the particular gene(y) on starvation resistance(x)
+Plotting this line shows the effect of the particular gene(x) on starvation resistance(y). 
 
 ```{r process-abline}
 
