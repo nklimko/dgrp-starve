@@ -70,7 +70,7 @@ fReg <- fReg[, gene:=geneNames]
 ###sorted p values
 
 # LOW pval
-pSort <- fReg[order(-pvalList)]
+pSort <- fReg[order(pvalList)]
 
 #HIGH pval
 #pSort <- fReg[order(-pvalList)]
@@ -141,10 +141,10 @@ mReg <- mReg[, gene:=geneNames]
 ###sorted p values
 
 # LOW pval
-#pSort <- mReg[order(pvalList)]
+pSort <- mReg[order(pvalList)]
 
 #HIGH pval
-pSort <- mReg[order(-pvalList)]
+#pSort <- mReg[order(-pvalList)]
 
 # fixed effect vector USELESS, must be matched to certain values 
 b <- c(rnorm(p_effect, mean=6), rep(0, p-p_effect))
