@@ -551,15 +551,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree7b1c5525e79af24b87438510de7939a25b9e2a4etargetblank7b1c552a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree790533af125d396c10c72cab14daf8fa575cc578targetblank790533aa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/nklimko/dgrp-starve/tree/7b1c5525e79af24b87438510de7939a25b9e2a4e" target="_blank">7b1c552</a>
+<a href="https://github.com/nklimko/dgrp-starve/tree/790533af125d396c10c72cab14daf8fa575cc578" target="_blank">790533a</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree7b1c5525e79af24b87438510de7939a25b9e2a4etargetblank7b1c552a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree790533af125d396c10c72cab14daf8fa575cc578targetblank790533aa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -569,7 +569,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/nklimko/dgrp-starve/tree/7b1c5525e79af24b87438510de7939a25b9e2a4e" target="_blank">7b1c552</a>.
+<a href="https://github.com/nklimko/dgrp-starve/tree/790533af125d396c10c72cab14daf8fa575cc578" target="_blank">790533a</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -675,6 +675,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/790533af125d396c10c72cab14daf8fa575cc578/analysis/multiReg.Rmd" target="_blank">790533a</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-12-21
+</td>
+<td>
+wflow_publish("analysis/multiReg.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/177257f4e1ff0f4c8afbf6ce2fbf6c0170d0f098/docs/multiReg.html" target="_blank">177257f</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-12-21
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/7b1c5525e79af24b87438510de7939a25b9e2a4e/analysis/multiReg.Rmd" target="_blank">7b1c552</a>
 </td>
 <td>
@@ -704,6 +738,9 @@ better correlations assist in prediction of starvation resistance.</p>
 either goes to positive infinity and overflows to a negative value or
 reaches zero and “converges” at zero. If this webpage renders, then both
 runs will have converged on zero.</p>
+<p>Additionally, I left verbose on TRUE to observe iteration steps as
+while randomness is seeded, iteration steps were not the same every
+time.</p>
 </div>
 <div id="female" class="section level1">
 <h1>Female</h1>
@@ -823,6 +860,46 @@ fit &lt;- greml(y = y, X = mu, GRM = list(TRM), verbose = TRUE, maxit = 100)</co
 #qqplot
 qq(stat[,4], main=&quot;Female Gene p-values&quot;)</code></pre>
 <p><img src="figure/multiReg.Rmd/f-qq-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-f-qq-1">
+Past versions of f-qq-1.png
+</button>
+</p>
+<div id="fig-f-qq-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/177257f4e1ff0f4c8afbf6ce2fbf6c0170d0f098/docs/figure/multiReg.Rmd/f-qq-1.png" target="_blank">177257f</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-12-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="male" class="section level1">
+<h1>Male</h1>
 <pre class="r"><code>#read in p values
 mReg &lt;- fread(&quot;data/mRegress.txt&quot;)
 
@@ -945,6 +1022,43 @@ fit &lt;- greml(y = y, X = mu, GRM = list(TRM), verbose = TRUE)</code></pre>
 #qqplot
 qq(stat[,4], main=&quot;Male Gene p-values&quot;)</code></pre>
 <p><img src="figure/multiReg.Rmd/m-qq-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-m-qq-1">
+Past versions of m-qq-1.png
+</button>
+</p>
+<div id="fig-m-qq-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/177257f4e1ff0f4c8afbf6ce2fbf6c0170d0f098/docs/figure/multiReg.Rmd/m-qq-1.png" target="_blank">177257f</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-12-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
