@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Simple Regression</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dgrp-starve</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="starve.html">Analysis</a>
+</li>
+<li>
+  <a href="scripts.html">Scripts</a>
+</li>
+<li>
+  <a href="multiComp.html">Multiple Comparison</a>
+</li>
+<li>
+  <a href="pca.html">PCA</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+<li>
+  <a href="linReg.html">Regression</a>
+</li>
+<li>
+  <a href="multiReg.html">Multiple Regression</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/nklimko/dgrp-starve">
+    <span class="fab fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Simple Regression</h1>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2022-12-21
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>dgrp-starve/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20221101code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20221101)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20221101code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20221101)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree7b1c5525e79af24b87438510de7939a25b9e2a4etargetblank7b1c552a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/nklimko/dgrp-starve/tree/7b1c5525e79af24b87438510de7939a25b9e2a4e" target="_blank">7b1c552</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree7b1c5525e79af24b87438510de7939a25b9e2a4etargetblank7b1c552a"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/nklimko/dgrp-starve/tree/7b1c5525e79af24b87438510de7939a25b9e2a4e" target="_blank">7b1c552</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Untracked files:
+    Untracked:  code/aaaTest
+    Untracked:  code/analysisSR.R
+    Untracked:  code/geneGO.R
+    Untracked:  code/multiPrep.R
+    Untracked:  code/regress.81916.err
+    Untracked:  code/regress.81916.out
+    Untracked:  code/regress.81918.err
+    Untracked:  code/regress.81918.out
+    Untracked:  code/regress.R
+    Untracked:  code/regress.sbatch
+    Untracked:  code/regressF.81919.err
+    Untracked:  code/regressF.81919.out
+    Untracked:  code/regressF.R
+    Untracked:  code/regressF.sbatch
+    Untracked:  code/snpGene.77509.err
+    Untracked:  code/snpGene.77509.out
+    Untracked:  code/snpGene.77515.err
+    Untracked:  code/snpGene.77515.out
+    Untracked:  code/snpGene.sbatch
+    Untracked:  data/eQTL_traits_females.csv
+    Untracked:  data/eQTL_traits_males.csv
+    Untracked:  data/fMeans.txt
+    Untracked:  data/fRegress.txt
+    Untracked:  data/goGroups.txt
+    Untracked:  data/mMeans.txt
+    Untracked:  data/mPart.txt
+    Untracked:  data/mRegress.txt
+    Untracked:  data/starve-f.txt
+    Untracked:  data/starve-m.txt
+    Untracked:  data/xp-f.txt
+    Untracked:  data/xp-m.txt
+    Untracked:  figure/
+    Untracked:  scoreAnalysisMulticomp.R
+    Untracked:  temp.Rmd
+
+Unstaged changes:
+    Modified:   analysis/_site.yml
+    Deleted:    analysis/database.Rmd
+    Modified:   analysis/linReg.Rmd
+    Modified:   code/baseScript-lineComp.R
+    Modified:   code/fourLinePrep.R
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/multiReg.Rmd</code>) and HTML
+(<code>docs/multiReg.html</code>) files. If you’ve configured a remote
+Git repository (see <code>?wflow_git_remote</code>), click on the
+hyperlinks in the table below to view the files as they were in that
+past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/7b1c5525e79af24b87438510de7939a25b9e2a4e/analysis/multiReg.Rmd" target="_blank">7b1c552</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2022-12-21
+</td>
+<td>
+wflow_publish("analysis/multiReg.Rmd")
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="methodology" class="section level1">
+<h1>Methodology</h1>
+<p>The lowest p-values were chosen to represent the fixed effect as
+better correlations assist in prediction of starvation resistance.</p>
+<p>Random effect was a normal distribution with a mean of 1 and sd of
+0.25</p>
+<p>Depending on what is run, the system is not able to converge asa it
+either goes to positive infinity and overflows to a negative value or
+reaches zero and “converges” at zero. If this webpage renders, then both
+runs will have converged on zero.</p>
+</div>
+<div id="female" class="section level1">
+<h1>Female</h1>
+<pre class="r"><code>#read in p values
+fReg &lt;- fread(&quot;data/fRegress.txt&quot;)
+
+#read in expression data
+fMeans &lt;- fread(&quot;data/fMeans.txt&quot;)
+
+#create matrix of only gene expression, trims line and starvation
+Y &lt;- as.matrix(fMeans[,3:11340], row.names=1)
+
+#dimensions and number of fixed effect genes
+n &lt;- dim(Y)[1]
+p &lt;- dim(Y)[2]
+
+p_effect &lt;- 525
+#p_effect &lt;- round(p / 15)
+#400, 250 maxit
+
+#keep
+if(TRUE){
+
+#error is seeded rnorm, number of rows(lines)
+e &lt;- rnorm(n, 1, 0.25)
+
+# add gene names to p val list
+geneNames &lt;- colnames(fMeans)[3:11340]
+fReg &lt;- fReg[, gene:=geneNames]
+
+###sorted p values
+
+# LOW pval
+pSort &lt;- fReg[order(-pvalList)]
+
+#HIGH pval
+#pSort &lt;- fReg[order(-pvalList)]
+}
+
+#rerun
+if(TRUE){
+
+# fixed effect vector USELESS, must be matched to certain values 
+b &lt;- c(rnorm(p_effect, mean=6), rep(0, p-p_effect))
+
+#affix vector to sorted p values
+pSort[,b:=b]
+
+#restore sort order to id/alphabetical gene, matches expression data order
+fFin &lt;- pSort[order(id)]
+
+# PROPER fixed effect vector PROPER with proper indexing
+b &lt;- fFin[,b]
+
+#matrix multiplication of the data and p
+y &lt;- drop(Y%*%b) + e
+
+###Create model for covariates to adjust for (only an intercept in our case)
+mu &lt;- rep(1, length(y))
+names(mu) &lt;- names(y)
+
+###Compute transcriptomic relationship matrix (accounts for structure based on expression levels)
+W &lt;- scale(Y)
+TRM &lt;- tcrossprod(W)/ncol(W)
+}
+
+###Fit mixed model
+fit &lt;- greml(y = y, X = mu, GRM = list(TRM), verbose = TRUE, maxit = 100)</code></pre>
+<pre><code>[1] &quot;Iteration:&quot; &quot;1&quot;          &quot;Theta:&quot;     &quot;56.48&quot;      &quot;55.88&quot;     
+[1] &quot;Iteration:&quot; &quot;2&quot;          &quot;Theta:&quot;     &quot;113.42&quot;     &quot;109.86&quot;    
+[1] &quot;Iteration:&quot; &quot;3&quot;          &quot;Theta:&quot;     &quot;228.63&quot;     &quot;212.22&quot;    
+[1] &quot;Iteration:&quot; &quot;4&quot;          &quot;Theta:&quot;     &quot;464.08&quot;     &quot;395.55&quot;    
+[1] &quot;Iteration:&quot; &quot;5&quot;          &quot;Theta:&quot;     &quot;953.03&quot;     &quot;683.97&quot;    
+[1] &quot;Iteration:&quot; &quot;6&quot;          &quot;Theta:&quot;     &quot;1986.92&quot;    &quot;1000&quot;      
+[1] &quot;Iteration:&quot; &quot;7&quot;          &quot;Theta:&quot;     &quot;4165.83&quot;    &quot;922.12&quot;    
+[1] &quot;Iteration:&quot; &quot;8&quot;          &quot;Theta:&quot;     &quot;8295.5&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;9&quot;          &quot;Theta:&quot;     &quot;13497.65&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;10&quot;         &quot;Theta:&quot;     &quot;18798.51&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;11&quot;         &quot;Theta:&quot;     &quot;24464.08&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;12&quot;         &quot;Theta:&quot;     &quot;11416.97&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;13&quot;         &quot;Theta:&quot;     &quot;15184.66&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;14&quot;         &quot;Theta:&quot;     &quot;21280.78&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;15&quot;         &quot;Theta:&quot;     &quot;20079.34&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;16&quot;         &quot;Theta:&quot;     &quot;21753.12&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;17&quot;         &quot;Theta:&quot;     &quot;15461.88&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;18&quot;         &quot;Theta:&quot;     &quot;16622.59&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;19&quot;         &quot;Theta:&quot;     &quot;21829.12&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;20&quot;         &quot;Theta:&quot;     &quot;0&quot;          &quot;8673.05&quot;   
+[1] &quot;Iteration:&quot; &quot;21&quot;         &quot;Theta:&quot;     &quot;179.57&quot;     &quot;10062.57&quot;  
+[1] &quot;Iteration:&quot; &quot;22&quot;         &quot;Theta:&quot;     &quot;851.22&quot;     &quot;8750.5&quot;    
+[1] &quot;Iteration:&quot; &quot;23&quot;         &quot;Theta:&quot;     &quot;3861.07&quot;    &quot;2978.94&quot;   
+[1] &quot;Iteration:&quot; &quot;24&quot;         &quot;Theta:&quot;     &quot;9205.44&quot;    &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;25&quot;         &quot;Theta:&quot;     &quot;15045.31&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;26&quot;         &quot;Theta:&quot;     &quot;15221.25&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;27&quot;         &quot;Theta:&quot;     &quot;22591.51&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;28&quot;         &quot;Theta:&quot;     &quot;26538.09&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;29&quot;         &quot;Theta:&quot;     &quot;0&quot;          &quot;3191.93&quot;   
+[1] &quot;Iteration:&quot; &quot;30&quot;         &quot;Theta:&quot;     &quot;24.32&quot;      &quot;5397.35&quot;   
+[1] &quot;Iteration:&quot; &quot;31&quot;         &quot;Theta:&quot;     &quot;130.59&quot;     &quot;7869.76&quot;   
+[1] &quot;Iteration:&quot; &quot;32&quot;         &quot;Theta:&quot;     &quot;547.17&quot;     &quot;8856.37&quot;   
+[1] &quot;Iteration:&quot; &quot;33&quot;         &quot;Theta:&quot;     &quot;2455.76&quot;    &quot;5345.19&quot;   
+[1] &quot;Iteration:&quot; &quot;34&quot;         &quot;Theta:&quot;     &quot;7451.95&quot;    &quot;33.24&quot;     
+[1] &quot;Iteration:&quot; &quot;35&quot;         &quot;Theta:&quot;     &quot;12677.86&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;36&quot;         &quot;Theta:&quot;     &quot;18556.27&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;37&quot;         &quot;Theta:&quot;     &quot;22523.37&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;38&quot;         &quot;Theta:&quot;     &quot;17425.75&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;39&quot;         &quot;Theta:&quot;     &quot;21327.84&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;40&quot;         &quot;Theta:&quot;     &quot;21600.06&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;41&quot;         &quot;Theta:&quot;     &quot;29564.68&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;42&quot;         &quot;Theta:&quot;     &quot;0&quot;          &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;43&quot;         &quot;Theta:&quot;     &quot;0&quot;          &quot;0&quot;         
+[1] &quot;Converged at Iteration:&quot; &quot;43&quot;                     
+[3] &quot;Theta:&quot;                  &quot;0&quot;                      
+[5] &quot;0&quot;                      </code></pre>
+<pre class="r"><code>stat &lt;- glma(fit = fit, W = W)
+
+#qqplot
+qq(stat[,4], main=&quot;Female Gene p-values&quot;)</code></pre>
+<p><img src="figure/multiReg.Rmd/f-qq-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#read in p values
+mReg &lt;- fread(&quot;data/mRegress.txt&quot;)
+
+#read in expression data
+mMeans &lt;- fread(&quot;data/mMeans.txt&quot;)
+
+#create matrix of only gene expression, trims line and starvation
+Y &lt;- as.matrix(mMeans[,3:13577], row.names=1)
+
+#dimensions and number of fixed effect genes
+n &lt;- dim(Y)[1]
+p &lt;- dim(Y)[2]
+p_effect &lt;- 525
+#p_effect &lt;- round(p / 15)
+
+# add gene names to p val list
+geneNames &lt;- colnames(mMeans)[3:13577]
+mReg &lt;- mReg[, gene:=geneNames]
+
+###sorted p values
+
+# LOW pval
+#pSort &lt;- mReg[order(pvalList)]
+
+#HIGH pval
+pSort &lt;- mReg[order(-pvalList)]
+
+# fixed effect vector USELESS, must be matched to certain values 
+b &lt;- c(rnorm(p_effect, mean=6), rep(0, p-p_effect))
+
+#affix vector to sorted p values
+pSort[,b:=b]
+
+#restore sort order to id/alphabetical gene, matches expression data order
+mFin &lt;- pSort[order(id)]
+
+# PROPER fixed effect vector PROPER with proper indexing
+b &lt;- mFin[,b]
+
+#error is seeded rnorm, number of rows(lines)
+e &lt;- rnorm(n, 1, 0.25)
+e &lt;- rnorm(n)
+
+#matrix multiplication of the data and p
+y &lt;- drop(Y%*%b) + e
+
+###Create model for covariates to adjust for (only an intercept in our case)
+mu &lt;- rep(1, length(y))
+names(mu) &lt;- names(y)
+
+###Compute transcriptomic relationship matrix (accounts for structure based on expression levels)
+W &lt;- scale(Y)
+TRM &lt;- tcrossprod(W)/ncol(W)
+
+###Fit mixed model
+fit &lt;- greml(y = y, X = mu, GRM = list(TRM), verbose = TRUE)</code></pre>
+<pre><code>[1] &quot;Iteration:&quot; &quot;1&quot;          &quot;Theta:&quot;     &quot;67.12&quot;      &quot;66.26&quot;     
+[1] &quot;Iteration:&quot; &quot;2&quot;          &quot;Theta:&quot;     &quot;134.91&quot;     &quot;129.78&quot;    
+[1] &quot;Iteration:&quot; &quot;3&quot;          &quot;Theta:&quot;     &quot;272.45&quot;     &quot;248.79&quot;    
+[1] &quot;Iteration:&quot; &quot;4&quot;          &quot;Theta:&quot;     &quot;555.04&quot;     &quot;456.14&quot;    
+[1] &quot;Iteration:&quot; &quot;5&quot;          &quot;Theta:&quot;     &quot;1147.56&quot;    &quot;758.93&quot;    
+[1] &quot;Iteration:&quot; &quot;6&quot;          &quot;Theta:&quot;     &quot;2419.77&quot;    &quot;995.89&quot;    
+[1] &quot;Iteration:&quot; &quot;7&quot;          &quot;Theta:&quot;     &quot;5131.9&quot;     &quot;519.48&quot;    
+[1] &quot;Iteration:&quot; &quot;8&quot;          &quot;Theta:&quot;     &quot;9959.11&quot;    &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;9&quot;          &quot;Theta:&quot;     &quot;16310.79&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;10&quot;         &quot;Theta:&quot;     &quot;20358.71&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;11&quot;         &quot;Theta:&quot;     &quot;24474.35&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;12&quot;         &quot;Theta:&quot;     &quot;13600.55&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;13&quot;         &quot;Theta:&quot;     &quot;18941.17&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;14&quot;         &quot;Theta:&quot;     &quot;28096.15&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;15&quot;         &quot;Theta:&quot;     &quot;23638.18&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;16&quot;         &quot;Theta:&quot;     &quot;29428.87&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;17&quot;         &quot;Theta:&quot;     &quot;20912.7&quot;    &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;18&quot;         &quot;Theta:&quot;     &quot;24153.18&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;19&quot;         &quot;Theta:&quot;     &quot;30225.63&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;20&quot;         &quot;Theta:&quot;     &quot;20537.07&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;21&quot;         &quot;Theta:&quot;     &quot;25064.16&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;22&quot;         &quot;Theta:&quot;     &quot;27891.38&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;23&quot;         &quot;Theta:&quot;     &quot;29893.94&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;24&quot;         &quot;Theta:&quot;     &quot;34179.96&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;25&quot;         &quot;Theta:&quot;     &quot;0&quot;          &quot;6389.34&quot;   
+[1] &quot;Iteration:&quot; &quot;26&quot;         &quot;Theta:&quot;     &quot;165&quot;        &quot;8818.54&quot;   
+[1] &quot;Iteration:&quot; &quot;27&quot;         &quot;Theta:&quot;     &quot;714.36&quot;     &quot;9334.69&quot;   
+[1] &quot;Iteration:&quot; &quot;28&quot;         &quot;Theta:&quot;     &quot;2253.96&quot;    &quot;6761.17&quot;   
+[1] &quot;Iteration:&quot; &quot;29&quot;         &quot;Theta:&quot;     &quot;6603.69&quot;    &quot;1212.43&quot;   
+[1] &quot;Iteration:&quot; &quot;30&quot;         &quot;Theta:&quot;     &quot;13450.58&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;31&quot;         &quot;Theta:&quot;     &quot;19797.88&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;32&quot;         &quot;Theta:&quot;     &quot;25555.02&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;33&quot;         &quot;Theta:&quot;     &quot;0&quot;          &quot;6838.35&quot;   
+[1] &quot;Iteration:&quot; &quot;34&quot;         &quot;Theta:&quot;     &quot;189.01&quot;     &quot;9140.41&quot;   
+[1] &quot;Iteration:&quot; &quot;35&quot;         &quot;Theta:&quot;     &quot;800.24&quot;     &quot;9276.18&quot;   
+[1] &quot;Iteration:&quot; &quot;36&quot;         &quot;Theta:&quot;     &quot;2500.69&quot;    &quot;6358.49&quot;   
+[1] &quot;Iteration:&quot; &quot;37&quot;         &quot;Theta:&quot;     &quot;7248.68&quot;    &quot;588.32&quot;    
+[1] &quot;Iteration:&quot; &quot;38&quot;         &quot;Theta:&quot;     &quot;13664.31&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;39&quot;         &quot;Theta:&quot;     &quot;20969.31&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;40&quot;         &quot;Theta:&quot;     &quot;26751.79&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;41&quot;         &quot;Theta:&quot;     &quot;0&quot;          &quot;7381.46&quot;   
+[1] &quot;Iteration:&quot; &quot;42&quot;         &quot;Theta:&quot;     &quot;220.22&quot;     &quot;9477.46&quot;   
+[1] &quot;Iteration:&quot; &quot;43&quot;         &quot;Theta:&quot;     &quot;907.81&quot;     &quot;9155.03&quot;   
+[1] &quot;Iteration:&quot; &quot;44&quot;         &quot;Theta:&quot;     &quot;2809.38&quot;    &quot;5872.14&quot;   
+[1] &quot;Iteration:&quot; &quot;45&quot;         &quot;Theta:&quot;     &quot;8016.1&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;46&quot;         &quot;Theta:&quot;     &quot;13956.18&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;47&quot;         &quot;Theta:&quot;     &quot;22143.48&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;48&quot;         &quot;Theta:&quot;     &quot;30798.36&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;49&quot;         &quot;Theta:&quot;     &quot;25500.08&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;50&quot;         &quot;Theta:&quot;     &quot;28702.26&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;51&quot;         &quot;Theta:&quot;     &quot;29545.3&quot;    &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;52&quot;         &quot;Theta:&quot;     &quot;21718.96&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;53&quot;         &quot;Theta:&quot;     &quot;29634.62&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;54&quot;         &quot;Theta:&quot;     &quot;34044.94&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;55&quot;         &quot;Theta:&quot;     &quot;24358.5&quot;    &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;56&quot;         &quot;Theta:&quot;     &quot;29489.91&quot;   &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;57&quot;         &quot;Theta:&quot;     &quot;0&quot;          &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;58&quot;         &quot;Theta:&quot;     &quot;0&quot;          &quot;0&quot;         
+[1] &quot;Converged at Iteration:&quot; &quot;58&quot;                     
+[3] &quot;Theta:&quot;                  &quot;0&quot;                      
+[5] &quot;0&quot;                      </code></pre>
+<pre class="r"><code>stat &lt;- glma(fit = fit, W = W)
+
+#qqplot
+qq(stat[,4], main=&quot;Male Gene p-values&quot;)</code></pre>
+<p><img src="figure/multiReg.Rmd/m-qq-1.png" width="672" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.3 (2020-10-10)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: CentOS Linux 7 (Core)
+
+Matrix products: default
+BLAS/LAPACK: /opt/ohpc/pub/Software/openblas_0.3.10/lib/libopenblas_haswellp-r0.3.10.dev.so
+
+locale:
+ [1] LC_CTYPE=en_US.utf-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.utf-8        LC_COLLATE=en_US.utf-8    
+ [5] LC_MONETARY=en_US.utf-8    LC_MESSAGES=en_US.utf-8   
+ [7] LC_PAPER=en_US.utf-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.utf-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] qgg_1.1.1         qqman_0.1.8       cowplot_1.1.1     ggplot2_3.3.5    
+[5] data.table_1.14.2 dplyr_1.0.8       workflowr_1.7.0  
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.8.3       lattice_0.20-45    getPass_0.2-2      ps_1.6.0          
+ [5] assertthat_0.2.1   rprojroot_2.0.3    digest_0.6.29      utf8_1.2.2        
+ [9] R6_2.5.1           MatrixModels_0.5-1 evaluate_0.15      coda_0.19-4       
+[13] highr_0.9          httr_1.4.2         pillar_1.7.0       rlang_1.0.4       
+[17] rstudioapi_0.13    SparseM_1.81       whisker_0.4        callr_3.7.0       
+[21] jquerylib_0.1.4    Matrix_1.5-3       rmarkdown_2.16     splines_4.0.3     
+[25] statmod_1.4.37     stringr_1.4.0      munsell_0.5.0      compiler_4.0.3    
+[29] httpuv_1.6.5       xfun_0.30          pkgconfig_2.0.3    mcmc_0.9-7        
+[33] htmltools_0.5.2    tidyselect_1.1.2   tibble_3.1.6       fansi_1.0.3       
+[37] calibrate_1.7.7    crayon_1.5.1       withr_2.5.0        later_1.3.0       
+[41] MASS_7.3-56        grid_4.0.3         jsonlite_1.8.0     gtable_0.3.0      
+[45] lifecycle_1.0.1    DBI_1.1.2          git2r_0.30.1       magrittr_2.0.3    
+[49] scales_1.2.0       cli_3.3.0          stringi_1.7.6      fs_1.5.2          
+[53] promises_1.2.0.1   bslib_0.3.1        ellipsis_0.3.2     generics_0.1.2    
+[57] vctrs_0.4.1        tools_4.0.3        glue_1.6.2         purrr_0.3.4       
+[61] parallel_4.0.3     processx_3.5.3     fastmap_1.1.0      survival_3.3-1    
+[65] yaml_2.3.5         colorspace_2.0-3   knitr_1.38         sass_0.4.1        
+[69] quantreg_5.94      MCMCpack_1.6-3    </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
