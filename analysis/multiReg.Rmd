@@ -53,7 +53,7 @@ Y <- as.matrix(fMeans[,3:11340], row.names=1)
 n <- dim(Y)[1]
 p <- dim(Y)[2]
 
-p_effect <- 525
+p_effect <- 260
 #p_effect <- round(p / 15)
 #400, 250 maxit
 
@@ -62,6 +62,7 @@ if(TRUE){
 
 #error is seeded rnorm, number of rows(lines)
 e <- rnorm(n, 1, 0.25)
+#e <- rnorm(n)
 
 # add gene names to p val list
 geneNames <- colnames(fMeans)[3:11340]
@@ -118,6 +119,7 @@ qq(stat[,4], main="Female Gene p-values")
 
 ```{r m-qq}
 
+rm(list=ls())
 
 #read in p values
 mReg <- fread("data/mRegress.txt")
@@ -160,7 +162,7 @@ b <- mFin[,b]
 
 #error is seeded rnorm, number of rows(lines)
 e <- rnorm(n, 1, 0.25)
-e <- rnorm(n)
+#e <- rnorm(n)
 
 #matrix multiplication of the data and p
 y <- drop(Y%*%b) + e
@@ -179,6 +181,8 @@ stat <- glma(fit = fit, W = W)
 
 #qqplot
 qq(stat[,4], main="Male Gene p-values")
+
+
 
 ```
 
