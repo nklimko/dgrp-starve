@@ -27,11 +27,14 @@ options(bitmapType = "cairo")
 
 The lowest p-values were chosen to represent the fixed effect as better correlations assist in prediction of starvation resistance.
 
-Random effect was a normal distribution with a mean of 1 and sd of 0.25
-
-Depending on what is run, the system is not able to converge asa it either goes to positive infinity and overflows to a negative value or reaches zero and "converges" at zero. If this webpage renders, then both runs will have converged on zero.
+Random effect was a normal distribution with a mean of 1 and sd of 0.25. Default norm resulted in errors with negative value affecting matrix computations or creating singular matrices.
 
 Additionally, I left verbose on TRUE to observe iteration steps as while randomness is seeded, iteration steps were not the same every time.
+
+
+Depending on what is run, the system is not able to converge as it either goes to positive infinity and overflows to a negative value or reaches zero and "converges" at zero. If this webpage renders, then both runs will have converged on zero.
+
+Note: data shown in this instance is wrong as highest p-values were chosen as the prediction almost always converged to zero, allowing compilation with workflowr 
 
 # Female 
 
