@@ -31,6 +31,7 @@ Random effect was a normal distribution with a mean of 1 and sd of 0.25
 
 Depending on what is run, the system is not able to converge asa it either goes to positive infinity and overflows to a negative value or reaches zero and "converges" at zero. If this webpage renders, then both runs will have converged on zero.
 
+Additionally, I left verbose on TRUE to observe iteration steps as while randomness is seeded, iteration steps were not the same every time.
 
 # Female 
 
@@ -110,6 +111,7 @@ qq(stat[,4], main="Female Gene p-values")
 
 ```
 
+# Male 
 
 ```{r m-qq}
 
