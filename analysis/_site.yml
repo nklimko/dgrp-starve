@@ -5,18 +5,11 @@ navbar:
   left:
   - text: Home
     href: index.html
-  - text: Analysis
-    href: starve.html
-  - text: Scripts
-    href: scripts.html
-  - text: Multiple Comparison
-    href: multiComp.html
-  - text: PCA
-    href: pca.html
+  - text: About
+    href: about.html
   - text: License
     href: license.html
-  - text: Regression
-    href: linReg.html
+  
   right:
   - icon: fab fa-github
     text: Source code

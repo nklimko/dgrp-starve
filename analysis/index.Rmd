@@ -11,3 +11,15 @@ editor_options:
 Welcome to my research website. 
 
 
+[Linear Regression](linReg.html)
+
+[PCA](pca.html)
+
+[Multiple Regression](multiReg.html)
+
+[Multiple Comparisons](multiComp.html)
+
+[Starvation Resistance](starve.html)
+
+[Scripts](scripts.html)
+

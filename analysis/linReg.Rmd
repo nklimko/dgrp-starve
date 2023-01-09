@@ -201,7 +201,7 @@ fReg <- fread("data/fRegress.txt")
 #number of data points
 n <- dim(fReg)[1]
 
-#uniform distribution
+#Theoretical Quantiles
 uniform <- 1:n/(n+1)
 
 #sorted p values
@@ -220,7 +220,7 @@ if(FALSE){
 gg[[1]] <- ggplot(qqdata, aes(x=uniform, y=empirical)) +
   geom_point(color="red") +  
   geom_segment(aes(x=0,y=0,xend=1,yend=1)) + 
-  xlab("Uniform Distribution") +
+  xlab("Theoretical Quantiles") +
   ylab("Sorted p-values") +
   ggtitle("Female Expression QQ Plot")
 }
@@ -228,7 +228,7 @@ gg[[1]] <- ggplot(qqdata, aes(x=uniform, y=empirical)) +
 gg[[2]] <- ggplot(qqdata, aes(x=uniform, y=logPlot)) +
   geom_point(color="red") + 
   geom_hline(yintercept= -log10(0.05/n), color="magenta") +
-  xlab("Uniform Distribution") +
+  xlab("Theoretical Quantiles") +
   ylab("-log10 p-values") +
   ggtitle("Female Expression Manhattan Plot")
 
@@ -252,7 +252,7 @@ mReg <- fread("data/mRegress.txt")
 #number of data points
 n <- dim(mReg)[1]
 
-#uniform distribution
+#Theoretical Quantiles
 uniform <- 1:n/(n+1)
 
 #sorted p values
@@ -272,7 +272,7 @@ if(FALSE){
 gg[[3]] <- ggplot(qqdata, aes(x=uniform, y=empirical)) +
   geom_point(color="blue") +  
   geom_segment(aes(x=0,y=0,xend=1,yend=1), linewidth=1) + 
-  xlab("Uniform Distribution") +
+  xlab("Theoretical Quantiles") +
   ylab("Sorted p-values") +
   ggtitle("Male Expression QQ Plot")
 }
@@ -281,7 +281,7 @@ gg[[3]] <- ggplot(qqdata, aes(x=uniform, y=empirical)) +
 gg[[4]] <- ggplot(qqdata, aes(x=uniform, y=logPlot)) +
   geom_point(color="blue") + 
   geom_hline(yintercept= -log10(0.05/n), color="cyan") +
-  xlab("Uniform Distribution") +
+  xlab("Theoretical Quantiles") +
   ylab("-log10 p-values") +
   ggtitle("Male Expression Manhattan Plot")
 
