@@ -2,15 +2,12 @@
 title: "Meeting Summaries"
 output:
   workflowr::wflow_html:
-    toc: false
+    toc: true
 editor_options:
   chunk_output_type: console
 ---
 
-## Fall 2022
-
-
-### 12/21
+### 2022/12/21
 
 •	Fit data to model using starvation resistance vector
 
@@ -21,7 +18,7 @@ editor_options:
 •	Merry Christmas!
 
 
-### 12/14
+### 2022/12/14
 
 •	Fix x axis uniform distribution label: incorrect.
 
@@ -34,7 +31,7 @@ editor_options:
 •	Send shift schedule to plan next week’s meeting.
 
 
-### 12/6
+### 2022/12/06
 
 •	Fix correlations: lm not reading in data properly, p-values wrong
 
@@ -45,7 +42,7 @@ editor_options:
 •	Next meeting Wednesday, Dec. 14th 2:30-3:00 via Zoom due to exams.
 
 
-### 11/29
+### 2022/11/29
 
 •	Use gene expression data to preform simple regression with starvation resistance.
 
@@ -58,7 +55,7 @@ editor_options:
 •	Determine why this statistical approach is inappropriate.
 
 
-### 11/22
+### 2022/11/22
 
 •	Multiple comparison scatter plots should be sex specific.
 
@@ -71,7 +68,7 @@ editor_options:
   o	Count # of genes expressed in males, females, and both.  
   
   
-### 11/15
+### 2022/11/15
 
 •	Continue multiple comparisons with trendlines, multiple tips:
 
@@ -88,7 +85,7 @@ editor_options:
 •	Discuss further PhD plans mid-February  
 
   
-### 11/11
+### 2022/11/11
 
 •	Presented starvation analysis of DGRP lines
 
@@ -101,7 +98,7 @@ editor_options:
 •	Perform analysis of gene expression by line
 
 
-### 11/1
+### 2022/11/01
 
 •	Get creative with analysis – scatterplot trendline, normality, beyond
 
@@ -112,7 +109,7 @@ editor_options:
 •	Next meeting Friday the 11th at 10am by Zoom due to election
 
 
-### 10/26
+### 2022/10/26
 
 •	Set github ssh keys and config settings on personal laptop and secretariat
 
@@ -123,14 +120,14 @@ editor_options:
 •	Postdoctoral candidate meeting and seminar on Wed 10/27 – provide feedback on both candidates
 
 
-### 10/18
+### 2022/10/18
 
 •	Presented SNP Prediction Paper on Plant and Animal breeding
 
 •	Begin working with github and workflowR to begin data processing in upcoming weeks
 
 
-### 10/4
+### 2022/10/04
 
 •	Create simple presentation for https://www.genetics.org/content/genetics/193/2/327.full.pdf by 10/11 - build habit of summarizing papers/distilling main points
 
@@ -141,7 +138,7 @@ editor_options:
 •	Talk with Dr. Starr-Moss regarding credit hours for master’s research – three recommended
   
 
-### 9/27
+### 2022/09/27
 
 •	Review of Presentation for https://academic.oup.com/g3journal/article/10/12/4599/6048688
 
@@ -156,7 +153,7 @@ editor_options:
 •	Review https://www.genetics.org/content/genetics/193/2/327.full.pdf
   
 
-### 9/13
+### 2022/09/13
 
 •	Goal to complete R modules on Dataquest by 9/30: Dataquest is paid software
 
