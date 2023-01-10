@@ -40,69 +40,21 @@ Note: data shown in this instance is wrong as highest p-values were chosen as th
 
 ```{r f-qq}
 
-#read in p values
-fReg <- fread("data/fRegress.txt")
-
 #read in expression data
 fMeans <- fread("data/fMeans.txt")
 
 #create matrix of only gene expression, trims line and starvation
-Y <- as.matrix(fMeans[,3:11340], row.names=1)
+X <- as.matrix(fMeans[,3:11340])
+rownames(X) <- fMeans[,line]
 
-#dimensions and number of fixed effect genes
-n <- dim(Y)[1]
-p <- dim(Y)[2]
-
-p_effect <- 260
-#p_effect <- round(p / 15)
-#400, 250 maxit
-
-#keep
-if(TRUE){
-
-#error is seeded rnorm, number of rows(lines)
-e <- rnorm(n, 1, 0.25)
-#e <- rnorm(n)
-
-# add gene names to p val list
-geneNames <- colnames(fMeans)[3:11340]
-fReg <- fReg[, gene:=geneNames]
-
-###sorted p values
-
-# LOW pval
-pSort <- fReg[order(pvalList)]
-
-#HIGH pval
-#pSort <- fReg[order(-pvalList)]
-}
-
-#rerun
-if(TRUE){
-
-# fixed effect vector USELESS, must be matched to certain values 
-b <- c(rnorm(p_effect, mean=6), rep(0, p-p_effect))
-
-#affix vector to sorted p values
-pSort[,b:=b]
-
-#restore sort order to id/alphabetical gene, matches expression data order
-fFin <- pSort[order(id)]
-
-# PROPER fixed effect vector PROPER with proper indexing
-b <- fFin[,b]
-
-#matrix multiplication of the data and p
-y <- drop(Y%*%b) + e
+y <- fMeans[,starvation]
 
 ###Create model for covariates to adjust for (only an intercept in our case)
 mu <- rep(1, length(y))
-names(mu) <- names(y)
 
 ###Compute transcriptomic relationship matrix (accounts for structure based on expression levels)
-W <- scale(Y)
+W <- scale(X)
 TRM <- tcrossprod(W)/ncol(W)
-}
 
 ###Fit mixed model
 fit <- greml(y = y, X = mu, GRM = list(TRM), verbose = TRUE, maxit = 100)
@@ -120,73 +72,34 @@ qq(stat[,4], main="Female Gene p-values")
 ```{r m-qq}
 
 rm(list=ls())
-
-#read in p values
-mReg <- fread("data/mRegress.txt")
+set.seed(1)
 
 #read in expression data
 mMeans <- fread("data/mMeans.txt")
 
 #create matrix of only gene expression, trims line and starvation
-Y <- as.matrix(mMeans[,3:13577], row.names=1)
+X <- as.matrix(mMeans[,3:13577])
+rownames(X) <- mMeans[,line]
 
-#dimensions and number of fixed effect genes
-n <- dim(Y)[1]
-p <- dim(Y)[2]
-p_effect <- 525
-#p_effect <- round(p / 15)
-
-# add gene names to p val list
-geneNames <- colnames(mMeans)[3:13577]
-mReg <- mReg[, gene:=geneNames]
-
-###sorted p values
-
-# LOW pval
-pSort <- mReg[order(pvalList)]
-
-#HIGH pval
-#pSort <- mReg[order(-pvalList)]
-
-# fixed effect vector USELESS, must be matched to certain values 
-b <- c(rnorm(p_effect, mean=6), rep(0, p-p_effect))
-
-#affix vector to sorted p values
-pSort[,b:=b]
-
-#restore sort order to id/alphabetical gene, matches expression data order
-mFin <- pSort[order(id)]
-
-# PROPER fixed effect vector PROPER with proper indexing
-b <- mFin[,b]
-
-#error is seeded rnorm, number of rows(lines)
-e <- rnorm(n, 1, 0.25)
-#e <- rnorm(n)
-
-#matrix multiplication of the data and p
-y <- drop(Y%*%b) + e
+y <- mMeans[,starvation]
 
 ###Create model for covariates to adjust for (only an intercept in our case)
 mu <- rep(1, length(y))
-names(mu) <- names(y)
 
 ###Compute transcriptomic relationship matrix (accounts for structure based on expression levels)
-W <- scale(Y)
+W <- scale(X)
 TRM <- tcrossprod(W)/ncol(W)
 
 ###Fit mixed model
-fit <- greml(y = y, X = mu, GRM = list(TRM), verbose = TRUE)
+fit <- greml(y = y, X = mu, GRM = list(TRM), verbose = TRUE, maxit = 100)
+
 stat <- glma(fit = fit, W = W)
 
 #qqplot
 qq(stat[,4], main="Male Gene p-values")
 
 
-
 ```
-
-
 
 
 
