@@ -14,27 +14,27 @@ editor_options:
 
 ### [Multiple Regression](multiReg.html)
 
-[Latest Goals](recap.html#2022/12/21)
+[Latest Goals](recap.html#20221221)
 
 
 ### [Linear Regression](linReg.html)
 
-[Latest Goals](recap.html#2022/12/14)
+[Latest Goals](recap.html#20221214)
 
 
 ### [Multiple Comparisons](multiComp.html)
 
-[Latest Goals](recap.html#2022/11/29)
+[Latest Goals](recap.html#20221129)
 
 
 ### [PCA](pca.html)
 
-[Latest Goals](recap.html#2022/11/22)
+[Latest Goals](recap.html#20221122)
 
 
 ### [Starvation Resistance](starve.html)
 
-[Latest Goals](recap.html#2022/11/15)
+[Latest Goals](recap.html#20221115)
 
 
 ## Resources
