@@ -25,20 +25,21 @@ options(bitmapType = "cairo")
 
 # Methodology
 
-The lowest p-values were chosen to represent the fixed effect as better correlations assist in prediction of starvation resistance.
+Multiple regression is the process of determining the coefficients of a model with each coefficient corresponding to the effect of one explanatory variable. 
 
-Random effect was a normal distribution with a mean of 1 and sd of 0.25. Default norm resulted in errors with negative value affecting matrix computations or creating singular matrices.
+With Genomic Reduced Maximum Likelihood, or GREML, a design matrix is calculated using a Genomic Relationship matrix and a vector of 1s to find the intercepts. 
 
-Additionally, I left verbose on TRUE to observe iteration steps as while randomness is seeded, iteration steps were not the same every time.
+Multiplying the vector for starvation resistance by the inverse of the design matrix solves for the coefficients of the multivariate model. The residuals must also be subtracted and consitute the random effect of the mixed model.
 
 
-Depending on what is run, the system is not able to converge as it either goes to positive infinity and overflows to a negative value or reaches zero and "converges" at zero. If this webpage renders, then both runs will have converged on zero.
+For each data set, the expression data matrix(line x gene) and the starvation resistance vector(line x 1) were taken from prior lab data. From the [PCA Project](pca.html), a dataframe containing line, starvation resistancec, and expression data per gene was repurposed for this model.
 
-Note: data shown in this instance is wrong as highest p-values were chosen as the prediction almost always converged to zero, allowing compilation with workflowr 
+The Transcriptomic Relation Matrix was calculated using the cross product of a scaled expression matrix and multiplied by the inverse of the number of columns. 
+
 
 # Female 
 
-```{r f-qq}
+```{r f-qq, warning=FALSE}
 
 #read in expression data
 fMeans <- fread("data/fMeans.txt")
@@ -69,7 +70,7 @@ qq(stat[,4], main="Female Gene p-values")
 
 # Male 
 
-```{r m-qq}
+```{r m-qq, warning=FALSE}
 
 #read in expression data
 mMeans <- fread("data/mMeans.txt")
@@ -95,9 +96,7 @@ stat <- glma(fit = fit, W = W)
 #qqplot
 qq(stat[,4], main="Male Gene p-values")
 
-
 ```
-
 
 
 Multiple regression of both female and male structures show effects of the genetic architecture on the models as both systematically deviate from linearity. 
