@@ -71,9 +71,6 @@ qq(stat[,4], main="Female Gene p-values")
 
 ```{r m-qq}
 
-rm(list=ls())
-set.seed(1)
-
 #read in expression data
 mMeans <- fread("data/mMeans.txt")
 
@@ -100,6 +97,13 @@ qq(stat[,4], main="Male Gene p-values")
 
 
 ```
+
+
+
+Multiple regression of both female and male structures show effects of the genetic architecture on the models as both systematically deviate from linearity. 
+
+[QQ Plots from Linear Regression](linReg.html#QQ_Plots)
+
 
 
 
