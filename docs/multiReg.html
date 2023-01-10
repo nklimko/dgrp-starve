@@ -536,15 +536,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree3900dc42833ffa113ed4ad93a9514291f9263bcatargetblank3900dc4a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreee2609b9ab23d63aa1a1b1d8383cfd34f5de9b86dtargetblanke2609b9a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/nklimko/dgrp-starve/tree/3900dc42833ffa113ed4ad93a9514291f9263bca" target="_blank">3900dc4</a>
+<a href="https://github.com/nklimko/dgrp-starve/tree/e2609b9ab23d63aa1a1b1d8383cfd34f5de9b86d" target="_blank">e2609b9</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree3900dc42833ffa113ed4ad93a9514291f9263bcatargetblank3900dc4a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreee2609b9ab23d63aa1a1b1d8383cfd34f5de9b86dtargetblanke2609b9a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -554,7 +554,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/nklimko/dgrp-starve/tree/3900dc42833ffa113ed4ad93a9514291f9263bca" target="_blank">3900dc4</a>.
+<a href="https://github.com/nklimko/dgrp-starve/tree/e2609b9ab23d63aa1a1b1d8383cfd34f5de9b86d" target="_blank">e2609b9</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -569,7 +569,6 @@ were generated:
 </p>
 <pre><code>
 Untracked files:
-    Untracked:  analysis/tips.Rmd
     Untracked:  code/aaaTest
     Untracked:  code/analysisSR.R
     Untracked:  code/geneGO.R
@@ -657,6 +656,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/e2609b9ab23d63aa1a1b1d8383cfd34f5de9b86d/analysis/multiReg.Rmd" target="_blank">e2609b9</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-01-10
+</td>
+<td>
+wflow_publish("analysis/multiReg.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/67ec408b25562d9d035b2258d5b7057a06bd36ef/docs/multiReg.html" target="_blank">67ec408</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-01-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -938,21 +971,24 @@ wflow_publish("analysis/multiReg.Rmd")
 </div>
 <div id="methodology" class="section level1">
 <h1>Methodology</h1>
-<p>The lowest p-values were chosen to represent the fixed effect as
-better correlations assist in prediction of starvation resistance.</p>
-<p>Random effect was a normal distribution with a mean of 1 and sd of
-0.25. Default norm resulted in errors with negative value affecting
-matrix computations or creating singular matrices.</p>
-<p>Additionally, I left verbose on TRUE to observe iteration steps as
-while randomness is seeded, iteration steps were not the same every
-time.</p>
-<p>Depending on what is run, the system is not able to converge as it
-either goes to positive infinity and overflows to a negative value or
-reaches zero and “converges” at zero. If this webpage renders, then both
-runs will have converged on zero.</p>
-<p>Note: data shown in this instance is wrong as highest p-values were
-chosen as the prediction almost always converged to zero, allowing
-compilation with workflowr</p>
+<p>Multiple regression is the process of determining the coefficients of
+a model with each coefficient corresponding to the effect of one
+explanatory variable.</p>
+<p>With Genomic Reduced Maximum Likelihood, or GREML, a design matrix is
+calculated using a Genomic Relationship matrix and a vector of 1s to
+find the intercepts.</p>
+<p>Multiplying the vector for starvation resistance by the inverse of
+the design matrix solves for the coefficients of the multivariate model.
+The residuals must also be subtracted and consitute the random effect of
+the mixed model.</p>
+<p>For each data set, the expression data matrix(line x gene) and the
+starvation resistance vector(line x 1) were taken from prior lab data.
+From the <a href="pca.html">PCA Project</a>, a dataframe containing
+line, starvation resistancec, and expression data per gene was
+repurposed for this model.</p>
+<p>The Transcriptomic Relation Matrix was calculated using the cross
+product of a scaled expression matrix and multiplied by the inverse of
+the number of columns.</p>
 </div>
 <div id="female" class="section level1">
 <h1>Female</h1>
@@ -1074,8 +1110,6 @@ fit &lt;- greml(y = y, X = mu, GRM = list(TRM), verbose = TRUE, maxit = 100)</co
 [1] &quot;Iteration:&quot; &quot;98&quot;         &quot;Theta:&quot;     &quot;240.82&quot;     &quot;0&quot;         
 [1] &quot;Iteration:&quot; &quot;99&quot;         &quot;Theta:&quot;     &quot;240.82&quot;     &quot;0&quot;         
 [1] &quot;Iteration:&quot; &quot;100&quot;        &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         </code></pre>
-<pre><code>Warning in remlr(y = y, X = X, GRMlist = GRMlist, G = GRM, theta = theta, :
-Maximum number of iterations reached. Try increasing maxit.</code></pre>
 <pre class="r"><code>stat &lt;- glma(fit = fit, W = W)
 
 #qqplot
@@ -1103,6 +1137,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/67ec408b25562d9d035b2258d5b7057a06bd36ef/docs/figure/multiReg.Rmd/f-qq-1.png" target="_blank">67ec408</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/736d53e2ad047032df4cf4fabaed7b82a0208d3b/docs/figure/multiReg.Rmd/f-qq-1.png" target="_blank">736d53e</a>
@@ -1283,8 +1328,6 @@ fit &lt;- greml(y = y, X = mu, GRM = list(TRM), verbose = TRUE, maxit = 100)</co
 [1] &quot;Iteration:&quot; &quot;98&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
 [1] &quot;Iteration:&quot; &quot;99&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
 [1] &quot;Iteration:&quot; &quot;100&quot;        &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         </code></pre>
-<pre><code>Warning in remlr(y = y, X = X, GRMlist = GRMlist, G = GRM, theta = theta, :
-Maximum number of iterations reached. Try increasing maxit.</code></pre>
 <pre class="r"><code>stat &lt;- glma(fit = fit, W = W)
 
 #qqplot
@@ -1312,6 +1355,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/67ec408b25562d9d035b2258d5b7057a06bd36ef/docs/figure/multiReg.Rmd/m-qq-1.png" target="_blank">67ec408</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/736d53e2ad047032df4cf4fabaed7b82a0208d3b/docs/figure/multiReg.Rmd/m-qq-1.png" target="_blank">736d53e</a>
