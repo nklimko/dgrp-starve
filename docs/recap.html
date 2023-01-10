@@ -29,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -238,6 +241,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -245,6 +311,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -364,15 +440,15 @@ results.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreea05fc4881b56d135ca6611fa23aebbb039e3d40atargetblanka05fc48a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreec8266363220689772ead160b332d691249ca10e3targetblankc826636a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/nklimko/dgrp-starve/tree/a05fc4881b56d135ca6611fa23aebbb039e3d40a" target="_blank">a05fc48</a>
+<a href="https://github.com/nklimko/dgrp-starve/tree/c8266363220689772ead160b332d691249ca10e3" target="_blank">c826636</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreea05fc4881b56d135ca6611fa23aebbb039e3d40atargetblanka05fc48a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreec8266363220689772ead160b332d691249ca10e3targetblankc826636a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -382,7 +458,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/nklimko/dgrp-starve/tree/a05fc4881b56d135ca6611fa23aebbb039e3d40a" target="_blank">a05fc48</a>.
+<a href="https://github.com/nklimko/dgrp-starve/tree/c8266363220689772ead160b332d691249ca10e3" target="_blank">c826636</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -397,6 +473,7 @@ were generated:
 </p>
 <pre><code>
 Untracked files:
+    Untracked:  analysis/tips.Rmd
     Untracked:  code/aaaTest
     Untracked:  code/analysisSR.R
     Untracked:  code/geneGO.R
@@ -436,7 +513,8 @@ Untracked files:
 
 Unstaged changes:
     Deleted:    analysis/database.Rmd
-    Modified:   analysis/index.Rmd
+    Modified:   analysis/multiReg.Rmd
+    Deleted:    analysis/scripts.Rmd
     Modified:   code/baseScript-lineComp.R
     Modified:   code/fourLinePrep.R
 
@@ -488,6 +566,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/c8266363220689772ead160b332d691249ca10e3/analysis/recap.Rmd" target="_blank">c826636</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-01-10
+</td>
+<td>
+wflow_publish("analysis/recap.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/bf1900e5442dbd26bf17e6cf9435e6be857230bf/docs/recap.html" target="_blank">bf1900e</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-01-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/a05fc4881b56d135ca6611fa23aebbb039e3d40a/analysis/recap.Rmd" target="_blank">a05fc48</a>
 </td>
 <td>
@@ -507,10 +619,8 @@ wflow_publish("analysis/recap.Rmd")
 </div>
 </div>
 </div>
-<div id="fall-2022" class="section level2">
-<h2>Fall 2022</h2>
 <div id="section" class="section level3">
-<h3>12/21</h3>
+<h3>2022/12/21</h3>
 <p>• Fit data to model using starvation resistance vector</p>
 <p>• Reorganize site to hyperlinks from main index rather than new pages
 every week</p>
@@ -518,7 +628,7 @@ every week</p>
 <p>• Merry Christmas!</p>
 </div>
 <div id="section-1" class="section level3">
-<h3>12/14</h3>
+<h3>2022/12/14</h3>
 <p>• Fix x axis uniform distribution label: incorrect.</p>
 <p>• Inflection in qq plot indicates inflation of p-values.</p>
 <p>• Address this by using mixed model of fixed effect and random
@@ -528,7 +638,7 @@ simulated data.</p>
 <p>• Send shift schedule to plan next week’s meeting.</p>
 </div>
 <div id="section-2" class="section level3">
-<h3>12/6</h3>
+<h3>2022/12/06</h3>
 <p>• Fix correlations: lm not reading in data properly, p-values
 wrong</p>
 <p>• Add -log10 scale on qqplot, not just Manhattan plot</p>
@@ -537,7 +647,7 @@ wrong</p>
 exams.</p>
 </div>
 <div id="section-3" class="section level3">
-<h3>11/29</h3>
+<h3>2022/11/29</h3>
 <p>• Use gene expression data to preform simple regression with
 starvation resistance.</p>
 <p>• Run summary(lm(y~x)) for starvation resistance against gene
@@ -549,7 +659,7 @@ p-values.</p>
 <p>• Determine why this statistical approach is inappropriate.</p>
 </div>
 <div id="section-4" class="section level3">
-<h3>11/22</h3>
+<h3>2022/11/22</h3>
 <p>• Multiple comparison scatter plots should be sex specific.</p>
 <p>• PCA should be performed with genotype data, not gene
 expression.</p>
@@ -558,7 +668,7 @@ expression.</p>
 <p>o Count # of genes expressed in males, females, and both.</p>
 </div>
 <div id="section-5" class="section level3">
-<h3>11/15</h3>
+<h3>2022/11/15</h3>
 <p>• Continue multiple comparisons with trendlines, multiple tips:</p>
 <p>o cor.test() for summary statistics</p>
 <p>o List notation to store ggplots</p>
@@ -569,7 +679,7 @@ expression</p>
 <p>• Discuss further PhD plans mid-February</p>
 </div>
 <div id="section-6" class="section level3">
-<h3>11/11</h3>
+<h3>2022/11/11</h3>
 <p>• Presented starvation analysis of DGRP lines</p>
 <p>o Include “code_folding: hide” in yaml headers for Rmd</p>
 <p>o Include variance in results</p>
@@ -577,7 +687,7 @@ expression</p>
 <p>• Perform analysis of gene expression by line</p>
 </div>
 <div id="section-7" class="section level3">
-<h3>11/1</h3>
+<h3>2022/11/01</h3>
 <p>• Get creative with analysis – scatterplot trendline, normality,
 beyond</p>
 <p>• WorkflowR from cmd line, develop website</p>
@@ -586,7 +696,7 @@ drive</p>
 <p>• Next meeting Friday the 11th at 10am by Zoom due to election</p>
 </div>
 <div id="section-8" class="section level3">
-<h3>10/26</h3>
+<h3>2022/10/26</h3>
 <p>• Set github ssh keys and config settings on personal laptop and
 secretariat</p>
 <p>• Recap of workflowR and walkthrough of model layout</p>
@@ -596,13 +706,13 @@ and female lines on computational node in secretariat.</p>
 feedback on both candidates</p>
 </div>
 <div id="section-9" class="section level3">
-<h3>10/18</h3>
+<h3>2022/10/18</h3>
 <p>• Presented SNP Prediction Paper on Plant and Animal breeding</p>
 <p>• Begin working with github and workflowR to begin data processing in
 upcoming weeks</p>
 </div>
 <div id="section-10" class="section level3">
-<h3>10/4</h3>
+<h3>2022/10/04</h3>
 <p>• Create simple presentation for <a
 href="https://www.genetics.org/content/genetics/193/2/327.full.pdf"
 class="uri">https://www.genetics.org/content/genetics/193/2/327.full.pdf</a>
@@ -614,7 +724,7 @@ Regression + Least Squares</p>
 research – three recommended</p>
 </div>
 <div id="section-11" class="section level3">
-<h3>9/27</h3>
+<h3>2022/09/27</h3>
 <p>• Review of Presentation for <a
 href="https://academic.oup.com/g3journal/article/10/12/4599/6048688"
 class="uri">https://academic.oup.com/g3journal/article/10/12/4599/6048688</a></p>
@@ -629,13 +739,12 @@ href="https://www.genetics.org/content/genetics/193/2/327.full.pdf"
 class="uri">https://www.genetics.org/content/genetics/193/2/327.full.pdf</a></p>
 </div>
 <div id="section-12" class="section level3">
-<h3>9/13</h3>
+<h3>2022/09/13</h3>
 <p>• Goal to complete R modules on Dataquest by 9/30: Dataquest is paid
 software</p>
 <p>• Read two papers focused on DGRP creation and usage</p>
 <p>• Begin reading additional paper for class presentation</p>
 <p>• Meeting time shift to 2:30pm for travel considerations</p>
-</div>
 </div>
 
 
@@ -654,6 +763,8 @@ footer is added to webpages before the MathJax javascript. -->
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -686,6 +797,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
