@@ -406,7 +406,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-01-08
+<strong>Last updated:</strong> 2023-01-10
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -537,15 +537,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree951799a1f59b0f73117a1a9fdd6090b554058cfetargetblank951799aa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree5cc6e1887b293b3f1e79ce2e57c71c8b6bb3812ctargetblank5cc6e18a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/nklimko/dgrp-starve/tree/951799a1f59b0f73117a1a9fdd6090b554058cfe" target="_blank">951799a</a>
+<a href="https://github.com/nklimko/dgrp-starve/tree/5cc6e1887b293b3f1e79ce2e57c71c8b6bb3812c" target="_blank">5cc6e18</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree951799a1f59b0f73117a1a9fdd6090b554058cfetargetblank951799aa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree5cc6e1887b293b3f1e79ce2e57c71c8b6bb3812ctargetblank5cc6e18a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -555,7 +555,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/nklimko/dgrp-starve/tree/951799a1f59b0f73117a1a9fdd6090b554058cfe" target="_blank">951799a</a>.
+<a href="https://github.com/nklimko/dgrp-starve/tree/5cc6e1887b293b3f1e79ce2e57c71c8b6bb3812c" target="_blank">5cc6e18</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -602,6 +602,8 @@ Untracked files:
     Untracked:  data/xp-f.txt
     Untracked:  data/xp-m.txt
     Untracked:  figure/
+    Untracked:  lmm.R
+    Untracked:  qqdum.R
     Untracked:  scoreAnalysisMulticomp.R
     Untracked:  temp.Rmd
 
@@ -654,6 +656,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/9e86f566dcc9971c872790fc30a35d6c87be660f/docs/multiComp.html" target="_blank">9e86f56</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-01-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1108,55 +1127,7 @@ for(i in 3:19)
 #reorder plots by absolute value of correlation coefficient
 gg &lt;- cbind(gg,corKeep)
 gg &lt;- gg[order(abs(corKeep),decreasing=TRUE),]</code></pre>
-<p><img src="figure/multiComp.Rmd/female-plots-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-female-plots-1">
-Past versions of female-plots-1.png
-</button>
-</p>
-<div id="fig-female-plots-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/a70126ba91cb50f11685867e271a6a506ba660ec/docs/figure/multiComp.Rmd/female-plots-1.png" target="_blank">a70126b</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-29
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/88ee9ec7d3879950d1c8eb4630670e808ea4dcc6/docs/figure/multiComp.Rmd/female-plots-1.png" target="_blank">88ee9ec</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/multiComp.Rmd/female-plots-1.svg" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="male-traits" class="section level3">
 <h3>Male Traits</h3>
@@ -1207,115 +1178,7 @@ for(i in 3:20)
 #reorder plots by absolute value of correlation coefficient
 gg &lt;- cbind(gg,corKeep)
 gg &lt;- gg[order(abs(corKeep),decreasing=TRUE),]</code></pre>
-<p><img src="figure/multiComp.Rmd/male-plots-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-male-plots-1">
-Past versions of male-plots-1.png
-</button>
-</p>
-<div id="fig-male-plots-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/a70126ba91cb50f11685867e271a6a506ba660ec/docs/figure/multiComp.Rmd/male-plots-1.png" target="_blank">a70126b</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-29
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/88ee9ec7d3879950d1c8eb4630670e808ea4dcc6/docs/figure/multiComp.Rmd/male-plots-1.png" target="_blank">88ee9ec</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/multiComp.Rmd/male-plots-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-male-plots-2">
-Past versions of male-plots-2.png
-</button>
-</p>
-<div id="fig-male-plots-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/987fdac45efdf8f426a0b376c3b54d839930ef7f/docs/figure/multiComp.Rmd/male-plots-2.png" target="_blank">987fdac</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-29
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/a70126ba91cb50f11685867e271a6a506ba660ec/docs/figure/multiComp.Rmd/male-plots-2.png" target="_blank">a70126b</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-29
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/88ee9ec7d3879950d1c8eb4630670e808ea4dcc6/docs/figure/multiComp.Rmd/male-plots-2.png" target="_blank">88ee9ec</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/multiComp.Rmd/male-plots-1.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/male-plots-2.svg" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="mean-expression" class="section level1">
@@ -1358,104 +1221,7 @@ xpmStats &lt;- data.table(xpmMean, xpmVar)
 mfilt &lt;- xpmStats[order(xpmStats$xpmVar, decreasing=TRUE)]
 
 mtrim &lt;- mfilt[1:250]</code></pre>
-<p><img src="figure/multiComp.Rmd/histPlots-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-histPlots-1">
-Past versions of histPlots-1.png
-</button>
-</p>
-<div id="fig-histPlots-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/a70126ba91cb50f11685867e271a6a506ba660ec/docs/figure/multiComp.Rmd/histPlots-1.png" target="_blank">a70126b</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-29
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/88ee9ec7d3879950d1c8eb4630670e808ea4dcc6/docs/figure/multiComp.Rmd/histPlots-1.png" target="_blank">88ee9ec</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/multiComp.Rmd/histPlots-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-histPlots-2">
-Past versions of histPlots-2.png
-</button>
-</p>
-<div id="fig-histPlots-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/a70126ba91cb50f11685867e271a6a506ba660ec/docs/figure/multiComp.Rmd/histPlots-2.png" target="_blank">a70126b</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-29
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/88ee9ec7d3879950d1c8eb4630670e808ea4dcc6/docs/figure/multiComp.Rmd/histPlots-2.png" target="_blank">88ee9ec</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/multiComp.Rmd/histPlots-1.svg" width="672" style="display: block; margin: auto;" /><img src="figure/multiComp.Rmd/histPlots-2.svg" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gene-counts" class="section level1">
 <h1>Gene Counts</h1>
@@ -1464,55 +1230,7 @@ A &lt;- list(&#39;Female&#39;=colnames(xpf), &#39;Male&#39;=colnames(xpm))
 
 #Venn diagram of gene counts
 ggvenn(A, show_percentage = FALSE)</code></pre>
-<p><img src="figure/multiComp.Rmd/vennDiagram-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-vennDiagram-1">
-Past versions of vennDiagram-1.png
-</button>
-</p>
-<div id="fig-vennDiagram-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/a70126ba91cb50f11685867e271a6a506ba660ec/docs/figure/multiComp.Rmd/vennDiagram-1.png" target="_blank">a70126b</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-29
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/88ee9ec7d3879950d1c8eb4630670e808ea4dcc6/docs/figure/multiComp.Rmd/vennDiagram-1.png" target="_blank">88ee9ec</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/multiComp.Rmd/vennDiagram-1.svg" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code># means converted to data tables for easier join
 fMeans &lt;- as.data.table(xpfMean, keep.rownames = TRUE)
 mMeans &lt;- as.data.table(xpmMean, keep.rownames = TRUE)
@@ -1529,66 +1247,7 @@ geom_point(color=&quot;purple&quot;) +
 geom_smooth(formula = y ~ x, method=lm) +
 labs(x=&quot;Female Expression&quot;, y=&quot;Male Expression&quot;, subtitle=paste0(&quot;R: &quot;,corCoeff)) +
 ggtitle(&quot;Male vs Female Mean Expression&quot;)</code></pre>
-<p><img src="figure/multiComp.Rmd/mfScatter-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-mfScatter-1">
-Past versions of mfScatter-1.png
-</button>
-</p>
-<div id="fig-mfScatter-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/a70126ba91cb50f11685867e271a6a506ba660ec/docs/figure/multiComp.Rmd/mfScatter-1.png" target="_blank">a70126b</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-29
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/0bc60319965306d0fb38148be9394e594eb60014/docs/figure/multiComp.Rmd/mfScatter-1.png" target="_blank">0bc6031</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-29
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/88ee9ec7d3879950d1c8eb4630670e808ea4dcc6/docs/figure/multiComp.Rmd/mfScatter-1.png" target="_blank">88ee9ec</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2022-11-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/multiComp.Rmd/mfScatter-1.svg" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
