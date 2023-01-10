@@ -1,0 +1,170 @@
+---
+title: "Meeting Summaries"
+output:
+  workflowr::wflow_html:
+    toc: false
+editor_options:
+  chunk_output_type: console
+---
+
+## Fall 2022
+
+
+### 12/21
+
+•	Fit data to model using starvation resistance vector
+
+•	Reorganize site to hyperlinks from main index rather than new pages every week
+
+•	Next meeting will be January 10th at CHG
+
+•	Merry Christmas!
+
+
+### 12/14
+
+•	Fix x axis uniform distribution label: incorrect.
+
+•	Inflection in qq plot indicates inflation of p-values.
+
+•	Address this by using mixed model of fixed effect and random effect.
+
+•	Sample data will be sent later on how to perform this with simulated data.
+
+•	Send shift schedule to plan next week’s meeting.
+
+
+### 12/6
+
+•	Fix correlations: lm not reading in data properly, p-values wrong
+
+•	Add -log10 scale on qqplot, not just Manhattan plot
+
+•	qqman package for both qqplot and Manhattan plot
+
+•	Next meeting Wednesday, Dec. 14th 2:30-3:00 via Zoom due to exams.
+
+
+### 11/29
+
+•	Use gene expression data to preform simple regression with starvation resistance.
+
+•	Run summary(lm(y~x)) for starvation resistance against gene expression for each gene in both sexes.
+
+•	p-value of slope can be accessed from `summary()[[4]][8]`
+
+•	Create a -10 log scale QQ-plot for a uniform distribution versus p-values.
+
+•	Determine why this statistical approach is inappropriate.
+
+
+### 11/22
+
+•	Multiple comparison scatter plots should be sex specific.
+
+•	PCA should be performed with genotype data, not gene expression.
+
+  o Calculate mean expression and variance for gene expression.
+  
+  o	Scatter plot of overlapping genes between males and females.
+  
+  o	Count # of genes expressed in males, females, and both.  
+  
+  
+### 11/15
+
+•	Continue multiple comparisons with trendlines, multiple tips:
+
+  o	cor.test() for summary statistics
+  
+  o	List notation to store ggplots
+  
+  o	Use print() with ggplot, cowplot for grid arrangement
+  
+•	Try to find an efficient method for column means of gene expression
+
+•	Principal Component analysis – begin brainstorming
+
+•	Discuss further PhD plans mid-February  
+
+  
+### 11/11
+
+•	Presented starvation analysis of DGRP lines
+
+  o	Include “code_folding: hide” in yaml headers for Rmd
+  
+  o	Include variance in results
+  
+•	Multiple comparison of starvation against all other traits
+
+•	Perform analysis of gene expression by line
+
+
+### 11/1
+
+•	Get creative with analysis – scatterplot trendline, normality, beyond
+
+•	WorkflowR from cmd line, develop website
+
+•	Base repositories in /data/morgante_lab/nklimko instead of home drive
+
+•	Next meeting Friday the 11th at 10am by Zoom due to election
+
+
+### 10/26
+
+•	Set github ssh keys and config settings on personal laptop and secretariat
+
+•	Recap of workflowR and walkthrough of model layout 
+
+•	Introductory project to analyze starvation resistance trait in male and female lines on computational node in secretariat. 
+
+•	Postdoctoral candidate meeting and seminar on Wed 10/27 – provide feedback on both candidates
+
+
+### 10/18
+
+•	Presented SNP Prediction Paper on Plant and Animal breeding
+
+•	Begin working with github and workflowR to begin data processing in upcoming weeks
+
+
+### 10/4
+
+•	Create simple presentation for https://www.genetics.org/content/genetics/193/2/327.full.pdf by 10/11 - build habit of summarizing papers/distilling main points
+
+•	Class selection: Adv. Biochem, Seminar, Intro to Quant Gen, and Regression + Least Squares
+
+  o	Consult on further class selection semester basis
+  
+•	Talk with Dr. Starr-Moss regarding credit hours for master’s research – three recommended
+  
+
+### 9/27
+
+•	Review of Presentation for https://academic.oup.com/g3journal/article/10/12/4599/6048688
+
+  o	Transcriptome data higher accuracy than SNP variation
+  
+  o	External data boosts prediction accuracy of transcriptome alone(TBLUP vs GO-TBLUP)
+  
+  o	Redundancy of genome and transcriptome – additive vs non-additive
+  
+•	Complete final Dataquest subunit by Friday
+
+•	Review https://www.genetics.org/content/genetics/193/2/327.full.pdf
+  
+
+### 9/13
+
+•	Goal to complete R modules on Dataquest by 9/30: Dataquest is paid software
+
+•	Read two papers focused on DGRP creation and usage
+
+•	Begin reading additional paper for class presentation
+
+•	Meeting time shift to 2:30pm for travel considerations
+
+
+
