@@ -405,7 +405,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-01-08
+<strong>Last updated:</strong> 2023-01-10
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -536,15 +536,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree951799a1f59b0f73117a1a9fdd6090b554058cfetargetblank951799aa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree3a150c2cb42fbf207b517da026d3aafba8fce27ftargetblank3a150c2a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/nklimko/dgrp-starve/tree/951799a1f59b0f73117a1a9fdd6090b554058cfe" target="_blank">951799a</a>
+<a href="https://github.com/nklimko/dgrp-starve/tree/3a150c2cb42fbf207b517da026d3aafba8fce27f" target="_blank">3a150c2</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree951799a1f59b0f73117a1a9fdd6090b554058cfetargetblank951799aa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree3a150c2cb42fbf207b517da026d3aafba8fce27ftargetblank3a150c2a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -554,7 +554,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/nklimko/dgrp-starve/tree/951799a1f59b0f73117a1a9fdd6090b554058cfe" target="_blank">951799a</a>.
+<a href="https://github.com/nklimko/dgrp-starve/tree/3a150c2cb42fbf207b517da026d3aafba8fce27f" target="_blank">3a150c2</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -569,6 +569,7 @@ were generated:
 </p>
 <pre><code>
 Untracked files:
+    Untracked:  analysis/testing.R
     Untracked:  code/aaaTest
     Untracked:  code/analysisSR.R
     Untracked:  code/geneGO.R
@@ -601,11 +602,14 @@ Untracked files:
     Untracked:  data/xp-f.txt
     Untracked:  data/xp-m.txt
     Untracked:  figure/
+    Untracked:  lmm.R
+    Untracked:  qqdum.R
     Untracked:  scoreAnalysisMulticomp.R
     Untracked:  temp.Rmd
 
 Unstaged changes:
     Deleted:    analysis/database.Rmd
+    Modified:   analysis/index.Rmd
     Modified:   code/baseScript-lineComp.R
     Modified:   code/fourLinePrep.R
 
@@ -653,6 +657,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/3a150c2cb42fbf207b517da026d3aafba8fce27f/analysis/multiReg.Rmd" target="_blank">3a150c2</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-01-10
+</td>
+<td>
+wflow_publish("analysis/multiReg.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/9e86f566dcc9971c872790fc30a35d6c87be660f/docs/multiReg.html" target="_blank">9e86f56</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-01-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -850,91 +888,126 @@ compilation with workflowr</p>
 </div>
 <div id="female" class="section level1">
 <h1>Female</h1>
-<pre class="r"><code>#read in p values
-fReg &lt;- fread(&quot;data/fRegress.txt&quot;)
-
-#read in expression data
+<pre class="r"><code>#read in expression data
 fMeans &lt;- fread(&quot;data/fMeans.txt&quot;)
 
 #create matrix of only gene expression, trims line and starvation
-Y &lt;- as.matrix(fMeans[,3:11340], row.names=1)
+X &lt;- as.matrix(fMeans[,3:11340])
+rownames(X) &lt;- fMeans[,line]
 
-#dimensions and number of fixed effect genes
-n &lt;- dim(Y)[1]
-p &lt;- dim(Y)[2]
-
-p_effect &lt;- 260
-#p_effect &lt;- round(p / 15)
-#400, 250 maxit
-
-#keep
-if(TRUE){
-
-#error is seeded rnorm, number of rows(lines)
-e &lt;- rnorm(n, 1, 0.25)
-#e &lt;- rnorm(n)
-
-# add gene names to p val list
-geneNames &lt;- colnames(fMeans)[3:11340]
-fReg &lt;- fReg[, gene:=geneNames]
-
-###sorted p values
-
-# LOW pval
-pSort &lt;- fReg[order(pvalList)]
-
-#HIGH pval
-#pSort &lt;- fReg[order(-pvalList)]
-}
-
-#rerun
-if(TRUE){
-
-# fixed effect vector USELESS, must be matched to certain values 
-b &lt;- c(rnorm(p_effect, mean=6), rep(0, p-p_effect))
-
-#affix vector to sorted p values
-pSort[,b:=b]
-
-#restore sort order to id/alphabetical gene, matches expression data order
-fFin &lt;- pSort[order(id)]
-
-# PROPER fixed effect vector PROPER with proper indexing
-b &lt;- fFin[,b]
-
-#matrix multiplication of the data and p
-y &lt;- drop(Y%*%b) + e
+y &lt;- fMeans[,starvation]
 
 ###Create model for covariates to adjust for (only an intercept in our case)
 mu &lt;- rep(1, length(y))
-names(mu) &lt;- names(y)
 
 ###Compute transcriptomic relationship matrix (accounts for structure based on expression levels)
-W &lt;- scale(Y)
+W &lt;- scale(X)
 TRM &lt;- tcrossprod(W)/ncol(W)
-}
 
 ###Fit mixed model
 fit &lt;- greml(y = y, X = mu, GRM = list(TRM), verbose = TRUE, maxit = 100)</code></pre>
-<pre><code>[1] &quot;Iteration:&quot; &quot;1&quot;          &quot;Theta:&quot;     &quot;55.73&quot;      &quot;54.66&quot;     
-[1] &quot;Iteration:&quot; &quot;2&quot;          &quot;Theta:&quot;     &quot;112.48&quot;     &quot;106.07&quot;    
-[1] &quot;Iteration:&quot; &quot;3&quot;          &quot;Theta:&quot;     &quot;228.94&quot;     &quot;199.48&quot;    
-[1] &quot;Iteration:&quot; &quot;4&quot;          &quot;Theta:&quot;     &quot;473.32&quot;     &quot;350.66&quot;    
-[1] &quot;Iteration:&quot; &quot;5&quot;          &quot;Theta:&quot;     &quot;1004.25&quot;    &quot;526.12&quot;    
-[1] &quot;Iteration:&quot; &quot;6&quot;          &quot;Theta:&quot;     &quot;2204.95&quot;    &quot;479.76&quot;    
-[1] &quot;Iteration:&quot; &quot;7&quot;          &quot;Theta:&quot;     &quot;4915.96&quot;    &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;8&quot;          &quot;Theta:&quot;     &quot;10576.46&quot;   &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;9&quot;          &quot;Theta:&quot;     &quot;24499.85&quot;   &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;10&quot;         &quot;Theta:&quot;     &quot;33377.59&quot;   &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;11&quot;         &quot;Theta:&quot;     &quot;64233.75&quot;   &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;12&quot;         &quot;Theta:&quot;     &quot;21974.94&quot;   &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;13&quot;         &quot;Theta:&quot;     &quot;54027.91&quot;   &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;14&quot;         &quot;Theta:&quot;     &quot;79643.02&quot;   &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;15&quot;         &quot;Theta:&quot;     &quot;0&quot;          &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;16&quot;         &quot;Theta:&quot;     &quot;0&quot;          &quot;0&quot;         
-[1] &quot;Converged at Iteration:&quot; &quot;16&quot;                     
-[3] &quot;Theta:&quot;                  &quot;0&quot;                      
-[5] &quot;0&quot;                      </code></pre>
+<pre><code>[1] &quot;Iteration:&quot; &quot;1&quot;          &quot;Theta:&quot;     &quot;6.31&quot;       &quot;6.11&quot;      
+[1] &quot;Iteration:&quot; &quot;2&quot;          &quot;Theta:&quot;     &quot;12.61&quot;      &quot;11.49&quot;     
+[1] &quot;Iteration:&quot; &quot;3&quot;          &quot;Theta:&quot;     &quot;25.16&quot;      &quot;20.29&quot;     
+[1] &quot;Iteration:&quot; &quot;4&quot;          &quot;Theta:&quot;     &quot;49.6&quot;       &quot;31.59&quot;     
+[1] &quot;Iteration:&quot; &quot;5&quot;          &quot;Theta:&quot;     &quot;93.98&quot;      &quot;38.09&quot;     
+[1] &quot;Iteration:&quot; &quot;6&quot;          &quot;Theta:&quot;     &quot;159.37&quot;     &quot;26.87&quot;     
+[1] &quot;Iteration:&quot; &quot;7&quot;          &quot;Theta:&quot;     &quot;217.58&quot;     &quot;4.08&quot;      
+[1] &quot;Iteration:&quot; &quot;8&quot;          &quot;Theta:&quot;     &quot;238.43&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;9&quot;          &quot;Theta:&quot;     &quot;240.78&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;10&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;11&quot;         &quot;Theta:&quot;     &quot;240.78&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;12&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;13&quot;         &quot;Theta:&quot;     &quot;240.78&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;14&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;15&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;16&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;17&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;18&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;19&quot;         &quot;Theta:&quot;     &quot;240.82&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;20&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;21&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;22&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;23&quot;         &quot;Theta:&quot;     &quot;240.83&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;24&quot;         &quot;Theta:&quot;     &quot;240.79&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;25&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;26&quot;         &quot;Theta:&quot;     &quot;240.82&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;27&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;28&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;29&quot;         &quot;Theta:&quot;     &quot;240.79&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;30&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;31&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;32&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;33&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;34&quot;         &quot;Theta:&quot;     &quot;240.79&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;35&quot;         &quot;Theta:&quot;     &quot;240.82&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;36&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;37&quot;         &quot;Theta:&quot;     &quot;240.82&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;38&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;39&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;40&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;41&quot;         &quot;Theta:&quot;     &quot;240.79&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;42&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;43&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;44&quot;         &quot;Theta:&quot;     &quot;240.82&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;45&quot;         &quot;Theta:&quot;     &quot;240.83&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;46&quot;         &quot;Theta:&quot;     &quot;240.79&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;47&quot;         &quot;Theta:&quot;     &quot;240.82&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;48&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;49&quot;         &quot;Theta:&quot;     &quot;240.79&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;50&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;51&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;52&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;53&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;54&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;55&quot;         &quot;Theta:&quot;     &quot;240.77&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;56&quot;         &quot;Theta:&quot;     &quot;240.79&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;57&quot;         &quot;Theta:&quot;     &quot;240.79&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;58&quot;         &quot;Theta:&quot;     &quot;240.82&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;59&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;60&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;61&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;62&quot;         &quot;Theta:&quot;     &quot;240.82&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;63&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;64&quot;         &quot;Theta:&quot;     &quot;240.79&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;65&quot;         &quot;Theta:&quot;     &quot;240.82&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;66&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;67&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;68&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;69&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;70&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;71&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;72&quot;         &quot;Theta:&quot;     &quot;240.82&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;73&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;74&quot;         &quot;Theta:&quot;     &quot;240.79&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;75&quot;         &quot;Theta:&quot;     &quot;240.82&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;76&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;77&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;78&quot;         &quot;Theta:&quot;     &quot;240.82&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;79&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;80&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;81&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;82&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;83&quot;         &quot;Theta:&quot;     &quot;240.78&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;84&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;85&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;86&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;87&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;88&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;89&quot;         &quot;Theta:&quot;     &quot;240.82&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;90&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;91&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;92&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;93&quot;         &quot;Theta:&quot;     &quot;240.79&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;94&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;95&quot;         &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;96&quot;         &quot;Theta:&quot;     &quot;240.8&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;97&quot;         &quot;Theta:&quot;     &quot;240.82&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;98&quot;         &quot;Theta:&quot;     &quot;240.82&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;99&quot;         &quot;Theta:&quot;     &quot;240.82&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;100&quot;        &quot;Theta:&quot;     &quot;240.81&quot;     &quot;0&quot;         </code></pre>
+<pre><code>Warning in remlr(y = y, X = X, GRMlist = GRMlist, G = GRM, theta = theta, :
+Maximum number of iterations reached. Try increasing maxit.</code></pre>
 <pre class="r"><code>stat &lt;- glma(fit = fit, W = W)
 
 #qqplot
@@ -1003,98 +1076,128 @@ nklimko
 <div id="male" class="section level1">
 <h1>Male</h1>
 <pre class="r"><code>rm(list=ls())
-
-#read in p values
-mReg &lt;- fread(&quot;data/mRegress.txt&quot;)
+set.seed(1)
 
 #read in expression data
 mMeans &lt;- fread(&quot;data/mMeans.txt&quot;)
 
 #create matrix of only gene expression, trims line and starvation
-Y &lt;- as.matrix(mMeans[,3:13577], row.names=1)
+X &lt;- as.matrix(mMeans[,3:13577])
+rownames(X) &lt;- mMeans[,line]
 
-#dimensions and number of fixed effect genes
-n &lt;- dim(Y)[1]
-p &lt;- dim(Y)[2]
-p_effect &lt;- 525
-#p_effect &lt;- round(p / 15)
-
-# add gene names to p val list
-geneNames &lt;- colnames(mMeans)[3:13577]
-mReg &lt;- mReg[, gene:=geneNames]
-
-###sorted p values
-
-# LOW pval
-pSort &lt;- mReg[order(pvalList)]
-
-#HIGH pval
-#pSort &lt;- mReg[order(-pvalList)]
-
-# fixed effect vector USELESS, must be matched to certain values 
-b &lt;- c(rnorm(p_effect, mean=6), rep(0, p-p_effect))
-
-#affix vector to sorted p values
-pSort[,b:=b]
-
-#restore sort order to id/alphabetical gene, matches expression data order
-mFin &lt;- pSort[order(id)]
-
-# PROPER fixed effect vector PROPER with proper indexing
-b &lt;- mFin[,b]
-
-#error is seeded rnorm, number of rows(lines)
-e &lt;- rnorm(n, 1, 0.25)
-#e &lt;- rnorm(n)
-
-#matrix multiplication of the data and p
-y &lt;- drop(Y%*%b) + e
+y &lt;- mMeans[,starvation]
 
 ###Create model for covariates to adjust for (only an intercept in our case)
 mu &lt;- rep(1, length(y))
-names(mu) &lt;- names(y)
 
 ###Compute transcriptomic relationship matrix (accounts for structure based on expression levels)
-W &lt;- scale(Y)
+W &lt;- scale(X)
 TRM &lt;- tcrossprod(W)/ncol(W)
 
 ###Fit mixed model
-fit &lt;- greml(y = y, X = mu, GRM = list(TRM), verbose = TRUE)</code></pre>
-<pre><code>[1] &quot;Iteration:&quot; &quot;1&quot;          &quot;Theta:&quot;     &quot;91.15&quot;      &quot;88.84&quot;     
-[1] &quot;Iteration:&quot; &quot;2&quot;          &quot;Theta:&quot;     &quot;183.8&quot;      &quot;170.11&quot;    
-[1] &quot;Iteration:&quot; &quot;3&quot;          &quot;Theta:&quot;     &quot;373.54&quot;     &quot;310.86&quot;    
-[1] &quot;Iteration:&quot; &quot;4&quot;          &quot;Theta:&quot;     &quot;769.98&quot;     &quot;511.57&quot;    
-[1] &quot;Iteration:&quot; &quot;5&quot;          &quot;Theta:&quot;     &quot;1624.31&quot;    &quot;637.37&quot;    
-[1] &quot;Iteration:&quot; &quot;6&quot;          &quot;Theta:&quot;     &quot;3520.08&quot;    &quot;117.94&quot;    
-[1] &quot;Iteration:&quot; &quot;7&quot;          &quot;Theta:&quot;     &quot;7519.51&quot;    &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;8&quot;          &quot;Theta:&quot;     &quot;16410.1&quot;    &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;9&quot;          &quot;Theta:&quot;     &quot;31164.21&quot;   &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;10&quot;         &quot;Theta:&quot;     &quot;60969.74&quot;   &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;11&quot;         &quot;Theta:&quot;     &quot;8515.65&quot;    &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;12&quot;         &quot;Theta:&quot;     &quot;19284.7&quot;    &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;13&quot;         &quot;Theta:&quot;     &quot;47341.63&quot;   &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;14&quot;         &quot;Theta:&quot;     &quot;95237.84&quot;   &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;15&quot;         &quot;Theta:&quot;     &quot;45481.58&quot;   &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;16&quot;         &quot;Theta:&quot;     &quot;109238.51&quot;  &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;17&quot;         &quot;Theta:&quot;     &quot;208252.63&quot;  &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;18&quot;         &quot;Theta:&quot;     &quot;92623.61&quot;   &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;19&quot;         &quot;Theta:&quot;     &quot;0&quot;          &quot;68299.02&quot;  
-[1] &quot;Iteration:&quot; &quot;20&quot;         &quot;Theta:&quot;     &quot;50566.26&quot;   &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;21&quot;         &quot;Theta:&quot;     &quot;63615.84&quot;   &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;22&quot;         &quot;Theta:&quot;     &quot;143982.95&quot;  &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;23&quot;         &quot;Theta:&quot;     &quot;145265.04&quot;  &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;24&quot;         &quot;Theta:&quot;     &quot;0&quot;          &quot;5808.2&quot;    
-[1] &quot;Iteration:&quot; &quot;25&quot;         &quot;Theta:&quot;     &quot;365.69&quot;     &quot;7491.58&quot;   
-[1] &quot;Iteration:&quot; &quot;26&quot;         &quot;Theta:&quot;     &quot;1580.34&quot;    &quot;6062.89&quot;   
-[1] &quot;Iteration:&quot; &quot;27&quot;         &quot;Theta:&quot;     &quot;4522.6&quot;     &quot;1158.62&quot;   
-[1] &quot;Iteration:&quot; &quot;28&quot;         &quot;Theta:&quot;     &quot;10692.21&quot;   &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;29&quot;         &quot;Theta:&quot;     &quot;24363.01&quot;   &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;30&quot;         &quot;Theta:&quot;     &quot;52929.41&quot;   &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;31&quot;         &quot;Theta:&quot;     &quot;0&quot;          &quot;0&quot;         
-[1] &quot;Iteration:&quot; &quot;32&quot;         &quot;Theta:&quot;     &quot;0&quot;          &quot;0&quot;         
-[1] &quot;Converged at Iteration:&quot; &quot;32&quot;                     
-[3] &quot;Theta:&quot;                  &quot;0&quot;                      
-[5] &quot;0&quot;                      </code></pre>
+fit &lt;- greml(y = y, X = mu, GRM = list(TRM), verbose = TRUE, maxit = 100)</code></pre>
+<pre><code>[1] &quot;Iteration:&quot; &quot;1&quot;          &quot;Theta:&quot;     &quot;4.69&quot;       &quot;4.49&quot;      
+[1] &quot;Iteration:&quot; &quot;2&quot;          &quot;Theta:&quot;     &quot;9.33&quot;       &quot;8.18&quot;      
+[1] &quot;Iteration:&quot; &quot;3&quot;          &quot;Theta:&quot;     &quot;18.37&quot;      &quot;13.58&quot;     
+[1] &quot;Iteration:&quot; &quot;4&quot;          &quot;Theta:&quot;     &quot;35.17&quot;      &quot;18.65&quot;     
+[1] &quot;Iteration:&quot; &quot;5&quot;          &quot;Theta:&quot;     &quot;62.48&quot;      &quot;17.2&quot;      
+[1] &quot;Iteration:&quot; &quot;6&quot;          &quot;Theta:&quot;     &quot;94.45&quot;      &quot;5.5&quot;       
+[1] &quot;Iteration:&quot; &quot;7&quot;          &quot;Theta:&quot;     &quot;115.08&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;8&quot;          &quot;Theta:&quot;     &quot;121.35&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;9&quot;          &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;10&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;11&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;12&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;13&quot;         &quot;Theta:&quot;     &quot;121.72&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;14&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;15&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;16&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;17&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;18&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;19&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;20&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;21&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;22&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;23&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;24&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;25&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;26&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;27&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;28&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;29&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;30&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;31&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;32&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;33&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;34&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;35&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;36&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;37&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;38&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;39&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;40&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;41&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;42&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;43&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;44&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;45&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;46&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;47&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;48&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;49&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;50&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;51&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;52&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;53&quot;         &quot;Theta:&quot;     &quot;121.72&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;54&quot;         &quot;Theta:&quot;     &quot;121.72&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;55&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;56&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;57&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;58&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;59&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;60&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;61&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;62&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;63&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;64&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;65&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;66&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;67&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;68&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;69&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;70&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;71&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;72&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;73&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;74&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;75&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;76&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;77&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;78&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;79&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;80&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;81&quot;         &quot;Theta:&quot;     &quot;121.69&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;82&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;83&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;84&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;85&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;86&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;87&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;88&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;89&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;90&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;91&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;92&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;93&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;94&quot;         &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;95&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;96&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;97&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;98&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;99&quot;         &quot;Theta:&quot;     &quot;121.71&quot;     &quot;0&quot;         
+[1] &quot;Iteration:&quot; &quot;100&quot;        &quot;Theta:&quot;     &quot;121.7&quot;      &quot;0&quot;         </code></pre>
+<pre><code>Warning in remlr(y = y, X = X, GRMlist = GRMlist, G = GRM, theta = theta, :
+Maximum number of iterations reached. Try increasing maxit.</code></pre>
 <pre class="r"><code>stat &lt;- glma(fit = fit, W = W)
 
 #qqplot
