@@ -12,7 +12,22 @@ editor_options:
 ## Weekly Projects
 
 
-### [Multiple Regression](multiReg.html)
+### [Female Mulitple Regression and Prediction](predict.html)
+
+[Latest Goals](recap.html#20230117)
+
+
+### [Male multiReg and Prediction BROKEN](rewrite.html) 
+
+[Latest Goals](recap.html#20230117)
+
+
+### [Linear Regression ADJ](linearReg.html)
+
+[Latest Goals](recap.html#20221214)
+
+
+### [Multiple Regression](multiReg.html) 
 
 [Latest Goals](recap.html#20221221)
 
