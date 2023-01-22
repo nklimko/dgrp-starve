@@ -7,6 +7,34 @@ editor_options:
   chunk_output_type: console
 ---
 
+### 2023/01/17
+
+•	Upload rds/Rdata file of y_adj, mu, TRM, and validate for further review.
+
+•	Perform cross validation using own code: generate TRM with both model and validation set.
+
+•	Use fitG and fitB for transcriptomic predictors and intercepts respectively.
+
+•	Summary statistics of accuracy: compare predicted phenotype to observed.
+
+•	Address qqman not taking input/arguments.
+
+•	Following meeting 2:00pm on Monday the 23rd.
+
+
+### 2023/01/10
+
+•	Adjust phenotypes for Wolbachia infection status and inversions for [Linear Regression](linreg.html)
+
+•	Use validate to perform partitioned prediction on data using Pearson's correlation coefficient ($corr) from qqman methods
+
+•	Troubleshoot stat from qqman not taking input/arguments -> determine issue
+
+•	Plan to review progress each Monday at 11:00 am
+
+•	Troubleshoot stat from qqman not taking input/arguments -> determine issue
+
+
 ### 2022/12/21
 
 •	Fit data to model using starvation resistance vector
