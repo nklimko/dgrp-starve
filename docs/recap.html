@@ -393,7 +393,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-01-10
+<strong>Last updated:</strong> 2023-01-22
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -440,15 +440,15 @@ results.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreec8266363220689772ead160b332d691249ca10e3targetblankc826636a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree709ca14d78b1bdfea13c0e49bad07fdb18c6670dtargetblank709ca14a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/nklimko/dgrp-starve/tree/c8266363220689772ead160b332d691249ca10e3" target="_blank">c826636</a>
+<a href="https://github.com/nklimko/dgrp-starve/tree/709ca14d78b1bdfea13c0e49bad07fdb18c6670d" target="_blank">709ca14</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreec8266363220689772ead160b332d691249ca10e3targetblankc826636a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree709ca14d78b1bdfea13c0e49bad07fdb18c6670dtargetblank709ca14a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -458,7 +458,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/nklimko/dgrp-starve/tree/c8266363220689772ead160b332d691249ca10e3" target="_blank">c826636</a>.
+<a href="https://github.com/nklimko/dgrp-starve/tree/709ca14d78b1bdfea13c0e49bad07fdb18c6670d" target="_blank">709ca14</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -472,8 +472,13 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
+Ignored files:
+    Ignored:    .RData
+
 Untracked files:
-    Untracked:  analysis/tips.Rmd
+    Untracked:  analysis/gremlo.R
+    Untracked:  analysis/linearReg.Rmd
+    Untracked:  analysis/rewrite.Rmd
     Untracked:  code/aaaTest
     Untracked:  code/analysisSR.R
     Untracked:  code/geneGO.R
@@ -488,6 +493,18 @@ Untracked files:
     Untracked:  code/regressF.81919.out
     Untracked:  code/regressF.R
     Untracked:  code/regressF.sbatch
+    Untracked:  code/regress_f_adj.109973.err
+    Untracked:  code/regress_f_adj.109973.out
+    Untracked:  code/regress_f_adj.109974.err
+    Untracked:  code/regress_f_adj.109974.out
+    Untracked:  code/regress_f_adj.R
+    Untracked:  code/regress_f_adj.sbatch
+    Untracked:  code/regress_m_adj.109971.err
+    Untracked:  code/regress_m_adj.109971.out
+    Untracked:  code/regress_m_adj.109972.err
+    Untracked:  code/regress_m_adj.109972.out
+    Untracked:  code/regress_m_adj.R
+    Untracked:  code/regress_m_adj.sbatch
     Untracked:  code/snpGene.77509.err
     Untracked:  code/snpGene.77509.out
     Untracked:  code/snpGene.77515.err
@@ -497,14 +514,20 @@ Untracked files:
     Untracked:  data/eQTL_traits_males.csv
     Untracked:  data/fMeans.txt
     Untracked:  data/fRegress.txt
+    Untracked:  data/fRegress_adj.txt
+    Untracked:  data/f_adj.txt
     Untracked:  data/goGroups.txt
     Untracked:  data/mMeans.txt
     Untracked:  data/mPart.txt
     Untracked:  data/mRegress.txt
+    Untracked:  data/mRegress_adj.txt
+    Untracked:  data/m_adj.txt
+    Untracked:  data/multiReg.rData
     Untracked:  data/starve-f.txt
     Untracked:  data/starve-m.txt
     Untracked:  data/xp-f.txt
     Untracked:  data/xp-m.txt
+    Untracked:  data/y_save.txt
     Untracked:  figure/
     Untracked:  lmm.R
     Untracked:  qqdum.R
@@ -513,6 +536,9 @@ Untracked files:
 
 Unstaged changes:
     Deleted:    analysis/database.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/linReg.Rmd
+    Modified:   analysis/multiComp.Rmd
     Modified:   analysis/multiReg.Rmd
     Deleted:    analysis/scripts.Rmd
     Modified:   code/baseScript-lineComp.R
@@ -561,6 +587,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/709ca14d78b1bdfea13c0e49bad07fdb18c6670d/analysis/recap.Rmd" target="_blank">709ca14</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-01-22
+</td>
+<td>
+wflow_publish("analysis/recap.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/e4cf8cb78477504497a5687376d82d6623e44dd7/docs/recap.html" target="_blank">e4cf8cb</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-01-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -620,6 +680,31 @@ wflow_publish("analysis/recap.Rmd")
 </div>
 </div>
 <div id="section" class="section level3">
+<h3>2023/01/17</h3>
+<p>• Upload rds/Rdata file of y_adj, mu, TRM, and validate for further
+review.</p>
+<p>• Perform cross validation using own code: generate TRM with both
+model and validation set.</p>
+<p>• Use fitG and fitB for transcriptomic predictors and intercepts
+respectively.</p>
+<p>• Summary statistics of accuracy: compare predicted phenotype to
+observed.</p>
+<p>• Address qqman not taking input/arguments.</p>
+<p>• Following meeting 2:00pm on Monday the 23rd.</p>
+</div>
+<div id="section-1" class="section level3">
+<h3>2023/01/10</h3>
+<p>• Adjust phenotypes for Wolbachia infection status and inversions for
+<a href="linreg.html">Linear Regression</a></p>
+<p>• Use validate to perform partitioned prediction on data using
+Pearson’s correlation coefficient ($corr) from qqman methods</p>
+<p>• Troubleshoot stat from qqman not taking input/arguments -&gt;
+determine issue</p>
+<p>• Plan to review progress each Monday at 11:00 am</p>
+<p>• Troubleshoot stat from qqman not taking input/arguments -&gt;
+determine issue</p>
+</div>
+<div id="section-2" class="section level3">
 <h3>2022/12/21</h3>
 <p>• Fit data to model using starvation resistance vector</p>
 <p>• Reorganize site to hyperlinks from main index rather than new pages
@@ -627,7 +712,7 @@ every week</p>
 <p>• Next meeting will be January 10th at CHG</p>
 <p>• Merry Christmas!</p>
 </div>
-<div id="section-1" class="section level3">
+<div id="section-3" class="section level3">
 <h3>2022/12/14</h3>
 <p>• Fix x axis uniform distribution label: incorrect.</p>
 <p>• Inflection in qq plot indicates inflation of p-values.</p>
@@ -637,7 +722,7 @@ effect.</p>
 simulated data.</p>
 <p>• Send shift schedule to plan next week’s meeting.</p>
 </div>
-<div id="section-2" class="section level3">
+<div id="section-4" class="section level3">
 <h3>2022/12/06</h3>
 <p>• Fix correlations: lm not reading in data properly, p-values
 wrong</p>
@@ -646,7 +731,7 @@ wrong</p>
 <p>• Next meeting Wednesday, Dec. 14th 2:30-3:00 via Zoom due to
 exams.</p>
 </div>
-<div id="section-3" class="section level3">
+<div id="section-5" class="section level3">
 <h3>2022/11/29</h3>
 <p>• Use gene expression data to preform simple regression with
 starvation resistance.</p>
@@ -658,7 +743,7 @@ expression for each gene in both sexes.</p>
 p-values.</p>
 <p>• Determine why this statistical approach is inappropriate.</p>
 </div>
-<div id="section-4" class="section level3">
+<div id="section-6" class="section level3">
 <h3>2022/11/22</h3>
 <p>• Multiple comparison scatter plots should be sex specific.</p>
 <p>• PCA should be performed with genotype data, not gene
@@ -667,7 +752,7 @@ expression.</p>
 <p>o Scatter plot of overlapping genes between males and females.</p>
 <p>o Count # of genes expressed in males, females, and both.</p>
 </div>
-<div id="section-5" class="section level3">
+<div id="section-7" class="section level3">
 <h3>2022/11/15</h3>
 <p>• Continue multiple comparisons with trendlines, multiple tips:</p>
 <p>o cor.test() for summary statistics</p>
@@ -678,7 +763,7 @@ expression</p>
 <p>• Principal Component analysis – begin brainstorming</p>
 <p>• Discuss further PhD plans mid-February</p>
 </div>
-<div id="section-6" class="section level3">
+<div id="section-8" class="section level3">
 <h3>2022/11/11</h3>
 <p>• Presented starvation analysis of DGRP lines</p>
 <p>o Include “code_folding: hide” in yaml headers for Rmd</p>
@@ -686,7 +771,7 @@ expression</p>
 <p>• Multiple comparison of starvation against all other traits</p>
 <p>• Perform analysis of gene expression by line</p>
 </div>
-<div id="section-7" class="section level3">
+<div id="section-9" class="section level3">
 <h3>2022/11/01</h3>
 <p>• Get creative with analysis – scatterplot trendline, normality,
 beyond</p>
@@ -695,7 +780,7 @@ beyond</p>
 drive</p>
 <p>• Next meeting Friday the 11th at 10am by Zoom due to election</p>
 </div>
-<div id="section-8" class="section level3">
+<div id="section-10" class="section level3">
 <h3>2022/10/26</h3>
 <p>• Set github ssh keys and config settings on personal laptop and
 secretariat</p>
@@ -705,13 +790,13 @@ and female lines on computational node in secretariat.</p>
 <p>• Postdoctoral candidate meeting and seminar on Wed 10/27 – provide
 feedback on both candidates</p>
 </div>
-<div id="section-9" class="section level3">
+<div id="section-11" class="section level3">
 <h3>2022/10/18</h3>
 <p>• Presented SNP Prediction Paper on Plant and Animal breeding</p>
 <p>• Begin working with github and workflowR to begin data processing in
 upcoming weeks</p>
 </div>
-<div id="section-10" class="section level3">
+<div id="section-12" class="section level3">
 <h3>2022/10/04</h3>
 <p>• Create simple presentation for <a
 href="https://www.genetics.org/content/genetics/193/2/327.full.pdf"
@@ -723,7 +808,7 @@ Regression + Least Squares</p>
 <p>• Talk with Dr. Starr-Moss regarding credit hours for master’s
 research – three recommended</p>
 </div>
-<div id="section-11" class="section level3">
+<div id="section-13" class="section level3">
 <h3>2022/09/27</h3>
 <p>• Review of Presentation for <a
 href="https://academic.oup.com/g3journal/article/10/12/4599/6048688"
@@ -738,7 +823,7 @@ non-additive</p>
 href="https://www.genetics.org/content/genetics/193/2/327.full.pdf"
 class="uri">https://www.genetics.org/content/genetics/193/2/327.full.pdf</a></p>
 </div>
-<div id="section-12" class="section level3">
+<div id="section-14" class="section level3">
 <h3>2022/09/13</h3>
 <p>• Goal to complete R modules on Dataquest by 9/30: Dataquest is paid
 software</p>
