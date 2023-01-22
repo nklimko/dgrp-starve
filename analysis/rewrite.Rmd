@@ -1,0 +1,166 @@
+---
+title: "Male Prediction WIP"
+output:
+  workflowr::wflow_html:
+    toc: true
+    latex_engine: "xelatex"
+    code_folding: "hide"
+editor_options:
+  chunk_output_type: console
+---
+
+```{r 0-setup, include=FALSE, warning=FALSE}
+library(dplyr)
+library(data.table)
+library(ggplot2)
+library(cowplot)
+library(qqman)
+library(qgg)
+
+set.seed(1)
+
+options(bitmapType = "cairo")
+
+options(error = function() traceback(3))
+
+```
+
+### Female Data
+
+```{r greml-female, eval=FALSE}
+
+#wolb infection and inversion status data with phenotype adjustment function
+load("/data/morgante_lab/data/dgrp/misc/adjustData.RData")
+
+#read in expression data
+fMeans <- fread("data/fMeans.txt")
+
+#create matrix of only gene expression, trims line and starvation
+X <- as.matrix(fMeans[,3:11340])
+rownames(X) <- fMeans[,line]
+
+#extract and adjust phenotype(starvation)
+y <- fMeans[,starvation]
+dat <- data.frame(id=fMeans[,line], y=y)
+y_adj <- adjustPheno(dat, "starvation")
+
+#scale matrix and compute TRM using crossproduct and number of markers(genes)
+W <- scale(X)
+TRM <- tcrossprod(W)/ncol(W)
+
+#convert TRM structure to list
+listTRM <- list(A=TRM)
+
+#model to solve for, vector of ones
+mu <- matrix(rep(1, length(y_adj)), ncol=1)
+
+# REML analyses
+fitG <- greml(y = y_adj, X = mu, GRM = listTRM, verbose = TRUE)
+
+# Create marker sets
+#setsTB <- list(A = colnames(X)) # gblup model
+
+# grm computes crossproduct 
+#TB <- lapply(setsTB, function(x) {grm(W = X[, x])})
+
+# k-fold parameters
+n <- length(y_adj)
+fold <- 10
+nvalid <- 50
+
+#validate sets
+validate <- replicate(nvalid, sample(1:n, as.integer(n / fold)))
+
+#cross-validation greml
+cvTB <- greml(y = y_adj, X = mu, GRM = listTRM, validate = validate, verbose=FALSE)
+
+hist(cvTB$accuracy$Corr, main = "Female Correlations")
+
+statTemp <- glma(fit = fitG, W = W)
+
+#summary(cvTB$accuracy$Corr)
+par(mfrow=c(1,2))
+
+hist(statTemp[,1], main="Female Coefficients")
+
+qq(statTemp[,4], main="Female Gene p-values")
+
+statF <- statTemp
+
+summary(statF)
+
+
+```
+
+### Male Data
+
+```{r m-predict}
+rm(list=ls())
+
+#wolb infection and inversion status data with phenotype adjustment function
+load("/data/morgante_lab/data/dgrp/misc/adjustData.RData")
+
+#read in expression data
+mMeans <- fread("data/mMeans.txt")
+
+#create matrix of only gene expression, trims line and starvation
+X <- as.matrix(mMeans[,3:11340])
+rownames(X) <- mMeans[,line]
+
+#extract and adjust phenotype(starvation)
+y <- mMeans[,starvation]
+dat <- data.frame(id=mMeans[,line], y=y)
+y_adj <- adjustPheno(dat, "starvation")
+
+
+#scale matrix and compute TRM using crossproduct and number of markers(genes)
+W <- scale(X)
+TRM <- tcrossprod(W)/ncol(W)
+
+listTRM <- list(A=TRM)
+
+#model to solve for, vector of ones
+mu <- matrix(rep(1, length(y_adj)), ncol=1)
+
+# REML analyses
+fitG <- greml(y = y_adj, X = mu, GRM = listTRM, verbose = TRUE, maxit=1000)
+
+# Create marker sets
+#setsTB <- list(A = colnames(X)) # gblup model
+
+# grm computes crossproduct 
+#TB <- lapply(setsTB, function(x) {grm(W = X[, x])})
+
+# k-fold parameters
+n <- length(y_adj)
+fold <- 10
+nvalid <- 50
+
+#validate sets
+validate <- replicate(nvalid, sample(1:n, as.integer(n / fold)))
+
+cvTB <- greml(y = y_adj, X = mu, GRM = listTRM, validate = validate, verbose=FALSE)
+
+hist(cvTB$accuracy$Corr, main = "Male Correlations")
+
+statTemp <- glma(fit = fitG, W = W)
+
+#summary(cvTB$accuracy$Corr)
+par(mfrow=c(1,2))
+
+hist(statTemp[,1], main="Male Coefficients")
+
+qq(statTemp[,4], main="Male Gene p-values")
+
+statM <- statTemp
+
+summary(statM)
+
+```
+
+
+
+
+
+
+

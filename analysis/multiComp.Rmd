@@ -242,9 +242,7 @@ gg[[5]] <- ggplot(xpmStats, aes(x=xpmVar)) +
   ggtitle("Male Variance")
 
 #male variance top
-gg[[6]] <- 
-  
-  ggplot(mtrim, aes(x=xpmVar)) + 
+gg[[6]] <- ggplot(mtrim, aes(x=xpmVar)) + 
   geom_histogram(bins=50, fill='blue') +
   labs(x="Variance", y="Gene Count") +
   ggtitle("Top 250 Male Variance")

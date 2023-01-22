@@ -15,7 +15,6 @@
 library("data.table")
 library("dplyr")
 
-
 ##change per job
 dataPath <- "/data/morgante_lab/data/dgrp/genotypes/dgrp2_tgeno_filtered_meanimputed.txt"
 targetPath <- "/data/morgante_lab/nklimko/rep/dgrp-starve/data/INPUT.txt"

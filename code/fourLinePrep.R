@@ -22,11 +22,6 @@ starve <- tibble(read.csv("data/starve.csv")) %>% select(-X)
 print(arrange(starve, starve$dif), n=205)
 print(arrange(starve, starve$avg), n=205)
 
-#Each chunk below filters all data by values in one of two computed columns,
-#sorts by line, and extracts lines only. Each subset is converted to DT and saved
-
-#Also, at this point I transitioned from using tibble to data.table as a default
-
 # Lines with male SR high than female SR
 difMinus <- starve %>% filter(dif < 0) %>% arrange(line) %>% select(line)
 difMinus <- as.data.table(difMinus)

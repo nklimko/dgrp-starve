@@ -16,6 +16,8 @@ library(ggplot2)
 library(cowplot)
 library(qqman)
 library(qgg)
+library(sommer)
+
 
 set.seed(1)
 
@@ -41,6 +43,10 @@ The Transcriptomic Relation Matrix was calculated using the cross product of a s
 
 ```{r f-qq, warning=FALSE}
 
+setwd("/data/morgante_lab/nklimko/rep/dgrp-starve/")
+
+load("/data/morgante_lab/data/dgrp/misc/adjustData.RData")
+
 #read in expression data
 fMeans <- fread("data/fMeans.txt")
 
@@ -50,21 +56,50 @@ rownames(X) <- fMeans[,line]
 
 y <- fMeans[,starvation]
 
+dat <- data.frame(id=fMeans[,line], y=y)
+
+y_adj <- adjustPheno(dat, "starvation")
+
+
+
+
 ###Create model for covariates to adjust for (only an intercept in our case)
-mu <- rep(1, length(y))
+mu <- matrix(rep(1, length(y_adj)),ncol=1)
 
 ###Compute transcriptomic relationship matrix (accounts for structure based on expression levels)
 W <- scale(X)
 TRM <- tcrossprod(W)/ncol(W)
 
+### SOMMER
+#y_data <- data.frame(id=as.factor(rownames(X)), y=y_adj)
+#fitG_som <- mmer(y~1, random=~vs(id,Gu=TRM), rcov=~units, data=y_data)
+#summary(fitG_som)
+#str(fitG_som)
+
+
 ###Fit mixed model
-fit <- greml(y = y, X = mu, GRM = list(TRM), verbose = TRUE, maxit = 100)
+n <- length(y_adj)
+validate <- replicate(50, sample(1:n, 30))
+
+fit <- greml(y = y_adj, X = mu, GRM = list(TRM), verbose = TRUE, maxit = 100, validate=validate)
+
+
+
+head(mu)
+mu
+
 
 stat <- glma(fit = fit, W = W)
 
 #qqplot
-qq(stat[,4], main="Female Gene p-values")
+qq(stat[, 4], main="Female Gene p-values")
 
+
+summary(stat)
+class(stat)
+class(y_adj)
+
+class(stat[,4])
 
 ```
 
@@ -89,7 +124,7 @@ W <- scale(X)
 TRM <- tcrossprod(W)/ncol(W)
 
 ###Fit mixed model
-fit <- greml(y = y, X = mu, GRM = list(TRM), verbose = TRUE, maxit = 100)
+fit <- greml(y = y, X = mu, GRM = list(TRM), verbose = TRUE, maxit = 1000)
 
 stat <- glma(fit = fit, W = W)
 
@@ -97,7 +132,6 @@ stat <- glma(fit = fit, W = W)
 qq(stat[,4], main="Male Gene p-values")
 
 ```
-
 
 Multiple regression of both female and male structures show effects of the genetic architecture on the models as both systematically deviate from linearity. 
 
