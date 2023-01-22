@@ -317,7 +317,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-01-10
+<strong>Last updated:</strong> 2023-01-22
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -364,15 +364,15 @@ results.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree8b91e577a8147799575dcf456bac7f9bd1e96b26targetblank8b91e57a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree3277dc545356a3ec9813b56ba07fe632fdbfe5c3targetblank3277dc5a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/nklimko/dgrp-starve/tree/8b91e577a8147799575dcf456bac7f9bd1e96b26" target="_blank">8b91e57</a>
+<a href="https://github.com/nklimko/dgrp-starve/tree/3277dc545356a3ec9813b56ba07fe632fdbfe5c3" target="_blank">3277dc5</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree8b91e577a8147799575dcf456bac7f9bd1e96b26targetblank8b91e57a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree3277dc545356a3ec9813b56ba07fe632fdbfe5c3targetblank3277dc5a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -382,7 +382,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/nklimko/dgrp-starve/tree/8b91e577a8147799575dcf456bac7f9bd1e96b26" target="_blank">8b91e57</a>.
+<a href="https://github.com/nklimko/dgrp-starve/tree/3277dc545356a3ec9813b56ba07fe632fdbfe5c3" target="_blank">3277dc5</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -396,8 +396,13 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
+Ignored files:
+    Ignored:    .RData
+
 Untracked files:
-    Untracked:  analysis/tips.Rmd
+    Untracked:  analysis/gremlo.R
+    Untracked:  analysis/linearReg.Rmd
+    Untracked:  analysis/rewrite.Rmd
     Untracked:  code/aaaTest
     Untracked:  code/analysisSR.R
     Untracked:  code/geneGO.R
@@ -412,6 +417,18 @@ Untracked files:
     Untracked:  code/regressF.81919.out
     Untracked:  code/regressF.R
     Untracked:  code/regressF.sbatch
+    Untracked:  code/regress_f_adj.109973.err
+    Untracked:  code/regress_f_adj.109973.out
+    Untracked:  code/regress_f_adj.109974.err
+    Untracked:  code/regress_f_adj.109974.out
+    Untracked:  code/regress_f_adj.R
+    Untracked:  code/regress_f_adj.sbatch
+    Untracked:  code/regress_m_adj.109971.err
+    Untracked:  code/regress_m_adj.109971.out
+    Untracked:  code/regress_m_adj.109972.err
+    Untracked:  code/regress_m_adj.109972.out
+    Untracked:  code/regress_m_adj.R
+    Untracked:  code/regress_m_adj.sbatch
     Untracked:  code/snpGene.77509.err
     Untracked:  code/snpGene.77509.out
     Untracked:  code/snpGene.77515.err
@@ -421,14 +438,20 @@ Untracked files:
     Untracked:  data/eQTL_traits_males.csv
     Untracked:  data/fMeans.txt
     Untracked:  data/fRegress.txt
+    Untracked:  data/fRegress_adj.txt
+    Untracked:  data/f_adj.txt
     Untracked:  data/goGroups.txt
     Untracked:  data/mMeans.txt
     Untracked:  data/mPart.txt
     Untracked:  data/mRegress.txt
+    Untracked:  data/mRegress_adj.txt
+    Untracked:  data/m_adj.txt
+    Untracked:  data/multiReg.rData
     Untracked:  data/starve-f.txt
     Untracked:  data/starve-m.txt
     Untracked:  data/xp-f.txt
     Untracked:  data/xp-m.txt
+    Untracked:  data/y_save.txt
     Untracked:  figure/
     Untracked:  lmm.R
     Untracked:  qqdum.R
@@ -437,8 +460,9 @@ Untracked files:
 
 Unstaged changes:
     Deleted:    analysis/database.Rmd
+    Modified:   analysis/linReg.Rmd
+    Modified:   analysis/multiComp.Rmd
     Modified:   analysis/multiReg.Rmd
-    Modified:   analysis/recap.Rmd
     Deleted:    analysis/scripts.Rmd
     Modified:   code/baseScript-lineComp.R
     Modified:   code/fourLinePrep.R
@@ -486,6 +510,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/3277dc545356a3ec9813b56ba07fe632fdbfe5c3/analysis/index.Rmd" target="_blank">3277dc5</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-01-22
+</td>
+<td>
+wflow_publish("analysis/index.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/64c9c7291753e518918ed313b78a7a2b830f08ed/docs/index.html" target="_blank">64c9c72</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-01-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -903,6 +961,20 @@ all files for me
 </div>
 <div id="weekly-projects" class="section level2">
 <h2>Weekly Projects</h2>
+<div id="female-mulitple-regression-and-prediction"
+class="section level3">
+<h3><a href="predict.html">Female Mulitple Regression and
+Prediction</a></h3>
+<p><a href="recap.html#20230117">Latest Goals</a></p>
+</div>
+<div id="male-multireg-and-prediction-broken" class="section level3">
+<h3><a href="rewrite.html">Male multiReg and Prediction BROKEN</a></h3>
+<p><a href="recap.html#20230117">Latest Goals</a></p>
+</div>
+<div id="linear-regression-adj" class="section level3">
+<h3><a href="linearReg.html">Linear Regression ADJ</a></h3>
+<p><a href="recap.html#20221214">Latest Goals</a></p>
+</div>
 <div id="multiple-regression" class="section level3">
 <h3><a href="multiReg.html">Multiple Regression</a></h3>
 <p><a href="recap.html#20221221">Latest Goals</a></p>
