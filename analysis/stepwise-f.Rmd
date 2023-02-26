@@ -63,7 +63,7 @@ dataFlag <- TRUE
 if(dataFlag){
 
  #wolb infection and inversion status data with phenotype adjustment function
-load("/data/morgante_lab/data/dgrp/misc/adjustData.RData")
+load("/data2/morgante_lab/data/dgrp/misc/adjustData.RData")
 
   
   #expression data matched to line and starvation phenotype
@@ -112,7 +112,7 @@ iter <- 48
 ```
 
 
-```{r trace-sample}
+```{r trace-sample, eval=FALSE}
 ### sample analysis of gbayesC to show that convergence is working as expected 
 
 test_IDs <- sample(1:n, as.integer(n / fold))
@@ -128,17 +128,23 @@ test_IDs <- sample(1:n, as.integer(n / fold))
   
   fitC <- qgg::gbayes(y=y_train, W=W_train, method="bayesC", scaleY=FALSE, nit=10000, nburn=5000)
   
-    print(paste0("gbayesC trace plot sample"))
-    plotBayes(fit=list(fitC), what = "trace")
 
-    
-    
+```
+
+```{r trace-sample-real}
+
+    print(paste0("gbayesC trace plot sample"))
+
+    # fit taken from one iteration, restored from Rds using code chunk shown above
+    fitC <- readRDS("data/gbayesC-f.Rds")
+    plotBayes(fit=list(fitC), what = "trace")
 
 
 ```
 
 
 ```{r loop_qgg_gbayes, message=FALSE, eval=FALSE}
+
 #this runs on the same data sets as greml
 
 ### qgg_gBayesC
@@ -240,7 +246,10 @@ corLoop <- foreach(i=1:iter) %dopar% {
 
 ```{r listConversion}
 
+# results loaded from correlation loop structure
 corLoop <- readRDS("data/corLoop-f.rds")
+
+
 
 for(i in 1:iter){
   fit_greml[[i]] <- corLoop[[i]][1]
@@ -380,7 +389,7 @@ plot_grid(gg[[1]],gg[[2]],gg[[3]],gg[[4]], ncol=2)
 
 
 
-print(paste0("mean correlation coefficient and variance of coefficients by method"))
+print(paste0("Mean correlation coefficient and variance of coefficients by method"))
 
 plot_grid(gg[[5]],gg[[6]], ncol=2)
 
