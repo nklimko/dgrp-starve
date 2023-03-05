@@ -13,7 +13,7 @@
 
 <title>Meeting Summaries</title>
 
-<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -193,8 +193,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -202,16 +202,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -393,7 +386,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-01-22
+<strong>Last updated:</strong> 2023-03-05
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -440,15 +433,15 @@ results.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree709ca14d78b1bdfea13c0e49bad07fdb18c6670dtargetblank709ca14a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree82d03145044fb57458421f52877358c380a0b54btargetblank82d0314a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/nklimko/dgrp-starve/tree/709ca14d78b1bdfea13c0e49bad07fdb18c6670d" target="_blank">709ca14</a>
+<a href="https://github.com/nklimko/dgrp-starve/tree/82d03145044fb57458421f52877358c380a0b54b" target="_blank">82d0314</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree709ca14d78b1bdfea13c0e49bad07fdb18c6670dtargetblank709ca14a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree82d03145044fb57458421f52877358c380a0b54btargetblank82d0314a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -458,7 +451,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/nklimko/dgrp-starve/tree/709ca14d78b1bdfea13c0e49bad07fdb18c6670d" target="_blank">709ca14</a>.
+<a href="https://github.com/nklimko/dgrp-starve/tree/82d03145044fb57458421f52877358c380a0b54b" target="_blank">82d0314</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -476,52 +469,26 @@ Ignored files:
     Ignored:    .RData
 
 Untracked files:
-    Untracked:  analysis/gremlo.R
     Untracked:  analysis/linearReg.Rmd
-    Untracked:  analysis/rewrite.Rmd
-    Untracked:  code/aaaTest
-    Untracked:  code/analysisSR.R
-    Untracked:  code/geneGO.R
-    Untracked:  code/multiPrep.R
-    Untracked:  code/regress.81916.err
-    Untracked:  code/regress.81916.out
-    Untracked:  code/regress.81918.err
-    Untracked:  code/regress.81918.out
-    Untracked:  code/regress.R
-    Untracked:  code/regress.sbatch
-    Untracked:  code/regressF.81919.err
-    Untracked:  code/regressF.81919.out
-    Untracked:  code/regressF.R
-    Untracked:  code/regressF.sbatch
-    Untracked:  code/regress_f_adj.109973.err
-    Untracked:  code/regress_f_adj.109973.out
-    Untracked:  code/regress_f_adj.109974.err
-    Untracked:  code/regress_f_adj.109974.out
-    Untracked:  code/regress_f_adj.R
-    Untracked:  code/regress_f_adj.sbatch
-    Untracked:  code/regress_m_adj.109971.err
-    Untracked:  code/regress_m_adj.109971.out
-    Untracked:  code/regress_m_adj.109972.err
-    Untracked:  code/regress_m_adj.109972.out
-    Untracked:  code/regress_m_adj.R
-    Untracked:  code/regress_m_adj.sbatch
-    Untracked:  code/snpGene.77509.err
-    Untracked:  code/snpGene.77509.out
-    Untracked:  code/snpGene.77515.err
-    Untracked:  code/snpGene.77515.out
-    Untracked:  code/snpGene.sbatch
+    Untracked:  code/PCA/
+    Untracked:  code/data-prep/
+    Untracked:  code/fabio/
+    Untracked:  code/intro-starve/
+    Untracked:  code/regress/
+    Untracked:  code/stepwise/
+    Untracked:  data/corLoop-f.rds
+    Untracked:  data/corLoop-m.rds
     Untracked:  data/eQTL_traits_females.csv
     Untracked:  data/eQTL_traits_males.csv
-    Untracked:  data/fMeans.txt
     Untracked:  data/fRegress.txt
     Untracked:  data/fRegress_adj.txt
-    Untracked:  data/f_adj.txt
+    Untracked:  data/gbayesC-f.Rds
+    Untracked:  data/gbayesC-m.Rds
+    Untracked:  data/gbayesC.Rds
     Untracked:  data/goGroups.txt
-    Untracked:  data/mMeans.txt
     Untracked:  data/mPart.txt
     Untracked:  data/mRegress.txt
     Untracked:  data/mRegress_adj.txt
-    Untracked:  data/m_adj.txt
     Untracked:  data/multiReg.rData
     Untracked:  data/starve-f.txt
     Untracked:  data/starve-m.txt
@@ -529,20 +496,25 @@ Untracked files:
     Untracked:  data/xp-m.txt
     Untracked:  data/y_save.txt
     Untracked:  figure/
-    Untracked:  lmm.R
-    Untracked:  qqdum.R
-    Untracked:  scoreAnalysisMulticomp.R
-    Untracked:  temp.Rmd
+    Untracked:  notes/
 
 Unstaged changes:
-    Deleted:    analysis/database.Rmd
-    Modified:   analysis/index.Rmd
-    Modified:   analysis/linReg.Rmd
-    Modified:   analysis/multiComp.Rmd
-    Modified:   analysis/multiReg.Rmd
-    Deleted:    analysis/scripts.Rmd
-    Modified:   code/baseScript-lineComp.R
-    Modified:   code/fourLinePrep.R
+    Deleted:    analysis/gremlo.R
+    Deleted:    analysis/stepwise-f.Rmd
+    Deleted:    analysis/stepwise-m.Rmd
+    Deleted:    analysis/testing.R
+    Deleted:    code/baseScript-lineComp.R
+    Deleted:    code/combineSNP.R
+    Deleted:    code/four-comp.76979.err
+    Deleted:    code/four-comp.76979.out
+    Deleted:    code/four-comp.sbatch
+    Deleted:    code/fourLinePrep.R
+    Deleted:    code/line_avgMinus.R
+    Deleted:    code/line_avgPlus.R
+    Deleted:    code/line_difMinus.R
+    Deleted:    code/line_difPlus.R
+    Deleted:    code/snpGene.R
+    Deleted:    code/starveDataPrep.R
 
 </code></pre>
 <p>
@@ -587,6 +559,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/82d03145044fb57458421f52877358c380a0b54b/analysis/recap.Rmd" target="_blank">82d0314</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-03-05
+</td>
+<td>
+wflow_publish("analysis/recap.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/91713acb67e1901906ea9f2bfc3fb2ed2bc64468/docs/recap.html" target="_blank">91713ac</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-01-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -680,6 +686,77 @@ wflow_publish("analysis/recap.Rmd")
 </div>
 </div>
 <div id="section" class="section level3">
+<h3>2023/02/27</h3>
+<p>• Reinstall R packages and rerun method comparison</p>
+<p>• Use <a
+href="https://github.com/psoerensen/qgg/blob/master/R/genomic_bayes.R">plotBayes
+source code</a> to create custom plot function for trace plots</p>
+<p>• Assess convergence using custom function plots</p>
+<p>• Rename stepwise to something useful and descriptive</p>
+<p>• Set partition to fm-bigmem-1 for sbatch scripts</p>
+</div>
+<div id="section-1" class="section level3">
+<h3>2023/02/20</h3>
+<p>• Move heavy lifting from Rmd to sbatch script for compute node
+processing, save output to .Rds file and perform analysis in
+workflowR</p>
+<p>• Upload stepwise-f.html with working ggplot figures when
+complete</p>
+<p>• Run gbayesC with nit = 10k and nburn = 5k to ensure convergence</p>
+<p>• qgg::plotBayes with what = “trace” to generate trace plots of MCMC
+convergence</p>
+<p>• Follow-up with Dr. Starr-Moss Tuesday morning through email</p>
+<p>• nextflow/snakemake for long-term parallelization workflow</p>
+</div>
+<div id="section-2" class="section level3">
+<h3>2023/02/15</h3>
+<p>• Fit four models to real expression data for both genders</p>
+<p>• Email Vijay/Maria about secretariat access or use OoD to rename
+files</p>
+<p>• Email Dr. Starr-Moss(cc) about admission to graduate program in the
+Fall</p>
+<p>• Varbvs uses a spike-slab prior, glmnet uses LASSO variable
+selection</p>
+</div>
+<div id="section-3" class="section level3">
+<h3>2023/02/06</h3>
+<p>• Continue implementing models to generated expression data</p>
+<p>• <a
+href="https://cran.r-project.org/web/packages/varbvs/varbvs.pdf">varbvs::varbvs</a></p>
+<p>• <a
+href="https://www.rdocumentation.org/packages/glmnet/versions/4.1-6/topics/glmnet">glmnet::lasso</a></p>
+<p>• Restructure loop to use the same validate set for test and train
+IDs for each iteration</p>
+<p>• Correlate y_test to y_obs to measure accuracy</p>
+</div>
+<div id="section-4" class="section level3">
+<h3>2023/01/30</h3>
+<p>• Simulate data and fit the BayesC model to toy data in preparation
+for secretariat reactivation.</p>
+<p>• Look through <a
+href="https://www.rdocumentation.org/packages/qgg/versions/1.1.1/topics/gbayes">gbayes
+documentation</a> for help.</p>
+<p>• Change fMeans and mMeans data files to exp_f and exp_m when
+secretariat reopens - tweak older pages accordingly.</p>
+<p>• Next meeting will be over Zoom time/day TBD.</p>
+</div>
+<div id="section-5" class="section level3">
+<h3>2023/01/23</h3>
+<p>• Split pages into association and prediction.</p>
+<p>• Male data was appropriate, finish details on prediction with final
+data.</p>
+<p>• The cross-validation only should be done with a for loop, greml
+still runs for each fit.</p>
+<p>• Perform custom cv on a toy data set as secretariat is down until
+around Feb. 3rd.</p>
+<p>• Review GBLUP, Gaussian prior, and spike-slab prior from <a
+href="https://www.genetics.org/content/genetics/193/2/327.full.pdf">Whole-Genome
+Regression paper</a></p>
+<p>• Review GBLUP from <a
+href="https://academic.oup.com/g3journal/article/10/12/4599/6048688">Leveraging
+Data to Predict Complex Traits paper</a>.</p>
+</div>
+<div id="section-6" class="section level3">
 <h3>2023/01/17</h3>
 <p>• Upload rds/Rdata file of y_adj, mu, TRM, and validate for further
 review.</p>
@@ -692,7 +769,7 @@ observed.</p>
 <p>• Address qqman not taking input/arguments.</p>
 <p>• Following meeting 2:00pm on Monday the 23rd.</p>
 </div>
-<div id="section-1" class="section level3">
+<div id="section-7" class="section level3">
 <h3>2023/01/10</h3>
 <p>• Adjust phenotypes for Wolbachia infection status and inversions for
 <a href="linreg.html">Linear Regression</a></p>
@@ -704,7 +781,7 @@ determine issue</p>
 <p>• Troubleshoot stat from qqman not taking input/arguments -&gt;
 determine issue</p>
 </div>
-<div id="section-2" class="section level3">
+<div id="section-8" class="section level3">
 <h3>2022/12/21</h3>
 <p>• Fit data to model using starvation resistance vector</p>
 <p>• Reorganize site to hyperlinks from main index rather than new pages
@@ -712,7 +789,7 @@ every week</p>
 <p>• Next meeting will be January 10th at CHG</p>
 <p>• Merry Christmas!</p>
 </div>
-<div id="section-3" class="section level3">
+<div id="section-9" class="section level3">
 <h3>2022/12/14</h3>
 <p>• Fix x axis uniform distribution label: incorrect.</p>
 <p>• Inflection in qq plot indicates inflation of p-values.</p>
@@ -722,7 +799,7 @@ effect.</p>
 simulated data.</p>
 <p>• Send shift schedule to plan next week’s meeting.</p>
 </div>
-<div id="section-4" class="section level3">
+<div id="section-10" class="section level3">
 <h3>2022/12/06</h3>
 <p>• Fix correlations: lm not reading in data properly, p-values
 wrong</p>
@@ -731,7 +808,7 @@ wrong</p>
 <p>• Next meeting Wednesday, Dec. 14th 2:30-3:00 via Zoom due to
 exams.</p>
 </div>
-<div id="section-5" class="section level3">
+<div id="section-11" class="section level3">
 <h3>2022/11/29</h3>
 <p>• Use gene expression data to preform simple regression with
 starvation resistance.</p>
@@ -743,7 +820,7 @@ expression for each gene in both sexes.</p>
 p-values.</p>
 <p>• Determine why this statistical approach is inappropriate.</p>
 </div>
-<div id="section-6" class="section level3">
+<div id="section-12" class="section level3">
 <h3>2022/11/22</h3>
 <p>• Multiple comparison scatter plots should be sex specific.</p>
 <p>• PCA should be performed with genotype data, not gene
@@ -752,7 +829,7 @@ expression.</p>
 <p>o Scatter plot of overlapping genes between males and females.</p>
 <p>o Count # of genes expressed in males, females, and both.</p>
 </div>
-<div id="section-7" class="section level3">
+<div id="section-13" class="section level3">
 <h3>2022/11/15</h3>
 <p>• Continue multiple comparisons with trendlines, multiple tips:</p>
 <p>o cor.test() for summary statistics</p>
@@ -763,7 +840,7 @@ expression</p>
 <p>• Principal Component analysis – begin brainstorming</p>
 <p>• Discuss further PhD plans mid-February</p>
 </div>
-<div id="section-8" class="section level3">
+<div id="section-14" class="section level3">
 <h3>2022/11/11</h3>
 <p>• Presented starvation analysis of DGRP lines</p>
 <p>o Include “code_folding: hide” in yaml headers for Rmd</p>
@@ -771,7 +848,7 @@ expression</p>
 <p>• Multiple comparison of starvation against all other traits</p>
 <p>• Perform analysis of gene expression by line</p>
 </div>
-<div id="section-9" class="section level3">
+<div id="section-15" class="section level3">
 <h3>2022/11/01</h3>
 <p>• Get creative with analysis – scatterplot trendline, normality,
 beyond</p>
@@ -780,7 +857,7 @@ beyond</p>
 drive</p>
 <p>• Next meeting Friday the 11th at 10am by Zoom due to election</p>
 </div>
-<div id="section-10" class="section level3">
+<div id="section-16" class="section level3">
 <h3>2022/10/26</h3>
 <p>• Set github ssh keys and config settings on personal laptop and
 secretariat</p>
@@ -790,29 +867,29 @@ and female lines on computational node in secretariat.</p>
 <p>• Postdoctoral candidate meeting and seminar on Wed 10/27 – provide
 feedback on both candidates</p>
 </div>
-<div id="section-11" class="section level3">
+<div id="section-17" class="section level3">
 <h3>2022/10/18</h3>
 <p>• Presented SNP Prediction Paper on Plant and Animal breeding</p>
 <p>• Begin working with github and workflowR to begin data processing in
 upcoming weeks</p>
 </div>
-<div id="section-12" class="section level3">
+<div id="section-18" class="section level3">
 <h3>2022/10/04</h3>
 <p>• Create simple presentation for <a
-href="https://www.genetics.org/content/genetics/193/2/327.full.pdf"
-class="uri">https://www.genetics.org/content/genetics/193/2/327.full.pdf</a>
-by 10/11 - build habit of summarizing papers/distilling main points</p>
+href="https://www.genetics.org/content/genetics/193/2/327.full.pdf">Whole-Genome
+Regression, de los Campos</a> by 10/11 - build habit of summarizing
+papers/distilling main points</p>
 <p>• Class selection: Adv. Biochem, Seminar, Intro to Quant Gen, and
 Regression + Least Squares</p>
 <p>o Consult on further class selection semester basis</p>
 <p>• Talk with Dr. Starr-Moss regarding credit hours for master’s
 research – three recommended</p>
 </div>
-<div id="section-13" class="section level3">
+<div id="section-19" class="section level3">
 <h3>2022/09/27</h3>
 <p>• Review of Presentation for <a
-href="https://academic.oup.com/g3journal/article/10/12/4599/6048688"
-class="uri">https://academic.oup.com/g3journal/article/10/12/4599/6048688</a></p>
+href="https://academic.oup.com/g3journal/article/10/12/4599/6048688">Levaraging
+Data to Predict Complex Traits</a></p>
 <p>o Transcriptome data higher accuracy than SNP variation</p>
 <p>o External data boosts prediction accuracy of transcriptome
 alone(TBLUP vs GO-TBLUP)</p>
@@ -820,10 +897,10 @@ alone(TBLUP vs GO-TBLUP)</p>
 non-additive</p>
 <p>• Complete final Dataquest subunit by Friday</p>
 <p>• Review <a
-href="https://www.genetics.org/content/genetics/193/2/327.full.pdf"
-class="uri">https://www.genetics.org/content/genetics/193/2/327.full.pdf</a></p>
+href="https://www.genetics.org/content/genetics/193/2/327.full.pdf">Whole-Genome
+Regression Paper</a></p>
 </div>
-<div id="section-14" class="section level3">
+<div id="section-20" class="section level3">
 <h3>2022/09/13</h3>
 <p>• Goal to complete R modules on Dataquest by 9/30: Dataquest is paid
 software</p>
