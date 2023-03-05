@@ -7,6 +7,84 @@ editor_options:
   chunk_output_type: console
 ---
 
+### 2023/02/27
+
+•	Reinstall R packages and rerun method comparison
+
+•	Use [plotBayes source code](https://github.com/psoerensen/qgg/blob/master/R/genomic_bayes.R) to create custom plot function for trace plots
+
+•	Assess convergence using custom function plots
+
+•	Rename stepwise to something useful and descriptive
+
+•	Set partition to fm-bigmem-1 for sbatch scripts
+
+
+### 2023/02/20
+
+•	Move heavy lifting from Rmd to sbatch script for compute node processing, save output to .Rds file and perform analysis in workflowR
+
+•	Upload stepwise-f.html with working ggplot figures when complete
+
+•	Run gbayesC with nit = 10k and nburn = 5k to ensure convergence
+
+•	qgg::plotBayes with what = "trace" to generate trace plots of MCMC convergence
+
+•	Follow-up with Dr. Starr-Moss Tuesday morning through email
+
+•	nextflow/snakemake for long-term parallelization workflow
+
+
+### 2023/02/15
+
+•	Fit four models to real expression data for both genders
+
+•	Email Vijay/Maria about secretariat access or use OoD to rename files
+
+•	Email Dr. Starr-Moss(cc) about admission to graduate program in the Fall
+
+•	Varbvs uses a spike-slab prior, glmnet uses LASSO variable selection
+
+
+### 2023/02/06
+
+•	Continue implementing models to generated expression data
+
+•	[varbvs::varbvs](https://cran.r-project.org/web/packages/varbvs/varbvs.pdf)
+
+•	[glmnet::lasso](https://www.rdocumentation.org/packages/glmnet/versions/4.1-6/topics/glmnet)
+
+•	Restructure loop to use the same validate set for test and train IDs for each iteration
+
+•	Correlate y_test to y_obs to measure accuracy
+
+
+### 2023/01/30
+
+•	Simulate data and fit the BayesC model to toy data in preparation for secretariat reactivation.
+
+•	Look through [gbayes documentation](https://www.rdocumentation.org/packages/qgg/versions/1.1.1/topics/gbayes) for help.
+
+•	Change fMeans and mMeans data files to exp_f and exp_m when secretariat reopens - tweak older pages accordingly.
+
+•	Next meeting will be over Zoom time/day TBD.
+
+
+### 2023/01/23
+
+•	Split pages into association and prediction.
+
+•	Male data was appropriate, finish details on prediction with final data.
+
+•	The cross-validation only should be done with a for loop, greml still runs for each fit.
+
+•	Perform custom cv on a toy data set as secretariat is down until around Feb. 3rd.
+
+•	Review GBLUP, Gaussian prior, and spike-slab prior from [Whole-Genome Regression paper](https://www.genetics.org/content/genetics/193/2/327.full.pdf)
+
+•	Review GBLUP from [Leveraging Data to Predict Complex Traits paper](https://academic.oup.com/g3journal/article/10/12/4599/6048688).
+
+
 ### 2023/01/17
 
 •	Upload rds/Rdata file of y_adj, mu, TRM, and validate for further review.
@@ -157,7 +235,7 @@ editor_options:
 
 ### 2022/10/04
 
-•	Create simple presentation for https://www.genetics.org/content/genetics/193/2/327.full.pdf by 10/11 - build habit of summarizing papers/distilling main points
+•	Create simple presentation for [Whole-Genome Regression, de los Campos](https://www.genetics.org/content/genetics/193/2/327.full.pdf) by 10/11 - build habit of summarizing papers/distilling main points
 
 •	Class selection: Adv. Biochem, Seminar, Intro to Quant Gen, and Regression + Least Squares
 
@@ -168,7 +246,7 @@ editor_options:
 
 ### 2022/09/27
 
-•	Review of Presentation for https://academic.oup.com/g3journal/article/10/12/4599/6048688
+•	Review of Presentation for [Levaraging Data to Predict Complex Traits](https://academic.oup.com/g3journal/article/10/12/4599/6048688)
 
   o	Transcriptome data higher accuracy than SNP variation
   
@@ -178,7 +256,7 @@ editor_options:
   
 •	Complete final Dataquest subunit by Friday
 
-•	Review https://www.genetics.org/content/genetics/193/2/327.full.pdf
+•	Review [Whole-Genome Regression Paper](https://www.genetics.org/content/genetics/193/2/327.full.pdf)
   
 
 ### 2022/09/13
