@@ -12,17 +12,28 @@ editor_options:
 ## Weekly Projects
 
 
+
+### [Female Method Comparison](methodComp-f.html)
+
+[Latest Goals](recap.html#20230227)
+
+
+### [Male Method Comparison](methodComp-m.html)
+
+[Latest Goals](recap.html#20230227)
+
+
 ### [Female Mulitple Regression and Prediction](predict.html)
 
-[Latest Goals](recap.html#20230117)
+[Latest Goals](recap.html#20230220)
 
 
-### [Male multiReg and Prediction BROKEN](rewrite.html) 
+### [Male Mulitple Regression and Prediction](rewrite.html) 
 
-[Latest Goals](recap.html#20230117)
+[Latest Goals](recap.html#20230220)
 
 
-### [Linear Regression ADJ](linearReg.html)
+### [Linear Regression Adjusted](linearReg.html)
 
 [Latest Goals](recap.html#20221214)
 
