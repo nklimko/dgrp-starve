@@ -73,11 +73,29 @@ gg[[4]] <- ggplot(fitData, aes(x=iter, y=ves)) +
     plotF <- plotCustomBayes("data/gbayes_100k-f.Rds")
     plotM <- plotCustomBayes("data/gbayes_100k-m.Rds")
 
-    plot_grid(plotF[[1]],plotF[[2]], ncol=2)
-    plot_grid(plotF[[3]],plotF[[4]], ncol=2)
 
-    plot_grid(plotM[[1]],plotM[[2]], ncol=2)
-    plot_grid(plotM[[3]],plotM[[4]], ncol=2)
+
+
+
+```
+
+
+### Female Plots
+
+```{plot-female}
+
+    plot_grid(plotF[[1]],plotF[[2]], ncol=1)
+    plot_grid(plotF[[3]],plotF[[4]], ncol=1)
+
+```
+
+
+### Male Plots
+
+```{r plot-male}
+
+    plot_grid(plotM[[1]],plotM[[2]], ncol=1)
+    plot_grid(plotM[[3]],plotM[[4]], ncol=1)
     
 
 ```
