@@ -529,15 +529,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree31f0ca5efa6638ff22dc51f187d75678a9fab568targetblank31f0ca5a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree911d91ddbbaa19d05f85aaef007a67f2ae9a0d0atargetblank911d91da">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/nklimko/dgrp-starve/tree/31f0ca5efa6638ff22dc51f187d75678a9fab568" target="_blank">31f0ca5</a>
+<a href="https://github.com/nklimko/dgrp-starve/tree/911d91ddbbaa19d05f85aaef007a67f2ae9a0d0a" target="_blank">911d91d</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree31f0ca5efa6638ff22dc51f187d75678a9fab568targetblank31f0ca5a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree911d91ddbbaa19d05f85aaef007a67f2ae9a0d0atargetblank911d91da"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -547,7 +547,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/nklimko/dgrp-starve/tree/31f0ca5efa6638ff22dc51f187d75678a9fab568" target="_blank">31f0ca5</a>.
+<a href="https://github.com/nklimko/dgrp-starve/tree/911d91ddbbaa19d05f85aaef007a67f2ae9a0d0a" target="_blank">911d91d</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -665,6 +665,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/911d91ddbbaa19d05f85aaef007a67f2ae9a0d0a/analysis/trace.Rmd" target="_blank">911d91d</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-03-06
+</td>
+<td>
+wflow_publish("analysis/trace.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/40f8200aad219e1194e0fa2fd9075e095c318fbe/docs/trace.html" target="_blank">40f8200</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-03-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/31f0ca5efa6638ff22dc51f187d75678a9fab568/analysis/trace.Rmd" target="_blank">31f0ca5</a>
 </td>
 <td>
@@ -735,22 +769,22 @@ gg &lt;- vector(mode=&#39;list&#39;, length=4)
 gg[[1]] &lt;- ggplot(fitData, aes(x=iter, y=ves)) +
   geom_point(size=0.5) + 
   labs(x=&quot;Iteration&quot;, y=&quot;Ve&quot;) + 
-  ggtitle(&quot;Posterior Mean for Residual Variance&quot;)
+  ggtitle(&quot;Residual Variance&quot;)
 
 gg[[2]] &lt;- ggplot(fitData, aes(x=iter, y=vbs)) +
   geom_point(size=0.5) + 
   labs(x=&quot;Iteration&quot;, y=&quot;Vb&quot;) + 
-  ggtitle(&quot;Posterior Mean for Marker Variance&quot;)
+  ggtitle(&quot;Marker Variance&quot;)
 
 gg[[3]] &lt;- ggplot(fitData, aes(x=iter, y=vgs)) +
   geom_point(size=0.5) + 
   labs(x=&quot;Iteration&quot;, y=&quot;Vg&quot;) + 
-  ggtitle(&quot;Posterior Mean for Genomic Variance&quot;)
+  ggtitle(&quot;Genomic Variance&quot;)
 
 gg[[4]] &lt;- ggplot(fitData, aes(x=iter, y=ves)) +
   geom_point(size=0.5) + 
   labs(x=&quot;Iteration&quot;, y=&quot;h^2&quot;) + 
-  ggtitle(&quot;Posterior Mean for Narrow-sense Heritability&quot;)
+  ggtitle(&quot;Narrow-sense Heritability&quot;)
 
   return(gg) 
 }
@@ -762,17 +796,91 @@ gg[[4]] &lt;- ggplot(fitData, aes(x=iter, y=ves)) +
     plotM &lt;- plotCustomBayes(&quot;data/gbayes_100k-m.Rds&quot;)</code></pre>
 <div id="female-plots" class="section level3">
 <h3>Female Plots</h3>
-<pre class="{plot-female}"><code>
-    plot_grid(plotF[[1]],plotF[[2]], ncol=1)
-    plot_grid(plotF[[3]],plotF[[4]], ncol=1)
-</code></pre>
+<pre class="r"><code>    plot_grid(plotF[[1]],plotF[[2]], ncol=1)</code></pre>
+<p><img src="figure/trace.Rmd/plot-female-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>    plot_grid(plotF[[3]],plotF[[4]], ncol=1)</code></pre>
+<p><img src="figure/trace.Rmd/plot-female-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="male-plots" class="section level3">
 <h3>Male Plots</h3>
 <pre class="r"><code>    plot_grid(plotM[[1]],plotM[[2]], ncol=1)</code></pre>
 <p><img src="figure/trace.Rmd/plot-male-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-male-1">
+Past versions of plot-male-1.png
+</button>
+</p>
+<div id="fig-plot-male-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/40f8200aad219e1194e0fa2fd9075e095c318fbe/docs/figure/trace.Rmd/plot-male-1.png" target="_blank">40f8200</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-03-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>    plot_grid(plotM[[3]],plotM[[4]], ncol=1)</code></pre>
 <p><img src="figure/trace.Rmd/plot-male-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-male-2">
+Past versions of plot-male-2.png
+</button>
+</p>
+<div id="fig-plot-male-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/40f8200aad219e1194e0fa2fd9075e095c318fbe/docs/figure/trace.Rmd/plot-male-2.png" target="_blank">40f8200</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-03-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
