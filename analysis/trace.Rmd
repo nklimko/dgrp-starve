@@ -47,22 +47,22 @@ gg <- vector(mode='list', length=4)
 gg[[1]] <- ggplot(fitData, aes(x=iter, y=ves)) +
   geom_point(size=0.5) + 
   labs(x="Iteration", y="Ve") + 
-  ggtitle("Posterior Mean for Residual Variance")
+  ggtitle("Residual Variance")
 
 gg[[2]] <- ggplot(fitData, aes(x=iter, y=vbs)) +
   geom_point(size=0.5) + 
   labs(x="Iteration", y="Vb") + 
-  ggtitle("Posterior Mean for Marker Variance")
+  ggtitle("Marker Variance")
 
 gg[[3]] <- ggplot(fitData, aes(x=iter, y=vgs)) +
   geom_point(size=0.5) + 
   labs(x="Iteration", y="Vg") + 
-  ggtitle("Posterior Mean for Genomic Variance")
+  ggtitle("Genomic Variance")
 
 gg[[4]] <- ggplot(fitData, aes(x=iter, y=ves)) +
   geom_point(size=0.5) + 
   labs(x="Iteration", y="h^2") + 
-  ggtitle("Posterior Mean for Narrow-sense Heritability")
+  ggtitle("Narrow-sense Heritability")
 
   return(gg) 
 }
@@ -82,7 +82,7 @@ gg[[4]] <- ggplot(fitData, aes(x=iter, y=ves)) +
 
 ### Female Plots
 
-```{plot-female}
+```{r plot-female}
 
     plot_grid(plotF[[1]],plotF[[2]], ncol=1)
     plot_grid(plotF[[3]],plotF[[4]], ncol=1)
