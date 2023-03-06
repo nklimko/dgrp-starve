@@ -529,15 +529,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreea9e2134ac5da835af54aaa1863b6681825e0ad7ftargetblanka9e2134a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree31f0ca5efa6638ff22dc51f187d75678a9fab568targetblank31f0ca5a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/nklimko/dgrp-starve/tree/a9e2134ac5da835af54aaa1863b6681825e0ad7f" target="_blank">a9e2134</a>
+<a href="https://github.com/nklimko/dgrp-starve/tree/31f0ca5efa6638ff22dc51f187d75678a9fab568" target="_blank">31f0ca5</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreea9e2134ac5da835af54aaa1863b6681825e0ad7ftargetblanka9e2134a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree31f0ca5efa6638ff22dc51f187d75678a9fab568targetblank31f0ca5a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -547,7 +547,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/nklimko/dgrp-starve/tree/a9e2134ac5da835af54aaa1863b6681825e0ad7f" target="_blank">a9e2134</a>.
+<a href="https://github.com/nklimko/dgrp-starve/tree/31f0ca5efa6638ff22dc51f187d75678a9fab568" target="_blank">31f0ca5</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -665,6 +665,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/31f0ca5efa6638ff22dc51f187d75678a9fab568/analysis/trace.Rmd" target="_blank">31f0ca5</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-03-06
+</td>
+<td>
+wflow_publish("analysis/trace.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/cf223f81d7855fb47e3fa679be8770682ede3de4/docs/trace.html" target="_blank">cf223f8</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-03-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/a9e2134ac5da835af54aaa1863b6681825e0ad7f/analysis/trace.Rmd" target="_blank">a9e2134</a>
 </td>
 <td>
@@ -725,16 +759,20 @@ gg[[4]] &lt;- ggplot(fitData, aes(x=iter, y=ves)) +
     #fitC &lt;- readRDS(&quot;data/gbayesC-f.Rds&quot;)
     
     plotF &lt;- plotCustomBayes(&quot;data/gbayes_100k-f.Rds&quot;)
-    plotM &lt;- plotCustomBayes(&quot;data/gbayes_100k-m.Rds&quot;)
-
-    plot_grid(plotF[[1]],plotF[[2]], ncol=2)</code></pre>
-<p><img src="figure/trace.Rmd/trace-both-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>    plot_grid(plotF[[3]],plotF[[4]], ncol=2)</code></pre>
-<p><img src="figure/trace.Rmd/trace-both-2.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>    plot_grid(plotM[[1]],plotM[[2]], ncol=2)</code></pre>
-<p><img src="figure/trace.Rmd/trace-both-3.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>    plot_grid(plotM[[3]],plotM[[4]], ncol=2)</code></pre>
-<p><img src="figure/trace.Rmd/trace-both-4.png" width="672" style="display: block; margin: auto;" /></p>
+    plotM &lt;- plotCustomBayes(&quot;data/gbayes_100k-m.Rds&quot;)</code></pre>
+<div id="female-plots" class="section level3">
+<h3>Female Plots</h3>
+<pre class="{plot-female}"><code>
+    plot_grid(plotF[[1]],plotF[[2]], ncol=1)
+    plot_grid(plotF[[3]],plotF[[4]], ncol=1)
+</code></pre>
+</div>
+<div id="male-plots" class="section level3">
+<h3>Male Plots</h3>
+<pre class="r"><code>    plot_grid(plotM[[1]],plotM[[2]], ncol=1)</code></pre>
+<p><img src="figure/trace.Rmd/plot-male-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>    plot_grid(plotM[[3]],plotM[[4]], ncol=1)</code></pre>
+<p><img src="figure/trace.Rmd/plot-male-2.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -780,6 +818,7 @@ loaded via a namespace (and not attached):
 [45] magrittr_2.0.3   sass_0.4.5       tibble_3.1.8     whisker_0.4.1   
 [49] pkgconfig_2.0.3  rmarkdown_2.20   httr_1.4.5       rstudioapi_0.14 
 [53] R6_2.5.1         git2r_0.31.0     compiler_4.1.2  </code></pre>
+</div>
 </div>
 
 
