@@ -1,0 +1,84 @@
+---
+title: "Iterative Comparison - Female"
+output:
+  workflowr::wflow_html:
+    toc: true
+    latex_engine: "xelatex"
+    code_folding: "hide"
+editor_options:
+  chunk_output_type: console
+---
+  
+```{r 0-setup, include=FALSE, warning=FALSE}
+
+#libraries
+library(ggplot2)
+library(cowplot)
+library(data.table)
+
+#options
+options(bitmapType = "cairo")
+options(error = function() traceback(3))
+
+#seed
+set.seed(1)
+
+```
+
+
+
+```{r trace-both}
+
+
+plotCustomBayes <- function(rdsPath){
+
+# data read in is a gBayes fit object from qgg
+fitC <- readRDS(rdsPath)
+
+# calculate column narrow heritability
+fitC$h2 <- fitC$vgs/(fitC$vgs+fitC$ves)
+
+# data is extracted and stored
+fitData <- data.table(iter=1:100000, ves=fitC$ves, vbs=fitC$vbs, vgs=fitC$vgs, h2=fitC$h2)
+
+gg <- vector(mode='list', length=4)
+
+# ggplots stored to list
+gg[[1]] <- ggplot(fitData, aes(x=iter, y=ves)) +
+  geom_point(size=0.5) + 
+  labs(x="Iteration", y="Ve") + 
+  ggtitle("Posterior Mean for Residual Variance")
+
+gg[[2]] <- ggplot(fitData, aes(x=iter, y=vbs)) +
+  geom_point(size=0.5) + 
+  labs(x="Iteration", y="Vb") + 
+  ggtitle("Posterior Mean for Marker Variance")
+
+gg[[3]] <- ggplot(fitData, aes(x=iter, y=vgs)) +
+  geom_point(size=0.5) + 
+  labs(x="Iteration", y="Vg") + 
+  ggtitle("Posterior Mean for Genomic Variance")
+
+gg[[4]] <- ggplot(fitData, aes(x=iter, y=ves)) +
+  geom_point(size=0.5) + 
+  labs(x="Iteration", y="h^2") + 
+  ggtitle("Posterior Mean for Narrow-sense Heritability")
+
+  return(gg) 
+}
+
+    # fit taken from one iteration, restored from Rds using code chunk shown above
+    #fitC <- readRDS("data/gbayesC-f.Rds")
+    
+    plotF <- plotCustomBayes("data/gbayes_100k-f.Rds")
+    plotM <- plotCustomBayes("data/gbayes_100k-m.Rds")
+
+    plot_grid(plotF[[1]],plotF[[2]], ncol=2)
+    plot_grid(plotF[[3]],plotF[[4]], ncol=2)
+
+    plot_grid(plotM[[1]],plotM[[2]], ncol=2)
+    plot_grid(plotM[[3]],plotM[[4]], ncol=2)
+    
+
+```
+
