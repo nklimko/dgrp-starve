@@ -423,8 +423,6 @@ gg[[6]] <- ggplot(data=result, aes(x=method, y=varCoeff, fill=method)) +
 
 ```{r plot-print}
 
-print("Correlation coefficient histograms")
-
 plot_grid(gg[[1]],gg[[2]],gg[[3]],gg[[4]], ncol=2)
 
 ```
