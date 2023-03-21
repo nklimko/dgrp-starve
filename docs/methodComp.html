@@ -529,15 +529,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree87d7e5cf86a48f4d27bbebb32b470de87f62eccatargetblank87d7e5ca">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree39a0792f4223fcfc7411dbf12441fc70d179a4c5targetblank39a0792a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/nklimko/dgrp-starve/tree/87d7e5cf86a48f4d27bbebb32b470de87f62ecca" target="_blank">87d7e5c</a>
+<a href="https://github.com/nklimko/dgrp-starve/tree/39a0792f4223fcfc7411dbf12441fc70d179a4c5" target="_blank">39a0792</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree87d7e5cf86a48f4d27bbebb32b470de87f62eccatargetblank87d7e5ca"
+id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree39a0792f4223fcfc7411dbf12441fc70d179a4c5targetblank39a0792a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -547,7 +547,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/nklimko/dgrp-starve/tree/87d7e5cf86a48f4d27bbebb32b470de87f62ecca" target="_blank">87d7e5c</a>.
+<a href="https://github.com/nklimko/dgrp-starve/tree/39a0792f4223fcfc7411dbf12441fc70d179a4c5" target="_blank">39a0792</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -670,6 +670,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/39a0792f4223fcfc7411dbf12441fc70d179a4c5/analysis/methodComp.Rmd" target="_blank">39a0792</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-03-21
+</td>
+<td>
+wflow_publish("analysis/methodComp.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/29ccf74cc5cfd4dc984486e844018aa7d12cf15f/docs/methodComp.html" target="_blank">29ccf74</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-03-21
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/87d7e5cf86a48f4d27bbebb32b470de87f62ecca/analysis/methodComp.Rmd" target="_blank">87d7e5c</a>
 </td>
 <td>
@@ -734,35 +768,10 @@ load(&quot;/data2/morgante_lab/data/dgrp/misc/adjustData.RData&quot;)
   
   y_temp &lt;- xp_f[,starvation]
   dat &lt;- data.frame(id=xp_f[,line], y=y_temp)
-  y &lt;- adjustPheno(dat, &quot;starvation&quot;)</code></pre>
-<pre><code>Type III ANOVA table for covariates: starvation
-                 Df Sum of Sq   RSS    AIC F value  Pr(&gt;F)  
-&lt;none&gt;                        28767 1009.8                  
-factor(wolba)     1    483.10 29250 1011.1  3.1236 0.07881 .
-factor(In_2L_t)   2     60.22 28827 1006.2  0.1947 0.82325  
-factor(In_2R_NS)  2    300.22 29067 1007.8  0.9706 0.38078  
-factor(In_3R_P)   2     85.92 28853 1006.4  0.2778 0.75777  
-factor(In_3R_K)   2    959.43 29726 1012.3  3.1017 0.04731 *
-factor(In_3R_Mo)  2    416.65 29184 1008.6  1.3470 0.26255  
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+  y &lt;- adjustPheno(dat, &quot;starvation&quot;)
 
 
-Estimated effects
-                    Estimate Std. Error    t value     Pr(&gt;|t|)
-(Intercept)       58.7465186   1.553929 37.8051442 3.103130e-89
-factor(wolba)y     3.2450739   1.836101  1.7673724 7.880567e-02
-factor(In_2L_t)1  -0.8506378   3.101713 -0.2742477 7.841986e-01
-factor(In_2L_t)2  -1.8583916   3.151661 -0.5896547 5.561378e-01
-factor(In_2R_NS)1  0.8630221   4.621570  0.1867379 8.520697e-01
-factor(In_2R_NS)2  6.7057598   4.825270  1.3897169 1.662760e-01
-factor(In_3R_P)1  -1.8513843   5.206148 -0.3556150 7.225319e-01
-factor(In_3R_P)2   4.0596759   6.331413  0.6411959 5.221847e-01
-factor(In_3R_K)1   7.4870256   4.084124  1.8332024 6.837092e-02
-factor(In_3R_K)2  15.5762633   8.948152  1.7407240 8.338564e-02
-factor(In_3R_Mo)1 -5.4712766   4.279569 -1.2784644 2.026787e-01
-factor(In_3R_Mo)2 -3.6074434   3.224295 -1.1188318 2.646547e-01</code></pre>
-<pre class="r"><code>#model to solve for, vector of ones
+#model to solve for, vector of ones
 mu &lt;- matrix(rep(1, length(y)), ncol=1)
 #names(mu) &lt;- paste0(&quot;line&quot;, 1:length(mu))
 rownames(mu) &lt;- xp_f[,line]
@@ -852,14 +861,7 @@ Carlo methods by approximating the posterior distribution to reduce
 computational resources.</p>
 <p>BGLR - Bayesian General Linear Regression has the capability to
 perform BayesC linear regression using a Gibbs Sampler.</p>
-<pre class="r"><code>#this runs on the same data sets as greml
-
-### qgg_gBayesC
-### https://www.rdocumentation.org/packages/qgg/versions/1.1.1/topics/gbayes
-
-# Bayes C: uses a “rounded spike” (low-variance Gaussian) at origin many small effects can contribute to polygenic component, reduces the dimensionality of the model (makes Gibbs sampling feasible).
-
-#Parallel Header
+<pre class="r"><code>#Parallel Header
 #tempResult &lt;- 
 
 iter &lt;- 50
@@ -995,6 +997,43 @@ gg[[2]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
 <h3>Correlation Coefficient Boxplots</h3>
 <pre class="r"><code>plot_grid(gg[[1]],gg[[2]], ncol=2)</code></pre>
 <p><img src="figure/methodComp.Rmd/plot-print-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-print-1">
+Past versions of plot-print-1.png
+</button>
+</p>
+<div id="fig-plot-print-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/29ccf74cc5cfd4dc984486e844018aa7d12cf15f/docs/figure/methodComp.Rmd/plot-print-1.png" target="_blank">29ccf74</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-03-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
