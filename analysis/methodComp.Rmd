@@ -56,7 +56,7 @@ fit_bglr <- vector(mode='list', length=iter)
 
 The first main set of data used for this analysis is a matrix of gene expression by DGRP line matched to raw starvation resistance. A second cluster of data sets provided by the Morgante Lab includes information on Wolbachia infection status and inversion status by line along with functions to adjust phenotypic values based on these two factors.
 
-```{r qgg_greml, eval=TRUE, message=FALSE}
+```{r qgg_greml, eval=FALSE, message=FALSE}
 
  #wolb infection and inversion status data with phenotype adjustment function
 load("/data2/morgante_lab/data/dgrp/misc/adjustData.RData")
@@ -188,12 +188,6 @@ BGLR - Bayesian General Linear Regression has the capability to perform BayesC l
 
 ```{r loop_qgg_gbayes, message=FALSE, eval=FALSE}
 
-#this runs on the same data sets as greml
-
-### qgg_gBayesC
-### https://www.rdocumentation.org/packages/qgg/versions/1.1.1/topics/gbayes
-
-# Bayes C: uses a “rounded spike” (low-variance Gaussian) at origin many small effects can contribute to polygenic component, reduces the dimensionality of the model (makes Gibbs sampling feasible).
 
 #Parallel Header
 #tempResult <- 
