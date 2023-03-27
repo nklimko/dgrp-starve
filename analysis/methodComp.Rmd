@@ -142,7 +142,7 @@ corLoop <- foreach(i=1:iter) %dopar% {
   y_test <- y[test_IDs]
   
    ### BGLR
-  fitBGLR <- BGLR::BGLR(y_train, response_type = "gaussian", a=NULL, b=NULL,ETA = list(list(X=W_train, model="BayesC")), nIter = 10, burnIn = 2)
+  fitBGLR <- BGLR::BGLR(y_train, response_type = "gaussian", a=NULL, b=NULL,ETA = list(list(X=W_train, model="BayesC")), nIter = 500, burnIn = 200)
   
   y_calc <- predict(fitBGLR, W_test)
   
@@ -231,7 +231,7 @@ for(i in 1:iter){
   fit_gbayesC[[i]] <- bayesF[[i]][1]
   fit_varbvs[[i]] <- corLoop[[i]][2]
   fit_glmnet[[i]] <- corLoop[[i]][3]
-  fit_bglr[[i]] <- bglrLoop[[i]][1]
+  fit_bglr[[i]] <- bglrLoop[[i]][5]
 }
 
 temp <- c(unlist(fit_greml), unlist(fit_gbayesC), unlist(fit_varbvs), unlist(fit_glmnet), unlist(fit_bglr))
@@ -255,7 +255,7 @@ gg[[1]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
 
 # results loaded from correlation loop structure
 bayesM <- readRDS("data/bayesM.rds")
-corLoop <- readRDS("data/corLoop-m-minus.rds")
+corLoop <- readRDS("data/corLoop-m-Minus.rds")
 bglrLoop <- readRDS("data/bglr-m.rds")
 
 for(i in 1:iter){
@@ -263,7 +263,7 @@ for(i in 1:iter){
   fit_gbayesC[[i]] <- bayesM[[i]][1]
   fit_varbvs[[i]] <- corLoop[[i]][2]
   fit_glmnet[[i]] <- corLoop[[i]][3]
-  fit_bglr[[i]] <- bglrLoop[[i]][1]
+  fit_bglr[[i]] <- bglrLoop[[i]][5]
 }
 
 temp <- c(unlist(fit_greml), unlist(fit_gbayesC), unlist(fit_varbvs), unlist(fit_glmnet), unlist(fit_bglr))
