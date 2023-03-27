@@ -529,15 +529,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreeaf523cd517a7899f8d554b10c01f246d29125eddtargetblankaf523cda">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreebe6876cafe93015b18c9f7c70665760dac4c9addtargetblankbe6876ca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/nklimko/dgrp-starve/tree/af523cd517a7899f8d554b10c01f246d29125edd" target="_blank">af523cd</a>
+<a href="https://github.com/nklimko/dgrp-starve/tree/be6876cafe93015b18c9f7c70665760dac4c9add" target="_blank">be6876c</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreeaf523cd517a7899f8d554b10c01f246d29125eddtargetblankaf523cda"
+id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreebe6876cafe93015b18c9f7c70665760dac4c9addtargetblankbe6876ca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -547,7 +547,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/nklimko/dgrp-starve/tree/af523cd517a7899f8d554b10c01f246d29125edd" target="_blank">af523cd</a>.
+<a href="https://github.com/nklimko/dgrp-starve/tree/be6876cafe93015b18c9f7c70665760dac4c9add" target="_blank">be6876c</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -590,6 +590,7 @@ Untracked files:
     Untracked:  data/eQTL_traits_males.csv
     Untracked:  data/fRegress.txt
     Untracked:  data/fRegress_adj.txt
+    Untracked:  data/fm.burglar
     Untracked:  data/gbayesC-f.Rds
     Untracked:  data/gbayesC-m.Rds
     Untracked:  data/gbayesC.Rds
@@ -610,6 +611,7 @@ Untracked files:
     Untracked:  figure/
     Untracked:  mu.dat
     Untracked:  notes/
+    Untracked:  tracer.R
     Untracked:  varE.dat
 
 Unstaged changes:
@@ -676,6 +678,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/be6876cafe93015b18c9f7c70665760dac4c9add/analysis/methodComp.Rmd" target="_blank">be6876c</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-03-27
+</td>
+<td>
+wflow_publish("analysis/methodComp.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/5b9c5a54a2b400bbba6985de2eb4a25517840911/docs/methodComp.html" target="_blank">5b9c5a5</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-03-27
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -891,7 +927,7 @@ corLoop &lt;- foreach(i=1:iter) %dopar% {
   y_test &lt;- y[test_IDs]
   
    ### BGLR
-  fitBGLR &lt;- BGLR::BGLR(y_train, response_type = &quot;gaussian&quot;, a=NULL, b=NULL,ETA = list(list(X=W_train, model=&quot;BayesC&quot;)), nIter = 10, burnIn = 2)
+  fitBGLR &lt;- BGLR::BGLR(y_train, response_type = &quot;gaussian&quot;, a=NULL, b=NULL,ETA = list(list(X=W_train, model=&quot;BayesC&quot;)), nIter = 500, burnIn = 200)
   
   y_calc &lt;- predict(fitBGLR, W_test)
   
@@ -971,7 +1007,7 @@ for(i in 1:iter){
   fit_gbayesC[[i]] &lt;- bayesF[[i]][1]
   fit_varbvs[[i]] &lt;- corLoop[[i]][2]
   fit_glmnet[[i]] &lt;- corLoop[[i]][3]
-  fit_bglr[[i]] &lt;- bglrLoop[[i]][1]
+  fit_bglr[[i]] &lt;- bglrLoop[[i]][5]
 }
 
 temp &lt;- c(unlist(fit_greml), unlist(fit_gbayesC), unlist(fit_varbvs), unlist(fit_glmnet), unlist(fit_bglr))
@@ -988,7 +1024,7 @@ gg[[1]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
                shape=18, size=3, show.legend=FALSE) </code></pre>
 <pre class="r"><code># results loaded from correlation loop structure
 bayesM &lt;- readRDS(&quot;data/bayesM.rds&quot;)
-corLoop &lt;- readRDS(&quot;data/corLoop-m-minus.rds&quot;)
+corLoop &lt;- readRDS(&quot;data/corLoop-m-Minus.rds&quot;)
 bglrLoop &lt;- readRDS(&quot;data/bglr-m.rds&quot;)
 
 for(i in 1:iter){
@@ -996,7 +1032,7 @@ for(i in 1:iter){
   fit_gbayesC[[i]] &lt;- bayesM[[i]][1]
   fit_varbvs[[i]] &lt;- corLoop[[i]][2]
   fit_glmnet[[i]] &lt;- corLoop[[i]][3]
-  fit_bglr[[i]] &lt;- bglrLoop[[i]][1]
+  fit_bglr[[i]] &lt;- bglrLoop[[i]][5]
 }
 
 temp &lt;- c(unlist(fit_greml), unlist(fit_gbayesC), unlist(fit_varbvs), unlist(fit_glmnet), unlist(fit_bglr))
@@ -1014,8 +1050,6 @@ gg[[2]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
 <div id="correlation-coefficient-boxplots" class="section level3">
 <h3>Correlation Coefficient Boxplots</h3>
 <pre class="r"><code>plot_grid(gg[[1]],gg[[2]], ncol=2)</code></pre>
-<pre><code>Warning: Removed 100 rows containing non-finite values (`stat_boxplot()`).</code></pre>
-<pre><code>Warning: Removed 100 rows containing non-finite values (`stat_summary()`).</code></pre>
 <p><img src="figure/methodComp.Rmd/plot-print-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-print-1">
@@ -1039,6 +1073,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/5b9c5a54a2b400bbba6985de2eb4a25517840911/docs/figure/methodComp.Rmd/plot-print-1.png" target="_blank">5b9c5a5</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-03-27
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/af523cd517a7899f8d554b10c01f246d29125edd/docs/figure/methodComp.Rmd/plot-print-1.png" target="_blank">af523cd</a>
