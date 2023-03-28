@@ -88,8 +88,6 @@ TRM <- tcrossprod(W)/ncol(W)
 # k-fold parameters
 n <- length(y)
 fold <- 5
-n <- 198
-
 
 
 ```
@@ -215,7 +213,6 @@ corLoop <- foreach(i=1:iter) %dopar% {
 
 ```
 
-stop2 <- Sys.time()
 
 
 ```{r listConversion-f}
@@ -224,7 +221,7 @@ iter <- 50
 # results loaded from correlation loop structure
 bayesF <- readRDS("data/bayesF.rds")
 corLoop <- readRDS("data/corLoop-f-minus.rds")
-bglrLoop <- readRDS("data/bglr-f.rds")
+bglrLoop <- readRDS("data/bglr-f-130k.rds")
 
 for(i in 1:iter){
   fit_greml[[i]] <- corLoop[[i]][1]
@@ -256,7 +253,7 @@ gg[[1]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
 # results loaded from correlation loop structure
 bayesM <- readRDS("data/bayesM.rds")
 corLoop <- readRDS("data/corLoop-m-Minus.rds")
-bglrLoop <- readRDS("data/bglr-m.rds")
+bglrLoop <- readRDS("data/bglr-m-130k.rds")
 
 for(i in 1:iter){
   fit_greml[[i]] <- corLoop[[i]][1]
