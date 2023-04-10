@@ -11,16 +11,15 @@ editor_options:
 
 ## Weekly Projects
 
+### Snakemake
+
+- [Snakefile](https://github.com/nklimko/dgrp-starve/tree/main/snake)
+- [Snakemake documentation](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html)
 
 
-### [Female Method Comparison](methodComp-f.html)
+### [Method Comparison](methodComp.html)
 
-[Latest Goals](recap.html#20230227)
-
-
-### [Male Method Comparison](methodComp-m.html)
-
-[Latest Goals](recap.html#20230227)
+[Latest Goals](recap.html#20230403)
 
 
 ### [Female Mulitple Regression and Prediction](predict.html)
