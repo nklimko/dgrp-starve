@@ -31,9 +31,13 @@ options(error = function() traceback(3))
 #seed
 set.seed(1)
 
+#include r2 for bglr
+#add id bank to snakemake data folder
+
 ```
 
 The overarching goal of this process is to predict the phenotype for starvation resistance, a continuous trait, by using gene expression data, another continuous trait. This is done using k-fold cross validation to create models based on a subset of the data and calculating the correlation of that model with the remaining partition. By repeating this process multiple times with different training and testing partitions, model bias can be significantly reduced and allows for calculation of average correlation coefficients for each model. The primary difference between the methods in question is the prior distribution used.
+
 
 ```{r setup}
 
@@ -41,7 +45,7 @@ The overarching goal of this process is to predict the phenotype for starvation 
 iter <- 50
 
 #ggplot holder list
-gg <- vector(mode='list', length=2)
+gg <- vector(mode='list', length=6)
 
 # result storage elements
 fit_greml <- vector(mode='list', length=iter)
@@ -279,13 +283,55 @@ gg[[2]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
 ```
 
 
+```{r snakeData}
+### FEMALE
+bglr <- readRDS("snake/data/2_cor/bglr_f_starvation.Rds")
+glmnetLasso <- readRDS("snake/data/2_cor/glmnetLasso_f_starvation.Rds")
+varbvs <- readRDS("snake/data/2_cor/varbvs_f_starvation.Rds")
+
+temp <- c(varbvs, glmnetLasso, bglr)
+label <- c(rep("varbvs", iter), rep("glmnetLasso", iter), rep("bglr", iter)) 
+data <- data.table(cor=as.numeric(temp), method=label)
+
+gg[[3]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+  geom_boxplot() +
+  ggtitle("Female Correlations Boxplot") +
+  labs(x="Method", y="Correlation Coefficient") +
+  stat_summary(fun=mean, color="black", geom="point", 
+               shape=18, size=3, show.legend=FALSE)
+
+### MALE
+bglr <- readRDS("snake/data/2_cor/bglr_m_starvation.Rds")
+glmnetLasso <- readRDS("snake/data/2_cor/glmnetLasso_m_starvation.Rds")
+varbvs <- readRDS("snake/data/2_cor/varbvs_m_starvation.Rds")
+
+temp <- c(varbvs, glmnetLasso, bglr)
+label <- c(rep("varbvs", iter), rep("glmnetLasso", iter), rep("bglr", iter)) 
+data <- data.table(cor=as.numeric(temp), method=label)
+
+gg[[4]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+  geom_boxplot() +
+  ggtitle("Male Correlations Boxplot") +
+  labs(x="Method", y="Correlation Coefficient") +
+  stat_summary(fun=mean, color="black", geom="point", 
+               shape=18, size=3, show.legend=FALSE)
+
+```
+
+
 
 
 ### Correlation Coefficient Boxplots
 
+
+
+
+
 ```{r plot-print}
 
 plot_grid(gg[[1]],gg[[2]], ncol=2)
+
+plot_grid(gg[[3]],gg[[4]], ncol=2)
 
 ```
 
