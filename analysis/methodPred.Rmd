@@ -232,7 +232,7 @@ varbvs <- readRDS("snake/data/2_cor/varbvs_f_starvation.Rds")
 
 temp <- c(varbvs, lasso, rr, bglr)
 
-label <- c(rep("varbvs", iter), rep("lasso", iter), rep("rr", iter), rep("bglr", iter)) 
+label <- c(rep("varbvs", iter), rep("lasso", iter), rep("rr", iter), rep("bayesC", iter)) 
 
 data <- data.table(cor=as.numeric(temp), method=label)
 
@@ -250,7 +250,7 @@ rr <- readRDS("snake/data/2_cor/rr_m_starvation.Rds")
 varbvs <- readRDS("snake/data/2_cor/varbvs_m_starvation.Rds")
 
 temp <- c(varbvs, lasso, rr, bglr)
-label <- c(rep("varbvs", iter), rep("lasso", iter), rep("rr", iter), rep("bglr", iter)) 
+label <- c(rep("varbvs", iter), rep("lasso", iter), rep("rr", iter), rep("bayesC", iter)) 
 data <- data.table(cor=as.numeric(temp), method=label)
 
 gg[[4]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
