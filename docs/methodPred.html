@@ -529,15 +529,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree39219b9c4e4a1c0cbd74468076075f1bad597b52targetblank39219b9a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree96f8bdda99f114c71a0ad356c5e1218a01927962targetblank96f8bdda">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/nklimko/dgrp-starve/tree/39219b9c4e4a1c0cbd74468076075f1bad597b52" target="_blank">39219b9</a>
+<a href="https://github.com/nklimko/dgrp-starve/tree/96f8bdda99f114c71a0ad356c5e1218a01927962" target="_blank">96f8bdd</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree39219b9c4e4a1c0cbd74468076075f1bad597b52targetblank39219b9a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree96f8bdda99f114c71a0ad356c5e1218a01927962targetblank96f8bdda"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -547,7 +547,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/nklimko/dgrp-starve/tree/39219b9c4e4a1c0cbd74468076075f1bad597b52" target="_blank">39219b9</a>.
+<a href="https://github.com/nklimko/dgrp-starve/tree/96f8bdda99f114c71a0ad356c5e1218a01927962" target="_blank">96f8bdd</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -688,6 +688,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/96f8bdda99f114c71a0ad356c5e1218a01927962/analysis/methodPred.Rmd" target="_blank">96f8bdd</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-04-19
+</td>
+<td>
+wflow_publish("analysis/methodPred.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/057e7acb5918e16c579988a82510db84018fbb0a/docs/methodPred.html" target="_blank">057e7ac</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-04-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -895,7 +929,7 @@ varbvs &lt;- readRDS(&quot;snake/data/2_cor/varbvs_f_starvation.Rds&quot;)
 
 temp &lt;- c(varbvs, lasso, rr, bglr)
 
-label &lt;- c(rep(&quot;varbvs&quot;, iter), rep(&quot;lasso&quot;, iter), rep(&quot;rr&quot;, iter), rep(&quot;bglr&quot;, iter)) 
+label &lt;- c(rep(&quot;varbvs&quot;, iter), rep(&quot;lasso&quot;, iter), rep(&quot;rr&quot;, iter), rep(&quot;bayesC&quot;, iter)) 
 
 data &lt;- data.table(cor=as.numeric(temp), method=label)
 
@@ -913,7 +947,7 @@ rr &lt;- readRDS(&quot;snake/data/2_cor/rr_m_starvation.Rds&quot;)
 varbvs &lt;- readRDS(&quot;snake/data/2_cor/varbvs_m_starvation.Rds&quot;)
 
 temp &lt;- c(varbvs, lasso, rr, bglr)
-label &lt;- c(rep(&quot;varbvs&quot;, iter), rep(&quot;lasso&quot;, iter), rep(&quot;rr&quot;, iter), rep(&quot;bglr&quot;, iter)) 
+label &lt;- c(rep(&quot;varbvs&quot;, iter), rep(&quot;lasso&quot;, iter), rep(&quot;rr&quot;, iter), rep(&quot;bayesC&quot;, iter)) 
 data &lt;- data.table(cor=as.numeric(temp), method=label)
 
 gg[[4]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
@@ -926,6 +960,43 @@ gg[[4]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
 <h3>Correlation Coefficient Boxplots</h3>
 <pre class="r"><code>plot_grid(gg[[3]],gg[[4]], ncol=2)</code></pre>
 <p><img src="figure/methodPred.Rmd/plot-print-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-print-1">
+Past versions of plot-print-1.png
+</button>
+</p>
+<div id="fig-plot-print-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/057e7acb5918e16c579988a82510db84018fbb0a/docs/figure/methodPred.Rmd/plot-print-1.png" target="_blank">057e7ac</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
