@@ -8,7 +8,8 @@ output:
 editor_options:
   chunk_output_type: console
 ---
-  
+
+
 ```{r 0-setup, include=FALSE, warning=FALSE}
 #regular
 library(dplyr)
@@ -31,8 +32,6 @@ options(error = function() traceback(3))
 #seed
 set.seed(123)
 
-#include r2 for bglr
-#add id bank to snakemake data folder
 
 ```
 
@@ -47,13 +46,6 @@ iter <- 50
 #ggplot holder list
 gg <- vector(mode='list', length=6)
 
-# result storage elements
-fit_greml <- vector(mode='list', length=iter)
-fit_gbayesC <- vector(mode='list', length=iter)
-fit_varbvs <- vector(mode='list', length=iter)
-fit_glmnet <- vector(mode='list', length=iter)
-fit_bglr <- vector(mode='list', length=iter)
-
 ```
 
 
@@ -62,25 +54,25 @@ The first main set of data used for this analysis is a matrix of gene expression
 
 ```{r expression-data, eval=FALSE, message=FALSE}
 
- #wolb infection and inversion status data with phenotype adjustment function
+#wolb infection and inversion status data with phenotype adjustment function
 load("/data2/morgante_lab/data/dgrp/misc/adjustData.RData")
 
-  #expression data matched to line and starvation phenotype
-  xp_f <- fread("data/xp-f.txt")
-  
- # xp_m <- fread("data/xp-m.txt")
-  
-  #setwd("C:/Users/noahk/OneDrive/Desktop/amogus")
-  #getwd()
-  
-  #create matrix of only gene expression, trims line and starvation
-  X <- as.matrix(xp_f[,3:11340])
-  rownames(X) <- xp_f[,line]
-  W <- scale(X)
-  
-  y_temp <- xp_f[,starvation]
-  dat <- data.frame(id=xp_f[,line], y=y_temp)
-  y <- adjustPheno(dat, "starvation")
+#expression data matched to line and starvation phenotype
+xp_f <- fread("data/xp-f.txt")
+
+# xp_m <- fread("data/xp-m.txt")
+
+#setwd("C:/Users/noahk/OneDrive/Desktop/amogus")
+#getwd()
+
+#create matrix of only gene expression, trims line and starvation
+X <- as.matrix(xp_f[,3:11340])
+rownames(X) <- xp_f[,line]
+W <- scale(X)
+
+y_temp <- xp_f[,starvation]
+dat <- data.frame(id=xp_f[,line], y=y_temp)
+y <- adjustPheno(dat, "starvation")
 
 
 #model to solve for, vector of ones
@@ -129,7 +121,7 @@ iter <- 1
 i <- 1
 
 corLoop <- foreach(i=1:iter) %dopar% {
-
+  
   #result holder
   corResult <- rep(0, 5)
   
@@ -143,8 +135,8 @@ corLoop <- foreach(i=1:iter) %dopar% {
   y_train <- y[-test_IDs]
   y_test <- y[test_IDs]
   
-   ### BGLR
-  fitBGLR <- BGLR::BGLR(y_train, response_type = "gaussian", a=NULL, b=NULL,ETA = list(list(X=W_train, model="BayesC")), nIter = 500, burnIn = 200)
+  ### BGLR
+  fitBGLR <- BGLR::BGLR(y_train, response_type = "gaussian", a=NULL, b=NULL, ETA = list(list(X=W_train, model="BayesC")), nIter = 500, burnIn = 200)
   
   y_calc <- predict(fitBGLR, W_test)
   
@@ -155,15 +147,15 @@ corLoop <- foreach(i=1:iter) %dopar% {
   
   #Overall result
   corResult
-
+  
 }
 
-  
+
 
 
 
 corLoop <- foreach(i=1:iter) %dopar% {
-
+  
   #result holder
   corResult <- rep(0, 5)
   
@@ -177,7 +169,7 @@ corLoop <- foreach(i=1:iter) %dopar% {
   y_train <- y[-test_IDs]
   y_test <- y[test_IDs]
   
-
+  
   ### QGG::GREML
   fitGreml <- qgg::greml(y=y, X=mu, GRM=list(A=TRM), validate = matrix(test_IDs,ncol=1), verbose=FALSE)
   
@@ -189,7 +181,7 @@ corLoop <- foreach(i=1:iter) %dopar% {
   # \hat{y}_test = W_{test} * \hat{b} + \hat{mu}
   y_calc <- W_test %*% fitC$b + mean(y_train)
   corResult[2] <- cor(y_test, y_calc)
-
+  
   ### VARBVS
   fitVarb <- varbvs::varbvs(X = W_train, NULL, y=y_train, family = "gaussian", logodds=seq(-3.5,-1,0.1), sa = 1, verbose=TRUE)
   
@@ -210,7 +202,7 @@ corLoop <- foreach(i=1:iter) %dopar% {
   
   #Overall result
   corResult
-
+  
 }
 
 
@@ -225,14 +217,15 @@ corLoop <- foreach(i=1:iter) %dopar% {
 ### FEMALE
 iter <- 50
 
-bglr <- readRDS("snake/data/2_cor/bglr_f_starvation.Rds")
+bayesC <- readRDS("snake/data/2_cor/bayesC_f_starvation.Rds")
 lasso <- readRDS("snake/data/2_cor/lasso_f_starvation.Rds")
 rr <- readRDS("snake/data/2_cor/rr_f_starvation.Rds")
 varbvs <- readRDS("snake/data/2_cor/varbvs_f_starvation.Rds")
+gblup <- readRDS("snake/data/2_cor/gblup_f_starvation.Rds")
 
-temp <- c(varbvs, lasso, rr, bglr)
+temp <- c(varbvs, lasso, rr, bayesC, gblup)
 
-label <- c(rep("varbvs", iter), rep("lasso", iter), rep("rr", iter), rep("bayesC", iter)) 
+label <- c(rep("varbvs", iter), rep("lasso", iter), rep("rr", iter), rep("bayesC", iter), rep("gblup", iter)) 
 
 data <- data.table(cor=as.numeric(temp), method=label)
 
@@ -243,14 +236,16 @@ gg[[3]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
   stat_summary(fun=mean, color="black", geom="point", 
                shape=18, size=3, show.legend=FALSE)
 
+femaleCorr <- c(bayesC=mean(bayesC),lasso=mean(na.omit(lasso)),rr=mean(rr),varbvs=mean(varbvs), gblup=mean(gblup))
+
 ### MALE
-bglr <- readRDS("snake/data/2_cor/bglr_m_starvation.Rds")
+bayesC <- readRDS("snake/data/2_cor/bayesC_m_starvation.Rds")
 lasso <- readRDS("snake/data/2_cor/lasso_m_starvation.Rds")
 rr <- readRDS("snake/data/2_cor/rr_m_starvation.Rds")
 varbvs <- readRDS("snake/data/2_cor/varbvs_m_starvation.Rds")
+gblup <- readRDS("snake/data/2_cor/gblup_m_starvation.Rds")
 
-temp <- c(varbvs, lasso, rr, bglr)
-label <- c(rep("varbvs", iter), rep("lasso", iter), rep("rr", iter), rep("bayesC", iter)) 
+temp <- c(varbvs, lasso, rr, bayesC, gblup)
 data <- data.table(cor=as.numeric(temp), method=label)
 
 gg[[4]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
@@ -260,15 +255,75 @@ gg[[4]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
   stat_summary(fun=mean, color="black", geom="point", 
                shape=18, size=3, show.legend=FALSE)
 
+maleCorr <- c(bayesC=mean(bayesC),lasso=mean(na.omit(lasso)),rr=mean(rr),varbvs=mean(varbvs), gblup=mean(gblup))
+
 ```
 
 
 
 
+```{r timePlots}
+
+iter <- 10
+
+bayesC <- readRDS("snake/data/2_time/bayesC_f_starvation.Rds")
+lasso <- readRDS("snake/data/2_time/lasso_f_starvation.Rds")
+rr <- readRDS("snake/data/2_time/rr_f_starvation.Rds")
+varbvs <- readRDS("snake/data/2_time/varbvs_f_starvation.Rds")
+gblup <- readRDS("snake/data/2_time/gblup_f_starvation.Rds")
+
+
+bayesC <- bayesC * 60
+
+
+temp <- c(varbvs, lasso, rr, bayesC, gblup)
+label <- c(rep("varbvs", iter), rep("lasso", iter), rep("rr", iter), rep("bayesC", iter), rep("gblup", iter)) 
+data <- data.table(cor=as.numeric(temp), method=label)
+
+
+gg[[5]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+  geom_boxplot() +
+  ggtitle("Female Runtime Boxplot") +
+  labs(x="Method", y="Runtime(sec)") +
+  stat_summary(fun=mean, color="black", geom="point", 
+               shape=18, size=3, show.legend=FALSE)
+
+femaleTime <- c(bayesC=mean(bayesC),lasso=mean(na.omit(lasso)),rr=mean(rr),varbvs=mean(varbvs), gblup=mean(gblup))
+
+
+bayesC <- readRDS("snake/data/2_time/bayesC_m_starvation.Rds")
+lasso <- readRDS("snake/data/2_time/lasso_m_starvation.Rds")
+rr <- readRDS("snake/data/2_time/rr_m_starvation.Rds")
+varbvs <- readRDS("snake/data/2_time/varbvs_m_starvation.Rds")
+gblup <- readRDS("snake/data/2_time/gblup_m_starvation.Rds")
+
+
+bayesC <- bayesC * 60
+
+
+temp <- c(varbvs, lasso, rr, bayesC, gblup)
+data <- data.table(cor=as.numeric(temp), method=label)
+
+
+
+gg[[6]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+  geom_boxplot() +
+  ggtitle("Male Runtime Boxplot") +
+  labs(x="Method", y="Runtime(sec)") +
+  stat_summary(fun=mean, color="black", geom="point", 
+               shape=18, size=3, show.legend=FALSE)
+
+maleTime <- c(bayesC=mean(bayesC),lasso=mean(na.omit(lasso)),rr=mean(rr),varbvs=mean(varbvs), gblup=mean(gblup))
+
+
+
+
+
+```
+
+
+
 ### Correlation Coefficient Boxplots
-
-
-
 
 
 ```{r plot-print, warning=FALSE}
@@ -277,7 +332,50 @@ plot_grid(gg[[3]],gg[[4]], ncol=2)
 
 ```
 
+### Runtimes
 
+```{r runtime-print, warning=FALSE}
+plot_grid(gg[[5]],gg[[6]], ncol=2)
+
+```
+
+### Correlation Means
+
+  bayesC lasso rr varbvs gblup
+
+Female: `r femaleCorr`
+
+Male: `r maleCorr`
+
+### Runtime Means
+
+  bayesC lasso rr varbvs gblup
+        
+Female: `r femaleTime`
+
+Male: `r maleTime`
+
+
+
+```{r debug, eval=FALSE}
+
+
+
+#FEMALE
+female <- c(bayesC=mean(bayesC),lasso=mean(lasso),rr=mean(rr),varbvs=mean(varbvs))
+
+female
+male
+
+male <- c(bayesC=mean(bayesC),lasso=mean(na.omit(lasso)),rr=mean(rr),varbvs=mean(varbvs))
+
+
+#MALE
+male <- c(mean(bayesC),mean(lasso),mean(rr),mean(varbvs))
+
+
+
+```
 
 
 
