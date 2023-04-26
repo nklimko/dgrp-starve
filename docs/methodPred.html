@@ -394,7 +394,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-04-24
+<strong>Last updated:</strong> 2023-04-26
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -485,16 +485,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree18e3315e6ddcb35d441b49be5a6c41340aad4621targetblank18e3315a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/18e3315e6ddcb35d441b49be5a6c41340aad4621" target="_blank">18e3315</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreecf0f683d12b385ce11ce754c3f58e705531957f9targetblankcf0f683a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/cf0f683d12b385ce11ce754c3f58e705531957f9" target="_blank">cf0f683</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree18e3315e6ddcb35d441b49be5a6c41340aad4621targetblank18e3315a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreecf0f683d12b385ce11ce754c3f58e705531957f9targetblankcf0f683a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/18e3315e6ddcb35d441b49be5a6c41340aad4621" target="_blank">18e3315</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/cf0f683d12b385ce11ce754c3f58e705531957f9" target="_blank">cf0f683</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -559,6 +559,7 @@ Untracked files:
     Untracked:  snake/
 
 Unstaged changes:
+    Modified:   README.md
     Deleted:    analysis/gremlo.R
     Deleted:    analysis/methodComp-f.Rmd
     Deleted:    analysis/methodComp-m.Rmd
@@ -618,6 +619,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/cf0f683d12b385ce11ce754c3f58e705531957f9/analysis/methodPred.Rmd" target="_blank">cf0f683</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-04-26
+</td>
+<td>
+wflow_publish("analysis/methodPred.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/7f62ff3b769af9fa41e4fafe3c7cb79b7335d3da/docs/methodPred.html" target="_blank">7f62ff3</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-04-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -862,12 +897,15 @@ label &lt;- c(rep(&quot;varbvs&quot;, iter), rep(&quot;lasso&quot;, iter), rep(&
 
 data &lt;- data.table(cor=as.numeric(temp), method=label)
 
-gg[[3]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
+gg[[1]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
   geom_boxplot() +
+  theme_minimal() +
   ggtitle(&quot;Female Correlations Boxplot&quot;) +
   labs(x=&quot;Method&quot;, y=&quot;Correlation Coefficient&quot;) +
   stat_summary(fun=mean, color=&quot;black&quot;, geom=&quot;point&quot;, 
-               shape=18, size=3, show.legend=FALSE)
+               shape=18, size=3, show.legend=FALSE) +
+  theme(legend.position=&quot;none&quot;) + 
+  theme(axis.text.x = element_text(angle = -45))
 
 femaleCorr &lt;- c(bayesC=mean(bayesC),lasso=mean(na.omit(lasso)),rr=mean(rr),varbvs=mean(varbvs), gblup=mean(gblup))
 
@@ -881,12 +919,15 @@ gblup &lt;- readRDS(&quot;snake/data/2_cor/gblup_m_starvation.Rds&quot;)
 temp &lt;- c(varbvs, lasso, rr, bayesC, gblup)
 data &lt;- data.table(cor=as.numeric(temp), method=label)
 
-gg[[4]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
+gg[[2]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
   geom_boxplot() +
+  theme_minimal() +
   ggtitle(&quot;Male Correlations Boxplot&quot;) +
   labs(x=&quot;Method&quot;, y=&quot;Correlation Coefficient&quot;) +
   stat_summary(fun=mean, color=&quot;black&quot;, geom=&quot;point&quot;, 
-               shape=18, size=3, show.legend=FALSE)
+               shape=18, size=3, show.legend=FALSE) +
+  theme(legend.position=&quot;none&quot;) + 
+  theme(axis.text.x = element_text(angle = -45))
 
 maleCorr &lt;- c(bayesC=mean(bayesC),lasso=mean(na.omit(lasso)),rr=mean(rr),varbvs=mean(varbvs), gblup=mean(gblup))</code></pre>
 <pre class="r"><code>iter &lt;- 10
@@ -896,23 +937,28 @@ lasso &lt;- readRDS(&quot;snake/data/2_time/lasso_f_starvation.Rds&quot;)
 rr &lt;- readRDS(&quot;snake/data/2_time/rr_f_starvation.Rds&quot;)
 varbvs &lt;- readRDS(&quot;snake/data/2_time/varbvs_f_starvation.Rds&quot;)
 gblup &lt;- readRDS(&quot;snake/data/2_time/gblup_f_starvation.Rds&quot;)
-
+gblup &lt;- gblup[1:10]
 
 bayesC &lt;- bayesC * 60
 
 
 temp &lt;- c(varbvs, lasso, rr, bayesC, gblup)
+
+temp &lt;- log10(temp)
 label &lt;- c(rep(&quot;varbvs&quot;, iter), rep(&quot;lasso&quot;, iter), rep(&quot;rr&quot;, iter), rep(&quot;bayesC&quot;, iter), rep(&quot;gblup&quot;, iter)) 
-data &lt;- data.table(cor=as.numeric(temp), method=label)</code></pre>
-<pre><code>Warning in as.data.table.list(x, keep.rownames = keep.rownames, check.names =
-check.names, : Item 2 has 50 rows but longest item has 90; recycled with
-remainder.</code></pre>
-<pre class="r"><code>gg[[5]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
+data &lt;- data.table(cor=as.numeric(temp), method=label)
+
+
+gg[[3]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
   geom_boxplot() +
+  theme_minimal() +
   ggtitle(&quot;Female Runtime Boxplot&quot;) +
   labs(x=&quot;Method&quot;, y=&quot;Runtime(sec)&quot;) +
   stat_summary(fun=mean, color=&quot;black&quot;, geom=&quot;point&quot;, 
-               shape=18, size=3, show.legend=FALSE)
+               shape=18, size=3, show.legend=FALSE) + 
+    theme(legend.position=&quot;none&quot;) + 
+  theme(axis.text.x = element_text(angle = -45))
+
 
 femaleTime &lt;- c(bayesC=mean(bayesC),lasso=mean(na.omit(lasso)),rr=mean(rr),varbvs=mean(varbvs), gblup=mean(gblup))
 
@@ -922,27 +968,33 @@ lasso &lt;- readRDS(&quot;snake/data/2_time/lasso_m_starvation.Rds&quot;)
 rr &lt;- readRDS(&quot;snake/data/2_time/rr_m_starvation.Rds&quot;)
 varbvs &lt;- readRDS(&quot;snake/data/2_time/varbvs_m_starvation.Rds&quot;)
 gblup &lt;- readRDS(&quot;snake/data/2_time/gblup_m_starvation.Rds&quot;)
-
+gblup &lt;- gblup[1:10]
 
 bayesC &lt;- bayesC * 60
 
 
+
 temp &lt;- c(varbvs, lasso, rr, bayesC, gblup)
-data &lt;- data.table(cor=as.numeric(temp), method=label)</code></pre>
-<pre><code>Warning in as.data.table.list(x, keep.rownames = keep.rownames, check.names =
-check.names, : Item 2 has 50 rows but longest item has 90; recycled with
-remainder.</code></pre>
-<pre class="r"><code>gg[[6]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
+
+temp &lt;- log10(temp)
+label &lt;- c(rep(&quot;varbvs&quot;, iter), rep(&quot;lasso&quot;, iter), rep(&quot;rr&quot;, iter), rep(&quot;bayesC&quot;, iter), rep(&quot;gblup&quot;, iter)) 
+data &lt;- data.table(cor=as.numeric(temp), method=label)
+
+
+gg[[4]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
   geom_boxplot() +
+  theme_minimal() +
   ggtitle(&quot;Male Runtime Boxplot&quot;) +
   labs(x=&quot;Method&quot;, y=&quot;Runtime(sec)&quot;) +
   stat_summary(fun=mean, color=&quot;black&quot;, geom=&quot;point&quot;, 
-               shape=18, size=3, show.legend=FALSE)
+               shape=18, size=3, show.legend=FALSE) + 
+    theme(legend.position=&quot;none&quot;) + 
+  theme(axis.text.x = element_text(angle = -45))
 
 maleTime &lt;- c(bayesC=mean(bayesC),lasso=mean(na.omit(lasso)),rr=mean(rr),varbvs=mean(varbvs), gblup=mean(gblup))</code></pre>
 <div id="correlation-coefficient-boxplots" class="section level3">
 <h3>Correlation Coefficient Boxplots</h3>
-<pre class="r"><code>plot_grid(gg[[3]],gg[[4]], ncol=2)</code></pre>
+<pre class="r"><code>plot_grid(gg[[1]],gg[[2]], ncol=2)</code></pre>
 <p><img src="figure/methodPred.Rmd/plot-print-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-print-1">
@@ -966,6 +1018,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/7f62ff3b769af9fa41e4fafe3c7cb79b7335d3da/docs/figure/methodPred.Rmd/plot-print-1.png" target="_blank">7f62ff3</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-04-24
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/f055405c358448808d7e8b96b81f2a995bd65974/docs/figure/methodPred.Rmd/plot-print-1.png" target="_blank">f055405</a>
@@ -995,20 +1058,57 @@ nklimko
 </div>
 <div id="runtimes" class="section level3">
 <h3>Runtimes</h3>
-<pre class="r"><code>plot_grid(gg[[5]],gg[[6]], ncol=2)</code></pre>
+<pre class="r"><code>plot_grid(gg[[3]],gg[[4]], ncol=2)</code></pre>
 <p><img src="figure/methodPred.Rmd/runtime-print-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-runtime-print-1">
+Past versions of runtime-print-1.png
+</button>
+</p>
+<div id="fig-runtime-print-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/7f62ff3b769af9fa41e4fafe3c7cb79b7335d3da/docs/figure/methodPred.Rmd/runtime-print-1.png" target="_blank">7f62ff3</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-04-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="correlation-means" class="section level3">
 <h3>Correlation Means</h3>
 <p>bayesC lasso rr varbvs gblup</p>
-<p>Female: 0.3571273, 0.3813852, 0.3668104, 0.419731, 0.3577703</p>
-<p>Male: 0.3948696, 0.2571687, 0.4039055, 0.2194468, 0.3946048</p>
+<p>Female: 0.2814437, 0.3473642, 0.2810896, 0.4130008, 0.2799822</p>
+<p>Male: 0.3482745, 0.246062, 0.362574, 0.2554396, 0.3491399</p>
 </div>
 <div id="runtime-means" class="section level3">
 <h3>Runtime Means</h3>
 <p>bayesC lasso rr varbvs gblup</p>
-<p>Female: 376.2165983, 2.5724522, 8.2491514, 40.6274907, 10.8620253</p>
-<p>Male: 502.6722485, 2.2007852, 10.6701228, 34.5753582, 10.8488799</p>
+<p>Female: 362.6840455, 2.8234414, 9.5360448, 39.740173, 9.9515445</p>
+<p>Male: 584.0194797, 3.643057, 11.3666203, 36.7245345, 10.5636749</p>
 <pre class="r"><code>#FEMALE
 female &lt;- c(bayesC=mean(bayesC),lasso=mean(lasso),rr=mean(rr),varbvs=mean(varbvs))
 
