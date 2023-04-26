@@ -229,12 +229,15 @@ label <- c(rep("varbvs", iter), rep("lasso", iter), rep("rr", iter), rep("bayesC
 
 data <- data.table(cor=as.numeric(temp), method=label)
 
-gg[[3]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+gg[[1]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
   geom_boxplot() +
+  theme_minimal() +
   ggtitle("Female Correlations Boxplot") +
   labs(x="Method", y="Correlation Coefficient") +
   stat_summary(fun=mean, color="black", geom="point", 
-               shape=18, size=3, show.legend=FALSE)
+               shape=18, size=3, show.legend=FALSE) +
+  theme(legend.position="none") + 
+  theme(axis.text.x = element_text(angle = -45))
 
 femaleCorr <- c(bayesC=mean(bayesC),lasso=mean(na.omit(lasso)),rr=mean(rr),varbvs=mean(varbvs), gblup=mean(gblup))
 
@@ -248,12 +251,15 @@ gblup <- readRDS("snake/data/2_cor/gblup_m_starvation.Rds")
 temp <- c(varbvs, lasso, rr, bayesC, gblup)
 data <- data.table(cor=as.numeric(temp), method=label)
 
-gg[[4]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+gg[[2]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
   geom_boxplot() +
+  theme_minimal() +
   ggtitle("Male Correlations Boxplot") +
   labs(x="Method", y="Correlation Coefficient") +
   stat_summary(fun=mean, color="black", geom="point", 
-               shape=18, size=3, show.legend=FALSE)
+               shape=18, size=3, show.legend=FALSE) +
+  theme(legend.position="none") + 
+  theme(axis.text.x = element_text(angle = -45))
 
 maleCorr <- c(bayesC=mean(bayesC),lasso=mean(na.omit(lasso)),rr=mean(rr),varbvs=mean(varbvs), gblup=mean(gblup))
 
@@ -262,7 +268,7 @@ maleCorr <- c(bayesC=mean(bayesC),lasso=mean(na.omit(lasso)),rr=mean(rr),varbvs=
 
 
 
-```{r timePlots}
+```{r timePlots, warning=FALSE}
 
 iter <- 10
 
@@ -271,22 +277,28 @@ lasso <- readRDS("snake/data/2_time/lasso_f_starvation.Rds")
 rr <- readRDS("snake/data/2_time/rr_f_starvation.Rds")
 varbvs <- readRDS("snake/data/2_time/varbvs_f_starvation.Rds")
 gblup <- readRDS("snake/data/2_time/gblup_f_starvation.Rds")
-
+gblup <- gblup[1:10]
 
 bayesC <- bayesC * 60
 
 
 temp <- c(varbvs, lasso, rr, bayesC, gblup)
+
+temp <- log10(temp)
 label <- c(rep("varbvs", iter), rep("lasso", iter), rep("rr", iter), rep("bayesC", iter), rep("gblup", iter)) 
 data <- data.table(cor=as.numeric(temp), method=label)
 
 
-gg[[5]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+gg[[3]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
   geom_boxplot() +
+  theme_minimal() +
   ggtitle("Female Runtime Boxplot") +
   labs(x="Method", y="Runtime(sec)") +
   stat_summary(fun=mean, color="black", geom="point", 
-               shape=18, size=3, show.legend=FALSE)
+               shape=18, size=3, show.legend=FALSE) + 
+    theme(legend.position="none") + 
+  theme(axis.text.x = element_text(angle = -45))
+
 
 femaleTime <- c(bayesC=mean(bayesC),lasso=mean(na.omit(lasso)),rr=mean(rr),varbvs=mean(varbvs), gblup=mean(gblup))
 
@@ -296,22 +308,28 @@ lasso <- readRDS("snake/data/2_time/lasso_m_starvation.Rds")
 rr <- readRDS("snake/data/2_time/rr_m_starvation.Rds")
 varbvs <- readRDS("snake/data/2_time/varbvs_m_starvation.Rds")
 gblup <- readRDS("snake/data/2_time/gblup_m_starvation.Rds")
-
+gblup <- gblup[1:10]
 
 bayesC <- bayesC * 60
 
 
+
 temp <- c(varbvs, lasso, rr, bayesC, gblup)
+
+temp <- log10(temp)
+label <- c(rep("varbvs", iter), rep("lasso", iter), rep("rr", iter), rep("bayesC", iter), rep("gblup", iter)) 
 data <- data.table(cor=as.numeric(temp), method=label)
 
 
-
-gg[[6]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+gg[[4]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
   geom_boxplot() +
+  theme_minimal() +
   ggtitle("Male Runtime Boxplot") +
   labs(x="Method", y="Runtime(sec)") +
   stat_summary(fun=mean, color="black", geom="point", 
-               shape=18, size=3, show.legend=FALSE)
+               shape=18, size=3, show.legend=FALSE) + 
+    theme(legend.position="none") + 
+  theme(axis.text.x = element_text(angle = -45))
 
 maleTime <- c(bayesC=mean(bayesC),lasso=mean(na.omit(lasso)),rr=mean(rr),varbvs=mean(varbvs), gblup=mean(gblup))
 
@@ -328,20 +346,20 @@ maleTime <- c(bayesC=mean(bayesC),lasso=mean(na.omit(lasso)),rr=mean(rr),varbvs=
 
 ```{r plot-print, warning=FALSE}
 
-plot_grid(gg[[3]],gg[[4]], ncol=2)
+plot_grid(gg[[1]],gg[[2]], ncol=2)
 
 ```
 
 ### Runtimes
 
 ```{r runtime-print, warning=FALSE}
-plot_grid(gg[[5]],gg[[6]], ncol=2)
+plot_grid(gg[[3]],gg[[4]], ncol=2)
 
 ```
 
 ### Correlation Means
 
-  bayesC lasso rr varbvs gblup
+bayesC lasso rr varbvs gblup
 
 Female: `r femaleCorr`
 
@@ -349,8 +367,8 @@ Male: `r maleCorr`
 
 ### Runtime Means
 
-  bayesC lasso rr varbvs gblup
-        
+bayesC lasso rr varbvs gblup
+
 Female: `r femaleTime`
 
 Male: `r maleTime`
