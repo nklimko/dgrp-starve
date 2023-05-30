@@ -102,16 +102,9 @@ The matrix containing only gene expression by line data was then scaled to an ab
 
 The following methods are currently implemented:
 
-
-qgg::greml - Genomic Restricted Maximum Likelihood Estimation using Best Linear Unbiased Predictor. GREML uses a Gaussian prior distribution, performing the least shrinkage and no variable selection.
-
-glmnet - glmnet uses LASSO, or least absolute shrinkage and selection operator. Bayesian LASSO uses a thick-tailed prior which performs greater shrinkage towards the mean than a Gaussian distribution.
-
-qgg::gbayes - BayesC has been implemented using this command. BayesC uses a spike-slab prior which performs variable selection. This intentionally sets the effect of some genes expressed to zero which models the idea that some genes have no effect on the given trait. 
-
-varbvs - Bayesian variable selection performs variable selection using another spike-slab prior. This method avoids Markov Chain Monte Carlo methods by approximating the posterior distribution to reduce computational resources.
-
 BGLR - Bayesian General Linear Regression has the capability to perform BayesC linear regression using a Gibbs Sampler. 
+
+Under this, both GBLUP and BayesC have been implemented in single trait and multitrait prediction based methods.
 
 
 ```{r loop_qgg_gbayes, message=FALSE, eval=FALSE}
@@ -252,6 +245,7 @@ gg[[1]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
   scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
 
 
+print(paste0(c('bayesC', 'gblup', 'multibayesC', 'multigblup'),': ',c(mean(bayesC), mean(gblup), mean(multibayesC), mean(multigblup))))
 
 
 ```
@@ -291,7 +285,7 @@ gg[[2]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
         plot.tag = element_text(size=15)) +
   scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
 
-
+print(paste0(c('bayesC', 'gblup', 'multibayesC', 'multigblup'),': ',c(mean(bayesC), mean(gblup), mean(multibayesC), mean(multigblup))))
 
 ```
 
