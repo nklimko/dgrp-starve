@@ -376,7 +376,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -385,7 +385,7 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -394,10 +394,10 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-06-05
+<strong>Last updated:</strong> 2023-06-20
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>dgrp-starve/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -473,28 +473,52 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongabsolute"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>File paths:</strong> absolute </a>
 </p>
 </div>
-<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div id="strongFilepathsstrongabsolute" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>
+Using absolute paths to the files within your workflowr project makes it difficult for you and others to run your code on a different machine. Change the absolute path(s) below to the suggested relative path(s) to make your code more reproducible.
+</p>
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th style="text-align:left;">
+absolute
+</th>
+<th style="text-align:left;">
+relative
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+/data2/morgante_lab/nklimko/rep/dgrp-starve/
+</td>
+<td style="text-align:left;">
+.
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree3de3cc418339fd130c6e999019a604a7adb95e5etargetblank3de3cc4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/3de3cc418339fd130c6e999019a604a7adb95e5e" target="_blank">3de3cc4</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreedb82ff09fa2c37aae2ac79d1222304b6dfeb6f52targetblankdb82ff0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/db82ff09fa2c37aae2ac79d1222304b6dfeb6f52" target="_blank">db82ff0</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree3de3cc418339fd130c6e999019a604a7adb95e5etargetblank3de3cc4a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreedb82ff09fa2c37aae2ac79d1222304b6dfeb6f52targetblankdb82ff0a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/3de3cc418339fd130c6e999019a604a7adb95e5e" target="_blank">3de3cc4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/db82ff09fa2c37aae2ac79d1222304b6dfeb6f52" target="_blank">db82ff0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -517,6 +541,7 @@ Untracked files:
     Untracked:  code/intro-starve/
     Untracked:  code/methodComp/
     Untracked:  code/regress/
+    Untracked:  colorCode
     Untracked:  data/bayesF.rds
     Untracked:  data/bayesM.rds
     Untracked:  data/bglr-f-130k.rds
@@ -554,8 +579,6 @@ Untracked files:
     Untracked:  data/y_save.txt
     Untracked:  f-cor.png
     Untracked:  figure/
-    Untracked:  filesnake1
-    Untracked:  filesnake4_3
     Untracked:  junk/
     Untracked:  m-cor.png
     Untracked:  notes/
@@ -661,6 +684,40 @@ Message
 <tbody>
 <tr>
 <td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/db82ff09fa2c37aae2ac79d1222304b6dfeb6f52/analysis/multitraitPred.Rmd" target="_blank">db82ff0</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-06-20
+</td>
+<td>
+wflow_publish("analysis/multitraitPred.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/8e5b37bb4652579fed008dedb3462f6c44104f07/docs/multitraitPred.html" target="_blank">8e5b37b</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-06-05
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
 html
 </td>
 <td>
@@ -734,158 +791,46 @@ wflow_publish("analysis/multitraitPred.Rmd")
 </div>
 </div>
 </div>
-<p>The overarching goal of this process is to predict the phenotype for starvation resistance, a continuous trait, by using gene expression data, another continuous trait. This is done using k-fold cross validation to create models based on a subset of the data and calculating the correlation of that model with the remaining partition. By repeating this process multiple times with different training and testing partitions, model bias can be significantly reduced and allows for calculation of average correlation coefficients for each model. The primary difference between the methods in question is the prior distribution used.</p>
-<pre class="r"><code>#loop count and data limit
-iter &lt;- 50
-
-#ggplot holder list
-gg &lt;- vector(mode=&#39;list&#39;, length=12)</code></pre>
-<p>The first main set of data used for this analysis is a matrix of gene expression by DGRP line matched to raw starvation resistance. A second cluster of data sets provided by the Morgante Lab includes information on Wolbachia infection status and inversion status by line along with functions to adjust phenotypic values based on these two factors.</p>
-<pre class="r"><code>#wolb infection and inversion status data with phenotype adjustment function
-load(&quot;/data2/morgante_lab/data/dgrp/misc/adjustData.RData&quot;)
-
-#expression data matched to line and starvation phenotype
-xp_f &lt;- fread(&quot;data/xp-f.txt&quot;)
-
-# xp_m &lt;- fread(&quot;data/xp-m.txt&quot;)
-
-#setwd(&quot;C:/Users/noahk/OneDrive/Desktop/amogus&quot;)
-#getwd()
-
-#create matrix of only gene expression, trims line and starvation
-X &lt;- as.matrix(xp_f[,3:11340])
-rownames(X) &lt;- xp_f[,line]
-W &lt;- scale(X)
-
-y_temp &lt;- xp_f[,starvation]
-dat &lt;- data.frame(id=xp_f[,line], y=y_temp)
-y &lt;- adjustPheno(dat, &quot;starvation&quot;)
-
-
-#model to solve for, vector of ones
-mu &lt;- matrix(rep(1, length(y)), ncol=1)
-#names(mu) &lt;- paste0(&quot;line&quot;, 1:length(mu))
-rownames(mu) &lt;- xp_f[,line]
-TRM &lt;- tcrossprod(W)/ncol(W)
-
-# k-fold parameters
-n &lt;- length(y)
-fold &lt;- 5</code></pre>
-<p>The matrix containing only gene expression by line data was then scaled to an absolute max of 1. along with this, a Translation Relationship Matrix was generated by taking the crossproduct of the scaled expression matrix and scaling it down by the number of genes.</p>
-<p>5 was chosen for k-fold cross validation resulting in 39 lines per validation set and 159 lines per training set.</p>
 <p>The following methods are currently implemented:</p>
-<p>BGLR - Bayesian General Linear Regression has the capability to perform BayesC linear regression using a Gibbs Sampler.</p>
-<p>Under this, both GBLUP and BayesC have been implemented in single trait and multitrait prediction based methods.</p>
-<pre class="r"><code>ids &lt;- readRDS(&quot;data/id_bank.Rds&quot;)
-
-registerDoParallel(cores = 1)
-
-iter &lt;- 1
-
-i &lt;- 1
-
-corLoop &lt;- foreach(i=1:iter) %dopar% {
-  
-  #result holder
-  corResult &lt;- rep(0, 5)
-  
-  #setup train and test sets with trait vectors
-  #test_IDs &lt;- sample(1:n, as.integer(n / fold))
-  
-  test_IDs &lt;- unlist(ids[i])
-  
-  W_train &lt;- W[-test_IDs,]
-  W_test &lt;- W[test_IDs,]
-  y_train &lt;- y[-test_IDs]
-  y_test &lt;- y[test_IDs]
-  
-  ### BGLR
-  fitBGLR &lt;- BGLR::BGLR(y_train, response_type = &quot;gaussian&quot;, a=NULL, b=NULL, ETA = list(list(X=W_train, model=&quot;BayesC&quot;)), nIter = 500, burnIn = 200)
-  
-  y_calc &lt;- predict(fitBGLR, W_test)
-  
-  corResult[5] &lt;- cor(y_test, y_calc)
-  
-  length(y_calc)
-  length(y_test)
-  
-  #Overall result
-  corResult
-  
-}
-
-
-
-
-
-corLoop &lt;- foreach(i=1:iter) %dopar% {
-  
-  #result holder
-  corResult &lt;- rep(0, 5)
-  
-  #setup train and test sets with trait vectors
-  #test_IDs &lt;- sample(1:n, as.integer(n / fold))
-  
-  test_IDs &lt;- unlist(ids[i])
-  
-  W_train &lt;- W[-test_IDs,]
-  W_test &lt;- W[test_IDs,]
-  y_train &lt;- y[-test_IDs]
-  y_test &lt;- y[test_IDs]
-  
-  
-  ### QGG::GREML
-  fitGreml &lt;- qgg::greml(y=y, X=mu, GRM=list(A=TRM), validate = matrix(test_IDs,ncol=1), verbose=FALSE)
-  
-  corResult[1] &lt;- fitGreml$accuracy$Corr
-  
-  ### QGG::GBAYES-C
-  fitC &lt;- qgg::gbayes(y=y_train, W=W_train, method=&quot;bayesC&quot;, scaleY=FALSE, nit=50000, nburn=20000)
-  
-  # \hat{y}_test = W_{test} * \hat{b} + \hat{mu}
-  y_calc &lt;- W_test %*% fitC$b + mean(y_train)
-  corResult[2] &lt;- cor(y_test, y_calc)
-  
-  ### VARBVS
-  fitVarb &lt;- varbvs::varbvs(X = W_train, NULL, y=y_train, family = &quot;gaussian&quot;, logodds=seq(-3.5,-1,0.1), sa = 1, verbose=TRUE)
-  
-  y_calc &lt;- predict(fitVarb, X=W_test)
-  corResult[3] &lt;- cor(y_test, y_calc)
-  
-  ### GLMNET::LASSO
-  fitlm &lt;- glmnet::cv.glmnet(x=W_train, y=y_train, alpha=1)
-  
-  y_calc &lt;- predict(fitlm, W_test, s=&quot;lambda.min&quot;)
-  corResult[4] &lt;- cor(y_test, y_calc)
-  
-  ### BGLR
-  fitBGLR &lt;- BGLR::BGLR(y_train, response_type = &quot;gaussian&quot;, a=NULL, b=NULL,ETA = list(list(X=W_train, model=&quot;BayesC&quot;)), nIter = 50000, burnIn = 20000)
-  
-  y_calc &lt;- predict(fitBGLR, W_test)
-  corResult[5] &lt;- cor(y_test, y_calc)
-  
-  #Overall result
-  corResult
-  
-}</code></pre>
+<ul>
+<li><p>BayesC</p></li>
+<li><p>GBLUP</p></li>
+<li><p>MultiBayesC</p></li>
+<li><p>MultiGBLUP</p></li>
+<li><p>mr.mash</p></li>
+<li><p>MultiLASSO</p></li>
+</ul>
 <pre class="r"><code>###FEMALE
+#setwd(&#39;/data2/morgante_lab/nklimko/rep/dgrp-starve/&#39;)
 
-bayesC &lt;- readRDS(&quot;snake/data/2_cor/bayesC_f_starvation.Rds&quot;)
-gblup &lt;- readRDS(&quot;snake/data/2_cor/gblup_f_starvation.Rds&quot;)
+bayesC &lt;- readRDS(&quot;snake/data/20_cor/bayesC_f_starvation.Rds&quot;)
+gblup &lt;- readRDS(&quot;snake/data/20_cor/gblup_f_starvation.Rds&quot;)
 
-multigblupData &lt;- readRDS(&#39;snake/data/2_cor/multigblup_f_starvation.Rds&#39;)
+multigblupData &lt;- readRDS(&#39;snake/data/20_cor/multigblup_f_starvation.Rds&#39;)
 temp &lt;- unlist(multigblupData)
 multigblup &lt;- temp[seq(1, length(temp), by=4)]
-multigblupM &lt;- temp[seq(4, length(temp), by=4)]
 
-multibayesCData &lt;- readRDS(&#39;snake/data/2_cor/multibayesC_f_starvation.Rds&#39;)
+multibayesCData &lt;- readRDS(&#39;snake/data/20_cor/multibayesC_f_starvation.Rds&#39;)
 temp &lt;- unlist(multibayesCData)
 multibayesC &lt;- temp[seq(1, length(temp), by=4)]
-multibayesCM &lt;- temp[seq(4, length(temp), by=4)]
 
-temp &lt;- c(gblup, bayesC, multigblup, multibayesC)
+mr.mashData &lt;- readRDS(&#39;snake/data/20_cor/mr.mash_f_starvation.Rds&#39;)
+temp &lt;- unlist(mr.mashData)
+mr.mash &lt;- temp[seq(1, length(temp), by=4)]
 
-label &lt;- c(rep(&quot;gblup&quot;, iter), rep(&quot;bayesC&quot;, iter), rep(&quot;multigblup&quot;, iter), rep(&quot;multibayesC&quot;, iter))
+mlassoData &lt;- readRDS(&#39;snake/data/20_cor/mlasso_f_starvation.Rds&#39;)
+temp &lt;- unlist(mlassoData)
+mlasso &lt;- temp[seq(1, length(temp), by=4)]
+
+topmbc &lt;- unlist(readRDS(&#39;snake/data/20_cor/multibayesC_f_sr.top3.Rds&#39;))
+top_multibayesC &lt;- topmbc[seq(1, length(topmbc), by=16)]
+
+topblup &lt;- unlist(readRDS(&#39;snake/data/20_cor/multiblup_f_sr.top3.Rds&#39;))
+top_multiblup &lt;- topblup[seq(1, length(topblup), by=16)]
+
+temp &lt;- c(gblup, bayesC, multigblup, multibayesC, mr.mash, mlasso, top_multiblup, top_multibayesC)
+
+label &lt;- c(rep(&quot;gblup&quot;, iter), rep(&quot;bayesC&quot;, iter), rep(&quot;multigblup&quot;, iter), rep(&quot;multibayesC&quot;, iter), rep(&quot;mr.mash&quot;, iter), rep(&#39;mlasso&#39;, iter), rep(&#39;top_multiblup&#39;, iter), rep(&quot;top_multibayesC&quot;, iter))
 
 data &lt;- data.table(cor=as.numeric(temp), method=label)
 
@@ -903,27 +848,51 @@ gg[[1]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
   scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
 
 
-print(paste0(c(&#39;bayesC&#39;, &#39;gblup&#39;, &#39;multibayesC&#39;, &#39;multigblup&#39;),&#39;: &#39;,c(mean(bayesC), mean(gblup), mean(multibayesC), mean(multigblup))))</code></pre>
-<pre><code>[1] &quot;bayesC: 0.28144367623869&quot;       &quot;gblup: 0.279982238117636&quot;      
-[3] &quot;multibayesC: 0.252669393873933&quot; &quot;multigblup: 0.272227082731039&quot; </code></pre>
-<pre class="r"><code>bayesC &lt;- readRDS(&quot;snake/data/2_cor/bayesC_m_starvation.Rds&quot;)
-gblup &lt;- readRDS(&quot;snake/data/2_cor/gblup_m_starvation.Rds&quot;)
+print(paste0(c(&#39;bayesC&#39;, &#39;gblup&#39;, &#39;multibayesC&#39;, &#39;multigblup&#39;, &#39;mr.mash&#39;, &#39;top_multibayesC&#39;, &#39;top_multiblup&#39;),&#39;: &#39;,c(mean(bayesC), mean(gblup), mean(multibayesC), mean(multigblup), mean(mr.mash), mean(top_multibayesC), mean(top_multiblup))))</code></pre>
+<pre><code>[1] &quot;bayesC: 0.28144367623869&quot;           &quot;gblup: 0.279982238117636&quot;          
+[3] &quot;multibayesC: 0.252335414801586&quot;     &quot;multigblup: 0.272734703328458&quot;     
+[5] &quot;mr.mash: 0.263852919847503&quot;         &quot;top_multibayesC: 0.241689113192319&quot;
+[7] &quot;top_multiblup: 0.275657017370914&quot;  </code></pre>
+<pre class="r"><code>### MALE
+#setwd(&#39;/data2/morgante_lab/nklimko/rep/dgrp-starve/&#39;)
 
-multigblupData &lt;- readRDS(&#39;snake/data/2_cor/multigblup_m_starvation.Rds&#39;)
+
+bayesC &lt;- readRDS(&quot;snake/data/20_cor/bayesC_m_starvation.Rds&quot;)
+gblup &lt;- readRDS(&quot;snake/data/20_cor/gblup_m_starvation.Rds&quot;)
+
+multigblupData &lt;- readRDS(&#39;snake/data/20_cor/multigblup_m_starvation.Rds&#39;)
 temp &lt;- unlist(multigblupData)
-multigblup &lt;- temp[seq(4, length(temp), by=4)]
+multigblup &lt;- temp[seq(1, length(temp), by=4)]
 
-multibayesCData &lt;- readRDS(&#39;snake/data/2_cor/multibayesC_m_starvation.Rds&#39;)
+multibayesCData &lt;- readRDS(&#39;snake/data/20_cor/multibayesC_m_starvation.Rds&#39;)
 temp &lt;- unlist(multibayesCData)
-multibayesC &lt;- temp[seq(4, length(temp), by=4)]
+multibayesC &lt;- temp[seq(1, length(temp), by=4)]
 
-temp &lt;- c(gblup, bayesC, multigblup, multibayesC)
+mr.mashData &lt;- readRDS(&#39;snake/data/20_cor/mr.mash_m_starvation.Rds&#39;)
+temp &lt;- unlist(mr.mashData)
+mr.mash &lt;- temp[seq(1, length(temp), by=4)]
 
-label &lt;- c(rep(&quot;gblup&quot;, iter), rep(&quot;bayesC&quot;, iter), rep(&quot;multigblup&quot;, iter), rep(&quot;multibayesC&quot;, iter))
+mlassoData &lt;- (&#39;snake/data/20_cor/mlasso_m_starvation.Rds&#39;)
+temp &lt;- unlist(mlassoData)
+mlasso &lt;- temp[seq(1, length(temp), by=4)]
 
-data &lt;- data.table(cor=as.numeric(temp), method=label)
+topmbc &lt;- unlist(readRDS(&#39;snake/data/20_cor/multibayesC_f_sr.top3.Rds&#39;))
+top_multibayesC &lt;- topmbc[seq(1, length(topmbc), by=16)]
 
-gg[[2]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
+topblup &lt;- unlist(readRDS(&#39;snake/data/20_cor/multiblup_f_sr.top3.Rds&#39;))
+top_multiblup &lt;- topblup[seq(1, length(topblup), by=16)]
+
+temp &lt;- c(gblup, bayesC, multigblup, multibayesC, mr.mash, mlasso, top_multiblup, top_multibayesC)
+
+label &lt;- c(rep(&quot;gblup&quot;, iter), rep(&quot;bayesC&quot;, iter), rep(&quot;multigblup&quot;, iter), rep(&quot;multibayesC&quot;, iter), rep(&quot;mr.mash&quot;, iter), rep(&#39;mlasso&#39;, iter), rep(&#39;top_multiblup&#39;, iter), rep(&quot;top_multibayesC&quot;, iter))
+
+data &lt;- data.table(cor=as.numeric(temp), method=label)</code></pre>
+<pre><code>Warning in data.table(cor = as.numeric(temp), method = label): NAs introduced
+by coercion</code></pre>
+<pre><code>Warning in as.data.table.list(x, keep.rownames = keep.rownames, check.names =
+check.names, : Item 1 has 351 rows but longest item has 400; recycled with
+remainder.</code></pre>
+<pre class="r"><code>gg[[2]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
   geom_violin(color = NA, width = 0.65) +
   geom_boxplot(color=&#39;#440154FF&#39;, width = 0.15) +
   theme_minimal() +
@@ -936,9 +905,11 @@ gg[[2]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
         plot.tag = element_text(size=15)) +
   scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
 
-print(paste0(c(&#39;bayesC&#39;, &#39;gblup&#39;, &#39;multibayesC&#39;, &#39;multigblup&#39;),&#39;: &#39;,c(mean(bayesC), mean(gblup), mean(multibayesC), mean(multigblup))))</code></pre>
-<pre><code>[1] &quot;bayesC: 0.348274542374069&quot;      &quot;gblup: 0.349139906076041&quot;      
-[3] &quot;multibayesC: 0.179149107956856&quot; &quot;multigblup: 0.198726391423967&quot; </code></pre>
+print(paste0(c(&#39;bayesC&#39;, &#39;gblup&#39;, &#39;multibayesC&#39;, &#39;multigblup&#39;, &#39;mr.mash&#39;, &#39;top_multibayesC&#39;, &#39;top_multiblup&#39;),&#39;: &#39;,c(mean(bayesC), mean(gblup), mean(multibayesC), mean(multigblup), mean(mr.mash), mean(top_multibayesC), mean(top_multiblup))))</code></pre>
+<pre><code>[1] &quot;bayesC: 0.348274542374069&quot;          &quot;gblup: 0.349139906076041&quot;          
+[3] &quot;multibayesC: 0.313346489684489&quot;     &quot;multigblup: 0.3433458357234&quot;       
+[5] &quot;mr.mash: 0.334111164959302&quot;         &quot;top_multibayesC: 0.241689113192319&quot;
+[7] &quot;top_multiblup: 0.275657017370914&quot;  </code></pre>
 <div id="correlation-coefficient-boxplots" class="section level3">
 <h3>Correlation Coefficient Boxplots</h3>
 <pre class="r"><code>plot_grid(gg[[1]],gg[[2]], ncol=2)</code></pre>
@@ -967,6 +938,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/8e5b37bb4652579fed008dedb3462f6c44104f07/docs/figure/multitraitPred.Rmd/plot-print-1.png" target="_blank">8e5b37b</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-06-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/21bf8de8ffa84687659a84feb30e49ae92897844/docs/figure/multitraitPred.Rmd/plot-print-1.png" target="_blank">21bf8de</a>
 </td>
 <td>
@@ -981,20 +963,64 @@ nklimko
 </div>
 </div>
 </div>
-<div id="runtimes" class="section level3">
-<h3>Runtimes</h3>
-<pre class="r"><code>#plot_grid(gg[[3]],gg[[4]], ncol=2)</code></pre>
-<pre class="r"><code>#FEMALE
-female &lt;- c(bayesC=mean(bayesC),lasso=mean(lasso),rr=mean(rr),varbvs=mean(varbvs))
-
-female
-male
-
-male &lt;- c(bayesC=mean(bayesC),lasso=mean(na.omit(lasso)),rr=mean(rr),varbvs=mean(varbvs))
+<div id="alpha-variation" class="section level3">
+<h3>Alpha variation</h3>
+<pre class="r"><code>setwd(&#39;snake/data/20_cor/&#39;)
 
 
-#MALE
-male &lt;- c(mean(bayesC),mean(lasso),mean(rr),mean(varbvs))</code></pre>
+tempDat &lt;- list.files(pattern=&quot;lasso_\\d&quot;) %&gt;% map(readRDS) %&gt;% bind_cols()</code></pre>
+<pre><code>New names:
+• `` -&gt; `...1`
+• `` -&gt; `...2`
+• `` -&gt; `...3`
+• `` -&gt; `...4`
+• `` -&gt; `...5`
+• `` -&gt; `...6`
+• `` -&gt; `...7`
+• `` -&gt; `...8`
+• `` -&gt; `...9`
+• `` -&gt; `...10`</code></pre>
+<pre class="r"><code>#tempDat &lt;- list.files(path=&#39;snake/data/20_cor&#39;, pattern=&quot;lasso_\\d&quot;) %&gt;% map(readRDS) %&gt;% bind_cols()
+
+dat &lt;- data.frame(cor=unlist(tempDat[,seq(1,9,2)]))
+label = rep(seq(0,1,0.25), each=iter)
+
+data &lt;- data.table(cor=as.numeric(unlist(dat)), alpha=as.factor(label))
+
+
+gg[[3]] &lt;- ggplot(data, aes(x=alpha, y=cor, fill=alpha)) +
+  geom_violin(color = NA, width = 0.65) +
+  geom_boxplot(color=&#39;#440154FF&#39;, width = 0.15) +
+  theme_minimal() +
+  stat_summary(fun=mean, color=&#39;#440154FF&#39;, geom=&#39;point&#39;, 
+               shape=18, size=3, show.legend=FALSE) +
+  labs(x=NULL,y=&#39;Correlation between True and Predicted Phenotype&#39;,tag=&#39;F&#39;) +
+  theme(legend.position=&#39;none&#39;,
+        axis.text.x = element_text(angle = -45, size=10),
+        text=element_text(size=10),
+        plot.tag = element_text(size=15)) +
+        scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
+
+
+dat &lt;- data.frame(cor=unlist(tempDat[,seq(2,10,2)]))
+label = rep(seq(0,1,0.25), each=iter)
+
+data &lt;- data.table(cor=as.numeric(unlist(dat)), alpha=as.factor(label))
+
+gg[[4]] &lt;- ggplot(data, aes(x=alpha, y=cor, fill=alpha)) +
+  geom_violin(color = NA, width = 0.65) +
+  geom_boxplot(color=&#39;#440154FF&#39;, width = 0.15) +
+  theme_minimal() +
+  stat_summary(fun=mean, color=&#39;#440154FF&#39;, geom=&#39;point&#39;, 
+               shape=18, size=3, show.legend=FALSE) +
+  labs(x=NULL,y=&#39;Correlation between True and Predicted Phenotype&#39;,tag=&#39;M&#39;) +
+  theme(legend.position=&#39;none&#39;,
+        axis.text.x = element_text(angle = -45, size=10),
+        text=element_text(size=10),
+        plot.tag = element_text(size=15)) +
+        scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)</code></pre>
+<pre class="r"><code>plot_grid(gg[[3]],gg[[4]], ncol=2)</code></pre>
+<p><img src="figure/multitraitPred.Rmd/runtime-print-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1023,39 +1049,28 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] BGLR_1.1.0        glmnet_4.1-6      Matrix_1.5-3      varbvs_2.5-16    
- [5] qgg_1.1.1         scales_1.2.1      viridis_0.6.2     viridisLite_0.4.2
- [9] doParallel_1.0.17 iterators_1.0.14  foreach_1.5.2     qqman_0.1.8      
-[13] cowplot_1.1.1     ggplot2_3.4.2     data.table_1.14.8 dplyr_1.1.2      
-[17] workflowr_1.7.0  
+ [1] lubridate_1.9.2   forcats_1.0.0     stringr_1.5.0     purrr_1.0.1      
+ [5] readr_2.1.4       tidyr_1.3.0       tibble_3.2.1      tidyverse_2.0.0  
+ [9] scales_1.2.1      viridis_0.6.2     viridisLite_0.4.2 doParallel_1.0.17
+[13] iterators_1.0.14  foreach_1.5.2     qqman_0.1.8       cowplot_1.1.1    
+[17] ggplot2_3.4.2     data.table_1.14.8 dplyr_1.1.2       workflowr_1.7.0  
 
 loaded via a namespace (and not attached):
- [1] httr_1.4.5          sass_0.4.5          nor1mix_1.3-0      
- [4] jsonlite_1.8.4      splines_4.1.2       bslib_0.4.2        
- [7] getPass_0.2-2       statmod_1.5.0       highr_0.10         
-[10] latticeExtra_0.6-30 yaml_2.3.7          pillar_1.9.0       
-[13] lattice_0.20-45     quantreg_5.95       glue_1.6.2         
-[16] digest_0.6.31       RColorBrewer_1.1-3  promises_1.2.0.1   
-[19] colorspace_2.1-0    htmltools_0.5.4     httpuv_1.6.9       
-[22] pkgconfig_2.0.3     SparseM_1.81        calibrate_1.7.7    
-[25] processx_3.8.0      whisker_0.4.1       jpeg_0.1-10        
-[28] later_1.3.0         MatrixModels_0.5-1  git2r_0.31.0       
-[31] tibble_3.2.1        farver_2.1.1        generics_0.1.3     
-[34] cachem_1.0.7        withr_2.5.0         cli_3.6.1          
-[37] survival_3.5-5      magrittr_2.0.3      deldir_1.0-6       
-[40] mcmc_0.9-7          evaluate_0.20       ps_1.7.2           
-[43] fs_1.6.1            fansi_1.0.4         MASS_7.3-58.3      
-[46] truncnorm_1.0-9     tools_4.1.2         lifecycle_1.0.3    
-[49] stringr_1.5.0       MCMCpack_1.6-3      interp_1.1-3       
-[52] munsell_0.5.0       callr_3.7.3         compiler_4.1.2     
-[55] jquerylib_0.1.4     rlang_1.1.1         grid_4.1.2         
-[58] rstudioapi_0.14     labeling_0.4.2      rmarkdown_2.20     
-[61] gtable_0.3.3        codetools_0.2-19    R6_2.5.1           
-[64] gridExtra_2.3       knitr_1.42          fastmap_1.1.1      
-[67] utf8_1.2.3          rprojroot_2.0.3     shape_1.4.6        
-[70] stringi_1.7.12      Rcpp_1.0.10         vctrs_0.6.2        
-[73] png_0.1-8           tidyselect_1.2.0    xfun_0.37          
-[76] coda_0.19-4        </code></pre>
+ [1] Rcpp_1.0.10      getPass_0.2-2    ps_1.7.2         rprojroot_2.0.3 
+ [5] digest_0.6.31    utf8_1.2.3       R6_2.5.1         evaluate_0.20   
+ [9] httr_1.4.5       highr_0.10       pillar_1.9.0     rlang_1.1.1     
+[13] rstudioapi_0.14  whisker_0.4.1    callr_3.7.3      jquerylib_0.1.4 
+[17] rmarkdown_2.20   labeling_0.4.2   munsell_0.5.0    compiler_4.1.2  
+[21] httpuv_1.6.9     xfun_0.37        pkgconfig_2.0.3  htmltools_0.5.4 
+[25] tidyselect_1.2.0 gridExtra_2.3    codetools_0.2-19 fansi_1.0.4     
+[29] calibrate_1.7.7  tzdb_0.3.0       withr_2.5.0      later_1.3.0     
+[33] MASS_7.3-58.3    grid_4.1.2       jsonlite_1.8.4   gtable_0.3.3    
+[37] lifecycle_1.0.3  git2r_0.31.0     magrittr_2.0.3   cli_3.6.1       
+[41] stringi_1.7.12   cachem_1.0.7     farver_2.1.1     fs_1.6.1        
+[45] promises_1.2.0.1 bslib_0.4.2      generics_0.1.3   vctrs_0.6.2     
+[49] tools_4.1.2      glue_1.6.2       hms_1.1.3        processx_3.8.0  
+[53] fastmap_1.1.1    yaml_2.3.7       timechange_0.2.0 colorspace_2.1-0
+[57] knitr_1.42       sass_0.4.5      </code></pre>
 </div>
 </div>
 
