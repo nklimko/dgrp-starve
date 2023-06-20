@@ -134,10 +134,10 @@ mlassoData <- ('snake/data/20_cor/mlasso_m_starvation.Rds')
 temp <- unlist(mlassoData)
 mlasso <- temp[seq(1, length(temp), by=4)]
 
-topmbc <- unlist(readRDS('snake/data/20_cor/multibayesC_f_sr.top3.Rds'))
+topmbc <- unlist(readRDS('snake/data/20_cor/multibayesC_m_sr.top3.Rds'))
 top_multibayesC <- topmbc[seq(1, length(topmbc), by=16)]
 
-topblup <- unlist(readRDS('snake/data/20_cor/multiblup_f_sr.top3.Rds'))
+topblup <- unlist(readRDS('snake/data/20_cor/multiblup_m_sr.top3.Rds'))
 top_multiblup <- topblup[seq(1, length(topblup), by=16)]
 
 temp <- c(gblup, bayesC, multigblup, multibayesC, mr.mash, mlasso, top_multiblup, top_multibayesC)
