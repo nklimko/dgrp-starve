@@ -509,16 +509,16 @@ relative
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreedb82ff09fa2c37aae2ac79d1222304b6dfeb6f52targetblankdb82ff0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/db82ff09fa2c37aae2ac79d1222304b6dfeb6f52" target="_blank">db82ff0</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreee0e44f1e56bcc33380d098767765b6e02d71ef2ctargetblanke0e44f1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/e0e44f1e56bcc33380d098767765b6e02d71ef2c" target="_blank">e0e44f1</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreedb82ff09fa2c37aae2ac79d1222304b6dfeb6f52targetblankdb82ff0a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreee0e44f1e56bcc33380d098767765b6e02d71ef2ctargetblanke0e44f1a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/db82ff09fa2c37aae2ac79d1222304b6dfeb6f52" target="_blank">db82ff0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/e0e44f1e56bcc33380d098767765b6e02d71ef2c" target="_blank">e0e44f1</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -682,6 +682,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/e0e44f1e56bcc33380d098767765b6e02d71ef2c/analysis/multitraitPred.Rmd" target="_blank">e0e44f1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-06-20
+</td>
+<td>
+wflow_publish("analysis/multitraitPred.Rmd", republish = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/3a85d38b64e843d14f10541ec5cb796954f7e26c/docs/multitraitPred.html" target="_blank">3a85d38</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-06-20
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -876,10 +910,10 @@ mlassoData &lt;- (&#39;snake/data/20_cor/mlasso_m_starvation.Rds&#39;)
 temp &lt;- unlist(mlassoData)
 mlasso &lt;- temp[seq(1, length(temp), by=4)]
 
-topmbc &lt;- unlist(readRDS(&#39;snake/data/20_cor/multibayesC_f_sr.top3.Rds&#39;))
+topmbc &lt;- unlist(readRDS(&#39;snake/data/20_cor/multibayesC_m_sr.top3.Rds&#39;))
 top_multibayesC &lt;- topmbc[seq(1, length(topmbc), by=16)]
 
-topblup &lt;- unlist(readRDS(&#39;snake/data/20_cor/multiblup_f_sr.top3.Rds&#39;))
+topblup &lt;- unlist(readRDS(&#39;snake/data/20_cor/multiblup_m_sr.top3.Rds&#39;))
 top_multiblup &lt;- topblup[seq(1, length(topblup), by=16)]
 
 temp &lt;- c(gblup, bayesC, multigblup, multibayesC, mr.mash, mlasso, top_multiblup, top_multibayesC)
@@ -908,8 +942,8 @@ remainder.</code></pre>
 print(paste0(c(&#39;bayesC&#39;, &#39;gblup&#39;, &#39;multibayesC&#39;, &#39;multigblup&#39;, &#39;mr.mash&#39;, &#39;top_multibayesC&#39;, &#39;top_multiblup&#39;),&#39;: &#39;,c(mean(bayesC), mean(gblup), mean(multibayesC), mean(multigblup), mean(mr.mash), mean(top_multibayesC), mean(top_multiblup))))</code></pre>
 <pre><code>[1] &quot;bayesC: 0.348274542374069&quot;          &quot;gblup: 0.349139906076041&quot;          
 [3] &quot;multibayesC: 0.313346489684489&quot;     &quot;multigblup: 0.3433458357234&quot;       
-[5] &quot;mr.mash: 0.334111164959302&quot;         &quot;top_multibayesC: 0.241689113192319&quot;
-[7] &quot;top_multiblup: 0.275657017370914&quot;  </code></pre>
+[5] &quot;mr.mash: 0.334111164959302&quot;         &quot;top_multibayesC: 0.342689855485783&quot;
+[7] &quot;top_multiblup: 0.364102522420843&quot;  </code></pre>
 <div id="correlation-coefficient-boxplots" class="section level3">
 <h3>Correlation Coefficient Boxplots</h3>
 <pre class="r"><code>plot_grid(gg[[1]],gg[[2]], ncol=2)</code></pre>
@@ -936,6 +970,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/3a85d38b64e843d14f10541ec5cb796954f7e26c/docs/figure/multitraitPred.Rmd/plot-print-1.png" target="_blank">3a85d38</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-06-20
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/8e5b37bb4652579fed008dedb3462f6c44104f07/docs/figure/multitraitPred.Rmd/plot-print-1.png" target="_blank">8e5b37b</a>
@@ -1021,6 +1066,43 @@ gg[[4]] &lt;- ggplot(data, aes(x=alpha, y=cor, fill=alpha)) +
         scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)</code></pre>
 <pre class="r"><code>plot_grid(gg[[3]],gg[[4]], ncol=2)</code></pre>
 <p><img src="figure/multitraitPred.Rmd/runtime-print-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-runtime-print-1">
+Past versions of runtime-print-1.png
+</button>
+</p>
+<div id="fig-runtime-print-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/3a85d38b64e843d14f10541ec5cb796954f7e26c/docs/figure/multitraitPred.Rmd/runtime-print-1.png" target="_blank">3a85d38</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-06-20
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
