@@ -1,5 +1,5 @@
 ---
-title: "Covariance + Correlations"
+title: "Covariance Correlations"
 output:
   workflowr::wflow_html:
     toc: true
@@ -39,11 +39,12 @@ setwd('/data2/morgante_lab/nklimko/rep/dgrp-starve/')
 
 The following methods are currently implemented:
   
-- MultiBayesC
+- Mr. Mash
 
-- MultiGBLUP
+- GBLUP
 
-- mr.mash
+- BayesC
+
 
 # Female
 
@@ -64,14 +65,16 @@ colnames(covBlup) <- traits
 rownames(covBayes) <- traits
 colnames(covBayes) <- traits
 
-print("mr.mash")
-print(covMash)
-print("gblup")
-print(covBlup)
-print("bayesC")
-print(covBayes)
-
 ```
+
+#### Mr. Mash
+`r print(covMash)`
+
+#### GBLUP
+`r print(covBlup)`
+
+#### BayesC
+`r print(covBayes)`
 
 ### Residual Correlation
 
@@ -88,14 +91,19 @@ colnames(covBlup) <- traits
 rownames(covBayes) <- traits
 colnames(covBayes) <- traits
 
-print("mr.mash")
-print(covMash)
-print("gblup")
-print(covBlup)
-print("bayesC")
-print(covBayes)
-
 ```
+
+#### Mr. Mash
+`r print(covMash)`
+
+#### GBLUP
+`r print(covBlup)`
+
+#### BayesC
+`r print(covBayes)`
+
+
+
 
 # Male
 
@@ -114,14 +122,16 @@ colnames(covBlup) <- traits
 rownames(covBayes) <- traits
 colnames(covBayes) <- traits
 
-print("mr.mash")
-print(covMash)
-print("gblup")
-print(covBlup)
-print("bayesC")
-print(covBayes)
-
 ```
+
+#### Mr. Mash
+`r print(covMash)`
+
+#### GBLUP
+`r print(covBlup)`
+
+#### BayesC
+`r print(covBayes)`
 
 
 ### Residual Correlation
@@ -139,14 +149,16 @@ colnames(covBlup) <- traits
 rownames(covBayes) <- traits
 colnames(covBayes) <- traits
 
-print("mr.mash")
-print(covMash)
-print("gblup")
-print(covBlup)
-print("bayesC")
-print(covBayes)
-
 ```
+
+#### Mr. Mash
+`r print(covMash)`
+
+#### GBLUP
+`r print(covBlup)`
+
+#### BayesC
+`r print(covBayes)`
 
 
 
@@ -262,9 +274,6 @@ print(paste0(c('bayesC', 'gblup', 'multibayesC', 'multigblup', 'mr.mash', 'top_m
 
 
 ```
-
-### Correlation Coefficient Boxplots
-
 
 ```{r plot-print, warning=FALSE, eval=FALSE}
 
