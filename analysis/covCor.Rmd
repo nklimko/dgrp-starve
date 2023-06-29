@@ -65,16 +65,10 @@ colnames(covBlup) <- traits
 rownames(covBayes) <- traits
 colnames(covBayes) <- traits
 
+allCor <- list(mr.mash=covMash, gblup=covBlup, bayesC=covBayes)
+print(allCor)
+
 ```
-
-#### Mr. Mash
-`r print(covMash)`
-
-#### GBLUP
-`r print(covBlup)`
-
-#### BayesC
-`r print(covBayes)`
 
 ### Residual Correlation
 
@@ -91,19 +85,11 @@ colnames(covBlup) <- traits
 rownames(covBayes) <- traits
 colnames(covBayes) <- traits
 
+allCor <- list(mr.mash=covMash, gblup=covBlup, bayesC=covBayes)
+print(allCor)
+
+
 ```
-
-#### Mr. Mash
-`r print(covMash)`
-
-#### GBLUP
-`r print(covBlup)`
-
-#### BayesC
-`r print(covBayes)`
-
-
-
 
 # Male
 
@@ -122,17 +108,11 @@ colnames(covBlup) <- traits
 rownames(covBayes) <- traits
 colnames(covBayes) <- traits
 
+allCor <- list(mr.mash=covMash, gblup=covBlup, bayesC=covBayes)
+print(allCor)
+
+
 ```
-
-#### Mr. Mash
-`r print(covMash)`
-
-#### GBLUP
-`r print(covBlup)`
-
-#### BayesC
-`r print(covBayes)`
-
 
 ### Residual Correlation
 
@@ -149,17 +129,11 @@ colnames(covBlup) <- traits
 rownames(covBayes) <- traits
 colnames(covBayes) <- traits
 
+allCor <- list(mr.mash=covMash, gblup=covBlup, bayesC=covBayes)
+print(allCor)
+
+
 ```
-
-#### Mr. Mash
-`r print(covMash)`
-
-#### GBLUP
-`r print(covBlup)`
-
-#### BayesC
-`r print(covBayes)`
-
 
 
 ```{r other-stuff, eval=FALSE}
