@@ -2,9 +2,9 @@
 title: "Covariance + Correlations"
 output:
   workflowr::wflow_html:
-  toc: true
-latex_engine: "xelatex"
-code_folding: "hide"
+    toc: true
+    latex_engine: "xelatex"
+    code_folding: "hide"
 editor_options:
   chunk_output_type: console
 ---
