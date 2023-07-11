@@ -1,0 +1,196 @@
+---
+title: "Covariance Correlations"
+output:
+  workflowr::wflow_html:
+    toc: true
+    latex_engine: "xelatex"
+    code_folding: "hide"
+editor_options:
+  chunk_output_type: console
+---
+
+
+```{r 0-setup, include=FALSE, warning=FALSE}
+#regular
+library(dplyr)
+library(data.table)
+library(ggplot2)
+library(cowplot)
+library(qqman)
+library(viridis)
+library(scales)
+library(tidyverse)
+
+#options
+options(bitmapType = "cairo")
+options(error = function() traceback(3))
+
+#seed
+set.seed(123)
+
+#loop count and data limit
+iter <- 50
+#ggplot holder list
+gg <- vector(mode='list', length=12)
+setwd('/data2/morgante_lab/nklimko/rep/dgrp-starve/')
+
+```
+
+The following methods are currently implemented:
+
+- Mr. Mash
+
+- GBLUP
+
+- BayesC
+
+
+
+```{r cor-female, warning=FALSE}
+
+mash <- readRDS('snake/data/30_summary/mr.mash_f_top3.Rds')
+bayesC <- readRDS('snake/data/30_summary/multibayesC_f_top3.Rds')
+blup <- readRDS('snake/data/30_summary/multigblup_f_top3.Rds')
+lasso <- readRDS('snake/data/30_summary/mlasso_f_top3.Rds')
+
+allData <- list(mash, bayesC, blup, lasso)
+
+#correlations----
+hold <- 0
+for(i in allData){
+  raw <- unlist(i[1,])
+  trim <- raw[seq(1, length(raw), by=16)]
+  hold <- cbind(hold, trim)
+}
+
+corData <- hold[,-1]
+
+#runtime----
+hold <- 0
+for(i in allData){
+  raw <- unlist(i[2,])
+  trim <- raw[seq(3, length(raw), by=5)]
+  hold <- cbind(hold, trim)
+}
+
+timeData <- hold[,-1]
+
+#graphing----
+iter <- 50
+label <- c(rep("mr.mash", iter), rep("bayesC", iter), rep("gblup", iter), rep("lasso", iter))
+data <- data.table(cor=as.numeric(unlist(corData)), method=label)
+
+gg[[1]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+  geom_violin(color = NA, width = 0.65) +
+  geom_boxplot(color='#440154FF', width = 0.15) +
+  theme_minimal() +
+  stat_summary(fun=mean, color='#440154FF', geom='point', 
+               shape=18, size=3, show.legend=FALSE) +
+  labs(x=NULL,y='Correlation',tag='F') +
+  theme(legend.position='none',
+        axis.text.x = element_text(angle = -45, size=10),
+        text=element_text(size=10),
+        plot.tag = element_text(size=15)) +
+  scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
+
+data <- data.table(cor=as.numeric(unlist(timeData)), method=label)
+
+gg[[2]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+  geom_violin(color = NA, width = 0.65) +
+  geom_boxplot(color='#440154FF', width = 0.15) +
+  theme_minimal() +
+  stat_summary(fun=mean, color='#440154FF', geom='point', 
+               shape=18, size=3, show.legend=FALSE) +
+  labs(x=NULL,y='Runtime',tag='F') +
+  theme(legend.position='none',
+        axis.text.x = element_text(angle = -45, size=10),
+        text=element_text(size=10),
+        plot.tag = element_text(size=15)) +
+  scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
+
+```
+
+
+```{r cor-male, warning=FALSE}
+
+mash <- readRDS('snake/data/30_summary/mr.mash_m_top3.Rds')
+bayesC <- readRDS('snake/data/30_summary/multibayesC_m_top3.Rds')
+blup <- readRDS('snake/data/30_summary/multigblup_m_top3.Rds')
+lasso <- readRDS('snake/data/30_summary/mlasso_m_top3.Rds')
+
+allData <- list(mash, bayesC, blup, lasso)
+
+#correlations----
+hold <- 0
+for(i in allData){
+  raw <- unlist(i[1,])
+  trim <- raw[seq(1, length(raw), by=16)]
+  hold <- cbind(hold, trim)
+}
+
+corData <- hold[,-1]
+
+#runtime----
+hold <- 0
+for(i in allData){
+  raw <- unlist(i[2,])
+  trim <- raw[seq(3, length(raw), by=5)]
+  hold <- cbind(hold, trim)
+}
+
+timeData <- hold[,-1]
+
+#graphing----
+iter <- 50
+label <- c(rep("mr.mash", iter), rep("bayesC", iter), rep("gblup", iter), rep("lasso", iter))
+data <- data.table(cor=as.numeric(unlist(corData)), method=label)
+
+gg[[3]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+  geom_violin(color = NA, width = 0.65) +
+  geom_boxplot(color='#440154FF', width = 0.15) +
+  theme_minimal() +
+  stat_summary(fun=mean, color='#440154FF', geom='point', 
+               shape=18, size=3, show.legend=FALSE) +
+  labs(x=NULL,y='Correlation',tag='F') +
+  theme(legend.position='none',
+        axis.text.x = element_text(angle = -45, size=10),
+        text=element_text(size=10),
+        plot.tag = element_text(size=15)) +
+  scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
+
+data <- data.table(cor=as.numeric(unlist(timeData)), method=label)
+
+gg[[4]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+  geom_violin(color = NA, width = 0.65) +
+  geom_boxplot(color='#440154FF', width = 0.15) +
+  theme_minimal() +
+  stat_summary(fun=mean, color='#440154FF', geom='point', 
+               shape=18, size=3, show.legend=FALSE) +
+  labs(x=NULL,y='Runtime',tag='F') +
+  theme(legend.position='none',
+        axis.text.x = element_text(angle = -45, size=10),
+        text=element_text(size=10),
+        plot.tag = element_text(size=15)) +
+  scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
+
+```
+
+### Female Correlation + Runtime
+
+```{r plot-print-f, warning=FALSE, eval=FALSE}
+
+plot_grid(gg[[1]],gg[[2]], ncol=2)
+
+```
+
+
+### Male Correlation + Runtime
+
+```{r plot-print-m, warning=FALSE, eval=FALSE}
+
+plot_grid(gg[[3]],gg[[4]], ncol=2)
+
+```
+
+
+
