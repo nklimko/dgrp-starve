@@ -177,7 +177,7 @@ gg[[4]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
 
 ### Female Correlation + Runtime
 
-```{r plot-print-f, warning=FALSE, eval=FALSE}
+```{r plot-print-f, warning=FALSE, eval=TRUE}
 
 plot_grid(gg[[1]],gg[[2]], ncol=2)
 
@@ -186,7 +186,7 @@ plot_grid(gg[[1]],gg[[2]], ncol=2)
 
 ### Male Correlation + Runtime
 
-```{r plot-print-m, warning=FALSE, eval=FALSE}
+```{r plot-print-m, warning=FALSE, eval=TRUE}
 
 plot_grid(gg[[3]],gg[[4]], ncol=2)
 
