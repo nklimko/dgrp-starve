@@ -9,11 +9,14 @@ editor_options:
 ---
 
 
-## Weekly Projects
+### Correlated Traits
+
+- [Correlations and Runtime](top3.html)
+- [Covariance](covCor.html)
 
 ### Snakemake
 
-- [Snakefile](https://github.com/nklimko/dgrp-starve/tree/main/snake)
+- [Snakefile](https://github.com/nklimko/dgrp-starve/tree/main/snake/Snakefile.yaml)
 - [Snakemake documentation](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html)
 
 ### [Multitrait Prediction](multitraitPred.html)
@@ -64,8 +67,6 @@ editor_options:
 
 [Latest Goals](recap.html#20221115)
 
-
-## Resources
 
 ### [All Meeting Summaries](recap.html)
 
