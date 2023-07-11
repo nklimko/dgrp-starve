@@ -8,8 +8,8 @@ output:
 editor_options:
   chunk_output_type: console
 ---
-  
-  
+
+
 ```{r 0-setup, include=FALSE, warning=FALSE}
 #regular
 library(dplyr)
@@ -21,6 +21,7 @@ library(doParallel)
 library(viridis)
 library(scales)
 library(tidyverse)
+library(ggcorrplot)
 
 #options
 options(bitmapType = "cairo")
@@ -37,18 +38,19 @@ setwd('/data2/morgante_lab/nklimko/rep/dgrp-starve/')
 
 ```
 
-The following methods are currently implemented:
-  
+# Methods
+
 - Mr. Mash
 
 - GBLUP
 
 - BayesC
 
+# Code
 
-# Female
+#### Female
 
-### Genetic Correlation
+##### Genetic Correlation
 
 ```{r cov-female-genetic, warning=FALSE}
 
@@ -58,19 +60,21 @@ covMash <- readRDS("/data2/morgante_lab/nklimko/rep/dgrp-starve/snake/data/22_co
 covBlup <- readRDS("/data2/morgante_lab/nklimko/rep/dgrp-starve/snake/data/22_cov/genetic/multigblup_f_sr.top3.Rds")
 covBayes <- readRDS("/data2/morgante_lab/nklimko/rep/dgrp-starve/snake/data/22_cov/genetic/multibayesC_f_sr.top3.Rds")
 
-rownames(covMash) <- traits
-colnames(covMash) <- traits
-rownames(covBlup) <- traits
-colnames(covBlup) <- traits
-rownames(covBayes) <- traits
-colnames(covBayes) <- traits
-
 allCor <- list(mr.mash=covMash, gblup=covBlup, bayesC=covBayes)
-print(allCor)
+
+#corrPlots----
+j <- 1
+for(i in allCor){
+  rownames(i) <- traits
+  colnames(i) <- traits
+  
+  gg[[j]] <- ggcorrplot(i, lab=1)
+  j <- j + 1
+}
 
 ```
 
-### Residual Correlation
+##### Residual Correlation
 
 ```{r cov-female-residual, warning=FALSE}
 
@@ -78,22 +82,22 @@ covMash <- readRDS("/data2/morgante_lab/nklimko/rep/dgrp-starve/snake/data/22_co
 covBlup <- readRDS("/data2/morgante_lab/nklimko/rep/dgrp-starve/snake/data/22_cov/residual/multigblup_f_sr.top3.Rds")
 covBayes <- readRDS("/data2/morgante_lab/nklimko/rep/dgrp-starve/snake/data/22_cov/residual/multibayesC_f_sr.top3.Rds")
 
-rownames(covMash) <- traits
-colnames(covMash) <- traits
-rownames(covBlup) <- traits
-colnames(covBlup) <- traits
-rownames(covBayes) <- traits
-colnames(covBayes) <- traits
-
 allCor <- list(mr.mash=covMash, gblup=covBlup, bayesC=covBayes)
-print(allCor)
 
+#corrPlots----
+for(i in allCor){
+  rownames(i) <- traits
+  colnames(i) <- traits
+  
+  gg[[j]] <- ggcorrplot(i, lab=1)
+  j <- j + 1
+}
 
 ```
 
-# Male
+#### Male
 
-### Genetic Correlation
+##### Genetic Correlation
 
 ```{r cov-male, warning=FALSE}
 
@@ -101,20 +105,20 @@ covMash <- readRDS("/data2/morgante_lab/nklimko/rep/dgrp-starve/snake/data/22_co
 covBlup <- readRDS("/data2/morgante_lab/nklimko/rep/dgrp-starve/snake/data/22_cov/genetic/multigblup_m_sr.top3.Rds")
 covBayes <- readRDS("/data2/morgante_lab/nklimko/rep/dgrp-starve/snake/data/22_cov/genetic/multibayesC_m_sr.top3.Rds")
 
-rownames(covMash) <- traits
-colnames(covMash) <- traits
-rownames(covBlup) <- traits
-colnames(covBlup) <- traits
-rownames(covBayes) <- traits
-colnames(covBayes) <- traits
-
 allCor <- list(mr.mash=covMash, gblup=covBlup, bayesC=covBayes)
-print(allCor)
 
+#corrPlots----
+for(i in allCor){
+  rownames(i) <- traits
+  colnames(i) <- traits
+  
+  gg[[j]] <- ggcorrplot(i, lab=1)
+  j <- j + 1
+}
 
 ```
 
-### Residual Correlation
+##### Residual Correlation
 
 ```{r cov-male-residual, warning=FALSE}
 
@@ -122,142 +126,70 @@ covMash <- readRDS("/data2/morgante_lab/nklimko/rep/dgrp-starve/snake/data/22_co
 covBlup <- readRDS("/data2/morgante_lab/nklimko/rep/dgrp-starve/snake/data/22_cov/residual/multigblup_m_sr.top3.Rds")
 covBayes <- readRDS("/data2/morgante_lab/nklimko/rep/dgrp-starve/snake/data/22_cov/residual/multibayesC_m_sr.top3.Rds")
 
-rownames(covMash) <- traits
-colnames(covMash) <- traits
-rownames(covBlup) <- traits
-colnames(covBlup) <- traits
-rownames(covBayes) <- traits
-colnames(covBayes) <- traits
-
 allCor <- list(mr.mash=covMash, gblup=covBlup, bayesC=covBayes)
-print(allCor)
+
+#corrPlots----
+for(i in allCor){
+  rownames(i) <- traits
+  colnames(i) <- traits
+  
+  gg[[j]] <- ggcorrplot(i, lab=1)
+  j <- j + 1
+}
 
 
 ```
 
+# Female: Genetic and Residual Correlations
 
-```{r other-stuff, eval=FALSE}
+### mr.mash
 
+```{r plot-print-mashF, warning=FALSE}
 
+plot_grid(gg[[1]],gg[[4]], ncol=2)
 
-###FEMALE
-#setwd('/data2/morgante_lab/nklimko/rep/dgrp-starve/')
+```
 
-bayesC <- readRDS("snake/data/20_cor/bayesC_f_starvation.Rds")
-gblup <- readRDS("snake/data/20_cor/gblup_f_starvation.Rds")
+### gblup
 
-multigblupData <- readRDS('snake/data/20_cor/multigblup_f_starvation.Rds')
-temp <- unlist(multigblupData)
-multigblup <- temp[seq(1, length(temp), by=4)]
+```{r plot-print-blupF, warning=FALSE}
 
-multibayesCData <- readRDS('snake/data/20_cor/multibayesC_f_starvation.Rds')
-temp <- unlist(multibayesCData)
-multibayesC <- temp[seq(1, length(temp), by=4)]
+plot_grid(gg[[2]],gg[[5]], ncol=2)
 
-mr.mashData <- readRDS('snake/data/20_cor/mr.mash_f_starvation.Rds')
-temp <- unlist(mr.mashData)
-mr.mash <- temp[seq(1, length(temp), by=4)]
+```
 
-mlassoData <- readRDS('snake/data/20_cor/mlasso_f_starvation.Rds')
-temp <- unlist(mlassoData)
-mlasso <- temp[seq(1, length(temp), by=4)]
+### bayesC
 
-topmbc <- unlist(readRDS('snake/data/20_cor/multibayesC_f_sr.top3.Rds'))
-top_multibayesC <- topmbc[seq(1, length(topmbc), by=16)]
+```{r plot-print-bayesF, warning=FALSE}
 
-topblup <- unlist(readRDS('snake/data/20_cor/multiblup_f_sr.top3.Rds'))
-top_multiblup <- topblup[seq(1, length(topblup), by=16)]
-
-temp <- c(gblup, bayesC, multigblup, multibayesC, mr.mash, mlasso, top_multiblup, top_multibayesC)
-
-label <- c(rep("gblup", iter), rep("bayesC", iter), rep("multigblup", iter), rep("multibayesC", iter), rep("mr.mash", iter), rep('mlasso', iter), rep('top_multiblup', iter), rep("top_multibayesC", iter))
-
-data <- data.table(cor=as.numeric(temp), method=label)
-
-gg[[1]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
-  geom_violin(color = NA, width = 0.65) +
-  geom_boxplot(color='#440154FF', width = 0.15) +
-  theme_minimal() +
-  stat_summary(fun=mean, color='#440154FF', geom='point', 
-               shape=18, size=3, show.legend=FALSE) +
-  labs(x=NULL,y='Correlation between True and Predicted Phenotype',tag='F') +
-  theme(legend.position='none',
-        axis.text.x = element_text(angle = -45, size=10),
-        text=element_text(size=10),
-        plot.tag = element_text(size=15)) +
-  scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
-
-
-print(paste0(c('bayesC', 'gblup', 'multibayesC', 'multigblup', 'mr.mash', 'top_multibayesC', 'top_multiblup'),': ',c(mean(bayesC), mean(gblup), mean(multibayesC), mean(multigblup), mean(mr.mash), mean(top_multibayesC), mean(top_multiblup))))
-
+plot_grid(gg[[3]],gg[[6]], ncol=2)
 
 ```
 
 
-```{r multitrait-male, eval=FALSE}
+# Male: Genetic and Residual Correlations
 
-### MALE
-#setwd('/data2/morgante_lab/nklimko/rep/dgrp-starve/')
+### mr.mash
 
+```{r plot-print-mashM, warning=FALSE}
 
-bayesC <- readRDS("snake/data/20_cor/bayesC_m_starvation.Rds")
-gblup <- readRDS("snake/data/20_cor/gblup_m_starvation.Rds")
-
-multigblupData <- readRDS('snake/data/20_cor/multigblup_m_starvation.Rds')
-temp <- unlist(multigblupData)
-multigblup <- temp[seq(1, length(temp), by=4)]
-
-multibayesCData <- readRDS('snake/data/20_cor/multibayesC_m_starvation.Rds')
-temp <- unlist(multibayesCData)
-multibayesC <- temp[seq(1, length(temp), by=4)]
-
-mr.mashData <- readRDS('snake/data/20_cor/mr.mash_m_starvation.Rds')
-temp <- unlist(mr.mashData)
-mr.mash <- temp[seq(1, length(temp), by=4)]
-
-mlassoData <- ('snake/data/20_cor/mlasso_m_starvation.Rds')
-temp <- unlist(mlassoData)
-mlasso <- temp[seq(1, length(temp), by=4)]
-
-topmbc <- unlist(readRDS('snake/data/20_cor/multibayesC_m_sr.top3.Rds'))
-top_multibayesC <- topmbc[seq(1, length(topmbc), by=16)]
-
-topblup <- unlist(readRDS('snake/data/20_cor/multiblup_m_sr.top3.Rds'))
-top_multiblup <- topblup[seq(1, length(topblup), by=16)]
-
-temp <- c(gblup, bayesC, multigblup, multibayesC, mr.mash, mlasso, top_multiblup, top_multibayesC)
-
-label <- c(rep("gblup", iter), rep("bayesC", iter), rep("multigblup", iter), rep("multibayesC", iter), rep("mr.mash", iter), rep('mlasso', iter), rep('top_multiblup', iter), rep("top_multibayesC", iter))
-
-data <- data.table(cor=as.numeric(temp), method=label)
-
-gg[[2]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
-  geom_violin(color = NA, width = 0.65) +
-  geom_boxplot(color='#440154FF', width = 0.15) +
-  theme_minimal() +
-  stat_summary(fun=mean, color='#440154FF', geom='point', 
-               shape=18, size=3, show.legend=FALSE) +
-  labs(x=NULL,y='Correlation between True and Predicted Phenotype',tag='M') +
-  theme(legend.position='none',
-        axis.text.x = element_text(angle = -45, size=10),
-        text=element_text(size=10),
-        plot.tag = element_text(size=15)) +
-  scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
-
-print(paste0(c('bayesC', 'gblup', 'multibayesC', 'multigblup', 'mr.mash', 'top_multibayesC', 'top_multiblup'),': ',c(mean(bayesC), mean(gblup), mean(multibayesC), mean(multigblup), mean(mr.mash), mean(top_multibayesC), mean(top_multiblup))))
-
+plot_grid(gg[[7]],gg[[10]], ncol=2)
 
 ```
 
-```{r plot-print, warning=FALSE, eval=FALSE}
+### gblup
 
-plot_grid(gg[[1]],gg[[2]], ncol=2)
+```{r plot-print-blupM, warning=FALSE}
+
+plot_grid(gg[[8]],gg[[11]], ncol=2)
 
 ```
 
+### bayesC
 
+```{r plot-print-bayesM, warning=FALSE}
 
+plot_grid(gg[[9]],gg[[12]], ncol=2)
 
-
-
+```
 
