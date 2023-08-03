@@ -1,0 +1,106 @@
+---
+title: "Optimization"
+output:
+  workflowr::wflow_html:
+  toc: true
+  latex_engine: "xelatex"
+  code_folding: "hide"
+editor_options:
+  chunk_output_type: console
+---
+  
+  
+```{r 0-setup, include=FALSE, warning=FALSE}
+#regular
+if(1){
+  library(dplyr)
+  library(data.table)
+  library(ggplot2)
+  library(cowplot)
+  library(qqman)
+  library(viridis)
+  library(scales)
+  library(tidyverse)
+  library(ggcorrplot)
+  
+  #options
+  options(bitmapType = "cairo")
+  options(error = function() traceback(3))
+  
+  #seed
+  set.seed(123)
+
+  #ggplot holder list
+  gg <- vector(mode='list', length=12)
+  setwd('/data2/morgante_lab/nklimko/rep/dgrp-starve/')
+}
+```
+
+
+```{r cor-female, warning=FALSE}
+
+
+f <- readRDS("snake/data/zigure/lassoF.Rds")
+m <- readRDS("snake/data/zigure/lassoM.Rds")
+
+data <- f
+
+gg[[1]] <- ggplot(data, aes(x=nfolds, y=cor, fill=relax)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method=lm) 
+
+gg[[2]] <- ggplot(data, aes(x=nfolds, y=time, fill=relax)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method=lm) 
+
+gg[[3]] <- ggplot(data, aes(x=dfmax, y=cor)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method=lm) 
+
+gg[[4]] <- ggplot(data, aes(x=dfmax, y=time)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method=lm) 
+
+data <- m
+
+gg[[5]] <- ggplot(data, aes(x=nfolds, y=cor, fill=relax)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method=lm) 
+
+gg[[6]] <- ggplot(data, aes(x=nfolds, y=time, fill=relax)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method=lm) 
+
+gg[[7]] <- ggplot(data, aes(x=dfmax, y=cor)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method=lm) 
+
+gg[[8]] <- ggplot(data, aes(x=dfmax, y=time)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method=lm) 
+
+
+```
+
+
+### Female Correlation + Runtime
+
+```{r plot-print-f, warning=FALSE, eval=TRUE}
+
+plot_grid(gg[[1]],gg[[2]], ncol=2)
+plot_grid(gg[[3]],gg[[4]], ncol=2)
+
+```
+
+
+### Male Correlation + Runtime
+
+```{r plot-print-m, warning=FALSE, eval=TRUE}
+
+plot_grid(gg[[5]],gg[[6]], ncol=2)
+plot_grid(gg[[7]],gg[[8]], ncol=2)
+
+```
+
+
+
