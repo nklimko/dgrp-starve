@@ -142,13 +142,6 @@ print(lassoFinal)
 
 
 
-
-
-
-## BayesC
-
-
-
 ```{r bayesOp, warning=FALSE, eval=TRUE}
 
 
@@ -180,7 +173,52 @@ plot_grid(gg[[9]],gg[[10]], ncol=2)
 print(bayesFinal)
 
 
+
 ```
+
+
+### Random Forest Female/Male
+
+```{r randomforest, warning=FALSE, eval=TRUE}
+
+
+#0.364, 0.382 f m 
+
+data <- readRDS("snake/data/zigure/rf.Rds")
+
+title <- "Correlation"
+tagChar <- '.'
+
+
+gg[[11]] <- ggplot(data, aes(x=sex, y=cor, fill=sex)) +
+           geom_violin(color = NA, width = 0.65) +
+           geom_boxplot(color='#440154FF', width = 0.15) +
+           theme_minimal() +
+           stat_summary(fun=mean, color='#440154FF', geom='point', 
+                        shape=18, size=3, show.legend=FALSE) +
+           labs(x=NULL,y=title,tag=tagChar) +
+           theme(legend.position='none',
+                 axis.text.x = element_text(angle = -45, size=10),
+                 text=element_text(size=10),
+                 plot.tag = element_text(size=15)) +
+           scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
+
+
+plot_grid(gg[[11]], ncol=1)
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 
