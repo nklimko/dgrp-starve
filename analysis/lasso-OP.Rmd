@@ -2,9 +2,9 @@
 title: "Optimization"
 output:
   workflowr::wflow_html:
-  toc: true
-  latex_engine: "xelatex"
-  code_folding: "hide"
+    toc: true
+    latex_engine: "xelatex"
+    code_folding: "hide"
 editor_options:
   chunk_output_type: console
 ---
@@ -37,7 +37,7 @@ if(1){
 ```
 
 
-```{r cor-female, warning=FALSE}
+```{r lasso-all, warning=FALSE}
 
 
 f <- readRDS("snake/data/zigure/lassoF.Rds")
@@ -83,24 +83,61 @@ gg[[8]] <- ggplot(data, aes(x=dfmax, y=time)) +
 ```
 
 
-### Female Correlation + Runtime
 
-```{r plot-print-f, warning=FALSE, eval=TRUE}
+
+
+### Female Fold number vs. Correlation and Time
+
+- relax decreases correlation while increasing runtime
+
+
+```{r lasso-f-nfolds, warning=FALSE, eval=TRUE}
 
 plot_grid(gg[[1]],gg[[2]], ncol=2)
+
+```
+
+### dfMax
+
+- No effect on correlation or runtime
+
+```{r lasso-f-dfmax, warning=FALSE, eval=TRUE}
+
 plot_grid(gg[[3]],gg[[4]], ncol=2)
 
 ```
 
 
-### Male Correlation + Runtime
+### Male Fold number vs. Correlation and Time
 
-```{r plot-print-m, warning=FALSE, eval=TRUE}
+- relax decreases correlation while increasing runtime
+
+```{r lasso-m-nfolds, warning=FALSE, eval=TRUE}
 
 plot_grid(gg[[5]],gg[[6]], ncol=2)
+
+```
+
+### dfMax
+
+- No effect on correlation or runtime
+
+```{r lasso-m-dfmax, warning=FALSE, eval=TRUE}
+
 plot_grid(gg[[7]],gg[[8]], ncol=2)
 
 ```
 
 
+
+### Lasso Data
+
+```{r allData-lasso}
+
+lassoFinal <- readRDS("snake/data/zigure/lassoFinal.Rds")
+
+print(lassoFinal)
+
+
+```
 
