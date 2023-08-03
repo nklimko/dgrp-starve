@@ -8,8 +8,8 @@ output:
 editor_options:
   chunk_output_type: console
 ---
-  
-  
+
+
 ```{r 0-setup, include=FALSE, warning=FALSE}
 #regular
 if(1){
@@ -29,7 +29,7 @@ if(1){
   
   #seed
   set.seed(123)
-
+  
   #ggplot holder list
   gg <- vector(mode='list', length=12)
   setwd('/data2/morgante_lab/nklimko/rep/dgrp-starve/')
@@ -138,6 +138,51 @@ lassoFinal <- readRDS("snake/data/zigure/lassoFinal.Rds")
 
 print(lassoFinal)
 
+```
+
+
+
+
+
+
+## BayesC
+
+
+
+```{r bayesOp, warning=FALSE, eval=TRUE}
+
+
+bayesFinal <- readRDS("snake/data/zigure/bayesFinal.Rds")
+
+data <- bayesFinal
+
+gg[[9]] <- ggplot(data, aes(x=R2, y=cor, fill=sex)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method=lm) 
+
+
+gg[[10]] <- ggplot(data, aes(x=R2, y=time, fill=sex)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method=lm) 
+
+
 
 ```
+
+
+### BayesC
+
+
+```{r bayes-plots, warning=FALSE, eval=TRUE}
+
+plot_grid(gg[[9]],gg[[10]], ncol=2)
+
+print(bayesFinal)
+
+
+```
+
+
+
+
 
