@@ -16,7 +16,7 @@
 <script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -29,8 +29,12 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
@@ -228,7 +232,73 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
 
 
 
@@ -238,6 +308,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -278,6 +358,14 @@ $(document).ready(function () {
 </div><!--/.navbar -->
 
 <div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
 
 
 
@@ -421,16 +509,16 @@ relative
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreeb4c5ec0a566dbee3fba97f3ea71527e2fd3f9ddatargetblankb4c5ec0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/b4c5ec0a566dbee3fba97f3ea71527e2fd3f9dda" target="_blank">b4c5ec0</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree78e5d03e9be3e00b26926a0828013aefe72e0452targetblank78e5d03a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/78e5d03e9be3e00b26926a0828013aefe72e0452" target="_blank">78e5d03</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreeb4c5ec0a566dbee3fba97f3ea71527e2fd3f9ddatargetblankb4c5ec0a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree78e5d03e9be3e00b26926a0828013aefe72e0452targetblank78e5d03a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/b4c5ec0a566dbee3fba97f3ea71527e2fd3f9dda" target="_blank">b4c5ec0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/78e5d03e9be3e00b26926a0828013aefe72e0452" target="_blank">78e5d03</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -600,6 +688,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/78e5d03e9be3e00b26926a0828013aefe72e0452/analysis/lasso-OP.Rmd" target="_blank">78e5d03</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-08-03
+</td>
+<td>
+wflow_publish(“analysis/lasso-OP.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/ed3b9884714fa105da68f06054fa5a43059066e5/docs/lasso-OP.html" target="_blank">ed3b988</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-08-03
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/b4c5ec0a566dbee3fba97f3ea71527e2fd3f9dda/analysis/lasso-OP.Rmd" target="_blank">b4c5ec0</a>
 </td>
 <td>
@@ -657,19 +779,109 @@ gg[[7]] &lt;- ggplot(data, aes(x=dfmax, y=cor)) +
 gg[[8]] &lt;- ggplot(data, aes(x=dfmax, y=time)) +
   geom_point() +
   geom_smooth(formula = y ~ x, method=lm) </code></pre>
-<div id="female-correlation-runtime" class="section level3">
-<h3>Female Correlation + Runtime</h3>
+<div id="female-fold-number-vs.-correlation-and-time" class="section level3">
+<h3>Female Fold number vs. Correlation and Time</h3>
+<ul>
+<li>relax decreases correlation while increasing runtime</li>
+</ul>
 <pre class="r"><code>plot_grid(gg[[1]],gg[[2]], ncol=2)</code></pre>
-<p><img src="figure/lasso-OP.Rmd/plot-print-f-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>plot_grid(gg[[3]],gg[[4]], ncol=2)</code></pre>
-<p><img src="figure/lasso-OP.Rmd/plot-print-f-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/lasso-OP.Rmd/lasso-f-nfolds-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="male-correlation-runtime" class="section level3">
-<h3>Male Correlation + Runtime</h3>
+<div id="dfmax" class="section level3">
+<h3>dfMax</h3>
+<ul>
+<li>No effect on correlation or runtime</li>
+</ul>
+<pre class="r"><code>plot_grid(gg[[3]],gg[[4]], ncol=2)</code></pre>
+<p><img src="figure/lasso-OP.Rmd/lasso-f-dfmax-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="male-fold-number-vs.-correlation-and-time" class="section level3">
+<h3>Male Fold number vs. Correlation and Time</h3>
+<ul>
+<li>relax decreases correlation while increasing runtime</li>
+</ul>
 <pre class="r"><code>plot_grid(gg[[5]],gg[[6]], ncol=2)</code></pre>
-<p><img src="figure/lasso-OP.Rmd/plot-print-m-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/lasso-OP.Rmd/lasso-m-nfolds-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="dfmax-1" class="section level3">
+<h3>dfMax</h3>
+<ul>
+<li>No effect on correlation or runtime</li>
+</ul>
 <pre class="r"><code>plot_grid(gg[[7]],gg[[8]], ncol=2)</code></pre>
-<p><img src="figure/lasso-OP.Rmd/plot-print-m-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/lasso-OP.Rmd/lasso-m-dfmax-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="lasso-data" class="section level3">
+<h3>Lasso Data</h3>
+<pre class="r"><code>lassoFinal &lt;- readRDS(&quot;snake/data/zigure/lassoFinal.Rds&quot;)
+
+print(lassoFinal)</code></pre>
+<pre><code>    method nfolds dfmax relax sex       cor     time
+ 1:  lasso      3  1000     0   f 0.4114329  1.58266
+ 2:  lasso      3  3000     0   f 0.4114329  1.58624
+ 3:  lasso      3  6000     0   f 0.4114329  1.59594
+ 4:  lasso      3 10000     0   f 0.4114329  1.61216
+ 5:  lasso      3  1000     1   f 0.3949298  5.31824
+ 6:  lasso      3  3000     1   f 0.3949298  5.33932
+ 7:  lasso      3  6000     1   f 0.3949298  5.32556
+ 8:  lasso      3 10000     1   f 0.3949298  5.29430
+ 9:  lasso      6  1000     0   f 0.4019169  2.86242
+10:  lasso      6  3000     0   f 0.4019169  2.89012
+11:  lasso      6  6000     0   f 0.4019169  2.88164
+12:  lasso      6 10000     0   f 0.4019169  2.84318
+13:  lasso      6  1000     1   f 0.3765922 10.39362
+14:  lasso      6  3000     1   f 0.3765922 10.40682
+15:  lasso      6  6000     1   f 0.3765922 10.33502
+16:  lasso      6 10000     1   f 0.3765922 10.35764
+17:  lasso      9  1000     0   f 0.3971659  3.40344
+18:  lasso      9  3000     0   f 0.3971659  3.39002
+19:  lasso      9  6000     0   f 0.3971659  3.43246
+20:  lasso      9 10000     0   f 0.3971659  3.45136
+21:  lasso      9  1000     1   f 0.3655954 15.47176
+22:  lasso      9  3000     1   f 0.3655954 15.72020
+23:  lasso      9  6000     1   f 0.3655954 15.48900
+24:  lasso      9 10000     1   f 0.3655954 15.45090
+25:  lasso     12  1000     0   f 0.3902660  4.03224
+26:  lasso     12  3000     0   f 0.3902660  3.99780
+27:  lasso     12  6000     0   f 0.3902660  3.97008
+28:  lasso     12 10000     0   f 0.3902660  3.97230
+29:  lasso     12  1000     1   f 0.3592104 21.19168
+30:  lasso     12  3000     1   f 0.3592104 21.14294
+31:  lasso     12  6000     1   f 0.3592104 21.10554
+32:  lasso     12 10000     1   f 0.3592104 21.12618
+33:  lasso      3  1000     0   m 0.3554582  1.77392
+34:  lasso      3  3000     0   m 0.3554582  1.76936
+35:  lasso      3  6000     0   m 0.3554582  1.80626
+36:  lasso      3 10000     0   m 0.3554582  1.78518
+37:  lasso      3  1000     1   m 0.3551354  5.81288
+38:  lasso      3  3000     1   m 0.3551354  5.80408
+39:  lasso      3  6000     1   m 0.3551354  5.79330
+40:  lasso      3 10000     1   m 0.3551354  5.79640
+41:  lasso      6  1000     0   m 0.3445264  3.36236
+42:  lasso      6  3000     0   m 0.3445264  3.37832
+43:  lasso      6  6000     0   m 0.3445264  3.34990
+44:  lasso      6 10000     0   m 0.3445264  3.37334
+45:  lasso      6  1000     1   m 0.3367717 11.48820
+46:  lasso      6  3000     1   m 0.3367717 11.57574
+47:  lasso      6  6000     1   m 0.3367717 11.50660
+48:  lasso      6 10000     1   m 0.3367717 11.55544
+49:  lasso      9  1000     0   m 0.3324251  4.03074
+50:  lasso      9  3000     0   m 0.3324251  4.12538
+51:  lasso      9  6000     0   m 0.3324251  4.04412
+52:  lasso      9 10000     0   m 0.3324251  4.05018
+53:  lasso      9  1000     1   m 0.3023836 17.68740
+54:  lasso      9  3000     1   m 0.3023836 17.64944
+55:  lasso      9  6000     1   m 0.3023836 17.70626
+56:  lasso      9 10000     1   m 0.3023836 17.77086
+57:  lasso     12  1000     0   m 0.3131776  4.72010
+58:  lasso     12  3000     0   m 0.3131776  4.69954
+59:  lasso     12  6000     0   m 0.3131776  4.76550
+60:  lasso     12 10000     0   m 0.3131776  4.78924
+61:  lasso     12  1000     1   m 0.2922959 23.88572
+62:  lasso     12  3000     1   m 0.2922959 23.85232
+63:  lasso     12  6000     1   m 0.2922959 23.82610
+64:  lasso     12 10000     1   m 0.2922959 23.89548
+    method nfolds dfmax relax sex       cor     time</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -739,6 +951,8 @@ footer is added to webpages before the MathJax javascript. -->
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -770,7 +984,41 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
