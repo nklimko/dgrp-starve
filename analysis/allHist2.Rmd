@@ -1,0 +1,280 @@
+---
+title: "Covariance Correlations"
+output:
+  workflowr::wflow_html:
+    toc: true
+    latex_engine: "xelatex"
+    code_folding: "hide"
+editor_options:
+  chunk_output_type: console
+---
+  
+  
+```{r 0-setup, include=FALSE, warning=FALSE}
+#regular
+if(1){
+  library(dplyr)
+  library(data.table)
+  library(ggplot2)
+  library(cowplot)
+  library(qqman)
+  library(viridis)
+  library(scales)
+  library(tidyverse)
+  library(ggcorrplot)
+  library(melt)
+  library(reshape2)
+  
+  #options
+  options(bitmapType = "cairo")
+  options(error = function() traceback(3))
+  
+  #seed
+  set.seed(123)
+  
+  #loop count and data limit
+  iter <- 50
+  #ggplot holder list
+  gg <- vector(mode='list', length=12)
+  setwd('/data2/morgante_lab/nklimko/rep/dgrp-starve/')
+}
+```
+
+```{r functions, warning=FALSE}
+
+ggTidy <- function(data){
+  
+  for(i in 1:dim(data)[2]){
+    
+    name <- colnames(data)[i]
+    temp <- cbind(rep(name, dim(data)[1]), data[,i, with=FALSE])
+    
+    if(i==1){
+      hold <- temp
+    } else{
+      hold <- rbind(hold, temp, use.names=FALSE)
+    }
+  }
+  colnames(hold) <- c("method", "cor")
+  
+  return(hold)
+}
+
+filt <- function(data, method){
+  
+  if(method=="sr"){
+    col <- 1
+    return(unlist(data[col, ]))
+  } else if(method=="nested"){
+    hold <- vector(length=50)
+    for(i in 1:length(data)){
+      hold[i] <- data[[i]]$cor 
+    }
+    return(hold)
+  } else if(method=='top3'){
+    col <- 1
+    start <- 1
+    skip <- 16
+    
+    raw <- unlist(data[col, ])
+    trim <- raw[seq(start, length(raw), by=skip)]
+    
+    return(trim)
+  } else{
+    print('Method not recognized.')
+    return(NA)
+  }
+}
+
+
+```
+
+
+
+
+The following methods are currently implemented:
+  
+  - Mr. Mash
+
+- GBLUP
+
+- BayesC
+
+
+
+```{r f-temp, eval=FALSE}
+
+
+#READ IN
+raw_sr_rf <- readRDS("snake/data/sr/30_summary/rf_f.Rds")
+raw_sr_pcr <- readRDS("snake/data/sr/30_summary/pcr_f.Rds")
+raw_sr_varbvs <- readRDS("snake/data/20_cor/varbvs_f_starvation.Rds")
+
+raw_sr_bayesC <- readRDS("snake/data/sr/30_summary/bayesC_0.9_f.Rds")
+raw_top3_bayesC <- readRDS('snake/data/top3/30_summary/multibayesC_f_top3.Rds')
+#raw_top3_gblup <- readRDS('snake/data/top3/30_summary/multibayesC_f.Rds')
+
+raw_sr_gblup <- readRDS("snake/data/20_cor/gblup_f_starvation.Rds")
+raw_top3_gblup <- readRDS('snake/data/top3/30_summary/multigblup_f_top3.Rds')
+#raw_top3_gblup <- readRDS('snake/data/top3/30_summary/multigblup_f.Rds')
+
+raw_sr_rr <- readRDS("snake/data/20_cor/rr_f_starvation.Rds")
+raw_sr_lasso <- readRDS("snake/data/20_cor/lasso_f_starvation.Rds")
+raw_top3_lasso <- readRDS("snake/data/top3/30_summary/mlasso_f.Rds")
+
+#raw_top3_mash <- readRDS('snake/data/top3/30_summary/mash_f.Rds')
+raw_top3_mash <- readRDS('snake/data/top3/30_summary/mr.mash_f_top3.Rds')
+raw_top3_datamash <- readRDS('snake/data/top3/30_summary/datadrive_f.Rds')
+
+
+#FILTER
+sr_rf <- filt(raw_sr_rf, "sr")
+sr_pcr <- filt(raw_sr_pcr, "sr")
+sr_varbvs <- filt(raw_sr_varbvs, "nested")
+
+sr_bayesC <- filt(raw_sr_bayesC, "sr")
+top3_bayesC <- filt(raw_top3_bayesC, "top3")
+
+sr_gblup <- filt(raw_sr_gblup, "nested")
+top3_gblup <- filt(raw_top3_gblup, "top3")
+
+sr_rr <- filt(raw_sr_rr, "nested")
+sr_lasso <- filt(raw_sr_lasso, "nested")
+top3_lasso <- filt(raw_top3_lasso, "top3")
+
+top3_mash <- filt(raw_top3_mash, "top3")
+top3_datamash <- filt(raw_top3_datamash, "top3")
+
+allData <- data.table(sr_rf, sr_pcr, sr_varbvs, sr_bayesC, top3_bayesC, sr_gblup, top3_gblup, sr_rr, sr_lasso, top3_lasso, top3_mash, top3_datamash)
+
+saveRDS(allData, "data/hist_data_f.Rds")
+
+
+```
+
+
+```{r cor-female, warning=FALSE}
+allData <- readRDS("data/hist_data_f.Rds")
+
+data <- ggTidy(allData)
+
+#graphing----
+iter <- 50
+
+data$method <- factor(data$method, levels=unique(data$method))
+
+gg[[1]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+  geom_violin(color = NA, width = 0.65) +
+  geom_boxplot(color='#440154FF', width = 0.15) +
+  theme_minimal() +
+  stat_summary(fun=mean, color='#440154FF', geom='point', 
+               shape=18, size=3, show.legend=FALSE) +
+  labs(x=NULL,y='Correlation',tag='F') +
+  theme(legend.position='none',
+        axis.text.x = element_text(angle = -45, size=10),
+        text=element_text(size=10),
+        plot.tag = element_text(size=15)) +
+  scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
+
+
+
+```
+
+
+```{r m-temp, eval=FALSE}
+#READ IN
+raw_sr_rf <- readRDS("snake/data/sr/30_summary/rf_m.Rds")
+raw_sr_pcr <- readRDS("snake/data/sr/30_summary/pcr_m.Rds")
+raw_sr_varbvs <- readRDS("snake/data/20_cor/varbvs_m_starvation.Rds")
+
+raw_sr_bayesC <- readRDS("snake/data/sr/30_summary/bayesC_0.9_m.Rds")
+raw_top3_bayesC <- readRDS('snake/data/top3/30_summary/multibayesC_m_top3.Rds')
+#raw_top3_gblup <- readRDS('snake/data/top3/30_summary/multibayesC_m.Rds')
+
+raw_sr_gblup <- readRDS("snake/data/20_cor/gblup_m_starvation.Rds")
+raw_top3_gblup <- readRDS('snake/data/top3/30_summary/multigblup_m_top3.Rds')
+#raw_top3_gblup <- readRDS('snake/data/top3/30_summary/multigblup_m.Rds')
+
+raw_sr_rr <- readRDS("snake/data/20_cor/rr_m_starvation.Rds")
+raw_sr_lasso <- readRDS("snake/data/20_cor/lasso_m_starvation.Rds")
+raw_top3_lasso <- readRDS("snake/data/top3/30_summary/mlasso_m.Rds")
+
+#raw_top3_mash <- readRDS('snake/data/top3/30_summary/mash_m.Rds')
+raw_top3_mash <- readRDS('snake/data/top3/30_summary/mr.mash_m_top3.Rds')
+raw_top3_datamash <- readRDS('snake/data/top3/30_summary/datadrive_m.Rds')
+
+
+#FILTER
+sr_rf <- filt(raw_sr_rf, "sr")
+sr_pcr <- filt(raw_sr_pcr, "sr")
+sr_varbvs <- filt(raw_sr_varbvs, "nested")
+
+sr_bayesC <- filt(raw_sr_bayesC, "sr")
+top3_bayesC <- filt(raw_top3_bayesC, "top3")
+
+sr_gblup <- filt(raw_sr_gblup, "nested")
+top3_gblup <- filt(raw_top3_gblup, "top3")
+
+sr_rr <- filt(raw_sr_rr, "nested")
+sr_lasso <- filt(raw_sr_lasso, "nested")
+top3_lasso <- filt(raw_top3_lasso, "top3")
+
+top3_mash <- filt(raw_top3_mash, "top3")
+top3_datamash <- filt(raw_top3_datamash, "top3")
+
+allData <- data.table(sr_rf, sr_pcr, sr_varbvs, sr_bayesC, top3_bayesC, sr_gblup, top3_gblup, sr_rr, sr_lasso, top3_lasso, top3_mash, top3_datamash)
+
+saveRDS(allData, "data/hist_data_m.Rds")
+
+
+```
+
+
+```{r cor-male, warning=FALSE}
+
+allData <- readRDS("data/hist_data_m.Rds")
+
+
+data <- ggTidy(allData)
+
+#graphing----
+iter <- 50
+
+data$method <- factor(data$method, levels=unique(data$method))
+
+gg[[2]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+  geom_violin(color = NA, width = 0.65) +
+  geom_boxplot(color='#440154FF', width = 0.15) +
+  theme_minimal() +
+  stat_summary(fun=mean, color='#440154FF', geom='point', 
+               shape=18, size=3, show.legend=FALSE) +
+  labs(x=NULL,y='Correlation',tag='F') +
+  theme(legend.position='none',
+        axis.text.x = element_text(angle = -45, size=10),
+        text=element_text(size=10),
+        plot.tag = element_text(size=15)) +
+  scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
+
+
+
+```
+
+### Female Correlation 
+
+```{r plot-print-f, warning=FALSE, eval=TRUE}
+
+plot_grid(gg[[1]], ncol=1)
+
+```
+
+
+### Male Correlation
+
+```{r plot-print-m, warning=FALSE, eval=TRUE}
+
+plot_grid(gg[[2]], ncol=1)
+
+```
+
+
+
