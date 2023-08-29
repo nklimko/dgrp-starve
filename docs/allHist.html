@@ -509,16 +509,16 @@ relative
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree8ead827b248524e68d53af8c4d3816b17516016atargetblank8ead827a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/8ead827b248524e68d53af8c4d3816b17516016a" target="_blank">8ead827</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree2f076f141ffc61b3817a6178847c19109aa38c53targetblank2f076f1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/2f076f141ffc61b3817a6178847c19109aa38c53" target="_blank">2f076f1</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree8ead827b248524e68d53af8c4d3816b17516016atargetblank8ead827a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree2f076f141ffc61b3817a6178847c19109aa38c53targetblank2f076f1a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/8ead827b248524e68d53af8c4d3816b17516016a" target="_blank">8ead827</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/2f076f141ffc61b3817a6178847c19109aa38c53" target="_blank">2f076f1</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -592,6 +592,7 @@ Untracked files:
     Untracked:  posterPlots.R
     Untracked:  runtime.png
     Untracked:  snake/
+    Untracked:  temp.R
 
 Unstaged changes:
     Modified:   .Rprofile
@@ -691,6 +692,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/2f076f141ffc61b3817a6178847c19109aa38c53/analysis/allHist.Rmd" target="_blank">2f076f1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-08-29
+</td>
+<td>
+wflow_publish(“analysis/allHist.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/882cd4930eb2907c53bd895d930f9cf88cd69b2e/docs/allHist.html" target="_blank">882cd49</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-08-29
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -862,17 +897,41 @@ filt &lt;- function(data, method){
     return(NA)
   }
 }</code></pre>
-<p>Pseudo:</p>
-<p>Intro to why</p>
-<p>Intro to methods</p>
-<p>Method line by line</p>
-<p>Results (all hist)</p>
-<p>explanation uni about equal to multi</p>
-<p>(sr hist)</p>
+<div id="intro-to-why" class="section level3">
+<h3>Intro to why</h3>
+<p>Complex trait prediction is based on the notion that some traits are impacted by a large number of small-effect genes which makes diagnosis or prediction challenging.</p>
+<p>We are using gene expression data over genomic frequencies as they have shown previously to provide more accurate models.</p>
+<p>This project is designed to establish a baseline comparison for statistical methods commonly used in the field</p>
+</div>
+<div id="intro-to-methods" class="section level3">
+<h3>Intro to methods</h3>
+<p>In order to improve model accuracy, we look at shrinkage and variable selection. Too much of either can result in overfitting of the model, but failure to perform either results in large variance that diminishes model accuracy.</p>
+<p>Shrinkage is based on the assumption that not all independent variables have the same effect on the response variable in a given model. The effects are scaled by a distribution of our choosing based on our assumption of the model. A normal distribution centered around 0 will scale most effects down while leaving more significant effects closer to 1. Changing the shape of the distribution changes the degree of shrinkage applied to the model.</p>
+<p>Variable selection takes another step in model assumptions. We assume under a general model that all variables have some effect on the response even if the effect is small. In order to reduce noise, we can select for variables that only have stronger effects by discarding weaker or insignificant independent variables from the model. With genes, this models our assumption that not all genes have an effect on the trait of interest, while a number of genes will have a pronounced effect on our complex trait.</p>
+</div>
+<div id="method-line-by-line" class="section level3">
+<h3>Method line by line</h3>
+<ul>
+<li><p>Random Forest: Random forest is a machine learning method that creates random networks of decision trees to create a linear regression Random Forest decision trees are used to discover impactful genes similar to how PCR selects for variance maximizing components.</p></li>
+<li><p>Principal Component Regression (PCR): Principal Component Regression uses principal component analysis to find combinations of independent variables that maximize the change in variance on the response variable. This process greatly reduces the dimensionality of the data. Within this, variable selection can be performed optimally by finding the greatest change in total variance explained and only using principal components up to that point.</p></li>
+<li><p>Neural Network (NN): Neural networks are a type of machine learning method where hidden layers of hyperparameters are used to evaluate the data. Learning is rewarded by maximizing change in variance. The current model has five layers with 7500, 5000, 2500, 1000, and 500 hyperparameters in order.</p></li>
+<li><p>Bayesian Variable Selection (BVS): Bayesian Variable Selection(BVS) uses a spike-and-slab prior to perform effect shrinkage and variable selection. The model is fit using Variational Inference(VI) methods.</p></li>
+<li><p>BayesC - BayesC uses a spike-and-slab prior to perform effect shrinkage and variable selection. The model is fit using Markov Chain Monte Carlo(MCMC) methods.</p></li>
+<li><p>Genomic Best Linear Unbiased Predictor (GBLUP): GBLUP is a linear mixed model created using the covariance of genomic relationships(geneXgene) to perform effect shrinkage.</p></li>
+<li><p>Ridge Regression (RR):Ridge Regression is a penalized regression method that performs effect shrinkage only.</p></li>
+<li><p>Least Absolute Shrinkage and Selection Operator (LASSO): LASSO uses the same penalized regression as Ridge regression with an added parameter to perform both effect shrinkage and variable selection.</p></li>
+<li><p>Multiple Regression with Multivariate Adaptive Shrinkage (MR.MASH): Mr. Mash performs shrinkage and variable selection by using a custom mixed prior. This prior can be generated using summary statistics alone or can be layered with covariance matrices derived from strong effects.</p></li>
+</ul>
+</div>
+<div id="all-models" class="section level3">
+<h3>All Models</h3>
+<p>Wtih traits that are correlated, we expect that changes in the trait of interest can be described by changes in additional trait values. We sought to incorporate this by taking the top three correlated traits into account in our multivariate models. The traits capillary feeding, free glycerol, and free glucose were selected for both males and females.</p>
+<p>In order to see if correlated traits could be used to improve model accuracy, we performed both univariate and multivariate analyses with models that permitted multiple response prediction.</p>
+<p>For every method tested, fifty replicates were created using an 80% train/20% test data split by DGRP2 line. Each column below is a distribution of the method’s correlation coefficient from all replicates.</p>
 <pre class="r"><code>allData &lt;- readRDS(&quot;data/all_hist_data_f.Rds&quot;)
 print(colMeans(allData))</code></pre>
 <pre><code>        sr_rf        sr_pcr         sr_nn     sr_varbvs     sr_bayesC 
-   0.36402243    0.45831216    0.05758642    0.41300077    0.31800121 
+   0.36402243    0.45831216            NA    0.41300077    0.31800121 
   top3_bayesC      sr_gblup    top3_gblup         sr_rr      sr_lasso 
    0.25436812    0.27998224    0.30159686    0.28108963    0.34736423 
    top3_lasso       sr_mash     top3_mash top3_datamash 
@@ -916,7 +975,7 @@ if(game){
 <pre class="r"><code>allData &lt;- readRDS(&quot;data/all_hist_data_m.Rds&quot;)
 print(colMeans(allData))</code></pre>
 <pre><code>        sr_rf        sr_pcr         sr_nn     sr_varbvs     sr_bayesC 
-   0.38175574    0.52833378    0.07124629    0.25543960    0.43129890 
+   0.38175574    0.52833378            NA    0.25543960    0.43129890 
   top3_bayesC      sr_gblup    top3_gblup         sr_rr      sr_lasso 
    0.35203327    0.34913991    0.36524616    0.36257400    0.24606199 
    top3_lasso       sr_mash     top3_mash top3_datamash 
@@ -957,18 +1016,167 @@ if(game){
           plot.tag = element_text(size=15)) +
     scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
 }</code></pre>
-<div id="female-correlation" class="section level3">
-<h3>Female Correlation</h3>
+</div>
+<div id="univariate-models" class="section level3">
+<h3>Univariate Models</h3>
 <pre class="r"><code>plot_grid(gg[[1]], ncol=1)</code></pre>
 <p><img src="figure/allHist.Rmd/plot-print-all-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-print-all-1">
+Past versions of plot-print-all-1.png
+</button>
+</p>
+<div id="fig-plot-print-all-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/882cd4930eb2907c53bd895d930f9cf88cd69b2e/docs/figure/allHist.Rmd/plot-print-all-1.png" target="_blank">882cd49</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-08-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plot_grid(gg[[2]], ncol=1)</code></pre>
 <p><img src="figure/allHist.Rmd/plot-print-all-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Given that the multivariate methods do not seem to do better, we will now focus only on the univariate methods.</p>
-<p>Below is the remaining univariate method correlations</p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-print-all-2">
+Past versions of plot-print-all-2.png
+</button>
+</p>
+<div id="fig-plot-print-all-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/882cd4930eb2907c53bd895d930f9cf88cd69b2e/docs/figure/allHist.Rmd/plot-print-all-2.png" target="_blank">882cd49</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-08-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Comparison shows that multivariate methods do not significantly improve the model accuracy. As such, we will focus on univariate methods moving forward.</p>
+<p>Below are the univariate models alone.</p>
 <pre class="r"><code>plot_grid(gg[[3]], ncol=1)</code></pre>
 <p><img src="figure/allHist.Rmd/plot-print-univariate-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-print-univariate-1">
+Past versions of plot-print-univariate-1.png
+</button>
+</p>
+<div id="fig-plot-print-univariate-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/882cd4930eb2907c53bd895d930f9cf88cd69b2e/docs/figure/allHist.Rmd/plot-print-univariate-1.png" target="_blank">882cd49</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-08-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plot_grid(gg[[4]], ncol=1)</code></pre>
 <p><img src="figure/allHist.Rmd/plot-print-univariate-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-print-univariate-2">
+Past versions of plot-print-univariate-2.png
+</button>
+</p>
+<div id="fig-plot-print-univariate-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/882cd4930eb2907c53bd895d930f9cf88cd69b2e/docs/figure/allHist.Rmd/plot-print-univariate-2.png" target="_blank">882cd49</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-08-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
