@@ -394,7 +394,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-08-28
+<strong>Last updated:</strong> 2023-08-29
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -509,16 +509,16 @@ relative
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreedebb4cd946ed4c087c44df3187863fa86686f5bctargetblankdebb4cda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/debb4cd946ed4c087c44df3187863fa86686f5bc" target="_blank">debb4cd</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree8ead827b248524e68d53af8c4d3816b17516016atargetblank8ead827a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/8ead827b248524e68d53af8c4d3816b17516016a" target="_blank">8ead827</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreedebb4cd946ed4c087c44df3187863fa86686f5bctargetblankdebb4cda" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree8ead827b248524e68d53af8c4d3816b17516016atargetblank8ead827a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/debb4cd946ed4c087c44df3187863fa86686f5bc" target="_blank">debb4cd</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/8ead827b248524e68d53af8c4d3816b17516016a" target="_blank">8ead827</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -545,6 +545,8 @@ Untracked files:
     Untracked:  code/methodComp/
     Untracked:  code/regress/
     Untracked:  colorCode
+    Untracked:  data/all_hist_data_f.Rds
+    Untracked:  data/all_hist_data_m.Rds
     Untracked:  data/bayesF.rds
     Untracked:  data/bayesM.rds
     Untracked:  data/bglr-f-130k.rds
@@ -575,6 +577,8 @@ Untracked files:
     Untracked:  data/multiReg.rData
     Untracked:  data/pheno_f
     Untracked:  data/pheno_m
+    Untracked:  data/sr_hist_data_f.Rds
+    Untracked:  data/sr_hist_data_m.Rds
     Untracked:  data/starve-f.txt
     Untracked:  data/starve-m.txt
     Untracked:  data/xp-f.txt
@@ -689,6 +693,40 @@ Message
 <tbody>
 <tr>
 <td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/8ead827b248524e68d53af8c4d3816b17516016a/analysis/allHist.Rmd" target="_blank">8ead827</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-08-29
+</td>
+<td>
+allhist pseudo
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/9774b2a0a7f97c04748a9d26d1074c270b54fff6/docs/allHist.html" target="_blank">9774b2a</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-08-28
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
 html
 </td>
 <td>
@@ -779,7 +817,9 @@ wflow_publish(“analysis/allHist.Rmd”)
 </div>
 </div>
 </div>
-<pre class="r"><code>ggTidy &lt;- function(data){
+<pre class="r"><code>game &lt;- 1
+
+ggTidy &lt;- function(data){
   
   for(i in 1:dim(data)[2]){
     
@@ -822,281 +862,113 @@ filt &lt;- function(data, method){
     return(NA)
   }
 }</code></pre>
-<p>The following methods are currently implemented:</p>
-<ul>
-<li><p>Mr. Mash</p></li>
-<li><p>GBLUP</p></li>
-<li><p>BayesC</p></li>
-</ul>
-<pre class="r"><code>addNewData &lt;- 1
-
-if(addNewData){
-  #READ IN
-  raw_sr_rf &lt;- readRDS(&quot;snake/data/sr/30_summary/rf_f.Rds&quot;)
-  raw_sr_pcr &lt;- readRDS(&quot;snake/data/sr/30_summary/pcr_f.Rds&quot;)
-  raw_sr_varbvs &lt;- readRDS(&quot;snake/data/20_cor/varbvs_f_starvation.Rds&quot;)
-  
-  raw_sr_bayesC &lt;- readRDS(&quot;snake/data/sr/30_summary/bayesC_0.9_f.Rds&quot;)
-  raw_top3_bayesC &lt;- readRDS(&#39;snake/data/top3/30_summary/multibayesC_f_top3.Rds&#39;)
-  #raw_top3_gblup &lt;- readRDS(&#39;snake/data/top3/30_summary/multibayesC_f.Rds&#39;)
-  
-  raw_sr_gblup &lt;- readRDS(&quot;snake/data/20_cor/gblup_f_starvation.Rds&quot;)
-  raw_top3_gblup &lt;- readRDS(&#39;snake/data/top3/30_summary/multigblup_f_top3.Rds&#39;)
-  #raw_top3_gblup &lt;- readRDS(&#39;snake/data/top3/30_summary/multigblup_f.Rds&#39;)
-  
-  raw_sr_rr &lt;- readRDS(&quot;snake/data/20_cor/rr_f_starvation.Rds&quot;)
-  raw_sr_lasso &lt;- readRDS(&quot;snake/data/20_cor/lasso_f_starvation.Rds&quot;)
-  raw_top3_lasso &lt;- readRDS(&quot;snake/data/top3/30_summary/mlasso_f.Rds&quot;)
-  
-  #raw_top3_mash &lt;- readRDS(&#39;snake/data/top3/30_summary/mash_f.Rds&#39;)
-  raw_top3_mash &lt;- readRDS(&#39;snake/data/top3/30_summary/mr.mash_f_top3.Rds&#39;)
-  raw_top3_datamash &lt;- readRDS(&#39;snake/data/top3/30_summary/datadrive_f.Rds&#39;)
-  
-  raw_sr_nn &lt;-readRDS(&#39;snake/data/sr/30_summary/nn_f.Rds&#39;)
-  raw_sr_pcr &lt;- readRDS(&#39;snake/data/sr/30_summary/pcr_f.Rds&#39;)
-  
-  
-  #FILTER
-  sr_rf &lt;- filt(raw_sr_rf, &quot;sr&quot;)
-  sr_pcr &lt;- filt(raw_sr_pcr, &quot;sr&quot;)
-  sr_varbvs &lt;- filt(raw_sr_varbvs, &quot;nested&quot;)
-  
-  sr_bayesC &lt;- filt(raw_sr_bayesC, &quot;sr&quot;)
-  top3_bayesC &lt;- filt(raw_top3_bayesC, &quot;top3&quot;)
-  
-  sr_gblup &lt;- filt(raw_sr_gblup, &quot;nested&quot;)
-  top3_gblup &lt;- filt(raw_top3_gblup, &quot;top3&quot;)
-  
-  sr_rr &lt;- filt(raw_sr_rr, &quot;nested&quot;)
-  sr_lasso &lt;- filt(raw_sr_lasso, &quot;nested&quot;)
-  top3_lasso &lt;- filt(raw_top3_lasso, &quot;top3&quot;)
-  
-  top3_mash &lt;- filt(raw_top3_mash, &quot;top3&quot;)
-  top3_datamash &lt;- filt(raw_top3_datamash, &quot;top3&quot;)
-  
-  sr_nn &lt;- filt(raw_sr_nn, &quot;sr&quot;)
-  sr_pcr &lt;- filt(raw_sr_pcr, &quot;sr&quot;)
-  
-  allData &lt;- data.table(sr_rf, sr_pcr, sr_nn, sr_varbvs, sr_bayesC,
-                        top3_bayesC, sr_gblup, top3_gblup,
-                        sr_rr, sr_lasso, top3_lasso, top3_mash,
-                        top3_datamash)
-  
-  saveRDS(allData, &quot;data/hist_data_f.Rds&quot;)
-  
-}</code></pre>
-<pre class="r"><code>allData &lt;- readRDS(&quot;data/hist_data_f.Rds&quot;)
+<p>Pseudo:</p>
+<p>Intro to why</p>
+<p>Intro to methods</p>
+<p>Method line by line</p>
+<p>Results (all hist)</p>
+<p>explanation uni about equal to multi</p>
+<p>(sr hist)</p>
+<pre class="r"><code>allData &lt;- readRDS(&quot;data/all_hist_data_f.Rds&quot;)
 print(colMeans(allData))</code></pre>
 <pre><code>        sr_rf        sr_pcr         sr_nn     sr_varbvs     sr_bayesC 
-   0.36402243    0.45831216   -0.01710806    0.41300077    0.31800121 
+   0.36402243    0.45831216    0.05758642    0.41300077    0.31800121 
   top3_bayesC      sr_gblup    top3_gblup         sr_rr      sr_lasso 
    0.25436812    0.27998224    0.30159686    0.28108963    0.34736423 
-   top3_lasso     top3_mash top3_datamash 
-   0.18794887    0.09036488    0.13114167 </code></pre>
+   top3_lasso       sr_mash     top3_mash top3_datamash 
+   0.18794887    0.20758722    0.09036488    0.13114167 </code></pre>
 <pre class="r"><code>data &lt;- ggTidy(allData)
-
-#graphing----
-iter &lt;- 50
-
 data$method &lt;- factor(data$method, levels=unique(data$method))
 
-gg[[1]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
-  geom_violin(color = NA, width = 0.65) +
-  geom_boxplot(color=&#39;#440154FF&#39;, width = 0.15) +
-  theme_minimal() +
-  stat_summary(fun=mean, color=&#39;#440154FF&#39;, geom=&#39;point&#39;, 
-               shape=18, size=3, show.legend=FALSE) +
-  labs(x=NULL,y=&#39;Correlation&#39;,tag=&#39;F&#39;) +
-  theme(legend.position=&#39;none&#39;,
-        axis.text.x = element_text(angle = -45, size=10),
-        text=element_text(size=10),
-        plot.tag = element_text(size=15)) +
-  scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)</code></pre>
-<pre class="r"><code>addNewData &lt;- 1
+if(game){
+  gg[[1]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
+    geom_violin(color = NA, width = 0.65) +
+    geom_boxplot(color=&#39;#440154FF&#39;, width = 0.15) +
+    theme_minimal() +
+    stat_summary(fun=mean, color=&#39;#440154FF&#39;, geom=&#39;point&#39;, 
+                 shape=18, size=3, show.legend=FALSE) +
+    labs(x=NULL,y=&#39;Correlation&#39;,tag=&#39;F&#39;, title=&#39;All Female&#39;) +
+    theme(legend.position=&#39;none&#39;,
+          axis.text.x = element_text(angle = -45, size=10),
+          text=element_text(size=10),
+          plot.tag = element_text(size=15)) +
+    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
+}
 
-if(addNewData){
-  #READ IN
-  raw_sr_rf &lt;- readRDS(&quot;snake/data/sr/30_summary/rf_m.Rds&quot;)
-  raw_sr_pcr &lt;- readRDS(&quot;snake/data/sr/30_summary/pcr_m.Rds&quot;)
-  raw_sr_varbvs &lt;- readRDS(&quot;snake/data/20_cor/varbvs_m_starvation.Rds&quot;)
-  
-  raw_sr_bayesC &lt;- readRDS(&quot;snake/data/sr/30_summary/bayesC_0.9_m.Rds&quot;)
-  raw_top3_bayesC &lt;- readRDS(&#39;snake/data/top3/30_summary/multibayesC_m_top3.Rds&#39;)
-  #raw_top3_gblup &lt;- readRDS(&#39;snake/data/top3/30_summary/multibayesC_m.Rds&#39;)
-  
-  raw_sr_gblup &lt;- readRDS(&quot;snake/data/20_cor/gblup_m_starvation.Rds&quot;)
-  raw_top3_gblup &lt;- readRDS(&#39;snake/data/top3/30_summary/multigblup_m_top3.Rds&#39;)
-  #raw_top3_gblup &lt;- readRDS(&#39;snake/data/top3/30_summary/multigblup_m.Rds&#39;)
-  
-  raw_sr_rr &lt;- readRDS(&quot;snake/data/20_cor/rr_m_starvation.Rds&quot;)
-  raw_sr_lasso &lt;- readRDS(&quot;snake/data/20_cor/lasso_m_starvation.Rds&quot;)
-  raw_top3_lasso &lt;- readRDS(&quot;snake/data/top3/30_summary/mlasso_m.Rds&quot;)
-  
-  #raw_top3_mash &lt;- readRDS(&#39;snake/data/top3/30_summary/mash_m.Rds&#39;)
-  raw_top3_mash &lt;- readRDS(&#39;snake/data/top3/30_summary/mr.mash_m_top3.Rds&#39;)
-  raw_top3_datamash &lt;- readRDS(&#39;snake/data/top3/30_summary/datadrive_m.Rds&#39;)
-  
-  raw_sr_nn &lt;-readRDS(&#39;snake/data/sr/30_summary/nn_m.Rds&#39;)
-  raw_sr_pcr &lt;- readRDS(&#39;snake/data/sr/30_summary/pcr_m.Rds&#39;)
-  
-  #FILTER
-  sr_rf &lt;- filt(raw_sr_rf, &quot;sr&quot;)
-  sr_pcr &lt;- filt(raw_sr_pcr, &quot;sr&quot;)
-  sr_varbvs &lt;- filt(raw_sr_varbvs, &quot;nested&quot;)
-  
-  sr_bayesC &lt;- filt(raw_sr_bayesC, &quot;sr&quot;)
-  top3_bayesC &lt;- filt(raw_top3_bayesC, &quot;top3&quot;)
-  
-  sr_gblup &lt;- filt(raw_sr_gblup, &quot;nested&quot;)
-  top3_gblup &lt;- filt(raw_top3_gblup, &quot;top3&quot;)
-  
-  sr_rr &lt;- filt(raw_sr_rr, &quot;nested&quot;)
-  sr_lasso &lt;- filt(raw_sr_lasso, &quot;nested&quot;)
-  top3_lasso &lt;- filt(raw_top3_lasso, &quot;top3&quot;)
-  
-  top3_mash &lt;- filt(raw_top3_mash, &quot;top3&quot;)
-  top3_datamash &lt;- filt(raw_top3_datamash, &quot;top3&quot;)
-  sr_nn &lt;- filt(raw_sr_nn, &quot;sr&quot;)
-  
-  allData &lt;- data.table(sr_rf, sr_pcr, sr_nn, sr_varbvs, sr_bayesC,
-                        top3_bayesC, sr_gblup, top3_gblup,
-                        sr_rr, sr_lasso, top3_lasso, top3_mash,
-                        top3_datamash)
-  
-  saveRDS(allData, &quot;data/hist_data_m.Rds&quot;)
+srData &lt;- readRDS(&quot;data/sr_hist_data_f.Rds&quot;)
+data &lt;- ggTidy(srData)
+data$method &lt;- factor(data$method, levels=unique(data$method))
+
+if(game){
+  gg[[3]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
+    geom_violin(color = NA, width = 0.65) +
+    geom_boxplot(color=&#39;#440154FF&#39;, width = 0.15) +
+    theme_minimal() +
+    stat_summary(fun=mean, color=&#39;#440154FF&#39;, geom=&#39;point&#39;, 
+                 shape=18, size=3, show.legend=FALSE) +
+    labs(x=NULL,y=&#39;Correlation&#39;,tag=&#39;F&#39;, title=&#39;Univariate Female&#39;) +
+    theme(legend.position=&#39;none&#39;,
+          axis.text.x = element_text(angle = -45, size=10),
+          text=element_text(size=10),
+          plot.tag = element_text(size=15)) +
+    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
 }</code></pre>
-<pre class="r"><code>allData &lt;- readRDS(&quot;data/hist_data_m.Rds&quot;)
+<pre class="r"><code>allData &lt;- readRDS(&quot;data/all_hist_data_m.Rds&quot;)
 print(colMeans(allData))</code></pre>
 <pre><code>        sr_rf        sr_pcr         sr_nn     sr_varbvs     sr_bayesC 
-  0.381755740   0.528333785  -0.009744473   0.255439602   0.431298902 
+   0.38175574    0.52833378    0.07124629    0.25543960    0.43129890 
   top3_bayesC      sr_gblup    top3_gblup         sr_rr      sr_lasso 
-  0.352033267   0.349139906   0.365246159   0.362573999   0.246061992 
-   top3_lasso     top3_mash top3_datamash 
-  0.090795620   0.252217985   0.276341392 </code></pre>
+   0.35203327    0.34913991    0.36524616    0.36257400    0.24606199 
+   top3_lasso       sr_mash     top3_mash top3_datamash 
+   0.09079562    0.35469100    0.25221799    0.27634139 </code></pre>
 <pre class="r"><code>data &lt;- ggTidy(allData)
-
-#graphing----
-iter &lt;- 50
-
 data$method &lt;- factor(data$method, levels=unique(data$method))
 
-gg[[2]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
-  geom_violin(color = NA, width = 0.65) +
-  geom_boxplot(color=&#39;#440154FF&#39;, width = 0.15) +
-  theme_minimal() +
-  stat_summary(fun=mean, color=&#39;#440154FF&#39;, geom=&#39;point&#39;, 
-               shape=18, size=3, show.legend=FALSE) +
-  labs(x=NULL,y=&#39;Correlation&#39;,tag=&#39;F&#39;) +
-  theme(legend.position=&#39;none&#39;,
-        axis.text.x = element_text(angle = -45, size=10),
-        text=element_text(size=10),
-        plot.tag = element_text(size=15)) +
-  scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)</code></pre>
+if(game){
+  gg[[2]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
+    geom_violin(color = NA, width = 0.65) +
+    geom_boxplot(color=&#39;#440154FF&#39;, width = 0.15) +
+    theme_minimal() +
+    stat_summary(fun=mean, color=&#39;#440154FF&#39;, geom=&#39;point&#39;, 
+                 shape=18, size=3, show.legend=FALSE) +
+    labs(x=NULL,y=&#39;Correlation&#39;,tag=&#39;M&#39;, title=&#39;All Male&#39;) +
+    theme(legend.position=&#39;none&#39;,
+          axis.text.x = element_text(angle = -45, size=10),
+          text=element_text(size=10),
+          plot.tag = element_text(size=15)) +
+    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
+}
+
+srData &lt;- readRDS(&quot;data/sr_hist_data_m.Rds&quot;)
+data &lt;- ggTidy(srData)
+data$method &lt;- factor(data$method, levels=unique(data$method))
+
+if(game){
+  gg[[4]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
+    geom_violin(color = NA, width = 0.65) +
+    geom_boxplot(color=&#39;#440154FF&#39;, width = 0.15) +
+    theme_minimal() +
+    stat_summary(fun=mean, color=&#39;#440154FF&#39;, geom=&#39;point&#39;, 
+                 shape=18, size=3, show.legend=FALSE) +
+    labs(x=NULL,y=&#39;Correlation&#39;,tag=&#39;M&#39;, title=&#39;Univariate Male&#39;) +
+    theme(legend.position=&#39;none&#39;,
+          axis.text.x = element_text(angle = -45, size=10),
+          text=element_text(size=10),
+          plot.tag = element_text(size=15)) +
+    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
+}</code></pre>
 <div id="female-correlation" class="section level3">
 <h3>Female Correlation</h3>
 <pre class="r"><code>plot_grid(gg[[1]], ncol=1)</code></pre>
-<p><img src="figure/allHist.Rmd/plot-print-f-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-print-f-1">
-Past versions of plot-print-f-1.png
-</button>
-</p>
-<div id="fig-plot-print-f-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/d7f91559af7cae9d4ca10c8128c6785be86b1a13/docs/figure/allHist.Rmd/plot-print-f-1.png" target="_blank">d7f9155</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2023-08-25
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/a64ae8125d1ddc9eb898d6f630fbb0abc54190a6/docs/figure/allHist.Rmd/plot-print-f-1.png" target="_blank">a64ae81</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2023-08-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="male-correlation" class="section level3">
-<h3>Male Correlation</h3>
+<p><img src="figure/allHist.Rmd/plot-print-all-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>plot_grid(gg[[2]], ncol=1)</code></pre>
-<p><img src="figure/allHist.Rmd/plot-print-m-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-print-m-1">
-Past versions of plot-print-m-1.png
-</button>
-</p>
-<div id="fig-plot-print-m-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/d7f91559af7cae9d4ca10c8128c6785be86b1a13/docs/figure/allHist.Rmd/plot-print-m-1.png" target="_blank">d7f9155</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2023-08-25
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/nklimko/dgrp-starve/blob/a64ae8125d1ddc9eb898d6f630fbb0abc54190a6/docs/figure/allHist.Rmd/plot-print-m-1.png" target="_blank">a64ae81</a>
-</td>
-<td>
-nklimko
-</td>
-<td>
-2023-08-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/allHist.Rmd/plot-print-all-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Given that the multivariate methods do not seem to do better, we will now focus only on the univariate methods.</p>
+<p>Below is the remaining univariate method correlations</p>
+<pre class="r"><code>plot_grid(gg[[3]], ncol=1)</code></pre>
+<p><img src="figure/allHist.Rmd/plot-print-univariate-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot_grid(gg[[4]], ncol=1)</code></pre>
+<p><img src="figure/allHist.Rmd/plot-print-univariate-2.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
