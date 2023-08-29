@@ -9,7 +9,6 @@ editor_options:
   chunk_output_type: console
 ---
 
-
 ```{r 0-setup, include=FALSE, warning=FALSE}
 #regular
 if(1){
@@ -36,7 +35,7 @@ if(1){
   iter <- 50
   #ggplot holder list
   gg <- vector(mode='list', length=12)
-  setwd('/data2/morgante_lab/nklimko/rep/dgrp-starve/')
+  #setwd('/data2/morgante_lab/nklimko/rep/dgrp-starve/')
 }
 ```
 
@@ -92,22 +91,52 @@ filt <- function(data, method){
 ```
 
 
+### Intro to why
+
+Complex trait prediction is based on the notion that some traits are impacted by a large number of small-effect genes which makes diagnosis or prediction challenging. 
+
+We are using gene expression data over genomic frequencies as they have shown previously to provide more accurate models.
+
+This project is designed to establish a baseline comparison for statistical methods commonly used in the field
 
 
-Pseudo:
+### Intro to methods
 
-Intro to why
+In order to improve model accuracy, we look at shrinkage and variable selection. Too much of either can result in overfitting of the model, but failure to perform either results in large variance that diminishes model accuracy. 
 
-Intro to methods
+Shrinkage is based on the assumption that not all independent variables have the same effect on the response variable in a given model. The effects are scaled by a distribution of our choosing based on our assumption of the model. A normal distribution centered around 0 will scale most effects down while leaving more significant effects closer to 1. Changing the shape of the distribution changes the degree of shrinkage applied to the model.
 
-Method line by line
+Variable selection takes another step in model assumptions. We assume under a general model that all variables have some effect on the response even if the effect is small. In order to reduce noise, we can select for variables that only have stronger effects by discarding weaker or insignificant independent variables from the model. With genes, this models our assumption that not all genes have an effect on the trait of interest, while a number of genes will have a pronounced effect on our complex trait. 
 
-Results
-(all hist)
 
-explanation uni about equal to multi
+### Method line by line
 
-(sr hist)
+- Random Forest: Random forest is a machine learning method that creates random networks of decision trees to create a linear regression Random Forest decision trees are used to discover impactful genes similar to how PCR selects for variance maximizing components.
+
+- Principal Component Regression (PCR): Principal Component Regression uses principal component analysis to find combinations of independent variables that maximize the change in variance on the response variable. This process greatly reduces the dimensionality of the data. Within this, variable selection can be performed optimally by finding the greatest change in total variance explained and only using principal components up to that point. 
+
+- Neural Network (NN): Neural networks are a type of machine learning method where hidden layers of hyperparameters are used to evaluate the data. Learning is rewarded by maximizing change in variance. The current model has five layers with 7500, 5000, 2500, 1000, and 500 hyperparameters in order.
+
+- Bayesian Variable Selection (BVS): Bayesian Variable Selection(BVS) uses a spike-and-slab prior to perform effect shrinkage and variable selection. The model is fit using Variational Inference(VI) methods.
+
+- BayesC - BayesC uses a spike-and-slab prior to perform effect shrinkage and variable selection. The model is fit using Markov Chain Monte Carlo(MCMC) methods.
+
+- Genomic Best Linear Unbiased Predictor (GBLUP): GBLUP is a linear mixed model created using the covariance of genomic relationships(geneXgene) to perform effect shrinkage.
+
+- Ridge Regression (RR):Ridge Regression is a penalized regression method that performs effect shrinkage only.
+
+- Least Absolute Shrinkage and Selection Operator (LASSO): LASSO uses the same penalized regression as Ridge regression with an added parameter to perform both effect shrinkage and variable selection.
+
+- Multiple Regression with Multivariate Adaptive Shrinkage (MR.MASH): Mr. Mash performs shrinkage and variable selection by using a custom mixed prior. This prior can be generated using summary statistics alone or can be layered with covariance matrices derived from strong effects.
+
+
+### All Models
+
+Wtih traits that are correlated, we expect that changes in the trait of interest can be described by changes in additional trait values. We sought to incorporate this by taking the top three correlated traits into account in our multivariate models. The traits capillary feeding, free glycerol, and free glucose were selected for both males and females. 
+
+In order to see if correlated traits could be used to improve model accuracy, we performed both univariate and multivariate analyses with models that permitted multiple response prediction. 
+
+For every method tested, fifty replicates were created using an 80% train/20% test data split by DGRP2 line. Each column below is a distribution of the method's correlation coefficient from all replicates.
 
 
 ```{r cor-female, warning=FALSE}
@@ -197,7 +226,8 @@ if(game){
 
 ```
 
-### Female Correlation 
+
+### Univariate Models
 
 ```{r plot-print-all, warning=FALSE, eval=TRUE}
 
@@ -207,11 +237,9 @@ plot_grid(gg[[2]], ncol=1)
 
 ```
 
+Comparison shows that multivariate methods do not significantly improve the model accuracy. As such, we will focus on univariate methods moving forward.
 
-
-Given that the multivariate methods do not seem to do better, we will now focus only on the univariate methods.
-
-Below is the remaining univariate method correlations
+Below are the univariate models alone.
 
 
 ```{r plot-print-univariate, warning=FALSE, eval=TRUE}
@@ -221,11 +249,6 @@ plot_grid(gg[[3]], ncol=1)
 plot_grid(gg[[4]], ncol=1)
 
 ```
-
-
-
-
-
 
 
 
