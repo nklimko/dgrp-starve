@@ -97,7 +97,7 @@ Complex trait prediction is based on the notion that some traits are impacted by
 
 We are using gene expression data over genomic frequencies as they have shown previously to provide more accurate models.
 
-This project is designed to establish a baseline comparison for statistical methods commonly used in the field
+This project is designed to establish a baseline comparison for statistical methods commonly used in the field.
 
 
 ### Intro to methods
@@ -115,7 +115,7 @@ Variable selection takes another step in model assumptions. We assume under a ge
 
 - Principal Component Regression (PCR): Principal Component Regression uses principal component analysis to find combinations of independent variables that maximize the change in variance on the response variable. This process greatly reduces the dimensionality of the data. Within this, variable selection can be performed optimally by finding the greatest change in total variance explained and only using principal components up to that point. 
 
-- Neural Network (NN): Neural networks are a type of machine learning method where hidden layers of hyperparameters are used to evaluate the data. Learning is rewarded by maximizing change in variance. The current model has five layers with 7500, 5000, 2500, 1000, and 500 hyperparameters in order.
+- Neural Network (NN): Neural networks are a type of machine learning method where hidden layers of hyperparameters are used to evaluate the data. Learning is rewarded by maximizing change in variance. The current model has five layers with 5000, 2500, and 1000 hyperparameters in order.
 
 - Bayesian Variable Selection (BVS): Bayesian Variable Selection(BVS) uses a spike-and-slab prior to perform effect shrinkage and variable selection. The model is fit using Variational Inference(VI) methods.
 
