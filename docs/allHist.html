@@ -394,7 +394,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-08-29
+<strong>Last updated:</strong> 2023-09-04
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -509,16 +509,16 @@ relative
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree741e81d106c330cf681f753bbabf1185aa129c39targetblank741e81da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/741e81d106c330cf681f753bbabf1185aa129c39" target="_blank">741e81d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree1606d88e6c802c82ae21ced332be356c814c5e28targetblank1606d88a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/1606d88e6c802c82ae21ced332be356c814c5e28" target="_blank">1606d88</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree741e81d106c330cf681f753bbabf1185aa129c39targetblank741e81da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree1606d88e6c802c82ae21ced332be356c814c5e28targetblank1606d88a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/741e81d106c330cf681f753bbabf1185aa129c39" target="_blank">741e81d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/1606d88e6c802c82ae21ced332be356c814c5e28" target="_blank">1606d88</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -533,6 +533,7 @@ Ignored files:
 Untracked files:
     Untracked:  .snakemake/
     Untracked:  Rplot.pdf
+    Untracked:  analysis/Method/
     Untracked:  analysis/linearReg.Rmd
     Untracked:  bglr-f.R
     Untracked:  cnn.R
@@ -577,6 +578,7 @@ Untracked files:
     Untracked:  data/multiReg.rData
     Untracked:  data/pheno_f
     Untracked:  data/pheno_m
+    Untracked:  data/pls_hist_data_f.Rds
     Untracked:  data/sr_hist_data_f.Rds
     Untracked:  data/sr_hist_data_m.Rds
     Untracked:  data/starve-f.txt
@@ -692,6 +694,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/1606d88e6c802c82ae21ced332be356c814c5e28/analysis/allHist.Rmd" target="_blank">1606d88</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-09-04
+</td>
+<td>
+wflow_publish(“analysis/allHist.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/02ba6ed6a6eb26d74d7ad75facb5923ec69b08c0/docs/allHist.html" target="_blank">02ba6ed</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-08-29
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -886,10 +922,23 @@ wflow_publish(“analysis/allHist.Rmd”)
 </div>
 </div>
 </div>
-<pre class="r"><code>game &lt;- 1
+<pre class="r"><code>#Correlation Coefficient Paths
+allF &lt;- &#39;snake/data/sr/40_all/f/cor/all.Rds&#39;
+allM &lt;- &#39;snake/data/sr/40_all/f/cor/all.Rds&#39;
 
+uniF &lt;- &#39;snake/data/sr/40_all/f/cor/uni.Rds&#39;
+uniM &lt;- &#39;snake/data/sr/40_all/f/cor/uni.Rds&#39;
+
+uniM &lt;- allM
+uniF &lt;- allF
+
+#Runtimes
+timeF &lt;- &#39;snake/data/sr/40_all/f/time/all.Rds&#39;
+timeM &lt;- &#39;snake/data/sr/40_all/f/time/all.Rds&#39;</code></pre>
+<pre class="r"><code>#reorders 50 X m table to a (50*m) X 2 table 
+#converts method into factor to retain order
 ggTidy &lt;- function(data){
-  
+
   for(i in 1:dim(data)[2]){
     
     name &lt;- colnames(data)[i]
@@ -902,34 +951,30 @@ ggTidy &lt;- function(data){
     }
   }
   colnames(hold) &lt;- c(&quot;method&quot;, &quot;cor&quot;)
+  hold$method &lt;- factor(hold$method, levels=unique(hold$method))
+  
   
   return(hold)
 }
 
-filt &lt;- function(data, method){
+#wrapper for ggplot call to custom fill sex, title, and y axis label
+ggMake &lt;- function(data, sex, custom.title, custom.Ylab){
   
-  if(method==&quot;sr&quot;){
-    col &lt;- 1
-    return(unlist(data[col, ]))
-  } else if(method==&quot;nested&quot;){
-    hold &lt;- vector(length=50)
-    for(i in 1:length(data)){
-      hold[i] &lt;- data[[i]]$cor 
-    }
-    return(hold)
-  } else if(method==&#39;top3&#39;){
-    col &lt;- 1
-    start &lt;- 1
-    skip &lt;- 16
-    
-    raw &lt;- unlist(data[col, ])
-    trim &lt;- raw[seq(start, length(raw), by=skip)]
-    
-    return(trim)
-  } else{
-    print(&#39;Method not recognized.&#39;)
-    return(NA)
-  }
+  plothole &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
+    geom_violin(color = NA, width = 0.65) +
+    geom_boxplot(color=&#39;#440154FF&#39;, width = 0.15) +
+    theme_minimal() +
+    stat_summary(fun=mean, color=&#39;#440154FF&#39;, geom=&#39;point&#39;, 
+                 shape=18, size=3, show.legend=FALSE) +
+    labs(x=NULL,y=custom.Ylab, tag=sex, title=custom.title) +
+    theme(legend.position=&#39;none&#39;,
+          axis.text.x = element_text(angle = -45, size=10),
+          text=element_text(size=10),
+          plot.tag = element_text(size=15)) +
+    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
+  
+  return(plothole)
+  
 }</code></pre>
 <div id="intro-to-why" class="section level3">
 <h3>Intro to why</h3>
@@ -962,94 +1007,30 @@ filt &lt;- function(data, method){
 <p>Wtih traits that are correlated, we expect that changes in the trait of interest can be described by changes in additional trait values. We sought to incorporate this by taking the top three correlated traits into account in our multivariate models. The traits capillary feeding, free glycerol, and free glucose were selected for both males and females.</p>
 <p>In order to see if correlated traits could be used to improve model accuracy, we performed both univariate and multivariate analyses with models that permitted multiple response prediction.</p>
 <p>For every method tested, fifty replicates were created using an 80% train/20% test data split by DGRP2 line. Each column below is a distribution of the method’s correlation coefficient from all replicates.</p>
-<pre class="r"><code>allData &lt;- readRDS(&quot;data/all_hist_data_f.Rds&quot;)
-print(colMeans(allData))</code></pre>
-<pre><code>        sr_rf        sr_pcr         sr_nn     sr_varbvs     sr_bayesC 
-   0.36402243    0.45831216    0.05758642    0.41300077    0.31800121 
-  top3_bayesC      sr_gblup    top3_gblup         sr_rr      sr_lasso 
-   0.25436812    0.27998224    0.30159686    0.28108963    0.34736423 
-   top3_lasso       sr_mash     top3_mash top3_datamash 
-   0.18794887    0.20758722    0.09036488    0.13114167 </code></pre>
-<pre class="r"><code>data &lt;- ggTidy(allData)
-data$method &lt;- factor(data$method, levels=unique(data$method))
+<pre class="r"><code>#All
+allData &lt;- readRDS(allF)
+print(colMeans(na.omit(allData)))</code></pre>
+<pre><code>        rf     bayesC      gblup        pcr         nn     mr.ash 
+0.35128325 0.30140171 0.30374352 0.04416158 0.05540557 0.18472388 </code></pre>
+<pre class="r"><code>data &lt;- na.omit(ggTidy(allData))
+gg[[1]] &lt;- ggMake(data, &#39;F&#39;, &#39;All Female&#39;, &#39;Correlation&#39;)
 
-if(game){
-  gg[[1]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
-    geom_violin(color = NA, width = 0.65) +
-    geom_boxplot(color=&#39;#440154FF&#39;, width = 0.15) +
-    theme_minimal() +
-    stat_summary(fun=mean, color=&#39;#440154FF&#39;, geom=&#39;point&#39;, 
-                 shape=18, size=3, show.legend=FALSE) +
-    labs(x=NULL,y=&#39;Correlation&#39;,tag=&#39;F&#39;, title=&#39;All Female&#39;) +
-    theme(legend.position=&#39;none&#39;,
-          axis.text.x = element_text(angle = -45, size=10),
-          text=element_text(size=10),
-          plot.tag = element_text(size=15)) +
-    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
-}
+#Univariate
+uniData &lt;- readRDS(uniF)
+data &lt;- na.omit(ggTidy(uniData))
+gg[[3]] &lt;- ggMake(data, &#39;F&#39;, &#39;Univariate Female&#39;, &#39;Correlation&#39;)</code></pre>
+<pre class="r"><code>#All
+allData &lt;- readRDS(allM)
+print(colMeans(na.omit(allData)))</code></pre>
+<pre><code>        rf     bayesC      gblup        pcr         nn     mr.ash 
+0.35128325 0.30140171 0.30374352 0.04416158 0.05540557 0.18472388 </code></pre>
+<pre class="r"><code>data &lt;- na.omit(ggTidy(allData))
+gg[[2]] &lt;- ggMake(data, &#39;M&#39;, &#39;All Male&#39;, &#39;Correlation&#39;)
 
-srData &lt;- readRDS(&quot;data/sr_hist_data_f.Rds&quot;)
-data &lt;- ggTidy(srData)
-data$method &lt;- factor(data$method, levels=unique(data$method))
-
-if(game){
-  gg[[3]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
-    geom_violin(color = NA, width = 0.65) +
-    geom_boxplot(color=&#39;#440154FF&#39;, width = 0.15) +
-    theme_minimal() +
-    stat_summary(fun=mean, color=&#39;#440154FF&#39;, geom=&#39;point&#39;, 
-                 shape=18, size=3, show.legend=FALSE) +
-    labs(x=NULL,y=&#39;Correlation&#39;,tag=&#39;F&#39;, title=&#39;Univariate Female&#39;) +
-    theme(legend.position=&#39;none&#39;,
-          axis.text.x = element_text(angle = -45, size=10),
-          text=element_text(size=10),
-          plot.tag = element_text(size=15)) +
-    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
-}</code></pre>
-<pre class="r"><code>allData &lt;- readRDS(&quot;data/all_hist_data_m.Rds&quot;)
-print(colMeans(allData))</code></pre>
-<pre><code>        sr_rf        sr_pcr         sr_nn     sr_varbvs     sr_bayesC 
-   0.38175574    0.52833378    0.07124629    0.25543960    0.43129890 
-  top3_bayesC      sr_gblup    top3_gblup         sr_rr      sr_lasso 
-   0.35203327    0.34913991    0.36524616    0.36257400    0.24606199 
-   top3_lasso       sr_mash     top3_mash top3_datamash 
-   0.09079562    0.35469100    0.25221799    0.27634139 </code></pre>
-<pre class="r"><code>data &lt;- ggTidy(allData)
-data$method &lt;- factor(data$method, levels=unique(data$method))
-
-if(game){
-  gg[[2]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
-    geom_violin(color = NA, width = 0.65) +
-    geom_boxplot(color=&#39;#440154FF&#39;, width = 0.15) +
-    theme_minimal() +
-    stat_summary(fun=mean, color=&#39;#440154FF&#39;, geom=&#39;point&#39;, 
-                 shape=18, size=3, show.legend=FALSE) +
-    labs(x=NULL,y=&#39;Correlation&#39;,tag=&#39;M&#39;, title=&#39;All Male&#39;) +
-    theme(legend.position=&#39;none&#39;,
-          axis.text.x = element_text(angle = -45, size=10),
-          text=element_text(size=10),
-          plot.tag = element_text(size=15)) +
-    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
-}
-
-srData &lt;- readRDS(&quot;data/sr_hist_data_m.Rds&quot;)
-data &lt;- ggTidy(srData)
-data$method &lt;- factor(data$method, levels=unique(data$method))
-
-if(game){
-  gg[[4]] &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
-    geom_violin(color = NA, width = 0.65) +
-    geom_boxplot(color=&#39;#440154FF&#39;, width = 0.15) +
-    theme_minimal() +
-    stat_summary(fun=mean, color=&#39;#440154FF&#39;, geom=&#39;point&#39;, 
-                 shape=18, size=3, show.legend=FALSE) +
-    labs(x=NULL,y=&#39;Correlation&#39;,tag=&#39;M&#39;, title=&#39;Univariate Male&#39;) +
-    theme(legend.position=&#39;none&#39;,
-          axis.text.x = element_text(angle = -45, size=10),
-          text=element_text(size=10),
-          plot.tag = element_text(size=15)) +
-    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
-}</code></pre>
+#Univariate
+uniData &lt;- readRDS(uniM)
+data &lt;- na.omit(ggTidy(uniData))
+gg[[4]] &lt;- ggMake(data, &#39;M&#39;, &#39;Univariate Male&#39;, &#39;Correlation&#39;)</code></pre>
 </div>
 <div id="univariate-models" class="section level3">
 <h3>Univariate Models</h3>
@@ -1077,6 +1058,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/02ba6ed6a6eb26d74d7ad75facb5923ec69b08c0/docs/figure/allHist.Rmd/plot-print-all-1.png" target="_blank">02ba6ed</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-08-29
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/2657f5c6dc6c600a1bde7dbcd1643f43281115ce/docs/figure/allHist.Rmd/plot-print-all-1.png" target="_blank">2657f5c</a>
@@ -1127,6 +1119,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/02ba6ed6a6eb26d74d7ad75facb5923ec69b08c0/docs/figure/allHist.Rmd/plot-print-all-2.png" target="_blank">02ba6ed</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-08-29
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/2657f5c6dc6c600a1bde7dbcd1643f43281115ce/docs/figure/allHist.Rmd/plot-print-all-2.png" target="_blank">2657f5c</a>
@@ -1181,6 +1184,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/02ba6ed6a6eb26d74d7ad75facb5923ec69b08c0/docs/figure/allHist.Rmd/plot-print-univariate-1.png" target="_blank">02ba6ed</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-08-29
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/2657f5c6dc6c600a1bde7dbcd1643f43281115ce/docs/figure/allHist.Rmd/plot-print-univariate-1.png" target="_blank">2657f5c</a>
 </td>
 <td>
@@ -1229,6 +1243,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/02ba6ed6a6eb26d74d7ad75facb5923ec69b08c0/docs/figure/allHist.Rmd/plot-print-univariate-2.png" target="_blank">02ba6ed</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-08-29
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/2657f5c6dc6c600a1bde7dbcd1643f43281115ce/docs/figure/allHist.Rmd/plot-print-univariate-2.png" target="_blank">2657f5c</a>
