@@ -9,6 +9,25 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r 0-paths}
+
+#Correlation Coefficient Paths
+allF <- 'snake/data/sr/40_all/f/cor/all.Rds'
+allM <- 'snake/data/sr/40_all/f/cor/all.Rds'
+
+uniF <- 'snake/data/sr/40_all/f/cor/uni.Rds'
+uniM <- 'snake/data/sr/40_all/f/cor/uni.Rds'
+
+uniM <- allM
+uniF <- allF
+
+#Runtimes
+timeF <- 'snake/data/sr/40_all/f/time/all.Rds'
+timeM <- 'snake/data/sr/40_all/f/time/all.Rds'
+```
+
+
+
 ```{r 0-setup, include=FALSE, warning=FALSE}
 #regular
 if(1){
@@ -31,8 +50,6 @@ if(1){
   #seed
   set.seed(123)
   
-  #loop count and data limit
-  iter <- 50
   #ggplot holder list
   gg <- vector(mode='list', length=12)
   #setwd('/data2/morgante_lab/nklimko/rep/dgrp-starve/')
@@ -41,10 +58,10 @@ if(1){
 
 ```{r functions, warning=FALSE}
 
-game <- 1
-
+#reorders 50 X m table to a (50*m) X 2 table 
+#converts method into factor to retain order
 ggTidy <- function(data){
-  
+
   for(i in 1:dim(data)[2]){
     
     name <- colnames(data)[i]
@@ -57,34 +74,30 @@ ggTidy <- function(data){
     }
   }
   colnames(hold) <- c("method", "cor")
+  hold$method <- factor(hold$method, levels=unique(hold$method))
+  
   
   return(hold)
 }
 
-filt <- function(data, method){
+#wrapper for ggplot call to custom fill sex, title, and y axis label
+ggMake <- function(data, sex, custom.title, custom.Ylab){
   
-  if(method=="sr"){
-    col <- 1
-    return(unlist(data[col, ]))
-  } else if(method=="nested"){
-    hold <- vector(length=50)
-    for(i in 1:length(data)){
-      hold[i] <- data[[i]]$cor 
-    }
-    return(hold)
-  } else if(method=='top3'){
-    col <- 1
-    start <- 1
-    skip <- 16
-    
-    raw <- unlist(data[col, ])
-    trim <- raw[seq(start, length(raw), by=skip)]
-    
-    return(trim)
-  } else{
-    print('Method not recognized.')
-    return(NA)
-  }
+  plothole <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+    geom_violin(color = NA, width = 0.65) +
+    geom_boxplot(color='#440154FF', width = 0.15) +
+    theme_minimal() +
+    stat_summary(fun=mean, color='#440154FF', geom='point', 
+                 shape=18, size=3, show.legend=FALSE) +
+    labs(x=NULL,y=custom.Ylab, tag=sex, title=custom.title) +
+    theme(legend.position='none',
+          axis.text.x = element_text(angle = -45, size=10),
+          text=element_text(size=10),
+          plot.tag = element_text(size=15)) +
+    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
+  
+  return(plothole)
+  
 }
 
 
@@ -141,88 +154,31 @@ For every method tested, fifty replicates were created using an 80% train/20% te
 
 ```{r cor-female, warning=FALSE}
 
-allData <- readRDS("data/all_hist_data_f.Rds")
-print(colMeans(allData))
-data <- ggTidy(allData)
-data$method <- factor(data$method, levels=unique(data$method))
+#All
+allData <- readRDS(allF)
+print(colMeans(na.omit(allData)))
+data <- na.omit(ggTidy(allData))
+gg[[1]] <- ggMake(data, 'F', 'All Female', 'Correlation')
 
-if(game){
-  gg[[1]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
-    geom_violin(color = NA, width = 0.65) +
-    geom_boxplot(color='#440154FF', width = 0.15) +
-    theme_minimal() +
-    stat_summary(fun=mean, color='#440154FF', geom='point', 
-                 shape=18, size=3, show.legend=FALSE) +
-    labs(x=NULL,y='Correlation',tag='F', title='All Female') +
-    theme(legend.position='none',
-          axis.text.x = element_text(angle = -45, size=10),
-          text=element_text(size=10),
-          plot.tag = element_text(size=15)) +
-    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
-}
-
-srData <- readRDS("data/sr_hist_data_f.Rds")
-data <- ggTidy(srData)
-data$method <- factor(data$method, levels=unique(data$method))
-
-if(game){
-  gg[[3]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
-    geom_violin(color = NA, width = 0.65) +
-    geom_boxplot(color='#440154FF', width = 0.15) +
-    theme_minimal() +
-    stat_summary(fun=mean, color='#440154FF', geom='point', 
-                 shape=18, size=3, show.legend=FALSE) +
-    labs(x=NULL,y='Correlation',tag='F', title='Univariate Female') +
-    theme(legend.position='none',
-          axis.text.x = element_text(angle = -45, size=10),
-          text=element_text(size=10),
-          plot.tag = element_text(size=15)) +
-    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
-}
-
+#Univariate
+uniData <- readRDS(uniF)
+data <- na.omit(ggTidy(uniData))
+gg[[3]] <- ggMake(data, 'F', 'Univariate Female', 'Correlation')
 
 ```
 
 ```{r cor-male, warning=FALSE}
 
-allData <- readRDS("data/all_hist_data_m.Rds")
-print(colMeans(allData))
-data <- ggTidy(allData)
-data$method <- factor(data$method, levels=unique(data$method))
+#All
+allData <- readRDS(allM)
+print(colMeans(na.omit(allData)))
+data <- na.omit(ggTidy(allData))
+gg[[2]] <- ggMake(data, 'M', 'All Male', 'Correlation')
 
-if(game){
-  gg[[2]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
-    geom_violin(color = NA, width = 0.65) +
-    geom_boxplot(color='#440154FF', width = 0.15) +
-    theme_minimal() +
-    stat_summary(fun=mean, color='#440154FF', geom='point', 
-                 shape=18, size=3, show.legend=FALSE) +
-    labs(x=NULL,y='Correlation',tag='M', title='All Male') +
-    theme(legend.position='none',
-          axis.text.x = element_text(angle = -45, size=10),
-          text=element_text(size=10),
-          plot.tag = element_text(size=15)) +
-    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
-}
-
-srData <- readRDS("data/sr_hist_data_m.Rds")
-data <- ggTidy(srData)
-data$method <- factor(data$method, levels=unique(data$method))
-
-if(game){
-  gg[[4]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
-    geom_violin(color = NA, width = 0.65) +
-    geom_boxplot(color='#440154FF', width = 0.15) +
-    theme_minimal() +
-    stat_summary(fun=mean, color='#440154FF', geom='point', 
-                 shape=18, size=3, show.legend=FALSE) +
-    labs(x=NULL,y='Correlation',tag='M', title='Univariate Male') +
-    theme(legend.position='none',
-          axis.text.x = element_text(angle = -45, size=10),
-          text=element_text(size=10),
-          plot.tag = element_text(size=15)) +
-    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
-}
+#Univariate
+uniData <- readRDS(uniM)
+data <- na.omit(ggTidy(uniData))
+gg[[4]] <- ggMake(data, 'M', 'Univariate Male', 'Correlation')
 
 ```
 
@@ -232,7 +188,6 @@ if(game){
 ```{r plot-print-all, warning=FALSE, eval=TRUE}
 
 plot_grid(gg[[1]], ncol=1)
-
 plot_grid(gg[[2]], ncol=1)
 
 ```
@@ -245,7 +200,6 @@ Below are the univariate models alone.
 ```{r plot-print-univariate, warning=FALSE, eval=TRUE}
 
 plot_grid(gg[[3]], ncol=1)
-
 plot_grid(gg[[4]], ncol=1)
 
 ```
