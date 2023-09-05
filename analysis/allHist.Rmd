@@ -12,14 +12,13 @@ editor_options:
 ```{r 0-paths}
 
 #Correlation Coefficient Paths
-allF <- 'snake/data/sr/40_all/f/cor/all.Rds'
-allM <- 'snake/data/sr/40_all/m/cor/all.Rds'
+uniF <- readRDS('snake/data/sr/40_all/f/cor/all.Rds')
+uniM <- readRDS('snake/data/sr/40_all/f/cor/all.Rds')
 
-uniF <- 'snake/data/sr/40_all/f/cor/uni.Rds'
-uniM <- 'snake/data/sr/40_all/f/cor/uni.Rds'
+multiF <- readRDS('snake/data/top3/40_all/f/cor/all.Rds')
+multiM <- readRDS('snake/data/top3/40_all/f/cor/all.Rds')
 
-uniM <- allM
-uniF <- allF
+
 
 #Runtimes
 timeF <- 'snake/data/sr/40_all/f/time/all.Rds'
@@ -152,31 +151,27 @@ In order to see if correlated traits could be used to improve model accuracy, we
 For every method tested, fifty replicates were created using an 80% train/20% test data split by DGRP2 line. Each column below is a distribution of the method's correlation coefficient from all replicates.
 
 
-```{r cor-female, warning=FALSE}
+```{r cor-plots, warning=FALSE}
 
-#All
-allData <- readRDS(allF)
+#All Female
+allData <- data.table(uniF, multiF)
 print(colMeans(na.omit(allData)))
 data <- na.omit(ggTidy(allData))
 gg[[1]] <- ggMake(data, 'F', 'All Female', 'Correlation')
 
-#Univariate
-uniData <- readRDS(uniF)
+#Univariate Female
+uniData <- uniF
 data <- na.omit(ggTidy(uniData))
 gg[[3]] <- ggMake(data, 'F', 'Univariate Female', 'Correlation')
 
-```
-
-```{r cor-male, warning=FALSE}
-
-#All
-allData <- readRDS(allM)
+#All Male
+allData <- data.table(uniM, multiM)
 print(colMeans(na.omit(allData)))
 data <- na.omit(ggTidy(allData))
 gg[[2]] <- ggMake(data, 'M', 'All Male', 'Correlation')
 
-#Univariate
-uniData <- readRDS(uniM)
+#Univariate Female
+uniData <- uniM
 data <- na.omit(ggTidy(uniData))
 gg[[4]] <- ggMake(data, 'M', 'Univariate Male', 'Correlation')
 
