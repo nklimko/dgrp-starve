@@ -394,7 +394,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-09-04
+<strong>Last updated:</strong> 2023-09-05
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -509,16 +509,16 @@ relative
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreecd946a5381a72961f3a7278011a277976f5865d9targetblankcd946a5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/cd946a5381a72961f3a7278011a277976f5865d9" target="_blank">cd946a5</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreed41213f2a58512c11a14eae70d9bd4d51e06a702targetblankd41213fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/d41213f2a58512c11a14eae70d9bd4d51e06a702" target="_blank">d41213f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreecd946a5381a72961f3a7278011a277976f5865d9targetblankcd946a5a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreed41213f2a58512c11a14eae70d9bd4d51e06a702targetblankd41213fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/cd946a5381a72961f3a7278011a277976f5865d9" target="_blank">cd946a5</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/d41213f2a58512c11a14eae70d9bd4d51e06a702" target="_blank">d41213f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -694,6 +694,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/d41213f2a58512c11a14eae70d9bd4d51e06a702/analysis/allHist.Rmd" target="_blank">d41213f</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-09-05
+</td>
+<td>
+wflow_publish(“analysis/allHist.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/fc8a5e4be5e219797a5dab246d57de0ad6e2399c/docs/allHist.html" target="_blank">fc8a5e4</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-09-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -974,14 +1008,13 @@ wflow_publish(“analysis/allHist.Rmd”)
 </div>
 </div>
 <pre class="r"><code>#Correlation Coefficient Paths
-allF &lt;- &#39;snake/data/sr/40_all/f/cor/all.Rds&#39;
-allM &lt;- &#39;snake/data/sr/40_all/m/cor/all.Rds&#39;
+uniF &lt;- readRDS(&#39;snake/data/sr/40_all/f/cor/all.Rds&#39;)
+uniM &lt;- readRDS(&#39;snake/data/sr/40_all/f/cor/all.Rds&#39;)
 
-uniF &lt;- &#39;snake/data/sr/40_all/f/cor/uni.Rds&#39;
-uniM &lt;- &#39;snake/data/sr/40_all/f/cor/uni.Rds&#39;
+multiF &lt;- readRDS(&#39;snake/data/top3/40_all/f/cor/all.Rds&#39;)
+multiM &lt;- readRDS(&#39;snake/data/top3/40_all/f/cor/all.Rds&#39;)
 
-uniM &lt;- allM
-uniF &lt;- allF
+
 
 #Runtimes
 timeF &lt;- &#39;snake/data/sr/40_all/f/time/all.Rds&#39;
@@ -1058,32 +1091,37 @@ ggMake &lt;- function(data, sex, custom.title, custom.Ylab){
 <p>Wtih traits that are correlated, we expect that changes in the trait of interest can be described by changes in additional trait values. We sought to incorporate this by taking the top three correlated traits into account in our multivariate models. The traits capillary feeding, free glycerol, and free glucose were selected for both males and females.</p>
 <p>In order to see if correlated traits could be used to improve model accuracy, we performed both univariate and multivariate analyses with models that permitted multiple response prediction.</p>
 <p>For every method tested, fifty replicates were created using an 80% train/20% test data split by DGRP2 line. Each column below is a distribution of the method’s correlation coefficient from all replicates.</p>
-<pre class="r"><code>#All
-allData &lt;- readRDS(allF)
+<pre class="r"><code>#All Female
+allData &lt;- data.table(uniF, multiF)
 print(colMeans(na.omit(allData)))</code></pre>
-<pre><code>        rf     bayesC      gblup        pcr         nn     mr.ash         rr 
-0.35128325 0.30140171 0.30374352 0.04416158 0.05540557 0.18472388 0.28260545 
-     lasso 
-0.39068512 </code></pre>
+<pre><code>         rf      bayesC       gblup         pcr          nn      mr.ash 
+ 0.35128325  0.30140171  0.30374352  0.04416158  0.05540557  0.18472388 
+         rr       lasso         pls   datadrive      mlasso     mr.mash 
+ 0.28260545  0.39068512  0.35476129  0.12601118  0.19058669  0.09047196 
+ multigblup multibayesC 
+ 0.31083037  0.28933714 </code></pre>
 <pre class="r"><code>data &lt;- na.omit(ggTidy(allData))
 gg[[1]] &lt;- ggMake(data, &#39;F&#39;, &#39;All Female&#39;, &#39;Correlation&#39;)
 
-#Univariate
-uniData &lt;- readRDS(uniF)
+#Univariate Female
+uniData &lt;- uniF
 data &lt;- na.omit(ggTidy(uniData))
-gg[[3]] &lt;- ggMake(data, &#39;F&#39;, &#39;Univariate Female&#39;, &#39;Correlation&#39;)</code></pre>
-<pre class="r"><code>#All
-allData &lt;- readRDS(allM)
+gg[[3]] &lt;- ggMake(data, &#39;F&#39;, &#39;Univariate Female&#39;, &#39;Correlation&#39;)
+
+#All Male
+allData &lt;- data.table(uniM, multiM)
 print(colMeans(na.omit(allData)))</code></pre>
-<pre><code>        rf     bayesC      gblup        pcr         nn     mr.ash         rr 
-0.34113775 0.39865743 0.40408408 0.20116534 0.06311542 0.30500103 0.39682867 
-     lasso 
-0.34563610 </code></pre>
+<pre><code>         rf      bayesC       gblup         pcr          nn      mr.ash 
+ 0.35128325  0.30140171  0.30374352  0.04416158  0.05540557  0.18472388 
+         rr       lasso         pls   datadrive      mlasso     mr.mash 
+ 0.28260545  0.39068512  0.35476129  0.12601118  0.19058669  0.09047196 
+ multigblup multibayesC 
+ 0.31083037  0.28933714 </code></pre>
 <pre class="r"><code>data &lt;- na.omit(ggTidy(allData))
 gg[[2]] &lt;- ggMake(data, &#39;M&#39;, &#39;All Male&#39;, &#39;Correlation&#39;)
 
-#Univariate
-uniData &lt;- readRDS(uniM)
+#Univariate Female
+uniData &lt;- uniM
 data &lt;- na.omit(ggTidy(uniData))
 gg[[4]] &lt;- ggMake(data, &#39;M&#39;, &#39;Univariate Male&#39;, &#39;Correlation&#39;)</code></pre>
 </div>
