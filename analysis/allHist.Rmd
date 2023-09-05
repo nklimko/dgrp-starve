@@ -13,7 +13,7 @@ editor_options:
 
 #Correlation Coefficient Paths
 allF <- 'snake/data/sr/40_all/f/cor/all.Rds'
-allM <- 'snake/data/sr/40_all/f/cor/all.Rds'
+allM <- 'snake/data/sr/40_all/m/cor/all.Rds'
 
 uniF <- 'snake/data/sr/40_all/f/cor/uni.Rds'
 uniM <- 'snake/data/sr/40_all/f/cor/uni.Rds'
