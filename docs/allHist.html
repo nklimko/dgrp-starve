@@ -509,16 +509,16 @@ relative
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree1606d88e6c802c82ae21ced332be356c814c5e28targetblank1606d88a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/1606d88e6c802c82ae21ced332be356c814c5e28" target="_blank">1606d88</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree28b05db54e92ee8bc35650b52ee1fd4d414b1f31targetblank28b05dba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/28b05db54e92ee8bc35650b52ee1fd4d414b1f31" target="_blank">28b05db</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree1606d88e6c802c82ae21ced332be356c814c5e28targetblank1606d88a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree28b05db54e92ee8bc35650b52ee1fd4d414b1f31targetblank28b05dba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/1606d88e6c802c82ae21ced332be356c814c5e28" target="_blank">1606d88</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/28b05db54e92ee8bc35650b52ee1fd4d414b1f31" target="_blank">28b05db</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -694,6 +694,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/28b05db54e92ee8bc35650b52ee1fd4d414b1f31/analysis/allHist.Rmd" target="_blank">28b05db</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-09-04
+</td>
+<td>
+wflow_publish(“analysis/allHist.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/feaac67cfc1a09c2360625ce812ec1d4c282848f/docs/allHist.html" target="_blank">feaac67</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-09-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -924,7 +958,7 @@ wflow_publish(“analysis/allHist.Rmd”)
 </div>
 <pre class="r"><code>#Correlation Coefficient Paths
 allF &lt;- &#39;snake/data/sr/40_all/f/cor/all.Rds&#39;
-allM &lt;- &#39;snake/data/sr/40_all/f/cor/all.Rds&#39;
+allM &lt;- &#39;snake/data/sr/40_all/m/cor/all.Rds&#39;
 
 uniF &lt;- &#39;snake/data/sr/40_all/f/cor/uni.Rds&#39;
 uniM &lt;- &#39;snake/data/sr/40_all/f/cor/uni.Rds&#39;
@@ -1010,8 +1044,10 @@ ggMake &lt;- function(data, sex, custom.title, custom.Ylab){
 <pre class="r"><code>#All
 allData &lt;- readRDS(allF)
 print(colMeans(na.omit(allData)))</code></pre>
-<pre><code>        rf     bayesC      gblup        pcr         nn     mr.ash 
-0.35128325 0.30140171 0.30374352 0.04416158 0.05540557 0.18472388 </code></pre>
+<pre><code>        rf     bayesC      gblup        pcr         nn     mr.ash         rr 
+0.35128325 0.30140171 0.30374352 0.04416158 0.05540557 0.18472388 0.28260545 
+     lasso 
+0.39068512 </code></pre>
 <pre class="r"><code>data &lt;- na.omit(ggTidy(allData))
 gg[[1]] &lt;- ggMake(data, &#39;F&#39;, &#39;All Female&#39;, &#39;Correlation&#39;)
 
@@ -1022,8 +1058,10 @@ gg[[3]] &lt;- ggMake(data, &#39;F&#39;, &#39;Univariate Female&#39;, &#39;Correl
 <pre class="r"><code>#All
 allData &lt;- readRDS(allM)
 print(colMeans(na.omit(allData)))</code></pre>
-<pre><code>        rf     bayesC      gblup        pcr         nn     mr.ash 
-0.35128325 0.30140171 0.30374352 0.04416158 0.05540557 0.18472388 </code></pre>
+<pre><code>        rf     bayesC      gblup        pcr         nn     mr.ash         rr 
+0.34113775 0.39865743 0.40408408 0.20116534 0.06311542 0.30500103 0.39682867 
+     lasso 
+0.34563610 </code></pre>
 <pre class="r"><code>data &lt;- na.omit(ggTidy(allData))
 gg[[2]] &lt;- ggMake(data, &#39;M&#39;, &#39;All Male&#39;, &#39;Correlation&#39;)
 
@@ -1058,6 +1096,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/feaac67cfc1a09c2360625ce812ec1d4c282848f/docs/figure/allHist.Rmd/plot-print-all-1.png" target="_blank">feaac67</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-09-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/02ba6ed6a6eb26d74d7ad75facb5923ec69b08c0/docs/figure/allHist.Rmd/plot-print-all-1.png" target="_blank">02ba6ed</a>
@@ -1119,6 +1168,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/feaac67cfc1a09c2360625ce812ec1d4c282848f/docs/figure/allHist.Rmd/plot-print-all-2.png" target="_blank">feaac67</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-09-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/02ba6ed6a6eb26d74d7ad75facb5923ec69b08c0/docs/figure/allHist.Rmd/plot-print-all-2.png" target="_blank">02ba6ed</a>
@@ -1184,6 +1244,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/feaac67cfc1a09c2360625ce812ec1d4c282848f/docs/figure/allHist.Rmd/plot-print-univariate-1.png" target="_blank">feaac67</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-09-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/02ba6ed6a6eb26d74d7ad75facb5923ec69b08c0/docs/figure/allHist.Rmd/plot-print-univariate-1.png" target="_blank">02ba6ed</a>
 </td>
 <td>
@@ -1243,6 +1314,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/feaac67cfc1a09c2360625ce812ec1d4c282848f/docs/figure/allHist.Rmd/plot-print-univariate-2.png" target="_blank">feaac67</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-09-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/02ba6ed6a6eb26d74d7ad75facb5923ec69b08c0/docs/figure/allHist.Rmd/plot-print-univariate-2.png" target="_blank">02ba6ed</a>
