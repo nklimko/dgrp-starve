@@ -1,0 +1,253 @@
+---
+title: "BayesC"
+output:
+  workflowr::wflow_html:
+    toc: true
+    latex_engine: "xelatex"
+    code_folding: "hide"
+editor_options:
+  chunk_output_type: console
+---
+
+```{r 0-setup, include=FALSE, warning=FALSE}
+#regular
+if(1){
+  library(dplyr)
+  library(data.table)
+  library(ggplot2)
+  library(cowplot)
+  library(qqman)
+  library(viridis)
+  library(scales)
+  library(tidyverse)
+  library(ggcorrplot)
+  library(melt)
+  library(reshape2)
+  
+  #options
+  options(bitmapType = "cairo")
+  options(error = function() traceback(3))
+  
+  #seed
+  set.seed(123)
+  
+  #ggplot holder list
+  gg <- vector(mode='list', length=12)
+  #setwd('/data2/morgante_lab/nklimko/rep/dgrp-starve/')
+}
+```
+
+```{r functions, warning=FALSE}
+#reorders 50 X m table to a (50*m) X 2 table 
+#converts method into factor to retain order
+ggTidy <- function(data){
+  
+  for(i in 1:dim(data)[2]){
+    
+    name <- colnames(data)[i]
+    temp <- cbind(rep(name, dim(data)[1]), data[,i, with=FALSE])
+    
+    if(i==1){
+      hold <- temp
+    } else{
+      hold <- rbind(hold, temp, use.names=FALSE)
+    }
+  }
+  colnames(hold) <- c("method", "cor")
+  hold$method <- factor(hold$method, levels=unique(hold$method))
+  
+  
+  return(hold)
+}
+
+#wrapper for ggplot call to custom fill sex, title, and y axis label
+ggMake <- function(data, sex, custom.title, custom.Ylab){
+  
+  plothole <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+    geom_violin(color = NA, width = 0.65) +
+    geom_boxplot(color='#440154FF', width = 0.15) +
+    theme_minimal() +
+    stat_summary(fun=mean, color='#440154FF', geom='point', 
+                 shape=18, size=3, show.legend=FALSE) +
+    labs(x=NULL,y=custom.Ylab, tag=sex, title=custom.title) +
+    theme(legend.position='none',
+          axis.text.x = element_text(angle = -45, size=10),
+          text=element_text(size=10),
+          plot.tag = element_text(size=15)) +
+    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
+  
+  return(plothole)
+  
+}
+
+```
+
+
+```{r f-r2}
+#bayesFinal <- readRDS("snake/data/zigure/bayesFinal.Rds")
+b1 <- readRDS("snake/data/sr/34_opcor/f/bayesC_0.1.Rds")
+b5 <- readRDS("snake/data/sr/34_opcor/f/bayesC_0.5.Rds")
+b9 <- readRDS("snake/data/sr/34_opcor/f/bayesC_0.9.Rds")
+
+bayesOp <- data.table(b1, b5, b9)
+colnames(bayesOp) <- c('0.1', '0.5', '0.9')
+data <- na.omit(ggTidy(bayesOp))
+
+gg[[1]] <- ggMake(data, 'F', 'BayesC with Variable R2', 'Correlation')
+```
+
+```{r m-r2}
+
+b1 <- readRDS("snake/data/sr/34_opcor/m/bayesC_0.1.Rds")
+b5 <- readRDS("snake/data/sr/34_opcor/m/bayesC_0.5.Rds")
+b9 <- readRDS("snake/data/sr/34_opcor/m/bayesC_0.9.Rds")
+
+bayesOp <- data.table(b1, b5, b9)
+colnames(bayesOp) <- c('0.1', '0.5', '0.9')
+data <- na.omit(ggTidy(bayesOp))
+
+gg[[2]] <- ggMake(data, 'M', 'BayesC with Variable R2', 'Correlation')
+
+```
+
+```{r f-trace}
+
+base <- 'data/bglr/f/trace_'
+base <- 'snake/data/bglr/f/trace_'
+ETA <- paste0(base, 'ETA_1_parBayesC.dat')
+varPath <- paste0(base, 'varE.dat')
+fitPath <- paste0(base, 'fitBGLR')
+
+fit <- readRDS(fitPath)
+
+# Residual Variance
+varE<-scan(varPath)
+varFrame <- as.data.frame(varE)
+colnames(varFrame) <- 'varVal'
+
+gg[[3]] <- ggplot(varFrame, aes(x = 1:nrow(varFrame), y = varVal)) +
+  labs(x=NULL,y='varE', tag='F', title='Residual Variance') +
+  geom_point() +
+  geom_hline(yintercept = fit$varE, color='blue') +
+  geom_vline(xintercept =  fit$burnIn/fit$thin, color='blue')
+
+# Samples
+TMP=read.table(ETA, header=T)
+tmpFrame <- as.data.frame(TMP)
+colnames(tmpFrame) <- 'tmp'
+
+gg[[5]] <- ggplot(tmpFrame, aes(x = 1:nrow(tmpFrame), y = tmp)) +
+  labs(x=NULL,y='TMP', tag='F', title='Samples') +
+  geom_point() +
+  geom_hline(yintercept = fit$ETA[[1]]$probIn, color='blue') +
+  geom_vline(xintercept =  fit$burnIn/fit$thin, color='blue')
+
+
+```
+
+```{r m-trace}
+
+base <- 'data/bglr/m/trace_'
+base <- 'snake/data/bglr/m/trace_'
+ETA <- paste0(base, 'ETA_1_parBayesC.dat')
+varPath <- paste0(base, 'varE.dat')
+fitPath <- paste0(base, 'fitBGLR')
+
+fit <- readRDS(fitPath)
+
+# Residual Variance
+varE<-scan(varPath)
+varFrame <- as.data.frame(varE)
+colnames(varFrame) <- 'varVal'
+
+gg[[4]] <- ggplot(varFrame, aes(x = 1:nrow(varFrame), y = varVal)) +
+  labs(x=NULL,y='varE', tag='M', title='Residual Variance') +
+  geom_point() +
+  geom_hline(yintercept = fit$varE, color='blue') +
+  geom_vline(xintercept =  fit$burnIn/fit$thin, color='blue')
+
+# Samples
+TMP=read.table(ETA, header=T)
+tmpFrame <- as.data.frame(TMP)
+colnames(tmpFrame) <- 'tmp'
+
+gg[[6]] <- ggplot(tmpFrame, aes(x = 1:nrow(tmpFrame), y = tmp)) +
+  labs(x=NULL,y='TMP', tag='M', title='Samples') +
+  geom_point() +
+  geom_hline(yintercept = fit$ETA[[1]]$probIn, color='blue') +
+  geom_vline(xintercept =  fit$burnIn/fit$thin, color='blue')
+
+# Residual variance
+#varE<-scan(varPath)
+#plot(varE,type='o',col=2,cex=.5,ylab=expression(var[e]));
+#abline(h=fit$varE,col=4,lwd=2)
+#abline(v=fit$burnIn/fit$thin,col=4)
+
+# Samples
+#TMP=read.table(ETA, header=T)
+#plot(TMP[,1],type='o',col=4, cex=0.5)
+#abline(h=fit$ETA[[1]]$probIn,col=4,lwd=2)
+#abline(v=fit$burnIn/fit$thin,col=4)
+
+```
+
+
+
+
+
+
+### Intro to Method
+
+- BayesC - BayesC uses a spike-and-slab prior to perform effect shrinkage and variable selection. The model is fit using Markov Chain Monte Carlo(MCMC) methods.
+
+
+### Parameters
+
+For BayesC, we defined the following parameters:
+- nIter : number of sampling iterations
+- burnIn : iteration burn number, discarded from front end of sampling
+- thin : factor to scale down nIter and burnIn for memory conservation
+- R2 : proportion of variance explained by the model, 0 < R2 < 1
+
+nIter, burnIn, and thin were set to 130k, 30k, and 50 respectively. These parameters affect Markov Chain Monte Carlo sampling to generate a distribution of effect weights.
+
+R2 was chosen to be 0.9 after testing low, intermediate, and high values for R2. 
+
+### Results
+
+## Proof of R2
+
+```{r plot-r9}
+
+plot_grid(gg[[1]], gg[[2]], ncol=2)
+
+```
+
+
+## Proof of niter/burnin/thin
+
+The following trace plots show the residual variance and samples for a single run:
+
+# Male
+
+```{r plot-varE-f}
+
+plot_grid(gg[[3]], gg[[5]], ncol=2)
+
+```
+
+# Female
+
+```{r plot-varE-m}
+
+plot_grid(gg[[4]], gg[[6]], ncol=2)
+
+```
+
+
+
+
+
+
+
+

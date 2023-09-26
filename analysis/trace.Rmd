@@ -73,10 +73,6 @@ gg[[4]] <- ggplot(fitData, aes(x=iter, y=ves)) +
     plotF <- plotCustomBayes("data/gbayes_100k-f.Rds")
     plotM <- plotCustomBayes("data/gbayes_100k-m.Rds")
 
-
-
-
-
 ```
 
 
@@ -99,4 +95,58 @@ gg[[4]] <- ggplot(fitData, aes(x=iter, y=ves)) +
     
 
 ```
+
+
+### 10k vs 100k
+
+```{r ten-plot}
+
+fit_10f <- readRDS("data/gbayesC-f.Rds")
+fit_100f <- readRDS("data/gbayes_100k-f.Rds")
+
+fit_10m <- readRDS("data/gbayesC-m.Rds")
+fit_100m <- readRDS("data/gbayes_100k-m.Rds")
+
+
+#str(fit_10f)
+
+fitCompF <- data.table(f10=fit_10f$bm, f100=fit_100f$bm)
+
+fitCompM <- data.table(m10=fit_10m$bm, m100=fit_100m$bm)
+
+
+gg <- vector(mode='list', length=2)
+
+gg[[1]] <- ggplot(fitCompF, aes(x=f10, y=f100)) +
+  geom_point(size=0.5) + 
+  labs(x="Post mean of markers 10k", y="Post mean of markers 100k") + 
+  ggtitle("Female 100k vs 10k marker effects")
+
+gg[[2]] <- ggplot(fitCompM, aes(x=m10, y=m100)) +
+  geom_point(size=0.5) + 
+  labs(x="Post mean of markers 10k", y="Post mean of markers 100k") + 
+  ggtitle("Male 100k vs 10k marker effects")
+
+
+plot_grid(gg[[1]], ncol=1)
+          
+plot_grid(gg[[2]], ncol=1)
+
+dim(fitCompF)
+dim(fitCompM)
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
 

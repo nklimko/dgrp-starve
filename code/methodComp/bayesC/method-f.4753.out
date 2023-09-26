@@ -1,0 +1,79 @@
+Type III ANOVA table for covariates: starvation
+                 Df Sum of Sq   RSS    AIC F value  Pr(>F)  
+<none>                        28767 1009.8                  
+factor(wolba)     1    483.10 29250 1011.1  3.1236 0.07881 .
+factor(In_2L_t)   2     60.22 28827 1006.2  0.1947 0.82325  
+factor(In_2R_NS)  2    300.22 29067 1007.8  0.9706 0.38078  
+factor(In_3R_P)   2     85.92 28853 1006.4  0.2778 0.75777  
+factor(In_3R_K)   2    959.43 29726 1012.3  3.1017 0.04731 *
+factor(In_3R_Mo)  2    416.65 29184 1008.6  1.3470 0.26255  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+Estimated effects
+                    Estimate Std. Error    t value     Pr(>|t|)
+(Intercept)       58.7465186   1.553929 37.8051442 3.103130e-89
+factor(wolba)y     3.2450739   1.836101  1.7673724 7.880567e-02
+factor(In_2L_t)1  -0.8506378   3.101713 -0.2742477 7.841986e-01
+factor(In_2L_t)2  -1.8583916   3.151661 -0.5896547 5.561378e-01
+factor(In_2R_NS)1  0.8630221   4.621570  0.1867379 8.520697e-01
+factor(In_2R_NS)2  6.7057598   4.825270  1.3897169 1.662760e-01
+factor(In_3R_P)1  -1.8513843   5.206148 -0.3556150 7.225319e-01
+factor(In_3R_P)2   4.0596759   6.331413  0.6411959 5.221847e-01
+factor(In_3R_K)1   7.4870256   4.084124  1.8332024 6.837092e-02
+factor(In_3R_K)2  15.5762633   8.948152  1.7407240 8.338564e-02
+factor(In_3R_Mo)1 -5.4712766   4.279569 -1.2784644 2.026787e-01
+factor(In_3R_Mo)2 -3.6074434   3.224295 -1.1188318 2.646547e-01
+
+
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"
+[1] "loop"

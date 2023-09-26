@@ -1,0 +1,289 @@
+---
+title: "Linear Regression - Adjusted Phenotypes+"
+output:
+  workflowr::wflow_html:
+    toc: true
+    latex_engine: "xelatex"
+    code_folding: "hide"
+editor_options:
+  chunk_output_type: console
+---
+  
+```{r 0-setup, include=FALSE, warning=FALSE}
+library(dplyr)
+library(data.table)
+library(ggplot2)
+library(cowplot)
+library(qqman)
+set.seed(1)
+
+options(bitmapType = "cairo")
+
+```
+
+# Prep
+
+```{r f-prep, evaluate=FALSE}
+
+#load mgl data and custom function
+load("/data/morgante_lab/data/dgrp/misc/adjustData.RData")
+
+#read in expression data
+f_data <- fread("data/fMeans.txt")
+
+#grab starvation
+y <- f_data[,starvation]
+
+#store starvation with id
+dat <- data.frame(id=f_data[,line], y=y)
+
+#adjust data with given function
+f_adjPheno <- adjustPheno(dat, "starvation")
+
+#overwrite starvation column
+f_adj <- f_data[,starvation:=f_adjPheno]
+
+#save to txt file
+fwrite(f_adj, "data/f_adj.txt")
+
+```
+
+```{r m-prep, evaluate=FALSE}
+
+#load mgl data and custom function
+load("/data/morgante_lab/data/dgrp/misc/adjustData.RData")
+
+#read in expression data
+m_data <- fread("data/mMeans.txt")
+
+#grab starvation
+y <- m_data[,starvation]
+
+#store starvation with id
+dat <- data.frame(id=m_data[,line], y=y)
+
+#adjust data with given function
+m_adjPheno <- adjustPheno(dat, "starvation")
+
+#overwrite starvation column
+m_adj <- m_data[,starvation:=m_adjPheno]
+
+#save to txt file
+fwrite(m_adj, "data/m_adj.txt")
+
+```
+
+
+# Correlations
+
+In order to save time, I used secretariat's computational resources to perform the correlation calculations in parallel. The following two sections of code were submission scripts performed in secretariat.
+
+```{r f-correlations, eval=FALSE}
+
+library(dplyr)
+library(data.table)
+library(doParallel)
+
+registerDoParallel(cores = 12)
+
+# file path for final table
+filePath <- "/data/morgante_lab/nklimko/rep/dgrp-starve/data/fRegress_adj.txt"
+
+# gene expression data from earlier bound to line and starvation
+f_adj <- fread("/data/morgante_lab/nklimko/rep/dgrp-starve/data/f_adj.txt")
+
+start <- 3
+end <- 11340
+#f 11340
+#m 13577
+
+# foreach creates a list with index indicating position in loop
+# function grabs the p-value from correlation of starvation to expression of trait
+pvalList <- foreach(i=start:end) %dopar% {  
+  temp <- summary(lm(f_adj[,c(2,i), with=FALSE], na.action=na.omit))[[4]][8]  
+}
+
+# converts list to vector
+part <- unlist(pvalList, use.names = FALSE)
+
+# binds p-vals to column index 
+id <- start:end
+part <- data.table(id,pvalList)
+
+# write table to file
+fwrite(part, filePath)
+
+```
+
+Both of these are available by clicking the drop down buttons on the right ->
+
+```{r m-correlations, eval=FALSE}
+
+library(dplyr)
+library(data.table)
+library(doParallel)
+
+registerDoParallel(cores = 12)
+
+# file path for final table
+filePath <- "/data/morgante_lab/nklimko/rep/dgrp-starve/data/mRegress_adj.txt"
+
+# gene expression data from earlier bound to line and starvation
+m_adj <- fread("/data/morgante_lab/nklimko/rep/dgrp-starve/data/m_adj.txt")
+
+start <- 3
+end <- 13577
+#f 11340
+#m 13577
+
+# foreach creates a list with index indicating position in loop
+# function grabs the p-value from correlation of starvation to expression of trait
+pvalList <- foreach(i=start:end) %dopar% {  
+  temp <- summary(lm(m_adj[,c(2,i), with=FALSE], na.action=na.omit))[[4]][8]  
+}
+
+# converts list to vector
+part <- unlist(pvalList, use.names = FALSE)
+
+# binds p-vals to column index 
+id <- start:end
+part <- data.table(id,pvalList)
+
+# write table to file
+fwrite(part, filePath)
+
+```
+
+#### QQ and Manthattan Data Prep ->
+
+```{r f-qq}
+
+# Female qq prep
+
+#f 11340
+#m 13577
+
+gg <- vector(mode='list', length=4)
+
+#read in results from compute node
+fReg <- fread("data/fRegress_adj.txt")
+
+#number of data points
+n <- dim(fReg)[1]
+
+#Theoretical Quantiles
+uniform <- 1:n/(n+1)
+
+#sorted p values
+empirical <- sort(fReg[,pvalList])
+
+#-log 10
+logPlot <- -log10(fReg[,pvalList])
+
+#table for qqplot
+qqdata <- data.table(uniform, empirical, logPlot)
+
+qqdataF <- qqdata
+
+# ggplot of data to fpr, qqplot
+if(FALSE){
+gg[[1]] <- ggplot(qqdata, aes(x=uniform, y=empirical)) +
+  geom_point(color="red") +  
+  geom_segment(aes(x=0,y=0,xend=1,yend=1)) + 
+  xlab("Theoretical Quantiles") +
+  ylab("Sorted p-values") +
+  ggtitle("Female Expression QQ Plot")
+}
+
+gg[[2]] <- ggplot(qqdata, aes(x=uniform, y=logPlot)) +
+  geom_point(color="red") + 
+  geom_hline(yintercept= -log10(0.05/n), color="magenta") +
+  xlab("Theoretical Quantiles") +
+  ylab("-log10 p-values") +
+  ggtitle("Female Expression Manhattan Plot")
+
+
+
+## Code for looking at specific genes
+#fMeans <- fread("data/fMeans.txt")
+#genes <- colnames(fMeans)
+#genes <- genes[3:length(genes)]
+#fReg <- fReg[, gene:=genes]
+
+```
+
+```{r m-qq}
+
+# Male qq prep
+
+#read in results from compute node
+mReg <- fread("data/mRegress_adj.txt")
+
+#number of data points
+n <- dim(mReg)[1]
+
+#Theoretical Quantiles
+uniform <- 1:n/(n+1)
+
+#sorted p values
+empirical <- sort(mReg[,pvalList])
+
+#-log 10
+logPlot <- -log10(mReg[,pvalList])
+
+#table for qqplot
+qqdata <- data.table(uniform, empirical, logPlot)
+
+qqdataM <- qqdata
+
+
+# ggplot of data to fpr, qqplot
+if(FALSE){
+gg[[3]] <- ggplot(qqdata, aes(x=uniform, y=empirical)) +
+  geom_point(color="blue") +  
+  geom_segment(aes(x=0,y=0,xend=1,yend=1), linewidth=1) + 
+  xlab("Theoretical Quantiles") +
+  ylab("Sorted p-values") +
+  ggtitle("Male Expression QQ Plot")
+}
+
+
+gg[[4]] <- ggplot(qqdata, aes(x=uniform, y=logPlot)) +
+  geom_point(color="blue") + 
+  geom_hline(yintercept= -log10(0.05/n), color="cyan") +
+  xlab("Theoretical Quantiles") +
+  ylab("-log10 p-values") +
+  ggtitle("Male Expression Manhattan Plot")
+
+## Code for looking at specific genes
+#mMeans <- fread("data/mMeans.txt")
+#genes <- colnames(mMeans)
+#genes <- genes[3:length(genes)]
+#mReg <- mReg[, gene:=genes]
+
+```
+
+# QQ Plots
+
+```{r qq-plot, warning=FALSE}
+
+par(mfrow=c(1,2))
+
+qq(qqdataF[,empirical], main="Female Gene p-values")
+qq(qqdataM[,empirical], main="Male Gene p-values")
+
+```
+
+# Manhattan Plots
+
+```{r manhattan-plot, warning=FALSE}
+
+par(mfrow=c(1,2))
+
+plot_grid(gg[[2]],gg[[4]], ncol=2)
+
+```
+
+Part of the reason both plots deviate from linearity because we did not account for genes that were correlated with each other.
+
+

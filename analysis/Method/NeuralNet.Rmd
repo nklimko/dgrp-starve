@@ -1,0 +1,220 @@
+---
+title: "BayesC"
+output:
+  workflowr::wflow_html:
+    toc: true
+    latex_engine: "xelatex"
+    code_folding: "hide"
+editor_options:
+  chunk_output_type: console
+---
+
+```{r 0-setup, include=FALSE, warning=FALSE}
+#regular
+if(1){
+  library(dplyr)
+  library(data.table)
+  library(ggplot2)
+  library(cowplot)
+  library(qqman)
+  library(viridis)
+  library(scales)
+  library(tidyverse)
+  library(ggcorrplot)
+  library(melt)
+  library(reshape2)
+  
+  #options
+  options(bitmapType = "cairo")
+  options(error = function() traceback(3))
+  
+  #seed
+  set.seed(123)
+
+  #ggplot holder list
+  gg <- vector(mode='list', length=12)
+  #setwd('/data2/morgante_lab/nklimko/rep/dgrp-starve/')
+}
+```
+
+```{r functions, warning=FALSE}
+
+game <- 1
+
+ggTidy <- function(data){
+  
+  for(i in 1:dim(data)[2]){
+    
+    name <- colnames(data)[i]
+    temp <- cbind(rep(name, dim(data)[1]), data[,i, with=FALSE])
+    
+    if(i==1){
+      hold <- temp
+    } else{
+      hold <- rbind(hold, temp, use.names=FALSE)
+    }
+  }
+  colnames(hold) <- c("method", "cor")
+  
+  return(hold)
+}
+
+filt <- function(data, method){
+  
+  if(method=="sr"){
+    col <- 1
+    return(unlist(data[col, ]))
+  } else if(method=="nested"){
+    hold <- vector(length=50)
+    for(i in 1:length(data)){
+      hold[i] <- data[[i]]$cor 
+    }
+    return(hold)
+  } else if(method=='top3'){
+    col <- 1
+    start <- 1
+    skip <- 16
+    
+    raw <- unlist(data[col, ])
+    trim <- raw[seq(start, length(raw), by=skip)]
+    
+    return(trim)
+  } else{
+    print('Method not recognized.')
+    return(NA)
+  }
+}
+
+
+```
+
+
+### Intro to Method
+
+- BayesC - BayesC uses a spike-and-slab prior to perform effect shrinkage and variable selection. The model is fit using Markov Chain Monte Carlo(MCMC) methods.
+
+### Implementation
+
+
+### Results
+
+
+
+
+
+
+```{r cor-female, warning=FALSE}
+
+allData <- readRDS("data/all_hist_data_f.Rds")
+print(colMeans(allData))
+data <- ggTidy(allData)
+data$method <- factor(data$method, levels=unique(data$method))
+
+if(game){
+  gg[[1]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+    geom_violin(color = NA, width = 0.65) +
+    geom_boxplot(color='#440154FF', width = 0.15) +
+    theme_minimal() +
+    stat_summary(fun=mean, color='#440154FF', geom='point', 
+                 shape=18, size=3, show.legend=FALSE) +
+    labs(x=NULL,y='Correlation',tag='F', title='All Female') +
+    theme(legend.position='none',
+          axis.text.x = element_text(angle = -45, size=10),
+          text=element_text(size=10),
+          plot.tag = element_text(size=15)) +
+    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
+}
+
+srData <- readRDS("data/sr_hist_data_f.Rds")
+data <- ggTidy(srData)
+data$method <- factor(data$method, levels=unique(data$method))
+
+if(game){
+  gg[[3]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+    geom_violin(color = NA, width = 0.65) +
+    geom_boxplot(color='#440154FF', width = 0.15) +
+    theme_minimal() +
+    stat_summary(fun=mean, color='#440154FF', geom='point', 
+                 shape=18, size=3, show.legend=FALSE) +
+    labs(x=NULL,y='Correlation',tag='F', title='Univariate Female') +
+    theme(legend.position='none',
+          axis.text.x = element_text(angle = -45, size=10),
+          text=element_text(size=10),
+          plot.tag = element_text(size=15)) +
+    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
+}
+
+
+```
+
+```{r cor-male, warning=FALSE}
+
+allData <- readRDS("data/all_hist_data_m.Rds")
+print(colMeans(allData))
+data <- ggTidy(allData)
+data$method <- factor(data$method, levels=unique(data$method))
+
+if(game){
+  gg[[2]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+    geom_violin(color = NA, width = 0.65) +
+    geom_boxplot(color='#440154FF', width = 0.15) +
+    theme_minimal() +
+    stat_summary(fun=mean, color='#440154FF', geom='point', 
+                 shape=18, size=3, show.legend=FALSE) +
+    labs(x=NULL,y='Correlation',tag='M', title='All Male') +
+    theme(legend.position='none',
+          axis.text.x = element_text(angle = -45, size=10),
+          text=element_text(size=10),
+          plot.tag = element_text(size=15)) +
+    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
+}
+
+srData <- readRDS("data/sr_hist_data_m.Rds")
+data <- ggTidy(srData)
+data$method <- factor(data$method, levels=unique(data$method))
+
+if(game){
+  gg[[4]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+    geom_violin(color = NA, width = 0.65) +
+    geom_boxplot(color='#440154FF', width = 0.15) +
+    theme_minimal() +
+    stat_summary(fun=mean, color='#440154FF', geom='point', 
+                 shape=18, size=3, show.legend=FALSE) +
+    labs(x=NULL,y='Correlation',tag='M', title='Univariate Male') +
+    theme(legend.position='none',
+          axis.text.x = element_text(angle = -45, size=10),
+          text=element_text(size=10),
+          plot.tag = element_text(size=15)) +
+    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
+}
+
+```
+
+
+### Univariate Models
+
+```{r plot-print-all, warning=FALSE, eval=TRUE}
+
+plot_grid(gg[[1]], ncol=1)
+
+plot_grid(gg[[2]], ncol=1)
+
+```
+
+Comparison shows that multivariate methods do not significantly improve the model accuracy. As such, we will focus on univariate methods moving forward.
+
+Below are the univariate models alone.
+
+
+```{r plot-print-univariate, warning=FALSE, eval=TRUE}
+
+plot_grid(gg[[3]], ncol=1)
+
+plot_grid(gg[[4]], ncol=1)
+
+```
+
+
+
+
+

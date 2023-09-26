@@ -1,0 +1,19 @@
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:data.table’:
+
+    between, first, last
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+Error in setnames(ans, col.names) : 
+  Can't assign 3 names to a 5 column data.table
+Calls: fread -> setnames
+Execution halted

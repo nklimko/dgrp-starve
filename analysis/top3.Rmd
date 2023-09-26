@@ -38,6 +38,58 @@ if(1){
 }
 ```
 
+```{r functions, warning=FALSE}
+
+ggTidy <- function(data){
+  
+  for(i in 1:dim(data)[2]){
+    
+    name <- colnames(data)[i]
+    temp <- cbind(rep(name, dim(data)[1]), data[,i, with=FALSE])
+    
+    if(i==1){
+      hold <- temp
+    } else{
+      hold <- rbind(hold, temp, use.names=FALSE)
+    }
+  }
+  colnames(hold) <- c("method", "cor")
+  
+  return(hold)
+}
+
+filt <- function(data, method){
+  
+  if(method=="sr"){
+    col <- 1
+    return(unlist(data[col, ]))
+  } else if(method=="nested"){
+    hold <- vector(length=50)
+    for(i in 1:length(data)){
+      hold[i] <- data[[i]]$cor 
+    }
+    return(hold)
+  } else if(method=='top3'){
+    col <- 1
+    start <- 1
+    skip <- 16
+    
+    raw <- unlist(data[col, ])
+    trim <- raw[seq(start, length(raw), by=skip)]
+    
+    return(trim)
+  } else{
+    print('Method not recognized.')
+    return(NA)
+  }
+}
+
+
+```
+
+
+
+
 The following methods are currently implemented:
 
 - Mr. Mash
@@ -48,15 +100,82 @@ The following methods are currently implemented:
 
 
 
+
+
 ```{r cor-female, warning=FALSE}
 
-mash <- readRDS('snake/data/30_summary/mr.mash_f_top3.Rds')
-bayesC <- readRDS('snake/data/30_summary/multibayesC_f_top3.Rds')
-blup <- readRDS('snake/data/30_summary/multigblup_f_top3.Rds')
-lasso <- readRDS('snake/data/30_summary/mlasso_f_top3.Rds')
-datamash <- readRDS('snake/data/30_summary/datamash_f_top3.Rds')
+#READ IN
+raw_sr_rf <- readRDS("snake/data/sr/30_summary/rf_f.Rds")
+raw_sr_pcr <- readRDS("snake/data/sr/30_summary/pcr_f.Rds")
+raw_sr_varbvs <- readRDS("snake/data/20_cor/varbvs_f_starvation.Rds")
 
-allData <- list(mash, bayesC, blup, lasso, datamash)
+raw_sr_bayesC <- readRDS("snake/data/sr/30_summary/bayesC_0.9_f.Rds")
+raw_top3_bayesC <- readRDS('snake/data/top3/30_summary/multibayesC_f_top3.Rds')
+
+raw_sr_gblup <- readRDS("snake/data/20_cor/gblup_f_starvation.Rds")
+raw_top3_gblup <- readRDS('snake/data/top3/30_summary/multigblup_f_top3.Rds')
+
+raw_sr_rr <- readRDS("snake/data/20_cor/rr_f_starvation.Rds")
+raw_sr_lasso <- readRDS("snake/data/20_cor/lasso_f_starvation.Rds")
+raw_top3_lasso <- readRDS("snake/data/top3/30_summary/mlasso_f.Rds")
+
+raw_top3_mash <- readRDS('snake/data/top3/30_summary/mr.mash_f_top3.Rds')
+raw_top3_datamash <- readRDS('snake/data/top3/30_summary/datadrive_f.Rds')
+
+
+#FILTER
+sr_rf <- filt(raw_sr_rf, "sr")
+sr_pcr <- filt(raw_sr_pcr, "sr")
+sr_varbvs <- filt(raw_sr_varbvs, "nested")
+
+sr_bayesC <- filt(raw_sr_bayesC, "sr")
+top3_bayesC <- filt(raw_top3_bayesC, "top3")
+
+sr_gblup <- filt(raw_sr_gblup, "nested")
+top3_gblup <- filt(raw_top3_gblup, "top3")
+  
+sr_rr <- filt(raw_sr_rr, "nested")
+sr_lasso <- filt(raw_sr_lasso, "nested")
+top3_lasso <- filt(raw_top3_lasso, "top3")
+
+top3_mash <- filt(raw_top3_mash, "top3")
+top3_datamash <- filt(raw_top3_datamash, "top3")
+
+
+
+
+
+allData <- data.table(sr_rf, sr_pcr, sr_varbvs, sr_bayesC, top3_bayesC, sr_gblup, top3_gblup, sr_rr, sr_lasso, top3_lasso, top3_mash, top3_datamash)
+
+data <- ggTidy(allData)
+
+
+#main----
+superFunk <- function(wd, method, outPath){
+  #set spawn and grab all method files
+  setwd(wd)
+  dataList <- list.files(pattern=method)
+  
+  #mean cor and time lapply for all files
+  #param splitter
+  cor <- lapply(dataList, meanCor)
+  time <- lapply(dataList, meanTime)
+  param <- lapply(dataList, allBind)
+  
+  #convert list to vector
+  cor <- as.numeric(unlist(cor))
+  time <- as.numeric(unlist(time))
+  
+  #list to data table
+  param <- rbindlist(param)
+  
+  #merge all
+  final <- cbind(param, cor, time)
+  
+  #save output
+  saveRDS(final, outPath)
+  
+}
 
 #correlations----
 hold <- 0
@@ -154,7 +273,7 @@ gg[[3]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
   theme_minimal() +
   stat_summary(fun=mean, color='#440154FF', geom='point', 
                shape=18, size=3, show.legend=FALSE) +
-  labs(x=NULL,y='Correlation',tag='F') +
+  labs(x=NULL,y='Correlation',tag='M') +
   theme(legend.position='none',
         axis.text.x = element_text(angle = -45, size=10),
         text=element_text(size=10),
@@ -169,7 +288,7 @@ gg[[4]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
   theme_minimal() +
   stat_summary(fun=mean, color='#440154FF', geom='point', 
                shape=18, size=3, show.legend=FALSE) +
-  labs(x=NULL,y='Runtime',tag='F') +
+  labs(x=NULL,y='Runtime',tag='M') +
   theme(legend.position='none',
         axis.text.x = element_text(angle = -45, size=10),
         text=element_text(size=10),

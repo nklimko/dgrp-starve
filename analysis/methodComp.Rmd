@@ -29,7 +29,7 @@ options(bitmapType = "cairo")
 options(error = function() traceback(3))
 
 #seed
-set.seed(1)
+set.seed(123)
 
 #include r2 for bglr
 #add id bank to snakemake data folder
@@ -285,12 +285,17 @@ gg[[2]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
 
 ```{r snakeData}
 ### FEMALE
+iter <- 50
+
 bglr <- readRDS("snake/data/2_cor/bglr_f_starvation.Rds")
-glmnetLasso <- readRDS("snake/data/2_cor/glmnetLasso_f_starvation.Rds")
+lasso <- readRDS("snake/data/2_cor/lasso_f_starvation.Rds")
+rr <- readRDS("snake/data/2_cor/rr_f_starvation.Rds")
 varbvs <- readRDS("snake/data/2_cor/varbvs_f_starvation.Rds")
 
-temp <- c(varbvs, glmnetLasso, bglr)
-label <- c(rep("varbvs", iter), rep("glmnetLasso", iter), rep("bglr", iter)) 
+temp <- c(varbvs, lasso, rr, bglr)
+
+label <- c(rep("varbvs", iter), rep("lasso", iter), rep("rr", iter), rep("bglr", iter)) 
+
 data <- data.table(cor=as.numeric(temp), method=label)
 
 gg[[3]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
@@ -302,11 +307,12 @@ gg[[3]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +
 
 ### MALE
 bglr <- readRDS("snake/data/2_cor/bglr_m_starvation.Rds")
-glmnetLasso <- readRDS("snake/data/2_cor/glmnetLasso_m_starvation.Rds")
+lasso <- readRDS("snake/data/2_cor/lasso_m_starvation.Rds")
+rr <- readRDS("snake/data/2_cor/rr_m_starvation.Rds")
 varbvs <- readRDS("snake/data/2_cor/varbvs_m_starvation.Rds")
-
-temp <- c(varbvs, glmnetLasso, bglr)
-label <- c(rep("varbvs", iter), rep("glmnetLasso", iter), rep("bglr", iter)) 
+path
+temp <- c(varbvs, lasso, rr, bglr)
+label <- c(rep("varbvs", iter), rep("lasso", iter), rep("rr", iter), rep("bglr", iter)) 
 data <- data.table(cor=as.numeric(temp), method=label)
 
 gg[[4]] <- ggplot(data, aes(x=method, y=cor, fill=method)) +

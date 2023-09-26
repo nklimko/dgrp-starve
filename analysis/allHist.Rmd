@@ -51,7 +51,7 @@ if(1){
   
   #ggplot holder list
   gg <- vector(mode='list', length=12)
-  #setwd('/data2/morgante_lab/nklimko/rep/dgrp-starve/')
+  #setwd('data2/morgante_lab/nklimko/rep/dgrp-starve/')
 }
 ```
 

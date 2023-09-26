@@ -44,7 +44,7 @@ The overarching goal of this process is to predict the phenotype for starvation 
 iter <- 50
 
 #ggplot holder list
-gg <- vector(mode='list', length=6)
+gg <- vector(mode='list', length=12)
 
 ```
 
@@ -211,8 +211,6 @@ corLoop <- foreach(i=1:iter) %dopar% {
 
 
 
-
-
 ```{r snakeData, warning=FALSE}
 ### FEMALE
 iter <- 50
@@ -225,7 +223,7 @@ gblup <- readRDS("snake/data/2_cor/gblup_f_starvation.Rds")
 
 temp <- c(varbvs, lasso, rr, bayesC, gblup)
 
-label <- c(rep("varbvs", iter), rep("lasso", iter), rep("rr", iter), rep("bayesC", iter), rep("gblup", iter)) 
+label <- c(rep("varbvs", iter), rep("lasso", iter), rep("rr", iter), rep("bayesC", iter), rep("gblup", iter))
 
 data <- data.table(cor=as.numeric(temp), method=label)
 
