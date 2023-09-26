@@ -10,7 +10,9 @@ analysis/*html
 analysis/*_cache
 analysis/site_libs
 data/*
-docs/figure/*
+
+*.err
+*.out
 
 notes
 zz_lost
@@ -25,6 +27,7 @@ code/methodComp/bglr/err-bglr-f.5381.err
 code/methodComp/bglr/err-bglr-m.5382.err
 code/methodComp/f/meth-f.4682.err
 code/methodComp/m/meth-m.4685.err
-
+code/methodComp/m/meth-m.4676.err
+code/methodComp/method-f.4751.out
 
 
