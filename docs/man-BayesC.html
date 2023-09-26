@@ -509,16 +509,16 @@ relative
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreeb117d87f23ed9eb7b11e7313b2e5e157b5c18468targetblankb117d87a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/b117d87f23ed9eb7b11e7313b2e5e157b5c18468" target="_blank">b117d87</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree009f958359c8bbb1bf6f7da34af5f4d5f05bdbadtargetblank009f958a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/009f958359c8bbb1bf6f7da34af5f4d5f05bdbad" target="_blank">009f958</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreeb117d87f23ed9eb7b11e7313b2e5e157b5c18468targetblankb117d87a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree009f958359c8bbb1bf6f7da34af5f4d5f05bdbadtargetblank009f958a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/b117d87f23ed9eb7b11e7313b2e5e157b5c18468" target="_blank">b117d87</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/009f958359c8bbb1bf6f7da34af5f4d5f05bdbad" target="_blank">009f958</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -528,7 +528,9 @@ Ignored files:
     Ignored:    .snakemake/
     Ignored:    code/methodComp/bglr/err-bglr-f.5381.err
     Ignored:    code/methodComp/bglr/err-bglr-m.5382.err
+    Ignored:    code/methodComp/m/meth-m.4676.err
     Ignored:    code/methodComp/m/meth-m.4685.err
+    Ignored:    code/methodComp/method-f.4751.out
     Ignored:    data/fb/
     Ignored:    data/snake/
     Ignored:    snake/.snakemake/
@@ -543,13 +545,7 @@ Ignored files:
     Ignored:    snake/zz_lost/
     Ignored:    zz_lost/
 
-Untracked files:
-    Untracked:  code/methodComp/m/meth-m.4676.err
-    Untracked:  code/methodComp/method-f.4751.out
-
 Unstaged changes:
-    Modified:   .Rprofile
-    Modified:   .gitattributes
     Modified:   analysis/Method/BayesC.Rmd
 
 </code></pre>
@@ -589,6 +585,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/c189088c76878d86efb07f5c0b8945961a6cbb7a/docs/man-BayesC.html" target="_blank">c189088</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-09-26
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -813,6 +826,43 @@ gg[[6]] &lt;- ggplot(tmpFrame, aes(x = 1:nrow(tmpFrame), y = tmp)) +
 <h2>Proof of R2</h2>
 <pre class="r"><code>plot_grid(gg[[1]], gg[[2]], ncol=2)</code></pre>
 <p><img src="figure/man-BayesC.Rmd/plot-r9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-r9-1">
+Past versions of plot-r9-1.png
+</button>
+</p>
+<div id="fig-plot-r9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/009f958359c8bbb1bf6f7da34af5f4d5f05bdbad/docs/figure/man-BayesC.Rmd/plot-r9-1.png" target="_blank">009f958</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-09-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="proof-of-niterburninthin" class="section level2">
 <h2>Proof of niter/burnin/thin</h2>
@@ -822,11 +872,85 @@ gg[[6]] &lt;- ggplot(tmpFrame, aes(x = 1:nrow(tmpFrame), y = tmp)) +
 <h1>Male</h1>
 <pre class="r"><code>plot_grid(gg[[3]], gg[[5]], ncol=2)</code></pre>
 <p><img src="figure/man-BayesC.Rmd/plot-varE-f-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-varE-f-1">
+Past versions of plot-varE-f-1.png
+</button>
+</p>
+<div id="fig-plot-varE-f-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/009f958359c8bbb1bf6f7da34af5f4d5f05bdbad/docs/figure/man-BayesC.Rmd/plot-varE-f-1.png" target="_blank">009f958</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-09-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="female" class="section level1">
 <h1>Female</h1>
 <pre class="r"><code>plot_grid(gg[[4]], gg[[6]], ncol=2)</code></pre>
 <p><img src="figure/man-BayesC.Rmd/plot-varE-m-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-varE-m-1">
+Past versions of plot-varE-m-1.png
+</button>
+</p>
+<div id="fig-plot-varE-m-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/009f958359c8bbb1bf6f7da34af5f4d5f05bdbad/docs/figure/man-BayesC.Rmd/plot-varE-m-1.png" target="_blank">009f958</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-09-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
