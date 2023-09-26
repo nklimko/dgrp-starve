@@ -306,7 +306,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-08-29
+<strong>Last updated:</strong> 2023-09-26
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -316,7 +316,7 @@ $(document).ready(function () {
 </p>
 <p>
 This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.1). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -337,151 +337,48 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree0d5332e2186e59b15769629d97ab1b25d9541c38targetblank0d5332ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/0d5332e2186e59b15769629d97ab1b25d9541c38" target="_blank">0d5332e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree04cbdbbe613eb813ecd006e300e9d53efe979d40targetblank04cbdbba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/04cbdbbe613eb813ecd006e300e9d53efe979d40" target="_blank">04cbdbb</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree0d5332e2186e59b15769629d97ab1b25d9541c38targetblank0d5332ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree04cbdbbe613eb813ecd006e300e9d53efe979d40targetblank04cbdbba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/0d5332e2186e59b15769629d97ab1b25d9541c38" target="_blank">0d5332e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/04cbdbbe613eb813ecd006e300e9d53efe979d40" target="_blank">04cbdbb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    code/snake/
+    Ignored:    .snakemake/
+    Ignored:    code/methodComp/bglr/err-bglr-f.5381.err
+    Ignored:    code/methodComp/bglr/err-bglr-m.5382.err
+    Ignored:    code/methodComp/m/meth-m.4685.err
+    Ignored:    data/fb/
     Ignored:    data/snake/
-    Ignored:    junk/
-    Ignored:    notes/
+    Ignored:    snake/.snakemake/
+    Ignored:    snake/ReadMe.md
+    Ignored:    snake/Snakefile.yaml
+    Ignored:    snake/code/misc/
+    Ignored:    snake/data/
+    Ignored:    snake/dgrp.yaml
+    Ignored:    snake/logs/
+    Ignored:    snake/slurm/
+    Ignored:    snake/snakemake_submitter.sbatch
+    Ignored:    snake/zz_lost/
+    Ignored:    zz_lost/
 
 Untracked files:
-    Untracked:  .snakemake/
-    Untracked:  Rplot.pdf
-    Untracked:  analysis/linearReg.Rmd
-    Untracked:  bglr-f.R
-    Untracked:  cnn.R
-    Untracked:  code/PCA/
-    Untracked:  code/data-prep/
-    Untracked:  code/fabio/
-    Untracked:  code/gBayesC.R
-    Untracked:  code/id_bank_creation.R
-    Untracked:  code/intro-starve/
-    Untracked:  code/methodComp/
-    Untracked:  code/regress/
-    Untracked:  colorCode
-    Untracked:  data/all_hist_data_f.Rds
-    Untracked:  data/all_hist_data_m.Rds
-    Untracked:  data/bayesF.rds
-    Untracked:  data/bayesM.rds
-    Untracked:  data/bglr-f-130k.rds
-    Untracked:  data/bglr-f.rds
-    Untracked:  data/bglr-m-130k.rds
-    Untracked:  data/bglr-m.rds
-    Untracked:  data/corLoop-f-minus.rds
-    Untracked:  data/corLoop-f.rds
-    Untracked:  data/corLoop-m-Minus.rds
-    Untracked:  data/corLoop-m-minus.rds
-    Untracked:  data/corLoop-m.rds
-    Untracked:  data/fRegress.txt
-    Untracked:  data/fRegress_adj.txt
-    Untracked:  data/fm.burglar
-    Untracked:  data/gbayesC-f.Rds
-    Untracked:  data/gbayesC-m.Rds
-    Untracked:  data/gbayesC.Rds
-    Untracked:  data/gbayes_100k-f.Rds
-    Untracked:  data/gbayes_100k-m.Rds
-    Untracked:  data/goGroups.txt
-    Untracked:  data/hist_data_f.Rds
-    Untracked:  data/hist_data_m.Rds
-    Untracked:  data/id_bank
-    Untracked:  data/id_bank.Rds
-    Untracked:  data/mPart.txt
-    Untracked:  data/mRegress.txt
-    Untracked:  data/mRegress_adj.txt
-    Untracked:  data/multiReg.rData
-    Untracked:  data/pheno_f
-    Untracked:  data/pheno_m
-    Untracked:  data/sr_hist_data_f.Rds
-    Untracked:  data/sr_hist_data_m.Rds
-    Untracked:  data/starve-f.txt
-    Untracked:  data/starve-m.txt
-    Untracked:  data/xp-f.txt
-    Untracked:  data/xp-m.txt
-    Untracked:  data/xp_f
-    Untracked:  data/xp_m
-    Untracked:  data/y_save.txt
-    Untracked:  f-cor.png
-    Untracked:  figure/
-    Untracked:  m-cor.png
-    Untracked:  posterPlots.R
-    Untracked:  runtime.png
-    Untracked:  snake/
-    Untracked:  temp.R
+    Untracked:  code/methodComp/m/meth-m.4676.err
+    Untracked:  code/methodComp/method-f.4751.out
 
 Unstaged changes:
     Modified:   .Rprofile
     Modified:   .gitattributes
-    Modified:   .gitignore
-    Modified:   README.md
-    Modified:   _workflowr.yml
-    Modified:   analysis/_site.yml
-    Modified:   analysis/about.Rmd
-    Deleted:    analysis/allHist2.Rmd
-    Deleted:    analysis/gremlo.R
-    Modified:   analysis/license.Rmd
-    Modified:   analysis/linReg.Rmd
-    Deleted:    analysis/methodComp-f.Rmd
-    Deleted:    analysis/methodComp-m.Rmd
-    Modified:   analysis/methodComp.Rmd
-    Modified:   analysis/methodPred.Rmd
-    Modified:   analysis/multiComp.Rmd
-    Modified:   analysis/multiReg.Rmd
-    Modified:   analysis/pca.Rmd
-    Modified:   analysis/predict.Rmd
-    Modified:   analysis/recap.Rmd
-    Modified:   analysis/rewrite.Rmd
-    Modified:   analysis/starve.Rmd
-    Deleted:    analysis/stepwise-f.Rmd
-    Deleted:    analysis/stepwise-m.Rmd
-    Deleted:    analysis/testing.R
-    Deleted:    analysis/tips.Rmd
-    Modified:   analysis/top3.Rmd
-    Modified:   analysis/trace.Rmd
-    Modified:   code/README.md
-    Deleted:    code/baseScript-lineComp.R
-    Deleted:    code/combineSNP.R
-    Deleted:    code/four-comp.76979.err
-    Deleted:    code/four-comp.76979.out
-    Deleted:    code/four-comp.sbatch
-    Deleted:    code/fourLinePrep.R
-    Deleted:    code/line_avgMinus.R
-    Deleted:    code/line_avgPlus.R
-    Deleted:    code/line_difMinus.R
-    Deleted:    code/line_difPlus.R
-    Deleted:    code/snpGene.R
-    Deleted:    code/starveDataPrep.R
-    Modified:   data/README.md
-    Modified:   data/avgMinus-result.txt
-    Modified:   data/avgMinus.txt
-    Modified:   data/avgPlus-result.txt
-    Modified:   data/avgPlus.txt
-    Modified:   data/difMinus-result.txt
-    Modified:   data/difMinus.txt
-    Modified:   data/difPlus-result.txt
-    Modified:   data/difPlus.txt
-    Modified:   data/geneHits.txt
-    Modified:   data/snpList.txt
-    Modified:   data/starve.csv
-    Modified:   dgrp-starve.Rproj
-    Modified:   output/README.md
-    Modified:   output/avgMinus-result.txt
-    Modified:   output/avgPlus-result.txt
-    Modified:   output/difMinus-result.txt
-    Modified:   output/difPlus-result.txt
+    Modified:   analysis/Method/BayesC.Rmd
 
 </code></pre>
 <p>
@@ -520,6 +417,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/04cbdbbe613eb813ecd006e300e9d53efe979d40/analysis/index.Rmd" target="_blank">04cbdbb</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-09-26
+</td>
+<td>
+wflow_publish(“analysis/index.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/95454fefc485e1a694254f855cbd38c2f621a834/docs/index.html" target="_blank">95454fe</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-08-29
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1158,6 +1089,12 @@ all files for me
 </div>
 <div id="overview" class="section level3">
 <h3><a href="allHist.html">Overview</a></h3>
+</div>
+<div id="methods" class="section level3">
+<h3>Methods</h3>
+<ul>
+<li><a href="man-BayesC.html">BayesC</a></li>
+</ul>
 </div>
 <div id="optimization" class="section level3">
 <h3><a href="lasso-OP.html">Optimization</a></h3>
