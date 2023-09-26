@@ -11,6 +11,10 @@ editor_options:
 ### [Overview](allHist.html)
 
 
+### Methods
+
+- [BayesC](man-BayesC.html)
+
 ### [Optimization](lasso-OP.html)
 
 
