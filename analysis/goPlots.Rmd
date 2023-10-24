@@ -1,0 +1,139 @@
+---
+title: "BayesC + Gene Ontology"
+output:
+  workflowr::wflow_html:
+    toc: true
+    latex_engine: "xelatex"
+    code_folding: "hide"
+editor_options:
+  chunk_output_type: console
+---
+
+```{r 0-setup}
+
+library(dplyr)
+library(data.table)
+library(ggplot2)
+library(cowplot)
+library(qqman)
+library(viridis)
+library(scales)
+library(tidyverse)
+library(ggcorrplot)
+library(melt)
+library(reshape2)
+
+#options
+options(bitmapType = "cairo")
+options(error = function() traceback(3))
+
+#seed
+set.seed(123)
+
+#ggplot holder list
+gg <- vector(mode='list', length=12)
+
+```
+
+The following data is from 5-fold cross validation of Bay
+
+```{r 0-functions}
+#plotmaker funciton----
+ggMake <- function(data, sex, custom.title, custom.Xlab, custom.Ylab){
+  plothole <- ggplot(data,aes(y=cor,x=term,color=rgo))+
+    geom_point()+scale_color_viridis(begin = 0.1, end=0.9,discrete=TRUE) +
+    theme_minimal() +
+    labs(x=custom.Xlab,y=custom.Ylab, tag=sex, title=custom.title) +
+    theme(axis.text.x = element_text(angle = -45, size=10),
+          text=element_text(size=10),
+          plot.tag = element_text(size=15))
+  return(plothole)
+}
+
+rmaxMake <- function(data, sex, custom.title, custom.Xlab, custom.Ylab){
+  plothole <- ggplot(data,aes(y=cor,x=term,color=rmax))+
+    geom_point()+scale_color_viridis(begin = 0.1, end=0.9,discrete=TRUE) +
+    theme_minimal() +
+    labs(x=custom.Xlab,y=custom.Ylab, tag=sex, title=custom.title) +
+    theme(axis.text.x = element_text(angle = -45, size=10),
+          text=element_text(size=10),
+          plot.tag = element_text(size=15))
+  return(plothole)
+}
+
+```
+
+```{r dataTidy, warning=FALSE, eval=TRUE}
+
+temp <- na.omit(readRDS('snake/data/sr/40_all/go/sexf/allData.Rds'))
+
+facs <- matrix(as.factor(unlist(temp[,1:4])), ncol=4)
+cors <- as.numeric(unlist(temp[,5]))
+
+data <- data.table(facs, cors)
+colnames(data) <- c('sex', 'rmax', 'rgo', 'term', 'cor')
+
+dataM <- data[data$sex=='m',]
+dataF <- data[data$sex=='f',]
+
+gg[[1]] <- ggMake(dataF, 'F', 'Effect of Max R2 on Accuracy by GO Term', 'GO Term', 'Prediction Accuracy')
+gg[[2]] <- ggMake(dataM, 'M', 'Effect of Max R2 on Accuracy by GO Term', 'GO Term', 'Prediction Accuracy')
+gg[[3]] <- ggMake(data, 'A', 'Effect of Max R2 on Accuracy by GO Term', 'GO Term', 'Prediction Accuracy')
+gg[[4]] <- rmaxMake(data, 'A', 'Effect of Max R2 on Accuracy by GO Term', 'GO Term', 'Prediction Accuracy')
+
+#The data we have here is a few things. The idea behind this work was to analyze the effects of GO terms asa Bayesian prior. By using two separate priors, we aset the first one to efffects of the go terms and the second to the ffects of all non go terms. 
+
+#gg[[4]] <- rmaxMake(data, 'A', 'Effect of Max R2 on Accuracy by GO Term', 'GO Term', 'Prediction Accuracy')
+
+#colnames(hold) <- c("method", "cor")
+#hold$method <- factor(hold$method, levels=unique(hold$method))
+
+#for when the first works for sure, copy paste to compare and see if it mattered at all
+#ggplot(data,aes(y=cor,x=term,color=rgo))+
+
+```
+
+For both females and males, a random selection of Gene Ontology(GO) terms were used to subset transcriptomic data from fruit flies.
+
+The model used to calculate prediction accuracy uses two BayesC priors using the GO-associated genes as a discriminator. 
+
+By changing the proportion of variance explained by the GO-associated prior(R2_GO), we sought to find gene clusters that would improve overall prediction accuracy. 
+
+The following data points are all point means of 25 replicates at 5-fold cross-validation.
+
+```{r plot-print-all, warning=FALSE, eval=TRUE}
+
+plot_grid(gg[[1]],gg[[2]], ncol=2)
+
+```
+
+Stacking these data sets onto the same grid shows the trends more intuitively. With this view, we can also see that some effects are male/female specific as the correlation increases/decreases with higher R2_GO
+
+- 96/1667 shows universal downgrade
+- 1156/2044 show male only
+- 821/2870 show inverse
+
+```{r allData, warning=FALSE}
+
+plot_grid(gg[[3]], ncol=1)
+
+```
+
+Additionally, grading the data based on RMAX selected shows that prediction accuracy generally increases with higher R2 values as expected.
+
+```{r rmax, warning=FALSE}
+
+plot_grid(gg[[4]], ncol=1)
+
+```
+
+
+
+
+
+
+
+
+
+
+
