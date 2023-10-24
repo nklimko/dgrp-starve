@@ -11,6 +11,9 @@ editor_options:
 ### [Overview](allHist.html)
 
 
+### [BayesC + Gene Ontology](goPlots.html)
+
+
 ### Methods
 
 - [BayesC](man-BayesC.html)
