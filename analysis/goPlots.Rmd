@@ -37,9 +37,23 @@ gg <- vector(mode='list', length=12)
 
 ```{r 0-functions}
 #plotmaker funciton----
-ggMake <- function(data, sex, custom.title, custom.Xlab, custom.Ylab){
+ggMake <- function(data, sex, yint, custom.title, custom.Xlab, custom.Ylab){
   plothole <- ggplot(data,aes(y=cor,x=term,color=rgo))+
     geom_point()+scale_color_viridis(begin = 0.1, end=0.9,discrete=TRUE) +
+    geom_hline(yintercept = yint) +
+    theme_minimal() +
+    labs(x=custom.Xlab,y=custom.Ylab, tag=sex, title=custom.title) +
+    theme(axis.text.x = element_text(angle = -45, size=10),
+          text=element_text(size=10),
+          plot.tag = element_text(size=15))
+  return(plothole)
+}
+
+allMake <- function(data, sex, yint1, yint2, custom.title, custom.Xlab, custom.Ylab){
+  plothole <- ggplot(data,aes(y=cor,x=term,color=rgo))+
+    geom_point()+scale_color_viridis(begin = 0.1, end=0.9,discrete=TRUE) +
+    geom_hline(yintercept = yint1) +
+    geom_hline(yintercept = yint2) +
     theme_minimal() +
     labs(x=custom.Xlab,y=custom.Ylab, tag=sex, title=custom.title) +
     theme(axis.text.x = element_text(angle = -45, size=10),
@@ -74,9 +88,14 @@ colnames(data) <- c('sex', 'rmax', 'rgo', 'term', 'cor')
 dataM <- data[data$sex=='m',]
 dataF <- data[data$sex=='f',]
 
-gg[[1]] <- ggMake(dataF, 'F', 'Effect of R2 Selection on Accuracy by GO Term', 'GO Term', 'Prediction Accuracy')
-gg[[2]] <- ggMake(dataM, 'M', 'Effect of R2 Selection on Accuracy by GO Term', 'GO Term', 'Prediction Accuracy')
-gg[[3]] <- ggMake(data, 'A', 'Effect of R2 Selection on Accuracy by GO Term', 'GO Term', 'Prediction Accuracy')
+yintData1 <- readRDS('snake/data/sr/33_metric/go/sexf/rmax0.8/rgo0/term1/rowData.Rds')
+yintData2 <- readRDS('snake/data/sr/33_metric/go/sexm/rmax0.8/rgo0/term1/rowData.Rds')
+yF <- as.numeric(yintData1[5])
+yM <- as.numeric(yintData2[5])
+
+gg[[1]] <- ggMake(dataF, 'F', yF, 'Effect of R2 Selection on Accuracy by GO Term', 'GO Term', 'Prediction Accuracy')
+gg[[2]] <- ggMake(dataM, 'M', yM, 'Effect of R2 Selection on Accuracy by GO Term', 'GO Term', 'Prediction Accuracy')
+gg[[3]] <- allMake(data, 'A', yF, yM, 'Effect of R2 Selection on Accuracy by GO Term', 'GO Term', 'Prediction Accuracy')
 gg[[4]] <- rmaxMake(data, 'A', 'Effect of Max R2 on Accuracy by GO Term', 'GO Term', 'Prediction Accuracy')
 
 #The data we have here is a few things. The idea behind this work was to analyze the effects of GO terms asa Bayesian prior. By using two separate priors, we aset the first one to efffects of the go terms and the second to the ffects of all non go terms. 
