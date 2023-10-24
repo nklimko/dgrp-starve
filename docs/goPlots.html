@@ -485,16 +485,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree35876a67d509b46c51462612a48403a1fe5022f4targetblank35876a6a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/35876a67d509b46c51462612a48403a1fe5022f4" target="_blank">35876a6</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree40fb39899fe27ab01d447d3508fb65a50f042401targetblank40fb398a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/40fb39899fe27ab01d447d3508fb65a50f042401" target="_blank">40fb398</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree35876a67d509b46c51462612a48403a1fe5022f4targetblank35876a6a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree40fb39899fe27ab01d447d3508fb65a50f042401targetblank40fb398a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/35876a67d509b46c51462612a48403a1fe5022f4" target="_blank">35876a6</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/40fb39899fe27ab01d447d3508fb65a50f042401" target="_blank">40fb398</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -540,7 +540,6 @@ Untracked files:
 Unstaged changes:
     Modified:   analysis/Method/BayesC.Rmd
     Modified:   analysis/allHist.Rmd
-    Modified:   analysis/index.Rmd
     Modified:   snake/code/method/bayesGO.R
 
 </code></pre>
@@ -585,6 +584,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/40fb39899fe27ab01d447d3508fb65a50f042401/analysis/goPlots.Rmd" target="_blank">40fb398</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-10-24
+</td>
+<td>
+wflow_publish(“analysis/goPlots.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/957ad057da1dc3243e95116d7b1841ebfcc67b9d/docs/goPlots.html" target="_blank">957ad05</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-10-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/35876a67d509b46c51462612a48403a1fe5022f4/analysis/goPlots.Rmd" target="_blank">35876a6</a>
 </td>
 <td>
@@ -604,89 +637,6 @@ wflow_publish(“analysis/goPlots.Rmd”)
 </div>
 </div>
 </div>
-<pre class="r"><code>library(dplyr)</code></pre>
-<pre><code>
-Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>The following objects are masked from &#39;package:stats&#39;:
-
-    filter, lag</code></pre>
-<pre><code>The following objects are masked from &#39;package:base&#39;:
-
-    intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>library(data.table)</code></pre>
-<pre><code>
-Attaching package: &#39;data.table&#39;</code></pre>
-<pre><code>The following objects are masked from &#39;package:dplyr&#39;:
-
-    between, first, last</code></pre>
-<pre class="r"><code>library(ggplot2)
-library(cowplot)
-library(qqman)</code></pre>
-<pre><code></code></pre>
-<pre><code>For example usage please run: vignette(&#39;qqman&#39;)</code></pre>
-<pre><code></code></pre>
-<pre><code>Citation appreciated but not required:</code></pre>
-<pre><code>Turner, (2018). qqman: an R package for visualizing GWAS results using Q-Q and manhattan plots. Journal of Open Source Software, 3(25), 731, https://doi.org/10.21105/joss.00731.</code></pre>
-<pre><code></code></pre>
-<pre class="r"><code>library(viridis)</code></pre>
-<pre><code>Loading required package: viridisLite</code></pre>
-<pre class="r"><code>library(scales)</code></pre>
-<pre><code>
-Attaching package: &#39;scales&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:viridis&#39;:
-
-    viridis_pal</code></pre>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ lubridate 1.9.2     ✔ tibble    3.2.1
-✔ purrr     1.0.1     ✔ tidyr     1.3.0
-✔ readr     2.1.4     </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ data.table::between() masks dplyr::between()
-✖ readr::col_factor()   masks scales::col_factor()
-✖ purrr::discard()      masks scales::discard()
-✖ dplyr::filter()       masks stats::filter()
-✖ data.table::first()   masks dplyr::first()
-✖ lubridate::hour()     masks data.table::hour()
-✖ lubridate::isoweek()  masks data.table::isoweek()
-✖ dplyr::lag()          masks stats::lag()
-✖ data.table::last()    masks dplyr::last()
-✖ lubridate::mday()     masks data.table::mday()
-✖ lubridate::minute()   masks data.table::minute()
-✖ lubridate::month()    masks data.table::month()
-✖ lubridate::quarter()  masks data.table::quarter()
-✖ lubridate::second()   masks data.table::second()
-✖ lubridate::stamp()    masks cowplot::stamp()
-✖ purrr::transpose()    masks data.table::transpose()
-✖ lubridate::wday()     masks data.table::wday()
-✖ lubridate::week()     masks data.table::week()
-✖ lubridate::yday()     masks data.table::yday()
-✖ lubridate::year()     masks data.table::year()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<pre class="r"><code>library(ggcorrplot)
-library(melt)
-library(reshape2)</code></pre>
-<pre><code>
-Attaching package: &#39;reshape2&#39;
-
-The following object is masked from &#39;package:tidyr&#39;:
-
-    smiths
-
-The following objects are masked from &#39;package:data.table&#39;:
-
-    dcast, melt</code></pre>
-<pre class="r"><code>#options
-options(bitmapType = &quot;cairo&quot;)
-options(error = function() traceback(3))
-
-#seed
-set.seed(123)
-
-#ggplot holder list
-gg &lt;- vector(mode=&#39;list&#39;, length=12)</code></pre>
-<p>The following data is from 5-fold cross validation of Bay</p>
 <pre class="r"><code>#plotmaker funciton----
 ggMake &lt;- function(data, sex, custom.title, custom.Xlab, custom.Ylab){
   plothole &lt;- ggplot(data,aes(y=cor,x=term,color=rgo))+
@@ -720,9 +670,9 @@ colnames(data) &lt;- c(&#39;sex&#39;, &#39;rmax&#39;, &#39;rgo&#39;, &#39;term&#
 dataM &lt;- data[data$sex==&#39;m&#39;,]
 dataF &lt;- data[data$sex==&#39;f&#39;,]
 
-gg[[1]] &lt;- ggMake(dataF, &#39;F&#39;, &#39;Effect of Max R2 on Accuracy by GO Term&#39;, &#39;GO Term&#39;, &#39;Prediction Accuracy&#39;)
-gg[[2]] &lt;- ggMake(dataM, &#39;M&#39;, &#39;Effect of Max R2 on Accuracy by GO Term&#39;, &#39;GO Term&#39;, &#39;Prediction Accuracy&#39;)
-gg[[3]] &lt;- ggMake(data, &#39;A&#39;, &#39;Effect of Max R2 on Accuracy by GO Term&#39;, &#39;GO Term&#39;, &#39;Prediction Accuracy&#39;)
+gg[[1]] &lt;- ggMake(dataF, &#39;F&#39;, &#39;Effect of R2 Selection on Accuracy by GO Term&#39;, &#39;GO Term&#39;, &#39;Prediction Accuracy&#39;)
+gg[[2]] &lt;- ggMake(dataM, &#39;M&#39;, &#39;Effect of R2 Selection on Accuracy by GO Term&#39;, &#39;GO Term&#39;, &#39;Prediction Accuracy&#39;)
+gg[[3]] &lt;- ggMake(data, &#39;A&#39;, &#39;Effect of R2 Selection on Accuracy by GO Term&#39;, &#39;GO Term&#39;, &#39;Prediction Accuracy&#39;)
 gg[[4]] &lt;- rmaxMake(data, &#39;A&#39;, &#39;Effect of Max R2 on Accuracy by GO Term&#39;, &#39;GO Term&#39;, &#39;Prediction Accuracy&#39;)
 
 #The data we have here is a few things. The idea behind this work was to analyze the effects of GO terms asa Bayesian prior. By using two separate priors, we aset the first one to efffects of the go terms and the second to the ffects of all non go terms. 
@@ -738,19 +688,130 @@ gg[[4]] &lt;- rmaxMake(data, &#39;A&#39;, &#39;Effect of Max R2 on Accuracy by G
 <p>The model used to calculate prediction accuracy uses two BayesC priors using the GO-associated genes as a discriminator.</p>
 <p>By changing the proportion of variance explained by the GO-associated prior(R2_GO), we sought to find gene clusters that would improve overall prediction accuracy.</p>
 <p>The following data points are all point means of 25 replicates at 5-fold cross-validation.</p>
-<pre class="r"><code>plot_grid(gg[[1]],gg[[2]], ncol=2)</code></pre>
+<pre class="r"><code>plot_grid(gg[[1]],gg[[2]], ncol=1)</code></pre>
 <p><img src="figure/goPlots.Rmd/plot-print-all-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-print-all-1">
+Past versions of plot-print-all-1.png
+</button>
+</p>
+<div id="fig-plot-print-all-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/957ad057da1dc3243e95116d7b1841ebfcc67b9d/docs/figure/goPlots.Rmd/plot-print-all-1.png" target="_blank">957ad05</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-10-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Stacking these data sets onto the same grid shows the trends more intuitively. With this view, we can also see that some effects are male/female specific as the correlation increases/decreases with higher R2_GO</p>
 <ul>
-<li>96/1667 shows universal downgrade</li>
-<li>1156/2044 show male only</li>
-<li>821/2870 show inverse</li>
+<li>96 and 1667 show universal downgrade: unassociated terms, noise</li>
+<li>1156 and 2044 show male increase in accuracy</li>
+<li>821 and 2870 show inverse relation between females and males</li>
 </ul>
 <pre class="r"><code>plot_grid(gg[[3]], ncol=1)</code></pre>
 <p><img src="figure/goPlots.Rmd/allData-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Additionally, grading the data based on RMAX selected shows that prediction accuracy generally increases with higher R2 values as expected.</p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-allData-1">
+Past versions of allData-1.png
+</button>
+</p>
+<div id="fig-allData-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/957ad057da1dc3243e95116d7b1841ebfcc67b9d/docs/figure/goPlots.Rmd/allData-1.png" target="_blank">957ad05</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-10-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Additionally, grading the data based on R2_MAX selected shows that prediction accuracy generally increases with higher R2 values as expected.</p>
 <pre class="r"><code>plot_grid(gg[[4]], ncol=1)</code></pre>
 <p><img src="figure/goPlots.Rmd/rmax-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-rmax-1">
+Past versions of rmax-1.png
+</button>
+</p>
+<div id="fig-rmax-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/957ad057da1dc3243e95116d7b1841ebfcc67b9d/docs/figure/goPlots.Rmd/rmax-1.png" target="_blank">957ad05</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-10-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
