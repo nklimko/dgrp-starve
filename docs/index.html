@@ -306,7 +306,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-09-26
+<strong>Last updated:</strong> 2023-10-24
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -337,16 +337,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree04cbdbbe613eb813ecd006e300e9d53efe979d40targetblank04cbdbba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/04cbdbbe613eb813ecd006e300e9d53efe979d40" target="_blank">04cbdbb</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreede24cc8240780721af50fcc6e0afc62fdd7ab0b7targetblankde24cc8a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/de24cc8240780721af50fcc6e0afc62fdd7ab0b7" target="_blank">de24cc8</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree04cbdbbe613eb813ecd006e300e9d53efe979d40targetblank04cbdbba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreede24cc8240780721af50fcc6e0afc62fdd7ab0b7targetblankde24cc8a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/04cbdbbe613eb813ecd006e300e9d53efe979d40" target="_blank">04cbdbb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/de24cc8240780721af50fcc6e0afc62fdd7ab0b7" target="_blank">de24cc8</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -356,29 +356,43 @@ Ignored files:
     Ignored:    .snakemake/
     Ignored:    code/methodComp/bglr/err-bglr-f.5381.err
     Ignored:    code/methodComp/bglr/err-bglr-m.5382.err
+    Ignored:    code/methodComp/m/meth-m.4676.err
     Ignored:    code/methodComp/m/meth-m.4685.err
+    Ignored:    code/methodComp/method-f.4751.out
     Ignored:    data/fb/
     Ignored:    data/snake/
     Ignored:    snake/.snakemake/
     Ignored:    snake/ReadMe.md
     Ignored:    snake/Snakefile.yaml
+    Ignored:    snake/bayesCheck.R
+    Ignored:    snake/bayesTest.Rds
+    Ignored:    snake/binner2.R
     Ignored:    snake/code/misc/
     Ignored:    snake/data/
     Ignored:    snake/dgrp.yaml
+    Ignored:    snake/h2_synth.R
+    Ignored:    snake/labMake.R
     Ignored:    snake/logs/
     Ignored:    snake/slurm/
     Ignored:    snake/snakemake_submitter.sbatch
+    Ignored:    snake/temp/
     Ignored:    snake/zz_lost/
     Ignored:    zz_lost/
 
 Untracked files:
-    Untracked:  code/methodComp/m/meth-m.4676.err
-    Untracked:  code/methodComp/method-f.4751.out
+    Untracked:  forester.R
+    Untracked:  snake/code/binner.R
+    Untracked:  snake/code/combine_GO.R
+    Untracked:  snake/code/dataFinGO.R
+    Untracked:  snake/code/filterNcombine_GO.R
+    Untracked:  snake/code/filter_GO.R
+    Untracked:  snake/code/method/bayesHome.R
+    Untracked:  snake/code/method/multiplotGO.Rmd
 
 Unstaged changes:
-    Modified:   .Rprofile
-    Modified:   .gitattributes
     Modified:   analysis/Method/BayesC.Rmd
+    Modified:   analysis/allHist.Rmd
+    Modified:   snake/code/method/bayesGO.R
 
 </code></pre>
 <p>
@@ -417,6 +431,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/de24cc8240780721af50fcc6e0afc62fdd7ab0b7/analysis/index.Rmd" target="_blank">de24cc8</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-10-24
+</td>
+<td>
+wflow_publish(“analysis/index.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/b117d87f23ed9eb7b11e7313b2e5e157b5c18468/docs/index.html" target="_blank">b117d87</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-09-26
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1089,6 +1137,9 @@ all files for me
 </div>
 <div id="overview" class="section level3">
 <h3><a href="allHist.html">Overview</a></h3>
+</div>
+<div id="bayesc-gene-ontology" class="section level3">
+<h3><a href="goPlots.html">BayesC + Gene Ontology</a></h3>
 </div>
 <div id="methods" class="section level3">
 <h3>Methods</h3>
