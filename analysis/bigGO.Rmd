@@ -1,0 +1,225 @@
+---
+title: "BayesC + Gene Ontology"
+output:
+  workflowr::wflow_html:
+    toc: true
+    latex_engine: "xelatex"
+    code_folding: "hide"
+editor_options:
+  chunk_output_type: console
+---
+
+```{r 0-setup, include=FALSE, warning=FALSE}
+if(1){
+  library(dplyr)
+  library(data.table)
+  library(ggplot2)
+  library(cowplot)
+  library(qqman)
+  library(viridis)
+  library(scales)
+  library(tidyverse)
+  library(ggcorrplot)
+  library(melt)
+  library(reshape2)
+  
+  #options
+  options(bitmapType = "cairo")
+  options(error = function() traceback(3))
+  
+  #seed
+  set.seed(123)
+  
+  #ggplot holder list
+  gg <- vector(mode='list', length=12)
+}
+
+```
+
+```{r 0-functions}
+#plotmaker funciton----
+ggMake <- function(data, sex, yint, custom.title, custom.Xlab, custom.Ylab){
+  plothole <- ggplot(data,aes(y=cor,x=term,color=rgo))+
+    geom_point()+scale_color_viridis(begin = 0.1, end=0.9,discrete=TRUE) +
+    geom_hline(yintercept = yint) +
+    theme_minimal() +
+    labs(x=custom.Xlab,y=custom.Ylab, tag=sex, title=custom.title) +
+    theme(axis.text.x = element_text(angle = -45, size=10),
+          text=element_text(size=10),
+          plot.tag = element_text(size=15))
+  return(plothole)
+}
+
+allMake <- function(data, sex, yint1, yint2, custom.title, custom.Xlab, custom.Ylab){
+  plothole <- ggplot(data,aes(y=cor,x=term,color=rgo))+
+    geom_point()+scale_color_viridis(begin = 0.1, end=0.9,discrete=TRUE) +
+    geom_hline(yintercept = yint1) +
+    geom_hline(yintercept = yint2) +
+    theme_minimal() +
+    labs(x=custom.Xlab,y=custom.Ylab, tag=sex, title=custom.title) +
+    theme(axis.text.x = element_text(angle = -45, size=10),
+          text=element_text(size=10),
+          plot.tag = element_text(size=15))
+  return(plothole)
+}
+
+rmaxMake <- function(data, sex, custom.title, custom.Xlab, custom.Ylab){
+  plothole <- ggplot(data,aes(y=cor,x=term,color=rmax))+
+    geom_point()+scale_color_viridis(begin = 0.1, end=0.9,discrete=TRUE) +
+    theme_minimal() +
+    labs(x=custom.Xlab,y=custom.Ylab, tag=sex, title=custom.title) +
+    theme(axis.text.x = element_text(angle = -45, size=10),
+          text=element_text(size=10),
+          plot.tag = element_text(size=15))
+  return(plothole)
+}
+
+sortHist <- function(data, sex, yint, custom.title, custom.Xlab, custom.Ylab){
+  plothole <- ggplot(data,aes(x=cor))+
+    geom_histogram(bins=50) + 
+    geom_vline(xintercept = yint) +
+    theme_minimal() +
+    labs(x=custom.Xlab,y=custom.Ylab, tag=sex, title=custom.title) +
+    theme(axis.text.x = element_text(angle = -45, size=10),
+          text=element_text(size=10),
+          plot.tag = element_text(size=15))
+  return(plothole)
+}
+
+
+
+```
+
+```{r dataTidy, warning=FALSE, eval=TRUE}
+
+temp <- na.omit(readRDS('snake/data/sr/40_all/go/sexf/allData.Rds'))
+
+facs <- matrix(as.factor(unlist(temp[,1:4])), ncol=4)
+cors <- as.numeric(unlist(temp[,5]))
+
+data <- data.table(facs, cors)
+colnames(data) <- c('sex', 'rmax', 'rgo', 'term', 'cor')
+
+dataM <- data[data$sex=='m',]
+dataF <- data[data$sex=='f',]
+
+yintData1 <- readRDS('snake/data/sr/33_metric/go/sexf/rmax0.8/rgo0/term1/rowData.Rds')
+yintData2 <- readRDS('snake/data/sr/33_metric/go/sexm/rmax0.8/rgo0/term1/rowData.Rds')
+yF <- as.numeric(yintData1[5])
+yM <- as.numeric(yintData2[5])
+
+gg[[1]] <- ggMake(dataF, 'F', yF, 'Effect of R2 Selection on Accuracy by GO Term', 'GO Term', 'Prediction Accuracy')
+gg[[2]] <- ggMake(dataM, 'M', yM, 'Effect of R2 Selection on Accuracy by GO Term', 'GO Term', 'Prediction Accuracy')
+gg[[3]] <- allMake(data, 'A', yF, yM, 'Effect of R2 Selection on Accuracy by GO Term', 'GO Term', 'Prediction Accuracy')
+gg[[4]] <- rmaxMake(data, 'A', 'Effect of Max R2 on Accuracy by GO Term', 'GO Term', 'Prediction Accuracy')
+
+
+#The data we have here is a few things. The idea behind this work was to analyze the effects of GO terms asa Bayesian prior. By using two separate priors, we aset the first one to efffects of the go terms and the second to the ffects of all non go terms. 
+
+#gg[[4]] <- rmaxMake(data, 'A', 'Effect of Max R2 on Accuracy by GO Term', 'GO Term', 'Prediction Accuracy')
+
+#colnames(hold) <- c("method", "cor")
+#hold$method <- factor(hold$method, levels=unique(hold$method))
+
+#for when the first works for sure, copy paste to compare and see if it mattered at all
+#ggplot(data,aes(y=cor,x=term,color=rgo))+
+
+```
+
+For both females and males, a random selection of Gene Ontology(GO) terms were used to subset transcriptomic data from fruit flies.
+
+The model used to calculate prediction accuracy uses two BayesC priors using the GO-associated genes as a discriminator. 
+
+By changing the proportion of variance explained by the GO-associated prior(R2_GO), we sought to find gene clusters that would improve overall prediction accuracy. 
+
+The following data points are all point means of 25 replicates at 5-fold cross-validation.
+
+```{r plot-print-all, warning=FALSE, eval=TRUE}
+
+plot_grid(gg[[1]],gg[[2]], ncol=1)
+
+```
+
+
+
+
+
+```{r badlands}
+#Data prep 2
+
+gg[[5]] <- sortHist(dataF, 'F', yF, 'Prediction Accuracy Histogram', 'Prediction Accuracy', 'Count')
+gg[[6]] <- sortHist(dataM, 'M', yM, 'Prediction Accuracy Histogram', 'Prediction Accuracy', 'Count')
+
+
+
+#plot(dataM[order(cor),cor])
+#abline(h=c(0.32, 0.35, 0.465, 0.44))
+
+query <- readRDS("snake/data/go/query.Rds")
+
+subF <- dataF[cor>0.35,4:5]
+trueF <- query[as.numeric(subF[,term])]
+subF <- data.table(trueF, subF[,cor])
+colnames(subF) <- c('term','cor')
+subF <- subF[order(-cor),]
+
+
+subM <- dataM[cor>0.47,4:5]
+trueM <- query[as.numeric(subM[,term])]
+subM <- data.table(trueM, subM[,cor])
+colnames(subM) <- c('term','cor')
+subM <- subM[order(-cor),]
+
+
+```
+
+
+Histograms of Both
+
+```{r doubleHist}
+
+plot_grid(gg[[5]],gg[[6]], ncol=1)
+
+```
+  
+Cutoff of 0.3 for both
+
+```{r genPlots}
+
+plot(dataF[order(cor),cor])
+abline(h=c(0.32, 0.35))
+
+plot(dataM[order(cor),cor])
+abline(h=c(0.44, 0.47))
+
+
+```
+
+The vertical lines on each graph indicate the prediction accuracy of the base model. A normal distribution of prediction accuracy values are centered on the base model for both. 
+
+Filtering for an improvement of 0.03 or higher yields the following GO terms of significance:
+
+
+- In females:
+
+```{r badlands2}
+
+print(subF)
+
+```
+
+- In males:
+
+```{r malelbasd}
+
+print(subM)
+
+```
+
+
+
+
+
+
+
+
