@@ -11,7 +11,8 @@ editor_options:
 Overview
 
 + [Summary of Univariate and Multivariate models](allHist.html)
-+ [BayesGO: Layering GO annotations with Bayesian methods](goPLots.html)
++ [BayesGO: Layering GO annotations with Bayesian methods](goPlots.html)
++ [BayesGO preliminary results](bigGO.html)
 
 Methods
 
