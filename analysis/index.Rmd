@@ -8,28 +8,30 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Overview
+Overview
 
 + [Summary of Univariate and Multivariate models](allHist.html)
 + [BayesGO: Layering GO annotations with Bayesian methods](goPLots.html)
 
-# Methods
+Methods
 
 + [BayesC](man-BayesC.html)
 + [LASSO](lasso-OP.html)
 
-# Others
+Others
 
 + [Top Correlated Traits](top3.html)
 + [Covariance](covCor.html)
 
 + [Method Comparison](methodComp.html)
 + [Female Mulitple Regression and Prediction](predict.html)
-+ [Male Mulitple Regression and Prediction](rewrite.html) 
++ [Male Mulitple Regression and Prediction](rewrite.html)
+
 + [Linear Regression Adjusted](linearReg.html)
-+ [Multiple Regression](multiReg.html) 
++ [Multiple Regression](multiReg.html)
 + [Linear Regression](linReg.html)
 + [Multiple Comparisons](multiComp.html)
+
 + [Principal Componenet Analysis](pca.html)
 + [Starvation Resistance](starve.html)
 + [All Meeting Summaries](recap.html)
