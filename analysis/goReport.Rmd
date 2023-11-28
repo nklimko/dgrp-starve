@@ -144,7 +144,7 @@ dMake <- function(data, sex, custom.title, custom.Xlab, custom.Ylab, psize){
 
 ```
 
-[Initial results](../goPlots.html) showed that Gene Ontology association could be used to improve prediction accuracy of a Bayesian model by assigning genes of interest a separate portion of variance. The following results are from selecting GO terms with five or more associated genes and scoring their prediction accuracy as a mean of 25 replicates apiece. 
+[Initial results](https://nklimko.github.io/dgrp-starve/goPlots.html) showed that Gene Ontology association could be used to improve prediction accuracy of a Bayesian model by assigning genes of interest a separate portion of variance. The following results are from selecting GO terms with five or more associated genes and scoring their prediction accuracy as a mean of 25 replicates apiece. 
 
 
 
@@ -313,22 +313,22 @@ nm4 <- nonReader('GO.0005811', 'm')
 
 ### Female
 
-# Overall
+#### Overall
 ```{r f1}
 plot_grid(gg[[1]], ncol=1)
 ```
 
-# Top Results
+#### Top Results
 ```{r f2}
 print(subF)
 ```
 
-# Posterior Inclusion Probability of GO portion
+#### Posterior Inclusion Probability of GO portion
 ```{r f3}
 plot_grid(f1, f2, f3, f4, ncol=2)
 ```
 
-# Posterior Inclusion Probability of non-GO portion
+#### Posterior Inclusion Probability of non-GO portion
 ```{r f4}
 plot_grid(nf1, nf2, nf3, nf4, ncol=2)
 ```
@@ -371,22 +371,22 @@ name: phospholipid metabolic process
 
 ### Male
 
-# Overall
+#### Overall
 ```{r m1}
 plot_grid(gg[[2]], ncol=1)
 ```
 
-# Top Results
+#### Top Results
 ```{r m2}
 print(subM)
 ```
 
-# Posterior Inclusion Probability of GO portion
+#### Posterior Inclusion Probability of GO portion
 ```{r m3}
 plot_grid(m1, m2, m3, m4, ncol=2)
 ```
 
-# Posterior Inclusion Probability of non-GO portion
+#### Posterior Inclusion Probability of non-GO portion
 ```{r m4}
 plot_grid(nm1, nm2, nm3, nm4, ncol=2)
 ```
