@@ -485,16 +485,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree3dd795300ba438410026eb7384cc26a77e45c009targetblank3dd7953a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/3dd795300ba438410026eb7384cc26a77e45c009" target="_blank">3dd7953</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree7c77c728ca497f941019cf566dbbd923f9895102targetblank7c77c72a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/7c77c728ca497f941019cf566dbbd923f9895102" target="_blank">7c77c72</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree3dd795300ba438410026eb7384cc26a77e45c009targetblank3dd7953a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree7c77c728ca497f941019cf566dbbd923f9895102targetblank7c77c72a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/3dd795300ba438410026eb7384cc26a77e45c009" target="_blank">3dd7953</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/7c77c728ca497f941019cf566dbbd923f9895102" target="_blank">7c77c72</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -609,6 +609,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/7c77c728ca497f941019cf566dbbd923f9895102/analysis/goReport.Rmd" target="_blank">7c77c72</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+<td>
+wflow_publish(“analysis/goReport.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/fe88a0c13153f5edb58aedecb8dce24a2cdcacc8/docs/goReport.html" target="_blank">fe88a0c</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -780,14 +814,14 @@ corSummary &lt;- function(dataList, outPath){
 dMake &lt;- function(data, sex, custom.title, custom.Xlab, custom.Ylab){
   plothole &lt;- ggplot(data, aes(x= index, y=cor, label=gene))+
     geom_point(color=viridis(1, begin=0.5))+
-    geom_text(aes(label=ifelse(cor&gt;0.5, as.character(gene),&#39;&#39;)),hjust=1,vjust=0, angle=90)+
+    geom_text(aes(label=ifelse(cor&gt;0.5, as.character(gene),&#39;&#39;)),hjust=1,vjust=0, angle=90, size=4)+
     theme_minimal() +
     labs(x=custom.Xlab,y=custom.Ylab, tag=sex, title=custom.title) +
-    theme(text=element_text(size=4),
+    theme(text=element_text(size=8),
           plot.tag = element_text(size=15))
   return(plothole)
 }</code></pre>
-<pre class="r"><code>allNames &lt;- read.table(file=&quot;snake/goPost/dataList&quot;, sep=&quot;\n&quot;)
+<pre class="r"><code>allNames &lt;- read.table(file=&quot;snake/goPost/dataList&quot;, sep=&quot;&quot;)
 dataList &lt;- allNames[,1]
 
 front &lt;- &#39;snake/data/go/33_metric/sexf/rmax0.8/rgo0.01/&#39;
@@ -824,7 +858,7 @@ subF &lt;- subF[order(-cor),]
 #plot(x=1:dim(dataFOF)[1], y=dataFOF$cor)</code></pre>
 <pre class="r"><code>#snake/
 
-allNames &lt;- read.table(file=&quot;snake/goPost/dataList&quot;, sep=&quot;\n&quot;)
+allNames &lt;- read.table(file=&quot;snake/goPost/dataList&quot;, sep=&quot;&quot;)
 dataList &lt;- allNames[,1]
 
 front &lt;- &#39;snake/data/go/33_metric/sexm/rmax0.8/rgo0.01/&#39;
@@ -932,8 +966,8 @@ nklimko
 </table>
 </div>
 </div>
-<pre class="r"><code>print(&quot;Top terms: \n&quot;)</code></pre>
-<pre><code>[1] &quot;Top terms: \n&quot;</code></pre>
+<pre class="r"><code>print(&quot;Top terms: &quot;)</code></pre>
+<pre><code>[1] &quot;Top terms: &quot;</code></pre>
 <pre class="r"><code>print(subF)</code></pre>
 <pre><code>          term       cor
  1: GO.0045819 0.4382497
@@ -991,6 +1025,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/fe88a0c13153f5edb58aedecb8dce24a2cdcacc8/docs/figure/goReport.Rmd/plot-print-all-2.png" target="_blank">fe88a0c</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/8ab4763d2a2e28c4bedf9afa8722572fe55a825f/docs/figure/goReport.Rmd/plot-print-all-2.png" target="_blank">8ab4763</a>
@@ -1071,8 +1116,8 @@ nklimko
 </table>
 </div>
 </div>
-<pre class="r"><code>print(&quot;Top terms: \n&quot;)</code></pre>
-<pre><code>[1] &quot;Top terms: \n&quot;</code></pre>
+<pre class="r"><code>print(&quot;Top terms: &quot;)</code></pre>
+<pre><code>[1] &quot;Top terms: &quot;</code></pre>
 <pre class="r"><code>print(subM)</code></pre>
 <pre><code>          term       cor
  1: GO.0035008 0.5116379
@@ -1121,6 +1166,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/fe88a0c13153f5edb58aedecb8dce24a2cdcacc8/docs/figure/goReport.Rmd/plot-print-m-2.png" target="_blank">fe88a0c</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/8ab4763d2a2e28c4bedf9afa8722572fe55a825f/docs/figure/goReport.Rmd/plot-print-m-2.png" target="_blank">8ab4763</a>
