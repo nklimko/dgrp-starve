@@ -134,10 +134,10 @@ partMake <- function(data, sex, yint1, cutoff, lower, custom.title, custom.Xlab,
 dMake <- function(data, sex, custom.title, custom.Xlab, custom.Ylab){
   plothole <- ggplot(data, aes(x= index, y=cor, label=gene))+
     geom_point(color=viridis(1, begin=0.5))+
-    geom_text(aes(label=ifelse(cor>0.5, as.character(gene),'')),hjust=1,vjust=0, angle=90)+
+    geom_text(aes(label=ifelse(cor>0.5, as.character(gene),'')),hjust=1,vjust=0, angle=90, size=4)+
     theme_minimal() +
     labs(x=custom.Xlab,y=custom.Ylab, tag=sex, title=custom.title) +
-    theme(text=element_text(size=4),
+    theme(text=element_text(size=8),
           plot.tag = element_text(size=15))
   return(plothole)
 }
@@ -148,7 +148,7 @@ dMake <- function(data, sex, custom.title, custom.Xlab, custom.Ylab){
 
 ```{r magicf}
 
-allNames <- read.table(file="snake/goPost/dataList", sep="\n")
+allNames <- read.table(file="snake/goPost/dataList", sep="")
 dataList <- allNames[,1]
 
 front <- 'snake/data/go/33_metric/sexf/rmax0.8/rgo0.01/'
@@ -190,7 +190,7 @@ subF <- subF[order(-cor),]
 
 #snake/
 
-allNames <- read.table(file="snake/goPost/dataList", sep="\n")
+allNames <- read.table(file="snake/goPost/dataList", sep="")
 dataList <- allNames[,1]
 
 front <- 'snake/data/go/33_metric/sexm/rmax0.8/rgo0.01/'
@@ -272,7 +272,7 @@ m4 <- termReader('GO.0005811', 'm')
 
 plot_grid(gg[[1]], ncol=1)
 
-print("Top terms: \n")
+print("Top terms: ")
 print(subF)
 
 plot_grid(f1, f2, f3, f4, ncol=2)
@@ -320,7 +320,7 @@ name: phospholipid metabolic process
 
 plot_grid(gg[[2]], ncol=1)
 
-print("Top terms: \n")
+print("Top terms: ")
 print(subM)
 
 plot_grid(m1, m2, m3, m4, ncol=2)
