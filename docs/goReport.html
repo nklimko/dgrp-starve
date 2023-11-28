@@ -485,16 +485,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreed2b97de4b9c2cbea01d6ce72ac471495a6272642targetblankd2b97dea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/d2b97de4b9c2cbea01d6ce72ac471495a6272642" target="_blank">d2b97de</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreec608e9c0e29c07c93d27005074b3d24336b1a7dctargetblankc608e9ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/c608e9c0e29c07c93d27005074b3d24336b1a7dc" target="_blank">c608e9c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreed2b97de4b9c2cbea01d6ce72ac471495a6272642targetblankd2b97dea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreec608e9c0e29c07c93d27005074b3d24336b1a7dctargetblankc608e9ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/d2b97de4b9c2cbea01d6ce72ac471495a6272642" target="_blank">d2b97de</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/c608e9c0e29c07c93d27005074b3d24336b1a7dc" target="_blank">c608e9c</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -608,6 +608,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/c608e9c0e29c07c93d27005074b3d24336b1a7dc/analysis/goReport.Rmd" target="_blank">c608e9c</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+<td>
+wflow_publish(“analysis/goReport.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/f43d423bd57f4b3d2632a10b73606bcaa4cf2749/docs/goReport.html" target="_blank">f43d423</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -888,7 +922,7 @@ dMake &lt;- function(data, sex, custom.title, custom.Xlab, custom.Ylab, psize){
           plot.tag = element_text(size=15))
   return(plothole)
 }</code></pre>
-<p><a href="../goPlots.html">Initial results</a> showed that Gene Ontology association could be used to improve prediction accuracy of a Bayesian model by assigning genes of interest a separate portion of variance. The following results are from selecting GO terms with five or more associated genes and scoring their prediction accuracy as a mean of 25 replicates apiece.</p>
+<p><a href="https://nklimko.github.io/dgrp-starve/goPlots.html">Initial results</a> showed that Gene Ontology association could be used to improve prediction accuracy of a Bayesian model by assigning genes of interest a separate portion of variance. The following results are from selecting GO terms with five or more associated genes and scoring their prediction accuracy as a mean of 25 replicates apiece.</p>
 <pre class="r"><code>allNames &lt;- read.table(file=&quot;snake/goPost/dataList&quot;, sep=&quot;&quot;)
 dataList &lt;- allNames[,1]
 
@@ -1029,9 +1063,8 @@ nm3 &lt;- nonReader(&#39;GO.0007485&#39;, &#39;m&#39;)
 nm4 &lt;- nonReader(&#39;GO.0005811&#39;, &#39;m&#39;)</code></pre>
 <div id="female" class="section level3">
 <h3>Female</h3>
-</div>
-<div id="overall" class="section level1">
-<h1>Overall</h1>
+<div id="overall" class="section level4">
+<h4>Overall</h4>
 <pre class="r"><code>plot_grid(gg[[1]], ncol=1)</code></pre>
 <p><img src="figure/goReport.Rmd/f1-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1072,8 +1105,8 @@ nklimko
 </div>
 </div>
 </div>
-<div id="top-results" class="section level1">
-<h1>Top Results</h1>
+<div id="top-results" class="section level4">
+<h4>Top Results</h4>
 <pre class="r"><code>print(subF)</code></pre>
 <pre><code>          term       cor
  1: GO.0045819 0.4382497
@@ -1108,8 +1141,8 @@ nklimko
 30: GO.0032922 0.3600324
           term       cor</code></pre>
 </div>
-<div id="posterior-inclusion-probability-of-go-portion" class="section level1">
-<h1>Posterior Inclusion Probability of GO portion</h1>
+<div id="posterior-inclusion-probability-of-go-portion" class="section level4">
+<h4>Posterior Inclusion Probability of GO portion</h4>
 <pre class="r"><code>plot_grid(f1, f2, f3, f4, ncol=2)</code></pre>
 <p><img src="figure/goReport.Rmd/f3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1136,6 +1169,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/f43d423bd57f4b3d2632a10b73606bcaa4cf2749/docs/figure/goReport.Rmd/f3-1.png" target="_blank">f43d423</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/2230527a27b6c3eb57d0fffa7b4b2ea8136f2669/docs/figure/goReport.Rmd/f3-1.png" target="_blank">2230527</a>
 </td>
 <td>
@@ -1150,8 +1194,8 @@ nklimko
 </div>
 </div>
 </div>
-<div id="posterior-inclusion-probability-of-non-go-portion" class="section level1">
-<h1>Posterior Inclusion Probability of non-GO portion</h1>
+<div id="posterior-inclusion-probability-of-non-go-portion" class="section level4">
+<h4>Posterior Inclusion Probability of non-GO portion</h4>
 <pre class="r"><code>plot_grid(nf1, nf2, nf3, nf4, ncol=2)</code></pre>
 <p><img src="figure/goReport.Rmd/f4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1176,6 +1220,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/f43d423bd57f4b3d2632a10b73606bcaa4cf2749/docs/figure/goReport.Rmd/f4-1.png" target="_blank">f43d423</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/2230527a27b6c3eb57d0fffa7b4b2ea8136f2669/docs/figure/goReport.Rmd/f4-1.png" target="_blank">2230527</a>
@@ -1203,12 +1258,12 @@ nklimko
 <p>id: <a href="GO:0007368" class="uri">GO:0007368</a> name: determination of left/right symmetry</p>
 <p>id: <a href="GO:0007638" class="uri">GO:0007638</a> name: mechanosensory behavior</p>
 <p>id: <a href="GO:0006644" class="uri">GO:0006644</a> name: phospholipid metabolic process</p>
+</div>
+</div>
 <div id="male" class="section level3">
 <h3>Male</h3>
-</div>
-</div>
-<div id="overall-1" class="section level1">
-<h1>Overall</h1>
+<div id="overall-1" class="section level4">
+<h4>Overall</h4>
 <pre class="r"><code>plot_grid(gg[[2]], ncol=1)</code></pre>
 <p><img src="figure/goReport.Rmd/m1-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1249,8 +1304,8 @@ nklimko
 </div>
 </div>
 </div>
-<div id="top-results-1" class="section level1">
-<h1>Top Results</h1>
+<div id="top-results-1" class="section level4">
+<h4>Top Results</h4>
 <pre class="r"><code>print(subM)</code></pre>
 <pre><code>          term       cor
  1: GO.0035008 0.5116379
@@ -1276,8 +1331,8 @@ nklimko
 21: GO.0045793 0.4831989
           term       cor</code></pre>
 </div>
-<div id="posterior-inclusion-probability-of-go-portion-1" class="section level1">
-<h1>Posterior Inclusion Probability of GO portion</h1>
+<div id="posterior-inclusion-probability-of-go-portion-1" class="section level4">
+<h4>Posterior Inclusion Probability of GO portion</h4>
 <pre class="r"><code>plot_grid(m1, m2, m3, m4, ncol=2)</code></pre>
 <p><img src="figure/goReport.Rmd/m3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1304,6 +1359,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/f43d423bd57f4b3d2632a10b73606bcaa4cf2749/docs/figure/goReport.Rmd/m3-1.png" target="_blank">f43d423</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/2230527a27b6c3eb57d0fffa7b4b2ea8136f2669/docs/figure/goReport.Rmd/m3-1.png" target="_blank">2230527</a>
 </td>
 <td>
@@ -1318,8 +1384,8 @@ nklimko
 </div>
 </div>
 </div>
-<div id="posterior-inclusion-probability-of-non-go-portion-1" class="section level1">
-<h1>Posterior Inclusion Probability of non-GO portion</h1>
+<div id="posterior-inclusion-probability-of-non-go-portion-1" class="section level4">
+<h4>Posterior Inclusion Probability of non-GO portion</h4>
 <pre class="r"><code>plot_grid(nm1, nm2, nm3, nm4, ncol=2)</code></pre>
 <p><img src="figure/goReport.Rmd/m4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1344,6 +1410,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/f43d423bd57f4b3d2632a10b73606bcaa4cf2749/docs/figure/goReport.Rmd/m4-1.png" target="_blank">f43d423</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/2230527a27b6c3eb57d0fffa7b4b2ea8136f2669/docs/figure/goReport.Rmd/m4-1.png" target="_blank">2230527</a>
@@ -1371,6 +1448,8 @@ nklimko
 <p>id: <a href="GO:0016327" class="uri">GO:0016327</a> name: apicolateral plasma membrane</p>
 <p>id: <a href="GO:0045186" class="uri">GO:0045186</a> name: zonula adherens assembly</p>
 <p>id: <a href="GO:0006044" class="uri">GO:0006044</a> name: N-acetylglucosamine metabolic process</p>
+</div>
+</div>
 <div id="post-processing" class="section level3">
 <h3>Post-processing</h3>
 <p>Beyond this, we took the models to determine if certain genes were enriched in the GO terms of interest. From the terms above the cutoff, we pooled the associated genes and totaled gene occurrence.</p>
@@ -1579,7 +1658,6 @@ loaded via a namespace (and not attached):
 [49] tools_4.1.2       glue_1.6.2        hms_1.1.3         processx_3.8.2   
 [53] fastmap_1.1.1     yaml_2.3.7        timechange_0.2.0  colorspace_2.1-0 
 [57] sass_0.4.7       </code></pre>
-</div>
 </div>
 </div>
 
