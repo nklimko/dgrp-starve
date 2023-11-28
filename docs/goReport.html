@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>GObayesC Report</title>
+
+<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dgrp-starve</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/nklimko/dgrp-starve">
+    <span class="fab fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">GObayesC Report</h1>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2023-11-28
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>dgrp-starve/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.1). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20221101code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20221101)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20221101code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20221101)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree2e7171f6820d8e62ecb590ca572b5c405bd5d5c2targetblank2e7171fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/2e7171f6820d8e62ecb590ca572b5c405bd5d5c2" target="_blank">2e7171f</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree2e7171f6820d8e62ecb590ca572b5c405bd5d5c2targetblank2e7171fa" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/2e7171f6820d8e62ecb590ca572b5c405bd5d5c2" target="_blank">2e7171f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .snakemake/
+    Ignored:    code/methodComp/bglr/err-bglr-f.5381.err
+    Ignored:    code/methodComp/bglr/err-bglr-m.5382.err
+    Ignored:    code/methodComp/m/meth-m.4676.err
+    Ignored:    code/methodComp/m/meth-m.4685.err
+    Ignored:    code/methodComp/method-f.4751.out
+    Ignored:    data/fb/
+    Ignored:    data/snake/
+    Ignored:    snake/.snakemake/
+    Ignored:    snake/GOfile.yaml
+    Ignored:    snake/ReadMe.md
+    Ignored:    snake/Snakefile.yaml
+    Ignored:    snake/bayesCheck.R
+    Ignored:    snake/bayesTest.Rds
+    Ignored:    snake/binner2.R
+    Ignored:    snake/code/misc/
+    Ignored:    snake/data/
+    Ignored:    snake/datafile.yaml
+    Ignored:    snake/dgrp.yaml
+    Ignored:    snake/f_file.yaml
+    Ignored:    snake/goNames.sh
+    Ignored:    snake/goPost/
+    Ignored:    snake/gofig.yaml
+    Ignored:    snake/gospace.R
+    Ignored:    snake/h2_synth.R
+    Ignored:    snake/labMake.R
+    Ignored:    snake/logs/
+    Ignored:    snake/meta.sh
+    Ignored:    snake/metaList
+    Ignored:    snake/newlines
+    Ignored:    snake/note1
+    Ignored:    snake/pipelines/
+    Ignored:    snake/rawHits
+    Ignored:    snake/s1.sh
+    Ignored:    snake/s2.sh
+    Ignored:    snake/s3.sh
+    Ignored:    snake/slurm/
+    Ignored:    snake/smake.sbatch
+    Ignored:    snake/snubnose.sbatch
+    Ignored:    snake/srfile.yaml
+    Ignored:    snake/temp9/
+    Ignored:    snake/temporaire-rewrite.R
+    Ignored:    snake/trimHits
+    Ignored:    snake/vavrfile.yaml
+    Ignored:    snake/vavrmake
+    Ignored:    snake/zz_lost/
+    Ignored:    zz_lost/
+
+Untracked files:
+    Untracked:  analysis/old_index.Rmd.Rmd
+    Untracked:  forester.R
+    Untracked:  malegofind.R
+    Untracked:  snake/code/binner.R
+    Untracked:  snake/code/combine_GO.R
+    Untracked:  snake/code/dataFinGO.R
+    Untracked:  snake/code/datafile.yaml
+    Untracked:  snake/code/filterNcombine_GO.R
+    Untracked:  snake/code/filter_GO.R
+    Untracked:  snake/code/go/
+    Untracked:  snake/code/method/bayesHome.R
+    Untracked:  snake/code/method/multiplotGO.Rmd
+    Untracked:  snake/code/srfile.yaml
+
+Unstaged changes:
+    Modified:   analysis/Method/BayesC.Rmd
+    Modified:   analysis/bigGO.Rmd
+    Modified:   snake/code/method/bayesGO.R
+    Modified:   snake/code/method/goFish.R
+    Modified:   snake/code/method/varbvs.R
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/goReport.Rmd</code>) and HTML (<code>docs/goReport.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/2e7171f6820d8e62ecb590ca572b5c405bd5d5c2/analysis/goReport.Rmd" target="_blank">2e7171f</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+<td>
+wflow_publish(“analysis/goReport.Rmd”)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<pre class="r"><code>#setwd(&quot;..&quot;)
+
+#Correlation Coefficient Paths
+uniF &lt;- readRDS(&#39;snake/data/go/40_all/sexf/partData.Rds&#39;)
+uniM &lt;- readRDS(&#39;snake/data/go/40_all/sexm/partData.Rds&#39;)</code></pre>
+<pre class="r"><code>#reorders 50 X m table to a (50*m) X 2 table 
+#converts method into factor to retain order
+ggTidy &lt;- function(data){
+  
+  for(i in 1:dim(data)[2]){
+    
+    name &lt;- colnames(data)[i]
+    temp &lt;- cbind(rep(name, dim(data)[1]), data[,i, with=FALSE])
+    
+    if(i==1){
+      hold &lt;- temp
+    } else{
+      hold &lt;- rbind(hold, temp, use.names=FALSE)
+    }
+  }
+  colnames(hold) &lt;- c(&quot;method&quot;, &quot;cor&quot;)
+  hold$method &lt;- factor(hold$method, levels=unique(hold$method))
+  
+  
+  return(hold)
+}
+
+#wrapper for ggplot call to custom fill sex, title, and y axis label
+ggMake &lt;- function(data, sex, custom.title, custom.Ylab){
+  
+  plothole &lt;- ggplot(data, aes(x=method, y=cor, fill=method)) +
+    geom_violin(color = NA, width = 0.65) +
+    geom_boxplot(color=&#39;#440154FF&#39;, width = 0.15) +
+    theme_minimal() +
+    stat_summary(fun=mean, color=&#39;#440154FF&#39;, geom=&#39;point&#39;, 
+                 shape=18, size=3, show.legend=FALSE) +
+    labs(x=NULL,y=custom.Ylab, tag=sex, title=custom.title) +
+    theme(legend.position=&#39;none&#39;,
+          axis.text.x = element_text(angle = -45, size=10),
+          text=element_text(size=10),
+          plot.tag = element_text(size=15)) +
+    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
+  
+  return(plothole)
+  
+}
+
+corSummary &lt;- function(dataList, outPath){
+  
+  hold &lt;- readRDS(dataList[1])
+  
+  for (i in 2:length(dataList)) {
+    #print(i)
+    hold &lt;- rbind(hold, readRDS(dataList[i]))
+  }
+  
+  colnames(hold) &lt;- c(&#39;sex&#39;, &#39;rmax&#39;, &#39;rgo&#39;, &#39;term&#39;, &#39;cor&#39;)
+  
+  saveRDS(hold, outPath)
+  
+}</code></pre>
+<pre class="r"><code>partMake &lt;- function(data, sex, yint1, cutoff, lower, custom.title, custom.Xlab, custom.Ylab){
+  plothole &lt;- ggplot(data,aes(y=cor,x=term))+
+    geom_point(color=viridis(1, begin=0.5))+
+    geom_text(aes(label=ifelse(cor&gt;cutoff, as.character(term),&#39;&#39;)), hjust=-0.1, size=2, angle=90)+
+    geom_text(aes(label=ifelse(cor&lt;lower, as.character(term),&#39;&#39;)), hjust=-0.1, size=2, angle=90)+
+    geom_hline(yintercept = yint1) +
+    geom_hline(yintercept = cutoff) +
+    theme_minimal() +
+    labs(x=custom.Xlab,y=custom.Ylab, tag=sex, title=custom.title) +
+    theme(text=element_text(size=10),
+          plot.tag = element_text(size=15))
+  return(plothole)
+}
+
+
+dMake &lt;- function(data, sex, custom.title, custom.Xlab, custom.Ylab){
+  plothole &lt;- ggplot(data, aes(x= index, y=cor, label=gene))+
+    geom_point(color=viridis(1, begin=0.5))+
+    geom_text(aes(label=ifelse(cor&gt;0.5, as.character(gene),&#39;&#39;)),hjust=1,vjust=0, angle=90)+
+    theme_minimal() +
+    labs(x=custom.Xlab,y=custom.Ylab, tag=sex, title=custom.title) +
+    theme(text=element_text(size=10),
+          plot.tag = element_text(size=15))
+  return(plothole)
+}</code></pre>
+<pre class="r"><code>allNames &lt;- read.table(file=&quot;snake/goPost/dataList&quot;, sep=&quot;\n&quot;)
+dataList &lt;- allNames[,1]
+
+front &lt;- &#39;snake/data/go/33_metric/sexf/rmax0.8/rgo0.01/&#39;
+end &lt;- &#39;/rowData.Rds&#39;
+
+finalList &lt;- paste0(front, dataList, end)
+
+outPath &lt;- &#39;snake/data/go/40_all/sexf/partData.Rds&#39;
+
+temp &lt;- na.omit(readRDS(outPath))
+
+facs &lt;- matrix(as.factor(unlist(temp[,1:4])), ncol=4)
+cors &lt;- as.numeric(unlist(temp[,5]))
+
+data &lt;- data.table(facs, cors)
+colnames(data) &lt;- c(&#39;sex&#39;, &#39;rmax&#39;, &#39;rgo&#39;, &#39;term&#39;, &#39;cor&#39;)
+
+dataF &lt;- data[data$sex==&#39;f&#39;,]
+
+yintData1 &lt;- readRDS(&#39;snake/data/sr/33_metric/go/sexf/rmax0.8/rgo0/term1/rowData.Rds&#39;)
+yF &lt;- as.numeric(yintData1[5])
+
+#
+gg[[1]] &lt;- partMake(dataF, &#39;F&#39;, yF, 0.36, 0.27, &#39;Effect of GO Annotations in Bayesian models&#39;, &#39;GO Term&#39;, &#39;Prediction Accuracy&#39;)
+
+dataFOF &lt;- dataF[order(cor),]
+#post processing
+temp99 &lt;- readRDS(&quot;snake/data/go/40_all/sexf/partData.Rds&quot;)
+
+subF &lt;- dataF[cor&gt;0.36,4:5]
+
+subF &lt;- subF[order(-cor),]
+
+plot(x=1:dim(dataFOF)[1], y=dataFOF$cor)</code></pre>
+<p><img src="figure/goReport.Rmd/magicf-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#snake/
+
+allNames &lt;- read.table(file=&quot;snake/goPost/dataList&quot;, sep=&quot;\n&quot;)
+dataList &lt;- allNames[,1]
+
+front &lt;- &#39;snake/data/go/33_metric/sexm/rmax0.8/rgo0.01/&#39;
+end &lt;- &#39;/rowData.Rds&#39;
+
+finalList &lt;- paste0(front, dataList, end)
+
+outPath &lt;- &#39;snake/data/go/40_all/sexm/partData.Rds&#39;
+
+temp &lt;- na.omit(readRDS(outPath))
+
+facs &lt;- matrix(as.factor(unlist(temp[,1:4])), ncol=4)
+cors &lt;- as.numeric(unlist(temp[,5]))
+
+data &lt;- data.table(facs, cors)
+colnames(data) &lt;- c(&#39;sex&#39;, &#39;rmax&#39;, &#39;rgo&#39;, &#39;term&#39;, &#39;cor&#39;)
+
+dataM &lt;- data[data$sex==&#39;m&#39;,]
+
+yintData1 &lt;- readRDS(&#39;snake/data/sr/33_metric/go/sexm/rmax0.8/rgo0/term1/rowData.Rds&#39;)
+yM &lt;- as.numeric(yintData1[5])
+
+#
+gg[[2]] &lt;- partMake(dataM, &#39;M&#39;, yF, 0.48, 0.40, &#39;Effect of GO Annotations in Bayesian models&#39;, &#39;GO Term&#39;, &#39;Prediction Accuracy&#39;)
+
+dataMOM &lt;- dataM[order(cor),]
+#post processing
+#temp99 &lt;- readRDS(&quot;snake/data/go/40_all/sexm/partData.Rds&quot;)
+
+subM &lt;- dataM[cor&gt;0.48,4:5]
+
+subM &lt;- subM[order(-cor),]
+
+#plot(x=1:dim(dataFOF)[1], y=dataFOF$cor)</code></pre>
+<pre class="r"><code>#ftop 
+#0045819
+#0033500
+#0055088
+#
+#mtop
+#0035008
+#0140042
+#0007485
+
+
+
+term &lt;- &#39;GO.0045819&#39;
+
+idPath &lt;- paste0(&#39;snake/data/go/03_goterms/sexf/&#39;, term, &#39;.Rds&#39;)
+fitPath &lt;- paste0(&#39;snake/data/go/25_fit/sexf/&#39;, term, &#39;/bayesFull.Rds&#39;)
+xp &lt;- readRDS(&#39;snake/data/01_matched/f_starvation.Rds&#39;)
+genes &lt;- colnames(xp[,-1])
+
+
+id1 &lt;- readRDS(idPath)
+model1 &lt;- readRDS(fitPath)
+
+fit1 &lt;- model1$fit
+
+inlay &lt;- fit1$ETA[[1]]$d
+outlay &lt;- fit1$ETA[[2]]$d
+
+#genes[id1]
+
+fitDataF &lt;- data.table(index=c(1:length(inlay)), cor=inlay, gene=genes[id1])
+
+gg[[3]] &lt;- dMake(fitDataF, &#39;F&#39;, &quot;Effect...&quot;, &#39;Index&#39;, &#39;PIP&#39;)</code></pre>
+<pre class="r"><code>#ftop 
+#0045819
+#0033500
+#0055088
+#
+#mtop
+#0035008
+#0140042
+#0007485
+
+
+termReader &lt;- function(term, sex)
+{
+  
+  idPath &lt;- paste0(&#39;snake/data/go/03_goterms/sex&#39;, sex,&#39;/&#39;, term, &#39;.Rds&#39;)
+  fitPath &lt;- paste0(&#39;snake/data/go/25_fit/sex&#39;, sex,&#39;/&#39;, term, &#39;/bayesFull.Rds&#39;)
+  xpPath &lt;- paste0(&#39;snake/data/01_matched/&#39;, sex,&#39;_starvation.Rds&#39;)
+  
+  xp &lt;- readRDS(xpPath)
+  genes &lt;- colnames(xp[,-1])
+  
+  id1 &lt;- readRDS(idPath)
+  model1 &lt;- readRDS(fitPath)
+  
+  fit1 &lt;- model1$fit
+  
+  inlay &lt;- fit1$ETA[[1]]$d
+  outlay &lt;- fit1$ETA[[2]]$d
+  
+  fitDataM &lt;- data.table(index=c(1:length(inlay)), cor=inlay, gene=genes[id1])
+  plothole &lt;- dMake(fitDataM, toupper(sex), paste0(&quot;Posterior Inclusion Probability of Genes in &quot;, term), &#39;Index&#39;, &#39;PIP&#39;)
+  return(plothole)
+}
+
+
+
+f1 &lt;- termReader(&#39;GO.0045819&#39;, &#39;f&#39;)
+f2 &lt;- termReader(&#39;GO.0033500&#39;, &#39;f&#39;)
+f3 &lt;- termReader(&#39;GO.0055088&#39;, &#39;f&#39;)
+f4 &lt;- termReader(&#39;GO.0042675&#39;, &#39;f&#39;)
+
+m1 &lt;- termReader(&#39;GO.0035008&#39;, &#39;m&#39;)
+m2 &lt;- termReader(&#39;GO.0140042&#39;, &#39;m&#39;)
+m3 &lt;- termReader(&#39;GO.0007485&#39;, &#39;m&#39;)
+m4 &lt;- termReader(&#39;GO.0005811&#39;, &#39;m&#39;)</code></pre>
+<div id="female" class="section level3">
+<h3>Female</h3>
+<pre class="r"><code>plot_grid(gg[[1]], ncol=1)</code></pre>
+<p><img src="figure/goReport.Rmd/plot-print-all-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot_grid(f1, f2, f3, f4, ncol=2)</code></pre>
+<p><img src="figure/goReport.Rmd/plot-print-all-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The low female outlier is <a href="https://amigo.geneontology.org/amigo/term/GO:0031048">GO:0031408</a> responsible for oxylipin synthesis.</p>
+<p>We then translated the top GO terms into human readable categories to assess our findings. Below are the top ten ordered by correlation:</p>
+<p>id: <a href="GO:0045819" class="uri">GO:0045819</a> name: positive regulation of glycogen catabolic process – id: <a href="GO:0033500" class="uri">GO:0033500</a> name: carbohydrate homeostasis – id: <a href="GO:0055088" class="uri">GO:0055088</a> name: lipid homeostasis – id: <a href="GO:0042675" class="uri">GO:0042675</a> name: compound eye cone cell differentiation – id: <a href="GO:0042277" class="uri">GO:0042277</a> name: peptide binding – id: <a href="GO:0008586" class="uri">GO:0008586</a> name: imaginal disc-derived wing vein morphogenesis – id: <a href="GO:0016042" class="uri">GO:0016042</a> name: lipid catabolic process – id: <a href="GO:0007368" class="uri">GO:0007368</a> name: determination of left/right symmetry – id: <a href="GO:0007638" class="uri">GO:0007638</a> name: mechanosensory behavior – id: <a href="GO:0006644" class="uri">GO:0006644</a> name: phospholipid metabolic process</p>
+</div>
+<div id="male" class="section level3">
+<h3>Male</h3>
+<pre class="r"><code>plot_grid(gg[[2]], ncol=1)</code></pre>
+<p><img src="figure/goReport.Rmd/plot-print-m-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot_grid(m1, m2, m3, m4, ncol=2)</code></pre>
+<p><img src="figure/goReport.Rmd/plot-print-m-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>No extreme outlier was found in males.</p>
+<p>We then translated the top GO terms into human readable categories to assess our findings. Below are the top ten ordered by correlation:</p>
+<p>id: <a href="GO:0035008" class="uri">GO:0035008</a> name: positive regulation of melanization defense response – id: <a href="GO:0140042" class="uri">GO:0140042</a> name: lipid droplet formation – id: <a href="GO:0007485" class="uri">GO:0007485</a> name: imaginal disc-derived male genitalia development – id: <a href="GO:0005811" class="uri">GO:0005811</a> name: lipid droplet – id: <a href="GO:0045819" class="uri">GO:0045819</a> name: positive regulation of glycogen catabolic process – id: <a href="GO:0042461" class="uri">GO:0042461</a> name: photoreceptor cell development – id: <a href="GO:0033500" class="uri">GO:0033500</a> name: carbohydrate homeostasis – id: <a href="GO:0016327" class="uri">GO:0016327</a> name: apicolateral plasma membrane – id: <a href="GO:0045186" class="uri">GO:0045186</a> name: zonula adherens assembly – id: <a href="GO:0006044" class="uri">GO:0006044</a> name: N-acetylglucosamine metabolic process</p>
+<pre class="r"><code>geneMatchF &lt;- readRDS(&#39;snake/goPost/finalDataF.Rds&#39;)
+geneMatchM &lt;- readRDS(&#39;snake/goPost/finalDataM.Rds&#39;)
+
+
+
+hitF &lt;- geneMatchF[which(count&gt;2),]
+hitM &lt;- geneMatchM[which(count&gt;2),]
+
+d1 &lt;- hitF
+d2 &lt;- hitM
+knitr::kable(
+  list(d1, d2),
+  caption = &#39;Top Female and Male Genes&#39;,
+  booktabs = TRUE, valign = &#39;t&#39;, &quot;simple&quot;
+)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">flybase</th>
+<th align="right">count</th>
+<th align="left">gene</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">FBgn0025595</td>
+<td align="right">8</td>
+<td align="left">AkhR</td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0000575</td>
+<td align="right">7</td>
+<td align="left">emc</td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0004552</td>
+<td align="right">4</td>
+<td align="left">Akh</td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0283499</td>
+<td align="right">4</td>
+<td align="left">InR</td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0003731</td>
+<td align="right">4</td>
+<td align="left">Egfr</td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0000490</td>
+<td align="right">4</td>
+<td align="left">dpp</td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0003205</td>
+<td align="right">4</td>
+<td align="left">Ras85D</td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0262738</td>
+<td align="right">4</td>
+<td align="left">norpA</td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0010303</td>
+<td align="right">3</td>
+<td align="left">hep</td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0015279</td>
+<td align="right">3</td>
+<td align="left">Pi3K92E</td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0033799</td>
+<td align="right">3</td>
+<td align="left">GLaz</td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0036449</td>
+<td align="right">3</td>
+<td align="left">bmm</td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0003463</td>
+<td align="right">3</td>
+<td align="left">sog</td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0003719</td>
+<td align="right">3</td>
+<td align="left">tld</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th align="left">flybase</th>
+<th align="right">count</th>
+<th align="left">gene</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">FBgn0265778</td>
+<td align="right">5</td>
+<td align="left">PDZ-GEF</td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0025595</td>
+<td align="right">5</td>
+<td align="left">AkhR</td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0261873</td>
+<td align="right">5</td>
+<td align="left">sdt</td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0036046</td>
+<td align="right">5</td>
+<td align="left">Ilp2</td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0283499</td>
+<td align="right">5</td>
+<td align="left">InR</td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0086687</td>
+<td align="right">4</td>
+<td align="left">Desat1</td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0036449</td>
+<td align="right">3</td>
+<td align="left">bmm</td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0004552</td>
+<td align="right">3</td>
+<td align="left">Akh</td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0003205</td>
+<td align="right">3</td>
+<td align="left">Ras85D</td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0015279</td>
+<td align="right">3</td>
+<td align="left">Pi3K92E</td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0067864</td>
+<td align="right">3</td>
+<td align="left">Patj</td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0261854</td>
+<td align="right">3</td>
+<td align="left">aPKC</td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0263289</td>
+<td align="right">3</td>
+<td align="left">scrib</td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0024248</td>
+<td align="right">3</td>
+<td align="left">chico</td>
+</tr>
+</tbody>
+</table>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.1.2 (2021-11-01)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Rocky Linux 8.5 (Green Obsidian)
+
+Matrix products: default
+BLAS/LAPACK: /opt/ohpc/pub/libs/gnu9/openblas/0.3.7/lib/libopenblasp-r0.3.7.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] knitr_1.43         reshape2_1.4.4     melt_1.10.0        ggcorrplot_0.1.4.1
+ [5] lubridate_1.9.3    forcats_1.0.0      stringr_1.5.0      purrr_1.0.1       
+ [9] readr_2.1.4        tidyr_1.3.0        tibble_3.2.1       tidyverse_2.0.0   
+[13] scales_1.2.1       viridis_0.6.4      viridisLite_0.4.2  qqman_0.1.9       
+[17] cowplot_1.1.1      ggplot2_3.4.4      data.table_1.14.8  dplyr_1.1.3       
+[21] workflowr_1.7.1   
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.11       getPass_0.2-2     ps_1.7.5          rprojroot_2.0.3  
+ [5] digest_0.6.33     utf8_1.2.3        plyr_1.8.9        R6_2.5.1         
+ [9] evaluate_0.21     highr_0.10        httr_1.4.7        pillar_1.9.0     
+[13] rlang_1.1.1       rstudioapi_0.15.0 whisker_0.4.1     callr_3.7.3      
+[17] jquerylib_0.1.4   rmarkdown_2.23    labeling_0.4.3    munsell_0.5.0    
+[21] compiler_4.1.2    httpuv_1.6.12     xfun_0.39         pkgconfig_2.0.3  
+[25] htmltools_0.5.5   tidyselect_1.2.0  gridExtra_2.3     fansi_1.0.4      
+[29] calibrate_1.7.7   tzdb_0.4.0        withr_2.5.0       later_1.3.1      
+[33] MASS_7.3-60       grid_4.1.2        jsonlite_1.8.7    gtable_0.3.4     
+[37] lifecycle_1.0.3   git2r_0.32.0      magrittr_2.0.3    cli_3.6.1        
+[41] stringi_1.7.12    cachem_1.0.8      farver_2.1.1      fs_1.6.3         
+[45] promises_1.2.0.1  bslib_0.5.0       generics_0.1.3    vctrs_0.6.4      
+[49] tools_4.1.2       glue_1.6.2        hms_1.1.3         processx_3.8.2   
+[53] fastmap_1.1.1     yaml_2.3.7        timechange_0.2.0  colorspace_2.1-0 
+[57] sass_0.4.7       </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
