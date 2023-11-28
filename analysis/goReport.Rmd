@@ -131,10 +131,10 @@ partMake <- function(data, sex, yint1, cutoff, lower, custom.title, custom.Xlab,
 }
 
 
-dMake <- function(data, sex, custom.title, custom.Xlab, custom.Ylab){
+dMake <- function(data, sex, custom.title, custom.Xlab, custom.Ylab, psize){
   plothole <- ggplot(data, aes(x= index, y=cor, label=gene))+
-    geom_point(color=viridis(1, begin=0.5))+
-    geom_text(aes(label=ifelse(cor>0.5, as.character(gene),'')),hjust=1,vjust=0, angle=90, size=4)+
+    geom_point(color=viridis(1, begin=0.5), size=psize)+
+    geom_text(aes(label=ifelse(cor>0.5, as.character(gene),'')),hjust=1,vjust=0, angle=90, )+
     theme_minimal() +
     labs(x=custom.Xlab,y=custom.Ylab, tag=sex, title=custom.title) +
     theme(text=element_text(size=8),
@@ -145,6 +145,14 @@ dMake <- function(data, sex, custom.title, custom.Xlab, custom.Ylab){
 
 
 ```
+
+
+This section of the project was to assess the 
+
+[Initial results](../goPlots.html) showed that Gene Ontology association could be used to improve prediction accuracy of a Bayesian model by assigning genes of interest a separate portion of variance. The following results are from selecting GO terms with five or more associated genes and scoring their prediction accuracy as a mean of 25 replicates apiece. 
+
+
+
 
 ```{r magicf}
 
@@ -249,7 +257,7 @@ termReader <- function(term, sex)
   outlay <- fit1$ETA[[2]]$d
   
   fitDataM <- data.table(index=c(1:length(inlay)), cor=inlay, gene=genes[id1])
-  plothole <- dMake(fitDataM, toupper(sex), paste0(term, " PIP"), 'Index', 'PIP')
+  plothole <- dMake(fitDataM, toupper(sex), paste0(term, " PIP"), 'Index', 'PIP', 1)
   return(plothole)
 }
 
@@ -266,20 +274,70 @@ m4 <- termReader('GO.0005811', 'm')
 ```
 
 
-### Female
 
-```{r plot-print-all, warning=FALSE, eval=TRUE}
 
-plot_grid(gg[[1]], ncol=1)
+```{r termReader2}
 
-print("Top terms: ")
-print(subF)
+nonReader <- function(term, sex)
+{
+  
+  idPath <- paste0('snake/data/go/03_goterms/sex', sex,'/', term, '.Rds')
+  fitPath <- paste0('snake/data/go/25_fit/sex', sex,'/', term, '/bayesFull.Rds')
+  xpPath <- paste0('snake/data/01_matched/', sex,'_starvation.Rds')
+  
+  xp <- readRDS(xpPath)
+  genes <- colnames(xp[,-1])
+  
+  id1 <- readRDS(idPath)
+  model1 <- readRDS(fitPath)
+  
+  fit1 <- model1$fit
+  
+  inlay <- fit1$ETA[[1]]$d
+  outlay <- fit1$ETA[[2]]$d
+  
+  fitDataM <- data.table(index=c(1:length(outlay)), cor=outlay, gene=genes[id1])
+  plothole <- dMake(fitDataM, toupper(sex), paste0(term, " PIP"), 'Index', 'PIP', 0.1)
+  return(plothole)
+}
 
-plot_grid(f1, f2, f3, f4, ncol=2)
+nf1 <- nonReader('GO.0045819', 'f')
+nf2 <- nonReader('GO.0033500', 'f')
+nf3 <- nonReader('GO.0055088', 'f')
+nf4 <- nonReader('GO.0042675', 'f')
+
+nm1 <- nonReader('GO.0035008', 'm')
+nm2 <- nonReader('GO.0140042', 'm')
+nm3 <- nonReader('GO.0007485', 'm')
+nm4 <- nonReader('GO.0005811', 'm')
 
 ```
 
+
+### Female
+
+# Overall
+```{r f1}
+plot_grid(gg[[1]], ncol=1)
+```
+
+# Top Results
+```{r f2}
+print(subF)
+```
+
+# Posterior Inclusion Probability of GO portion
+```{r f3}
+plot_grid(f1, f2, f3, f4, ncol=2)
+```
+
+# Posterior Inclusion Probability of non-GO portion
+```{r f4}
+plot_grid(nf1, nf2, nf3, nf4, ncol=2)
+```
+
 The low female outlier is [GO:0031408](https://amigo.geneontology.org/amigo/term/GO:0031048) responsible for oxylipin synthesis.
+
 
 We then translated the top GO terms into human readable categories to assess our findings. Below are the top ten ordered by correlation:
 
@@ -316,14 +374,24 @@ name: phospholipid metabolic process
 
 ### Male
 
-```{r plot-print-m, warning=FALSE, eval=TRUE}
-
+# Overall
+```{r m1}
 plot_grid(gg[[2]], ncol=1)
+```
 
-print("Top terms: ")
+# Top Results
+```{r m2}
 print(subM)
+```
 
+# Posterior Inclusion Probability of GO portion
+```{r m3}
 plot_grid(m1, m2, m3, m4, ncol=2)
+```
+
+# Posterior Inclusion Probability of non-GO portion
+```{r m4}
+plot_grid(nm1, nm2, nm3, nm4, ncol=2)
 ```
 
 No extreme outlier was found in males.
@@ -362,9 +430,7 @@ name: N-acetylglucosamine metabolic process
 
 
 
-
-
-### Post
+### Post-processing
 
 Beyond this, we took the models to determine if certain genes were enriched in the GO terms of interest. From the terms above the cutoff, we pooled the associated genes and totaled gene occurrence.
 
@@ -392,7 +458,7 @@ kable(d1, caption = 'Top Female and Male Genes', "simple")
 ```
 
 
-The following five genes are implicated in both male and female prediction. All are related to some form of lipid processing
+The following five genes are implicated in both male and female prediction. All are related to some form of lipid processing.
 
 Adipokinetic hormone + receptor:
 
