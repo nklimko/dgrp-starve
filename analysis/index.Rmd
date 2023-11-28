@@ -13,6 +13,8 @@ Overview
 + [Summary of Univariate and Multivariate models](allHist.html)
 + [BayesGO: Layering GO annotations with Bayesian methods](goPlots.html)
 + [BayesGO preliminary results](bigGO.html)
++ [GObayesC Report](goReport.html)
+
 
 Methods
 
