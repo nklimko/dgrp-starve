@@ -485,16 +485,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree2e7171f6820d8e62ecb590ca572b5c405bd5d5c2targetblank2e7171fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/2e7171f6820d8e62ecb590ca572b5c405bd5d5c2" target="_blank">2e7171f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreefeaa8dfd233c6543c820e8f26e0168061fa27d5ctargetblankfeaa8dfa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/feaa8dfd233c6543c820e8f26e0168061fa27d5c" target="_blank">feaa8df</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree2e7171f6820d8e62ecb590ca572b5c405bd5d5c2targetblank2e7171fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreefeaa8dfd233c6543c820e8f26e0168061fa27d5ctargetblankfeaa8dfa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/2e7171f6820d8e62ecb590ca572b5c405bd5d5c2" target="_blank">2e7171f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/feaa8dfd233c6543c820e8f26e0168061fa27d5c" target="_blank">feaa8df</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -567,6 +567,7 @@ Untracked files:
 Unstaged changes:
     Modified:   analysis/Method/BayesC.Rmd
     Modified:   analysis/bigGO.Rmd
+    Modified:   analysis/index.Rmd
     Modified:   snake/code/method/bayesGO.R
     Modified:   snake/code/method/goFish.R
     Modified:   snake/code/method/varbvs.R
@@ -608,6 +609,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/feaa8dfd233c6543c820e8f26e0168061fa27d5c/analysis/goReport.Rmd" target="_blank">feaa8df</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+<td>
+wflow_publish(“analysis/goReport.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/8ab4763d2a2e28c4bedf9afa8722572fe55a825f/docs/goReport.html" target="_blank">8ab4763</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -751,9 +786,8 @@ temp99 &lt;- readRDS(&quot;snake/data/go/40_all/sexf/partData.Rds&quot;)
 subF &lt;- dataF[cor&gt;0.36,4:5]
 
 subF &lt;- subF[order(-cor),]
-
-plot(x=1:dim(dataFOF)[1], y=dataFOF$cor)</code></pre>
-<p><img src="figure/goReport.Rmd/magicf-1.png" width="672" style="display: block; margin: auto;" /></p>
+#
+#plot(x=1:dim(dataFOF)[1], y=dataFOF$cor)</code></pre>
 <pre class="r"><code>#snake/
 
 allNames &lt;- read.table(file=&quot;snake/goPost/dataList&quot;, sep=&quot;\n&quot;)
@@ -780,7 +814,7 @@ yintData1 &lt;- readRDS(&#39;snake/data/sr/33_metric/go/sexm/rmax0.8/rgo0/term1/
 yM &lt;- as.numeric(yintData1[5])
 
 #
-gg[[2]] &lt;- partMake(dataM, &#39;M&#39;, yF, 0.48, 0.40, &#39;Effect of GO Annotations in Bayesian models&#39;, &#39;GO Term&#39;, &#39;Prediction Accuracy&#39;)
+gg[[2]] &lt;- partMake(dataM, &#39;M&#39;, yM, 0.48, 0.40, &#39;Effect of GO Annotations in Bayesian models&#39;, &#39;GO Term&#39;, &#39;Prediction Accuracy&#39;)
 
 dataMOM &lt;- dataM[order(cor),]
 #post processing
@@ -791,51 +825,7 @@ subM &lt;- dataM[cor&gt;0.48,4:5]
 subM &lt;- subM[order(-cor),]
 
 #plot(x=1:dim(dataFOF)[1], y=dataFOF$cor)</code></pre>
-<pre class="r"><code>#ftop 
-#0045819
-#0033500
-#0055088
-#
-#mtop
-#0035008
-#0140042
-#0007485
-
-
-
-term &lt;- &#39;GO.0045819&#39;
-
-idPath &lt;- paste0(&#39;snake/data/go/03_goterms/sexf/&#39;, term, &#39;.Rds&#39;)
-fitPath &lt;- paste0(&#39;snake/data/go/25_fit/sexf/&#39;, term, &#39;/bayesFull.Rds&#39;)
-xp &lt;- readRDS(&#39;snake/data/01_matched/f_starvation.Rds&#39;)
-genes &lt;- colnames(xp[,-1])
-
-
-id1 &lt;- readRDS(idPath)
-model1 &lt;- readRDS(fitPath)
-
-fit1 &lt;- model1$fit
-
-inlay &lt;- fit1$ETA[[1]]$d
-outlay &lt;- fit1$ETA[[2]]$d
-
-#genes[id1]
-
-fitDataF &lt;- data.table(index=c(1:length(inlay)), cor=inlay, gene=genes[id1])
-
-gg[[3]] &lt;- dMake(fitDataF, &#39;F&#39;, &quot;Effect...&quot;, &#39;Index&#39;, &#39;PIP&#39;)</code></pre>
-<pre class="r"><code>#ftop 
-#0045819
-#0033500
-#0055088
-#
-#mtop
-#0035008
-#0140042
-#0007485
-
-
-termReader &lt;- function(term, sex)
+<pre class="r"><code>termReader &lt;- function(term, sex)
 {
   
   idPath &lt;- paste0(&#39;snake/data/go/03_goterms/sex&#39;, sex,&#39;/&#39;, term, &#39;.Rds&#39;)
@@ -858,8 +848,6 @@ termReader &lt;- function(term, sex)
   return(plothole)
 }
 
-
-
 f1 &lt;- termReader(&#39;GO.0045819&#39;, &#39;f&#39;)
 f2 &lt;- termReader(&#39;GO.0033500&#39;, &#39;f&#39;)
 f3 &lt;- termReader(&#39;GO.0055088&#39;, &#39;f&#39;)
@@ -873,42 +861,274 @@ m4 &lt;- termReader(&#39;GO.0005811&#39;, &#39;m&#39;)</code></pre>
 <h3>Female</h3>
 <pre class="r"><code>plot_grid(gg[[1]], ncol=1)</code></pre>
 <p><img src="figure/goReport.Rmd/plot-print-all-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-print-all-1">
+Past versions of plot-print-all-1.png
+</button>
+</p>
+<div id="fig-plot-print-all-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/8ab4763d2a2e28c4bedf9afa8722572fe55a825f/docs/figure/goReport.Rmd/plot-print-all-1.png" target="_blank">8ab4763</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>print(&quot;Top terms: \n&quot;)</code></pre>
+<pre><code>[1] &quot;Top terms: \n&quot;</code></pre>
+<pre class="r"><code>print(subF)</code></pre>
+<pre><code>          term       cor
+ 1: GO.0045819 0.4382497
+ 2: GO.0033500 0.4231229
+ 3: GO.0055088 0.4178735
+ 4: GO.0042675 0.4014416
+ 5: GO.0042277 0.3994211
+ 6: GO.0008586 0.3984704
+ 7: GO.0016042 0.3919625
+ 8: GO.0007368 0.3873729
+ 9: GO.0007638 0.3856025
+10: GO.0006644 0.3799043
+11: GO.0010898 0.3798619
+12: GO.0046488 0.3777651
+13: GO.0034389 0.3753829
+14: GO.0017056 0.3736580
+15: GO.0006865 0.3734180
+16: GO.0016056 0.3729896
+17: GO.0009267 0.3709695
+18: GO.0070328 0.3692209
+19: GO.0061883 0.3691317
+20: GO.0007458 0.3686037
+21: GO.0030381 0.3684766
+22: GO.0007313 0.3681358
+23: GO.0008188 0.3658592
+24: GO.0005518 0.3644649
+25: GO.0045466 0.3643595
+26: GO.0000164 0.3641153
+27: GO.0046673 0.3614228
+28: GO.0000055 0.3606683
+29: GO.0038004 0.3605215
+30: GO.0032922 0.3600324
+          term       cor</code></pre>
 <pre class="r"><code>plot_grid(f1, f2, f3, f4, ncol=2)</code></pre>
 <p><img src="figure/goReport.Rmd/plot-print-all-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-print-all-2">
+Past versions of plot-print-all-2.png
+</button>
+</p>
+<div id="fig-plot-print-all-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/8ab4763d2a2e28c4bedf9afa8722572fe55a825f/docs/figure/goReport.Rmd/plot-print-all-2.png" target="_blank">8ab4763</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>The low female outlier is <a href="https://amigo.geneontology.org/amigo/term/GO:0031048">GO:0031408</a> responsible for oxylipin synthesis.</p>
 <p>We then translated the top GO terms into human readable categories to assess our findings. Below are the top ten ordered by correlation:</p>
-<p>id: <a href="GO:0045819" class="uri">GO:0045819</a> name: positive regulation of glycogen catabolic process – id: <a href="GO:0033500" class="uri">GO:0033500</a> name: carbohydrate homeostasis – id: <a href="GO:0055088" class="uri">GO:0055088</a> name: lipid homeostasis – id: <a href="GO:0042675" class="uri">GO:0042675</a> name: compound eye cone cell differentiation – id: <a href="GO:0042277" class="uri">GO:0042277</a> name: peptide binding – id: <a href="GO:0008586" class="uri">GO:0008586</a> name: imaginal disc-derived wing vein morphogenesis – id: <a href="GO:0016042" class="uri">GO:0016042</a> name: lipid catabolic process – id: <a href="GO:0007368" class="uri">GO:0007368</a> name: determination of left/right symmetry – id: <a href="GO:0007638" class="uri">GO:0007638</a> name: mechanosensory behavior – id: <a href="GO:0006644" class="uri">GO:0006644</a> name: phospholipid metabolic process</p>
+<p>id: <a href="GO:0045819" class="uri">GO:0045819</a> name: positive regulation of glycogen catabolic process</p>
+<p>id: <a href="GO:0033500" class="uri">GO:0033500</a> name: carbohydrate homeostasis</p>
+<p>id: <a href="GO:0055088" class="uri">GO:0055088</a> name: lipid homeostasis</p>
+<p>id: <a href="GO:0042675" class="uri">GO:0042675</a> name: compound eye cone cell differentiation</p>
+<p>id: <a href="GO:0042277" class="uri">GO:0042277</a> name: peptide binding</p>
+<p>id: <a href="GO:0008586" class="uri">GO:0008586</a> name: imaginal disc-derived wing vein morphogenesis</p>
+<p>id: <a href="GO:0016042" class="uri">GO:0016042</a> name: lipid catabolic process</p>
+<p>id: <a href="GO:0007368" class="uri">GO:0007368</a> name: determination of left/right symmetry</p>
+<p>id: <a href="GO:0007638" class="uri">GO:0007638</a> name: mechanosensory behavior</p>
+<p>id: <a href="GO:0006644" class="uri">GO:0006644</a> name: phospholipid metabolic process</p>
 </div>
 <div id="male" class="section level3">
 <h3>Male</h3>
 <pre class="r"><code>plot_grid(gg[[2]], ncol=1)</code></pre>
 <p><img src="figure/goReport.Rmd/plot-print-m-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-print-m-1">
+Past versions of plot-print-m-1.png
+</button>
+</p>
+<div id="fig-plot-print-m-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/8ab4763d2a2e28c4bedf9afa8722572fe55a825f/docs/figure/goReport.Rmd/plot-print-m-1.png" target="_blank">8ab4763</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>print(&quot;Top terms: \n&quot;)</code></pre>
+<pre><code>[1] &quot;Top terms: \n&quot;</code></pre>
+<pre class="r"><code>print(subM)</code></pre>
+<pre><code>          term       cor
+ 1: GO.0035008 0.5116379
+ 2: GO.0140042 0.5064311
+ 3: GO.0007485 0.5062906
+ 4: GO.0005811 0.5009641
+ 5: GO.0045819 0.5000330
+ 6: GO.0042461 0.4984272
+ 7: GO.0033500 0.4984207
+ 8: GO.0016327 0.4978650
+ 9: GO.0045186 0.4927519
+10: GO.0006044 0.4924000
+11: GO.0040018 0.4923077
+12: GO.0042593 0.4918994
+13: GO.0016042 0.4875109
+14: GO.0045196 0.4866070
+15: GO.0034333 0.4857293
+16: GO.0005912 0.4853594
+17: GO.0007265 0.4849572
+18: GO.0006646 0.4847660
+19: GO.0070328 0.4844510
+20: GO.0052650 0.4835012
+21: GO.0045793 0.4831989
+          term       cor</code></pre>
 <pre class="r"><code>plot_grid(m1, m2, m3, m4, ncol=2)</code></pre>
 <p><img src="figure/goReport.Rmd/plot-print-m-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-print-m-2">
+Past versions of plot-print-m-2.png
+</button>
+</p>
+<div id="fig-plot-print-m-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/8ab4763d2a2e28c4bedf9afa8722572fe55a825f/docs/figure/goReport.Rmd/plot-print-m-2.png" target="_blank">8ab4763</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>No extreme outlier was found in males.</p>
 <p>We then translated the top GO terms into human readable categories to assess our findings. Below are the top ten ordered by correlation:</p>
-<p>id: <a href="GO:0035008" class="uri">GO:0035008</a> name: positive regulation of melanization defense response – id: <a href="GO:0140042" class="uri">GO:0140042</a> name: lipid droplet formation – id: <a href="GO:0007485" class="uri">GO:0007485</a> name: imaginal disc-derived male genitalia development – id: <a href="GO:0005811" class="uri">GO:0005811</a> name: lipid droplet – id: <a href="GO:0045819" class="uri">GO:0045819</a> name: positive regulation of glycogen catabolic process – id: <a href="GO:0042461" class="uri">GO:0042461</a> name: photoreceptor cell development – id: <a href="GO:0033500" class="uri">GO:0033500</a> name: carbohydrate homeostasis – id: <a href="GO:0016327" class="uri">GO:0016327</a> name: apicolateral plasma membrane – id: <a href="GO:0045186" class="uri">GO:0045186</a> name: zonula adherens assembly – id: <a href="GO:0006044" class="uri">GO:0006044</a> name: N-acetylglucosamine metabolic process</p>
+<p>id: <a href="GO:0035008" class="uri">GO:0035008</a> name: positive regulation of melanization defense response</p>
+<p>id: <a href="GO:0140042" class="uri">GO:0140042</a> name: lipid droplet formation</p>
+<p>id: <a href="GO:0007485" class="uri">GO:0007485</a> name: imaginal disc-derived male genitalia development</p>
+<p>id: <a href="GO:0005811" class="uri">GO:0005811</a> name: lipid droplet</p>
+<p>id: <a href="GO:0045819" class="uri">GO:0045819</a> name: positive regulation of glycogen catabolic process</p>
+<p>id: <a href="GO:0042461" class="uri">GO:0042461</a> name: photoreceptor cell development</p>
+<p>id: <a href="GO:0033500" class="uri">GO:0033500</a> name: carbohydrate homeostasis</p>
+<p>id: <a href="GO:0016327" class="uri">GO:0016327</a> name: apicolateral plasma membrane</p>
+<p>id: <a href="GO:0045186" class="uri">GO:0045186</a> name: zonula adherens assembly</p>
+<p>id: <a href="GO:0006044" class="uri">GO:0006044</a> name: N-acetylglucosamine metabolic process</p>
+</div>
+<div id="post" class="section level3">
+<h3>Post</h3>
+<p>Beyond this, we took the models to determine if certain genes were enriched in the GO terms of interest. From the terms above the cutoff, we pooled the associated genes and totaled gene occurrence.</p>
+<p>Females: Out of 323 genes, 37 appeared more than once and 14 appeared twice or more. Males: Out of 448 genes, 50 appeared more than once and 14 appeared twice or more.</p>
+<p>After establishing unique genes, we translated the FlyBase gene codes to human-readable genes.</p>
 <pre class="r"><code>geneMatchF &lt;- readRDS(&#39;snake/goPost/finalDataF.Rds&#39;)
 geneMatchM &lt;- readRDS(&#39;snake/goPost/finalDataM.Rds&#39;)
 
-
-
 hitF &lt;- geneMatchF[which(count&gt;2),]
 hitM &lt;- geneMatchM[which(count&gt;2),]
+d1 &lt;- cbind(hitF, hitM)
 
-d1 &lt;- hitF
-d2 &lt;- hitM
-knitr::kable(
-  list(d1, d2),
-  caption = &#39;Top Female and Male Genes&#39;,
-  booktabs = TRUE, valign = &#39;t&#39;, &quot;simple&quot;
-)</code></pre>
+colnames(d1) &lt;- c(&#39;Female Gene&#39;, &#39;Count&#39;, &#39;Gene&#39;, &#39;Male Gene&#39;, &#39;Count&#39;, &#39;Gene&#39;)
+
+kable(d1, caption = &#39;Top Female and Male Genes&#39;, &quot;simple&quot;)</code></pre>
 <table>
+<caption>Top Female and Male Genes</caption>
 <thead>
 <tr class="header">
-<th align="left">flybase</th>
-<th align="right">count</th>
-<th align="left">gene</th>
+<th align="left">Female Gene</th>
+<th align="right">Count</th>
+<th align="left">Gene</th>
+<th align="left">Male Gene</th>
+<th align="right">Count</th>
+<th align="left">Gene</th>
 </tr>
 </thead>
 <tbody>
@@ -916,48 +1136,78 @@ knitr::kable(
 <td align="left">FBgn0025595</td>
 <td align="right">8</td>
 <td align="left">AkhR</td>
+<td align="left">FBgn0265778</td>
+<td align="right">5</td>
+<td align="left">PDZ-GEF</td>
 </tr>
 <tr class="even">
 <td align="left">FBgn0000575</td>
 <td align="right">7</td>
 <td align="left">emc</td>
+<td align="left">FBgn0025595</td>
+<td align="right">5</td>
+<td align="left">AkhR</td>
 </tr>
 <tr class="odd">
 <td align="left">FBgn0004552</td>
 <td align="right">4</td>
 <td align="left">Akh</td>
+<td align="left">FBgn0261873</td>
+<td align="right">5</td>
+<td align="left">sdt</td>
 </tr>
 <tr class="even">
 <td align="left">FBgn0283499</td>
 <td align="right">4</td>
 <td align="left">InR</td>
+<td align="left">FBgn0036046</td>
+<td align="right">5</td>
+<td align="left">Ilp2</td>
 </tr>
 <tr class="odd">
 <td align="left">FBgn0003731</td>
 <td align="right">4</td>
 <td align="left">Egfr</td>
+<td align="left">FBgn0283499</td>
+<td align="right">5</td>
+<td align="left">InR</td>
 </tr>
 <tr class="even">
 <td align="left">FBgn0000490</td>
 <td align="right">4</td>
 <td align="left">dpp</td>
+<td align="left">FBgn0086687</td>
+<td align="right">4</td>
+<td align="left">Desat1</td>
 </tr>
 <tr class="odd">
 <td align="left">FBgn0003205</td>
 <td align="right">4</td>
 <td align="left">Ras85D</td>
+<td align="left">FBgn0036449</td>
+<td align="right">3</td>
+<td align="left">bmm</td>
 </tr>
 <tr class="even">
 <td align="left">FBgn0262738</td>
 <td align="right">4</td>
 <td align="left">norpA</td>
+<td align="left">FBgn0004552</td>
+<td align="right">3</td>
+<td align="left">Akh</td>
 </tr>
 <tr class="odd">
 <td align="left">FBgn0010303</td>
 <td align="right">3</td>
 <td align="left">hep</td>
+<td align="left">FBgn0003205</td>
+<td align="right">3</td>
+<td align="left">Ras85D</td>
 </tr>
 <tr class="even">
+<td align="left">FBgn0015279</td>
+<td align="right">3</td>
+<td align="left">Pi3K92E</td>
 <td align="left">FBgn0015279</td>
 <td align="right">3</td>
 <td align="left">Pi3K92E</td>
@@ -966,105 +1216,42 @@ knitr::kable(
 <td align="left">FBgn0033799</td>
 <td align="right">3</td>
 <td align="left">GLaz</td>
-</tr>
-<tr class="even">
-<td align="left">FBgn0036449</td>
-<td align="right">3</td>
-<td align="left">bmm</td>
-</tr>
-<tr class="odd">
-<td align="left">FBgn0003463</td>
-<td align="right">3</td>
-<td align="left">sog</td>
-</tr>
-<tr class="even">
-<td align="left">FBgn0003719</td>
-<td align="right">3</td>
-<td align="left">tld</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr class="header">
-<th align="left">flybase</th>
-<th align="right">count</th>
-<th align="left">gene</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">FBgn0265778</td>
-<td align="right">5</td>
-<td align="left">PDZ-GEF</td>
-</tr>
-<tr class="even">
-<td align="left">FBgn0025595</td>
-<td align="right">5</td>
-<td align="left">AkhR</td>
-</tr>
-<tr class="odd">
-<td align="left">FBgn0261873</td>
-<td align="right">5</td>
-<td align="left">sdt</td>
-</tr>
-<tr class="even">
-<td align="left">FBgn0036046</td>
-<td align="right">5</td>
-<td align="left">Ilp2</td>
-</tr>
-<tr class="odd">
-<td align="left">FBgn0283499</td>
-<td align="right">5</td>
-<td align="left">InR</td>
-</tr>
-<tr class="even">
-<td align="left">FBgn0086687</td>
-<td align="right">4</td>
-<td align="left">Desat1</td>
-</tr>
-<tr class="odd">
-<td align="left">FBgn0036449</td>
-<td align="right">3</td>
-<td align="left">bmm</td>
-</tr>
-<tr class="even">
-<td align="left">FBgn0004552</td>
-<td align="right">3</td>
-<td align="left">Akh</td>
-</tr>
-<tr class="odd">
-<td align="left">FBgn0003205</td>
-<td align="right">3</td>
-<td align="left">Ras85D</td>
-</tr>
-<tr class="even">
-<td align="left">FBgn0015279</td>
-<td align="right">3</td>
-<td align="left">Pi3K92E</td>
-</tr>
-<tr class="odd">
 <td align="left">FBgn0067864</td>
 <td align="right">3</td>
 <td align="left">Patj</td>
 </tr>
 <tr class="even">
+<td align="left">FBgn0036449</td>
+<td align="right">3</td>
+<td align="left">bmm</td>
 <td align="left">FBgn0261854</td>
 <td align="right">3</td>
 <td align="left">aPKC</td>
 </tr>
 <tr class="odd">
+<td align="left">FBgn0003463</td>
+<td align="right">3</td>
+<td align="left">sog</td>
 <td align="left">FBgn0263289</td>
 <td align="right">3</td>
 <td align="left">scrib</td>
 </tr>
 <tr class="even">
+<td align="left">FBgn0003719</td>
+<td align="right">3</td>
+<td align="left">tld</td>
 <td align="left">FBgn0024248</td>
 <td align="right">3</td>
 <td align="left">chico</td>
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>#
+#knitr::kable(
+#  list(d1, d2),
+#  caption = &#39;Top Female and Male Genes&#39;,
+#  booktabs = TRUE, valign = &#39;t&#39;, &quot;simple&quot;
+#)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
