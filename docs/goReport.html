@@ -485,16 +485,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree979c389186168ca4c4b42a022d5dedb492c45d5atargetblank979c389a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/979c389186168ca4c4b42a022d5dedb492c45d5a" target="_blank">979c389</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreed2b97de4b9c2cbea01d6ce72ac471495a6272642targetblankd2b97dea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/d2b97de4b9c2cbea01d6ce72ac471495a6272642" target="_blank">d2b97de</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree979c389186168ca4c4b42a022d5dedb492c45d5atargetblank979c389a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreed2b97de4b9c2cbea01d6ce72ac471495a6272642targetblankd2b97dea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/979c389186168ca4c4b42a022d5dedb492c45d5a" target="_blank">979c389</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/d2b97de4b9c2cbea01d6ce72ac471495a6272642" target="_blank">d2b97de</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -608,6 +608,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/d2b97de4b9c2cbea01d6ce72ac471495a6272642/analysis/goReport.Rmd" target="_blank">d2b97de</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+<td>
+wflow_publish(“analysis/goReport.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/2230527a27b6c3eb57d0fffa7b4b2ea8136f2669/docs/goReport.html" target="_blank">2230527</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -847,14 +881,13 @@ corSummary &lt;- function(dataList, outPath){
 dMake &lt;- function(data, sex, custom.title, custom.Xlab, custom.Ylab, psize){
   plothole &lt;- ggplot(data, aes(x= index, y=cor, label=gene))+
     geom_point(color=viridis(1, begin=0.5), size=psize)+
-    geom_text(aes(label=ifelse(cor&gt;0.5, as.character(gene),&#39;&#39;)),hjust=1,vjust=0, angle=90, )+
+    geom_text(aes(label=ifelse(cor&gt;0.5, as.character(gene),&#39;&#39;)),hjust=1,vjust=0, angle=90, size=3)+
     theme_minimal() +
     labs(x=custom.Xlab,y=custom.Ylab, tag=sex, title=custom.title) +
     theme(text=element_text(size=8),
           plot.tag = element_text(size=15))
   return(plothole)
 }</code></pre>
-<p>This section of the project was to assess the</p>
 <p><a href="../goPlots.html">Initial results</a> showed that Gene Ontology association could be used to improve prediction accuracy of a Bayesian model by assigning genes of interest a separate portion of variance. The following results are from selecting GO terms with five or more associated genes and scoring their prediction accuracy as a mean of 25 replicates apiece.</p>
 <pre class="r"><code>allNames &lt;- read.table(file=&quot;snake/goPost/dataList&quot;, sep=&quot;&quot;)
 dataList &lt;- allNames[,1]
@@ -978,37 +1011,22 @@ m4 &lt;- termReader(&#39;GO.0005811&#39;, &#39;m&#39;)</code></pre>
   inlay &lt;- fit1$ETA[[1]]$d
   outlay &lt;- fit1$ETA[[2]]$d
   
-  fitDataM &lt;- data.table(index=c(1:length(outlay)), cor=outlay, gene=genes[id1])
+  fitDataM &lt;- data.table(index=c(1:length(outlay)), cor=outlay, gene=genes[-id1])
+  
+  
   plothole &lt;- dMake(fitDataM, toupper(sex), paste0(term, &quot; PIP&quot;), &#39;Index&#39;, &#39;PIP&#39;, 0.1)
   return(plothole)
 }
 
-nf1 &lt;- nonReader(&#39;GO.0045819&#39;, &#39;f&#39;)</code></pre>
-<pre><code>Warning in as.data.table.list(x, keep.rownames = keep.rownames, check.names =
-check.names, : Item 3 has 9 rows but longest item has 11329; recycled with
-remainder.</code></pre>
-<pre class="r"><code>nf2 &lt;- nonReader(&#39;GO.0033500&#39;, &#39;f&#39;)</code></pre>
-<pre><code>Warning in as.data.table.list(x, keep.rownames = keep.rownames, check.names =
-check.names, : Item 3 has 10 rows but longest item has 11328; recycled with
-remainder.</code></pre>
-<pre class="r"><code>nf3 &lt;- nonReader(&#39;GO.0055088&#39;, &#39;f&#39;)</code></pre>
-<pre><code>Warning in as.data.table.list(x, keep.rownames = keep.rownames, check.names =
-check.names, : Item 3 has 41 rows but longest item has 11297; recycled with
-remainder.</code></pre>
-<pre class="r"><code>nf4 &lt;- nonReader(&#39;GO.0042675&#39;, &#39;f&#39;)</code></pre>
-<pre><code>Warning in as.data.table.list(x, keep.rownames = keep.rownames, check.names =
-check.names, : Item 3 has 9 rows but longest item has 11329; recycled with
-remainder.</code></pre>
-<pre class="r"><code>nm1 &lt;- nonReader(&#39;GO.0035008&#39;, &#39;m&#39;)</code></pre>
-<pre><code>Warning in as.data.table.list(x, keep.rownames = keep.rownames, check.names =
-check.names, : Item 3 has 6 rows but longest item has 13569; recycled with
-remainder.</code></pre>
-<pre class="r"><code>nm2 &lt;- nonReader(&#39;GO.0140042&#39;, &#39;m&#39;)
+nf1 &lt;- nonReader(&#39;GO.0045819&#39;, &#39;f&#39;)
+nf2 &lt;- nonReader(&#39;GO.0033500&#39;, &#39;f&#39;)
+nf3 &lt;- nonReader(&#39;GO.0055088&#39;, &#39;f&#39;)
+nf4 &lt;- nonReader(&#39;GO.0042675&#39;, &#39;f&#39;)
+
+nm1 &lt;- nonReader(&#39;GO.0035008&#39;, &#39;m&#39;)
+nm2 &lt;- nonReader(&#39;GO.0140042&#39;, &#39;m&#39;)
 nm3 &lt;- nonReader(&#39;GO.0007485&#39;, &#39;m&#39;)
 nm4 &lt;- nonReader(&#39;GO.0005811&#39;, &#39;m&#39;)</code></pre>
-<pre><code>Warning in as.data.table.list(x, keep.rownames = keep.rownames, check.names =
-check.names, : Item 3 has 24 rows but longest item has 13551; recycled with
-remainder.</code></pre>
 <div id="female" class="section level3">
 <h3>Female</h3>
 </div>
@@ -1016,6 +1034,43 @@ remainder.</code></pre>
 <h1>Overall</h1>
 <pre class="r"><code>plot_grid(gg[[1]], ncol=1)</code></pre>
 <p><img src="figure/goReport.Rmd/f1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-f1-1">
+Past versions of f1-1.png
+</button>
+</p>
+<div id="fig-f1-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/2230527a27b6c3eb57d0fffa7b4b2ea8136f2669/docs/figure/goReport.Rmd/f1-1.png" target="_blank">2230527</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="top-results" class="section level1">
 <h1>Top Results</h1>
@@ -1057,11 +1112,85 @@ remainder.</code></pre>
 <h1>Posterior Inclusion Probability of GO portion</h1>
 <pre class="r"><code>plot_grid(f1, f2, f3, f4, ncol=2)</code></pre>
 <p><img src="figure/goReport.Rmd/f3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-f3-1">
+Past versions of f3-1.png
+</button>
+</p>
+<div id="fig-f3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/2230527a27b6c3eb57d0fffa7b4b2ea8136f2669/docs/figure/goReport.Rmd/f3-1.png" target="_blank">2230527</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="posterior-inclusion-probability-of-non-go-portion" class="section level1">
 <h1>Posterior Inclusion Probability of non-GO portion</h1>
 <pre class="r"><code>plot_grid(nf1, nf2, nf3, nf4, ncol=2)</code></pre>
 <p><img src="figure/goReport.Rmd/f4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-f4-1">
+Past versions of f4-1.png
+</button>
+</p>
+<div id="fig-f4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/2230527a27b6c3eb57d0fffa7b4b2ea8136f2669/docs/figure/goReport.Rmd/f4-1.png" target="_blank">2230527</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>The low female outlier is <a href="https://amigo.geneontology.org/amigo/term/GO:0031048">GO:0031408</a> responsible for oxylipin synthesis.</p>
 <p>We then translated the top GO terms into human readable categories to assess our findings. Below are the top ten ordered by correlation:</p>
 <p>id: <a href="GO:0045819" class="uri">GO:0045819</a> name: positive regulation of glycogen catabolic process</p>
@@ -1082,6 +1211,43 @@ remainder.</code></pre>
 <h1>Overall</h1>
 <pre class="r"><code>plot_grid(gg[[2]], ncol=1)</code></pre>
 <p><img src="figure/goReport.Rmd/m1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-m1-1">
+Past versions of m1-1.png
+</button>
+</p>
+<div id="fig-m1-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/2230527a27b6c3eb57d0fffa7b4b2ea8136f2669/docs/figure/goReport.Rmd/m1-1.png" target="_blank">2230527</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="top-results-1" class="section level1">
 <h1>Top Results</h1>
@@ -1114,11 +1280,85 @@ remainder.</code></pre>
 <h1>Posterior Inclusion Probability of GO portion</h1>
 <pre class="r"><code>plot_grid(m1, m2, m3, m4, ncol=2)</code></pre>
 <p><img src="figure/goReport.Rmd/m3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-m3-1">
+Past versions of m3-1.png
+</button>
+</p>
+<div id="fig-m3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/2230527a27b6c3eb57d0fffa7b4b2ea8136f2669/docs/figure/goReport.Rmd/m3-1.png" target="_blank">2230527</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="posterior-inclusion-probability-of-non-go-portion-1" class="section level1">
 <h1>Posterior Inclusion Probability of non-GO portion</h1>
 <pre class="r"><code>plot_grid(nm1, nm2, nm3, nm4, ncol=2)</code></pre>
 <p><img src="figure/goReport.Rmd/m4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-m4-1">
+Past versions of m4-1.png
+</button>
+</p>
+<div id="fig-m4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/2230527a27b6c3eb57d0fffa7b4b2ea8136f2669/docs/figure/goReport.Rmd/m4-1.png" target="_blank">2230527</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>No extreme outlier was found in males.</p>
 <p>We then translated the top GO terms into human readable categories to assess our findings. Below are the top ten ordered by correlation:</p>
 <p>id: <a href="GO:0035008" class="uri">GO:0035008</a> name: positive regulation of melanization defense response</p>
