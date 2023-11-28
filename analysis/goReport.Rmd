@@ -1,0 +1,456 @@
+---
+title: "GObayesC Report"
+output:
+  workflowr::wflow_html:
+    toc: true
+    latex_engine: "xelatex"
+    code_folding: "hide"
+editor_options:
+  chunk_output_type: console
+---
+
+```{r 0-paths}
+
+#setwd("..")
+
+#Correlation Coefficient Paths
+uniF <- readRDS('snake/data/go/40_all/sexf/partData.Rds')
+uniM <- readRDS('snake/data/go/40_all/sexm/partData.Rds')
+
+
+```
+
+
+
+```{r 0-setup, include=FALSE, warning=FALSE}
+#regular
+if(1){
+  library(dplyr)
+  library(data.table)
+  library(ggplot2)
+  library(cowplot)
+  library(qqman)
+  library(viridis)
+  library(scales)
+  library(tidyverse)
+  library(ggcorrplot)
+  library(melt)
+  library(reshape2)
+  library(knitr)
+  
+  #options
+  options(bitmapType = "cairo")
+  options(error = function() traceback(3))
+  
+  #seed
+  set.seed(123)
+  
+  #ggplot holder list
+  gg <- vector(mode='list', length=12)
+  #setwd('data2/morgante_lab/nklimko/rep/dgrp-starve/')
+}
+```
+
+```{r functions, warning=FALSE}
+
+#reorders 50 X m table to a (50*m) X 2 table 
+#converts method into factor to retain order
+ggTidy <- function(data){
+  
+  for(i in 1:dim(data)[2]){
+    
+    name <- colnames(data)[i]
+    temp <- cbind(rep(name, dim(data)[1]), data[,i, with=FALSE])
+    
+    if(i==1){
+      hold <- temp
+    } else{
+      hold <- rbind(hold, temp, use.names=FALSE)
+    }
+  }
+  colnames(hold) <- c("method", "cor")
+  hold$method <- factor(hold$method, levels=unique(hold$method))
+  
+  
+  return(hold)
+}
+
+#wrapper for ggplot call to custom fill sex, title, and y axis label
+ggMake <- function(data, sex, custom.title, custom.Ylab){
+  
+  plothole <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+    geom_violin(color = NA, width = 0.65) +
+    geom_boxplot(color='#440154FF', width = 0.15) +
+    theme_minimal() +
+    stat_summary(fun=mean, color='#440154FF', geom='point', 
+                 shape=18, size=3, show.legend=FALSE) +
+    labs(x=NULL,y=custom.Ylab, tag=sex, title=custom.title) +
+    theme(legend.position='none',
+          axis.text.x = element_text(angle = -45, size=10),
+          text=element_text(size=10),
+          plot.tag = element_text(size=15)) +
+    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
+  
+  return(plothole)
+  
+}
+
+corSummary <- function(dataList, outPath){
+  
+  hold <- readRDS(dataList[1])
+  
+  for (i in 2:length(dataList)) {
+    #print(i)
+    hold <- rbind(hold, readRDS(dataList[i]))
+  }
+  
+  colnames(hold) <- c('sex', 'rmax', 'rgo', 'term', 'cor')
+  
+  saveRDS(hold, outPath)
+  
+}
+
+
+
+
+```
+
+
+
+```{r plotmakes}
+
+
+partMake <- function(data, sex, yint1, cutoff, lower, custom.title, custom.Xlab, custom.Ylab){
+  plothole <- ggplot(data,aes(y=cor,x=term))+
+    geom_point(color=viridis(1, begin=0.5))+
+    geom_text(aes(label=ifelse(cor>cutoff, as.character(term),'')), hjust=-0.1, size=2, angle=90)+
+    geom_text(aes(label=ifelse(cor<lower, as.character(term),'')), hjust=-0.1, size=2, angle=90)+
+    geom_hline(yintercept = yint1) +
+    geom_hline(yintercept = cutoff) +
+    theme_minimal() +
+    labs(x=custom.Xlab,y=custom.Ylab, tag=sex, title=custom.title) +
+    theme(text=element_text(size=10),
+          plot.tag = element_text(size=15))
+  return(plothole)
+}
+
+
+dMake <- function(data, sex, custom.title, custom.Xlab, custom.Ylab){
+  plothole <- ggplot(data, aes(x= index, y=cor, label=gene))+
+    geom_point(color=viridis(1, begin=0.5))+
+    geom_text(aes(label=ifelse(cor>0.5, as.character(gene),'')),hjust=1,vjust=0, angle=90)+
+    theme_minimal() +
+    labs(x=custom.Xlab,y=custom.Ylab, tag=sex, title=custom.title) +
+    theme(text=element_text(size=10),
+          plot.tag = element_text(size=15))
+  return(plothole)
+}
+
+
+
+```
+
+
+
+```{r magicf}
+
+allNames <- read.table(file="snake/goPost/dataList", sep="\n")
+dataList <- allNames[,1]
+
+front <- 'snake/data/go/33_metric/sexf/rmax0.8/rgo0.01/'
+end <- '/rowData.Rds'
+
+finalList <- paste0(front, dataList, end)
+
+outPath <- 'snake/data/go/40_all/sexf/partData.Rds'
+
+temp <- na.omit(readRDS(outPath))
+
+facs <- matrix(as.factor(unlist(temp[,1:4])), ncol=4)
+cors <- as.numeric(unlist(temp[,5]))
+
+data <- data.table(facs, cors)
+colnames(data) <- c('sex', 'rmax', 'rgo', 'term', 'cor')
+
+dataF <- data[data$sex=='f',]
+
+yintData1 <- readRDS('snake/data/sr/33_metric/go/sexf/rmax0.8/rgo0/term1/rowData.Rds')
+yF <- as.numeric(yintData1[5])
+
+#
+gg[[1]] <- partMake(dataF, 'F', yF, 0.36, 0.27, 'Effect of GO Annotations in Bayesian models', 'GO Term', 'Prediction Accuracy')
+
+dataFOF <- dataF[order(cor),]
+#post processing
+temp99 <- readRDS("snake/data/go/40_all/sexf/partData.Rds")
+
+subF <- dataF[cor>0.36,4:5]
+
+subF <- subF[order(-cor),]
+
+plot(x=1:dim(dataFOF)[1], y=dataFOF$cor)
+
+```
+
+```{r magicm}
+
+#snake/
+
+allNames <- read.table(file="snake/goPost/dataList", sep="\n")
+dataList <- allNames[,1]
+
+front <- 'snake/data/go/33_metric/sexm/rmax0.8/rgo0.01/'
+end <- '/rowData.Rds'
+
+finalList <- paste0(front, dataList, end)
+
+outPath <- 'snake/data/go/40_all/sexm/partData.Rds'
+
+temp <- na.omit(readRDS(outPath))
+
+facs <- matrix(as.factor(unlist(temp[,1:4])), ncol=4)
+cors <- as.numeric(unlist(temp[,5]))
+
+data <- data.table(facs, cors)
+colnames(data) <- c('sex', 'rmax', 'rgo', 'term', 'cor')
+
+dataM <- data[data$sex=='m',]
+
+yintData1 <- readRDS('snake/data/sr/33_metric/go/sexm/rmax0.8/rgo0/term1/rowData.Rds')
+yM <- as.numeric(yintData1[5])
+
+#
+gg[[2]] <- partMake(dataM, 'M', yF, 0.48, 0.40, 'Effect of GO Annotations in Bayesian models', 'GO Term', 'Prediction Accuracy')
+
+dataMOM <- dataM[order(cor),]
+#post processing
+#temp99 <- readRDS("snake/data/go/40_all/sexm/partData.Rds")
+
+subM <- dataM[cor>0.48,4:5]
+
+subM <- subM[order(-cor),]
+
+#plot(x=1:dim(dataFOF)[1], y=dataFOF$cor)
+
+```
+
+
+
+```{r impass}
+#ftop 
+#0045819
+#0033500
+#0055088
+#
+#mtop
+#0035008
+#0140042
+#0007485
+
+
+
+term <- 'GO.0045819'
+
+idPath <- paste0('snake/data/go/03_goterms/sexf/', term, '.Rds')
+fitPath <- paste0('snake/data/go/25_fit/sexf/', term, '/bayesFull.Rds')
+xp <- readRDS('snake/data/01_matched/f_starvation.Rds')
+genes <- colnames(xp[,-1])
+
+
+id1 <- readRDS(idPath)
+model1 <- readRDS(fitPath)
+
+fit1 <- model1$fit
+
+inlay <- fit1$ETA[[1]]$d
+outlay <- fit1$ETA[[2]]$d
+
+#genes[id1]
+
+fitDataF <- data.table(index=c(1:length(inlay)), cor=inlay, gene=genes[id1])
+
+gg[[3]] <- dMake(fitDataF, 'F', "Effect...", 'Index', 'PIP')
+
+
+```
+
+
+```{r impassm}
+#ftop 
+#0045819
+#0033500
+#0055088
+#
+#mtop
+#0035008
+#0140042
+#0007485
+
+
+termReader <- function(term, sex)
+{
+  
+  idPath <- paste0('snake/data/go/03_goterms/sex', sex,'/', term, '.Rds')
+  fitPath <- paste0('snake/data/go/25_fit/sex', sex,'/', term, '/bayesFull.Rds')
+  xpPath <- paste0('snake/data/01_matched/', sex,'_starvation.Rds')
+  
+  xp <- readRDS(xpPath)
+  genes <- colnames(xp[,-1])
+  
+  id1 <- readRDS(idPath)
+  model1 <- readRDS(fitPath)
+  
+  fit1 <- model1$fit
+  
+  inlay <- fit1$ETA[[1]]$d
+  outlay <- fit1$ETA[[2]]$d
+  
+  fitDataM <- data.table(index=c(1:length(inlay)), cor=inlay, gene=genes[id1])
+  plothole <- dMake(fitDataM, toupper(sex), paste0("Posterior Inclusion Probability of Genes in ", term), 'Index', 'PIP')
+  return(plothole)
+}
+
+
+
+f1 <- termReader('GO.0045819', 'f')
+f2 <- termReader('GO.0033500', 'f')
+f3 <- termReader('GO.0055088', 'f')
+f4 <- termReader('GO.0042675', 'f')
+
+m1 <- termReader('GO.0035008', 'm')
+m2 <- termReader('GO.0140042', 'm')
+m3 <- termReader('GO.0007485', 'm')
+m4 <- termReader('GO.0005811', 'm')
+
+```
+
+
+
+
+
+
+### Female
+
+```{r plot-print-all, warning=FALSE, eval=TRUE}
+
+plot_grid(gg[[1]], ncol=1)
+
+plot_grid(f1, f2, f3, f4, ncol=2)
+
+
+
+
+```
+
+The low female outlier is [GO:0031408](https://amigo.geneontology.org/amigo/term/GO:0031048) responsible for oxylipin synthesis.
+
+We then translated the top GO terms into human readable categories to assess our findings. Below are the top ten ordered by correlation:
+
+id: GO:0045819
+name: positive regulation of glycogen catabolic process
+--
+id: GO:0033500
+name: carbohydrate homeostasis
+--
+id: GO:0055088
+name: lipid homeostasis
+--
+id: GO:0042675
+name: compound eye cone cell differentiation
+--
+id: GO:0042277
+name: peptide binding
+--
+id: GO:0008586
+name: imaginal disc-derived wing vein morphogenesis
+--
+id: GO:0016042
+name: lipid catabolic process
+--
+id: GO:0007368
+name: determination of left/right symmetry
+--
+id: GO:0007638
+name: mechanosensory behavior
+--
+id: GO:0006644
+name: phospholipid metabolic process
+
+
+
+
+### Male
+
+
+```{r plot-print-m, warning=FALSE, eval=TRUE}
+
+plot_grid(gg[[2]], ncol=1)
+
+
+
+plot_grid(m1, m2, m3, m4, ncol=2)
+```
+
+
+
+No extreme outlier was found in males.
+
+We then translated the top GO terms into human readable categories to assess our findings. Below are the top ten ordered by correlation:
+
+id: GO:0035008
+name: positive regulation of melanization defense response
+--
+id: GO:0140042
+name: lipid droplet formation
+--
+id: GO:0007485
+name: imaginal disc-derived male genitalia development
+--
+id: GO:0005811
+name: lipid droplet
+--
+id: GO:0045819
+name: positive regulation of glycogen catabolic process
+--
+id: GO:0042461
+name: photoreceptor cell development
+--
+id: GO:0033500
+name: carbohydrate homeostasis
+--
+id: GO:0016327
+name: apicolateral plasma membrane
+--
+id: GO:0045186
+name: zonula adherens assembly
+--
+id: GO:0006044
+name: N-acetylglucosamine metabolic process
+
+
+
+```{r foolery}
+
+geneMatchF <- readRDS('snake/goPost/finalDataF.Rds')
+geneMatchM <- readRDS('snake/goPost/finalDataM.Rds')
+
+
+
+hitF <- geneMatchF[which(count>2),]
+hitM <- geneMatchM[which(count>2),]
+
+d1 <- hitF
+d2 <- hitM
+knitr::kable(
+  list(d1, d2),
+  caption = 'Top Female and Male Genes',
+  booktabs = TRUE, valign = 't', "simple"
+)
+
+
+```
+
+
+
+
+
