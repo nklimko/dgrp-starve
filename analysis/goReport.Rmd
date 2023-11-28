@@ -20,8 +20,6 @@ uniM <- readRDS('snake/data/go/40_all/sexm/partData.Rds')
 
 ```
 
-
-
 ```{r 0-setup, include=FALSE, warning=FALSE}
 #regular
 if(1){
@@ -115,8 +113,6 @@ corSummary <- function(dataList, outPath){
 
 ```
 
-
-
 ```{r plotmakes}
 
 
@@ -149,8 +145,6 @@ dMake <- function(data, sex, custom.title, custom.Xlab, custom.Ylab){
 
 
 ```
-
-
 
 ```{r magicf}
 
@@ -187,8 +181,8 @@ temp99 <- readRDS("snake/data/go/40_all/sexf/partData.Rds")
 subF <- dataF[cor>0.36,4:5]
 
 subF <- subF[order(-cor),]
-
-plot(x=1:dim(dataFOF)[1], y=dataFOF$cor)
+#
+#plot(x=1:dim(dataFOF)[1], y=dataFOF$cor)
 
 ```
 
@@ -220,7 +214,7 @@ yintData1 <- readRDS('snake/data/sr/33_metric/go/sexm/rmax0.8/rgo0/term1/rowData
 yM <- as.numeric(yintData1[5])
 
 #
-gg[[2]] <- partMake(dataM, 'M', yF, 0.48, 0.40, 'Effect of GO Annotations in Bayesian models', 'GO Term', 'Prediction Accuracy')
+gg[[2]] <- partMake(dataM, 'M', yM, 0.48, 0.40, 'Effect of GO Annotations in Bayesian models', 'GO Term', 'Prediction Accuracy')
 
 dataMOM <- dataM[order(cor),]
 #post processing
@@ -234,58 +228,7 @@ subM <- subM[order(-cor),]
 
 ```
 
-
-
-```{r impass}
-#ftop 
-#0045819
-#0033500
-#0055088
-#
-#mtop
-#0035008
-#0140042
-#0007485
-
-
-
-term <- 'GO.0045819'
-
-idPath <- paste0('snake/data/go/03_goterms/sexf/', term, '.Rds')
-fitPath <- paste0('snake/data/go/25_fit/sexf/', term, '/bayesFull.Rds')
-xp <- readRDS('snake/data/01_matched/f_starvation.Rds')
-genes <- colnames(xp[,-1])
-
-
-id1 <- readRDS(idPath)
-model1 <- readRDS(fitPath)
-
-fit1 <- model1$fit
-
-inlay <- fit1$ETA[[1]]$d
-outlay <- fit1$ETA[[2]]$d
-
-#genes[id1]
-
-fitDataF <- data.table(index=c(1:length(inlay)), cor=inlay, gene=genes[id1])
-
-gg[[3]] <- dMake(fitDataF, 'F', "Effect...", 'Index', 'PIP')
-
-
-```
-
-
 ```{r impassm}
-#ftop 
-#0045819
-#0033500
-#0055088
-#
-#mtop
-#0035008
-#0140042
-#0007485
-
 
 termReader <- function(term, sex)
 {
@@ -310,8 +253,6 @@ termReader <- function(term, sex)
   return(plothole)
 }
 
-
-
 f1 <- termReader('GO.0045819', 'f')
 f2 <- termReader('GO.0033500', 'f')
 f3 <- termReader('GO.0055088', 'f')
@@ -325,20 +266,16 @@ m4 <- termReader('GO.0005811', 'm')
 ```
 
 
-
-
-
-
 ### Female
 
 ```{r plot-print-all, warning=FALSE, eval=TRUE}
 
 plot_grid(gg[[1]], ncol=1)
 
+print("Top terms: \n")
+print(subF)
+
 plot_grid(f1, f2, f3, f4, ncol=2)
-
-
-
 
 ```
 
@@ -348,50 +285,46 @@ We then translated the top GO terms into human readable categories to assess our
 
 id: GO:0045819
 name: positive regulation of glycogen catabolic process
---
+
 id: GO:0033500
 name: carbohydrate homeostasis
---
+
 id: GO:0055088
 name: lipid homeostasis
---
+
 id: GO:0042675
 name: compound eye cone cell differentiation
---
+
 id: GO:0042277
 name: peptide binding
---
+
 id: GO:0008586
 name: imaginal disc-derived wing vein morphogenesis
---
+
 id: GO:0016042
 name: lipid catabolic process
---
+
 id: GO:0007368
 name: determination of left/right symmetry
---
+
 id: GO:0007638
 name: mechanosensory behavior
---
+
 id: GO:0006644
 name: phospholipid metabolic process
 
 
-
-
 ### Male
-
 
 ```{r plot-print-m, warning=FALSE, eval=TRUE}
 
 plot_grid(gg[[2]], ncol=1)
 
-
+print("Top terms: \n")
+print(subM)
 
 plot_grid(m1, m2, m3, m4, ncol=2)
 ```
-
-
 
 No extreme outlier was found in males.
 
@@ -399,53 +332,66 @@ We then translated the top GO terms into human readable categories to assess our
 
 id: GO:0035008
 name: positive regulation of melanization defense response
---
+
 id: GO:0140042
 name: lipid droplet formation
---
+
 id: GO:0007485
 name: imaginal disc-derived male genitalia development
---
+
 id: GO:0005811
 name: lipid droplet
---
+
 id: GO:0045819
 name: positive regulation of glycogen catabolic process
---
+
 id: GO:0042461
 name: photoreceptor cell development
---
+
 id: GO:0033500
 name: carbohydrate homeostasis
---
+
 id: GO:0016327
 name: apicolateral plasma membrane
---
+
 id: GO:0045186
 name: zonula adherens assembly
---
+
 id: GO:0006044
 name: N-acetylglucosamine metabolic process
 
 
+
+
+
+### Post
+
+Beyond this, we took the models to determine if certain genes were enriched in the GO terms of interest. From the terms above the cutoff, we pooled the associated genes and totaled gene occurrence.
+
+Females: Out of 323 genes, 37 appeared more than once and 14 appeared twice or more.
+Males: Out of 448 genes, 50 appeared more than once and 14 appeared twice or more.
+
+After establishing unique genes, we translated the FlyBase gene codes to human-readable genes. 
 
 ```{r foolery}
 
 geneMatchF <- readRDS('snake/goPost/finalDataF.Rds')
 geneMatchM <- readRDS('snake/goPost/finalDataM.Rds')
 
-
-
 hitF <- geneMatchF[which(count>2),]
 hitM <- geneMatchM[which(count>2),]
+d1 <- cbind(hitF, hitM)
 
-d1 <- hitF
-d2 <- hitM
-knitr::kable(
-  list(d1, d2),
-  caption = 'Top Female and Male Genes',
-  booktabs = TRUE, valign = 't', "simple"
-)
+colnames(d1) <- c('Female Gene', 'Count', 'Gene', 'Male Gene', 'Count', 'Gene')
+
+kable(d1, caption = 'Top Female and Male Genes', "simple")
+
+#
+#knitr::kable(
+#  list(d1, d2),
+#  caption = 'Top Female and Male Genes',
+#  booktabs = TRUE, valign = 't', "simple"
+#)
 
 
 ```
