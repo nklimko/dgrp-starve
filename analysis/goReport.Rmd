@@ -134,7 +134,7 @@ partMake <- function(data, sex, yint1, cutoff, lower, custom.title, custom.Xlab,
 dMake <- function(data, sex, custom.title, custom.Xlab, custom.Ylab, psize){
   plothole <- ggplot(data, aes(x= index, y=cor, label=gene))+
     geom_point(color=viridis(1, begin=0.5), size=psize)+
-    geom_text(aes(label=ifelse(cor>0.5, as.character(gene),'')),hjust=1,vjust=0, angle=90, )+
+    geom_text(aes(label=ifelse(cor>0.5, as.character(gene),'')),hjust=1,vjust=0, angle=90, size=3)+
     theme_minimal() +
     labs(x=custom.Xlab,y=custom.Ylab, tag=sex, title=custom.title) +
     theme(text=element_text(size=8),
@@ -142,12 +142,7 @@ dMake <- function(data, sex, custom.title, custom.Xlab, custom.Ylab, psize){
   return(plothole)
 }
 
-
-
 ```
-
-
-This section of the project was to assess the 
 
 [Initial results](../goPlots.html) showed that Gene Ontology association could be used to improve prediction accuracy of a Bayesian model by assigning genes of interest a separate portion of variance. The following results are from selecting GO terms with five or more associated genes and scoring their prediction accuracy as a mean of 25 replicates apiece. 
 
@@ -276,7 +271,7 @@ m4 <- termReader('GO.0005811', 'm')
 
 
 
-```{r termReader2}
+```{r termReader2, warning=FALSE}
 
 nonReader <- function(term, sex)
 {
@@ -296,7 +291,9 @@ nonReader <- function(term, sex)
   inlay <- fit1$ETA[[1]]$d
   outlay <- fit1$ETA[[2]]$d
   
-  fitDataM <- data.table(index=c(1:length(outlay)), cor=outlay, gene=genes[id1])
+  fitDataM <- data.table(index=c(1:length(outlay)), cor=outlay, gene=genes[-id1])
+  
+  
   plothole <- dMake(fitDataM, toupper(sex), paste0(term, " PIP"), 'Index', 'PIP', 0.1)
   return(plothole)
 }
