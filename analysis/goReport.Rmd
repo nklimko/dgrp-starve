@@ -273,8 +273,7 @@ m4 <- termReader('GO.0005811', 'm')
 
 ```{r termReader2, warning=FALSE}
 
-nonReader <- function(term, sex)
-{
+nonReader <- function(term, sex){
   
   idPath <- paste0('snake/data/go/03_goterms/sex', sex,'/', term, '.Rds')
   fitPath <- paste0('snake/data/go/25_fit/sex', sex,'/', term, '/bayesFull.Rds')
@@ -446,16 +445,25 @@ geneMatchM <- readRDS('snake/goPost/finalDataM.Rds')
 
 hitF <- geneMatchF[which(count>2),]
 hitM <- geneMatchM[which(count>2),]
+
+parm <- dim(hitM)[1] - dim(hitF)[1]
+
+filler <- data.table(matrix(rep(NA, 3*parm), ncol=3))
+
+hitF <- rbind(hitF, filler, use.names=FALSE)
+
 d1 <- cbind(hitF, hitM)
 
 colnames(d1) <- c('Female Gene', 'Count', 'Gene', 'Male Gene', 'Count', 'Gene')
+
+options(knitr.kable.NA = '')
 
 kable(d1, caption = 'Top Female and Male Genes', "simple")
 
 ```
 
 
-The following five genes are implicated in both male and female prediction. All are related to some form of lipid processing.
+The following six genes are implicated in both male and female prediction.
 
 Adipokinetic hormone + receptor:
 
@@ -467,9 +475,10 @@ Insulin Receptor pathway:
 + [InR](http://flybase.org/reports/FBgn0283499)
 + [Pi3K92E](http://flybase.org/reports/FBgn0015279)
 
-Brummer: triglyceride lipase:
+Others:
 
-+ [bmm](http://flybase.org/reports/FBgn0036449)
++ [bmm, a triglyceride lipase](http://flybase.org/reports/FBgn0036449)
++ [Ras85D, a receptor tyrosine kinase](http://flybase.org/reports/FBgn0003205)
 
 
 
