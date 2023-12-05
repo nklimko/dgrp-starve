@@ -1,0 +1,78 @@
+---
+title: "GObayesC Report"
+output:
+  workflowr::wflow_html:
+    toc: true
+    latex_engine: "xelatex"
+    code_folding: "hide"
+editor_options:
+  chunk_output_type: console
+---
+
+```{r 0-setup, include=FALSE, warning=FALSE}
+#regular
+if(1){
+  library(dplyr)
+  library(data.table)
+  library(ggplot2)
+  library(cowplot)
+  library(qqman)
+  library(viridis)
+  library(scales)
+  library(tidyverse)
+  library(ggcorrplot)
+  library(melt)
+  library(reshape2)
+  library(knitr)
+  
+  #options
+  options(bitmapType = "cairo")
+  options(error = function() traceback(3))
+  
+  #seed
+  set.seed(123)
+  
+  #ggplot holder list
+  gg <- vector(mode='list', length=12)
+  
+}
+```
+
+### Breakdown
+
+Below are the PIP plots from the top GO terms separated by sex. These were made on the full model( all 198 lines, no CV) rather than cross validation for prediction. The left column contains PIP plots for the distribution associated with the GO-related genes, while the right column contains PIP plot for all other genes. Each row is a GO term. The cutoff for labeling associated genes was set to 0.5 while the cutoff for non-associated genes was set to 0.7 
+
+### Female Posterior Inclusion Of Probability Plots
+
+```{r listReadF}
+sex <- 'f'
+plotList <- list.files(path=paste0('snake/data/go/26_pip/sex', sex), full.names = TRUE)
+
+ggF <- lapply(plotList, readRDS)
+
+for(i in 1:(length(ggF)/2)){
+  b <- 2*i
+  a <- b - 1
+  print(plot_grid(ggF[[a]], ggF[[b]], ncol=2))
+}
+
+```
+
+### Male Posterior Inclusion Of Probability Plots
+
+```{r listReadM}
+sex <- 'm'
+plotList <- list.files(path=paste0('snake/data/go/26_pip/sex', sex), full.names = TRUE)
+
+ggM <- lapply(plotList, readRDS)
+
+for(i in 1:(length(ggM)/2)){
+  b <- 2*i
+  a <- b - 1
+  print(plot_grid(ggM[[a]], ggM[[b]], ncol=2))
+}
+
+```
+
+
+
