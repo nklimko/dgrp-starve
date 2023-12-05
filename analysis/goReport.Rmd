@@ -332,6 +332,8 @@ plot_grid(f1, f2, f3, f4, ncol=2)
 plot_grid(nf1, nf2, nf3, nf4, ncol=2)
 ```
 
+A detailed look at all PIP plots can be found [here](https://nklimko.github.io/dgrp-starve/pippin.html).
+
 The low female outlier is [GO:0031408](https://amigo.geneontology.org/amigo/term/GO:0031048) responsible for oxylipin synthesis.
 
 
@@ -390,6 +392,8 @@ plot_grid(m1, m2, m3, m4, ncol=2)
 plot_grid(nm1, nm2, nm3, nm4, ncol=2)
 ```
 
+A detailed look at all PIP plots can be found [here](https://nklimko.github.io/dgrp-starve/pippin.html).
+
 No extreme outlier was found in males.
 
 We then translated the top GO terms into human readable categories to assess our findings. Below are the top ten ordered by correlation:
@@ -421,8 +425,8 @@ name: apicolateral plasma membrane
 id: GO:0045186
 name: zonula adherens assembly
 
-id: GO:0006044
-name: N-acetylglucosamine metabolic process
+id: GO:0035003
+name: subapical complex
 
 
 
