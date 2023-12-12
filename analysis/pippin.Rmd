@@ -24,6 +24,7 @@ if(1){
   library(melt)
   library(reshape2)
   library(knitr)
+  library(kableExtra)
   
   #options
   options(bitmapType = "cairo")
@@ -38,9 +39,56 @@ if(1){
 }
 ```
 
-### Breakdown
+``` {r prepload}
 
-Below are the PIP plots from the top GO terms separated by sex. These were made on the full model( all 198 lines, no CV) rather than cross validation for prediction. The left column contains PIP plots for the distribution associated with the GO-related genes, while the right column contains PIP plot for all other genes. Each row is a GO term. The cutoff for labeling associated genes was set to 0.5 while the cutoff for non-associated genes was set to 0.7 
+load('snake/data/topTables.Rdata')
+
+options(knitr.kable.NA = '')
+
+
+```
+
+
+## Summary
+
+We wanted to ensure that the genes of interest found multiple times across GO terms were significant in our models by looking at their posterior inclusion probability in each subset. The cutoff for associated genes was set to 0.5 while the cutoff for non-associated genes was set to 0.7. We then tallied the filtered genes as subsets of their individual distribution and then altogether to find genes that appeared scarcely in both. 
+
+Our findings here are mostly consistent with initial findings. Notably, the Adipokinetic hormone Receptor(AkhR) is a top hit while the hormone itself(Akh) is not found in either sex. 
+
+
+
+### Female Genes
+
+``` {r femaleTop}
+
+kable(fGO_top, caption= 'GO genes',  'simple') %>%
+  kable_styling(full_width = FALSE, position = "float_left")
+
+kable(fNON_top, caption= 'non-GO genes', 'simple') %>%
+  kable_styling(full_width = FALSE, position = "float_right")
+
+kable(fALL_topGenes, caption = 'Top Female Genes', "simple")
+
+```
+
+### Male Genes
+
+``` {r maleTop}
+
+kable(mGO_top, caption= 'GO genes',  'simple') %>%
+  kable_styling(full_width = FALSE, position = "float_left")
+
+kable(mNON_top, caption= 'non-GO genes', 'simple') %>%
+  kable_styling(full_width = FALSE, position = "float_right")
+
+kable(mALL_topGenes, caption = 'Top Female Genes', "simple")
+
+```
+
+
+## PIP Plots
+
+Below are the PIP plots from the top GO terms separated by sex. These were made on the full model( all 198 lines, no CV) rather than cross validation for prediction. The left column contains PIP plots for the distribution associated with the GO-related genes, while the right column contains PIP plot for all other genes. Each row is a GO term. 
 
 ### Female Posterior Inclusion Of Probability Plots
 
