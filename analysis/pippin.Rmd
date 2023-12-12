@@ -59,9 +59,9 @@ Our findings here are mostly consistent with initial findings. Notably, the Adip
 
 ### Female Genes
 
-``` {r femaleTop}
+``` {r femaleTop, warnings=FALSE}
 
-kable(fGO_top, caption= 'GO genes',  'simple') %>%
+kable(fGO_top, caption= 'GO genes', 'simple') %>%
   kable_styling(full_width = FALSE, position = "float_left")
 
 kable(fNON_top, caption= 'non-GO genes', 'simple') %>%
@@ -73,7 +73,7 @@ kable(fALL_topGenes, caption = 'Top Female Genes', "simple")
 
 ### Male Genes
 
-``` {r maleTop}
+``` {r maleTop, warnings=FALSE}
 
 kable(mGO_top, caption= 'GO genes',  'simple') %>%
   kable_styling(full_width = FALSE, position = "float_left")
@@ -86,11 +86,11 @@ kable(mALL_topGenes, caption = 'Top Female Genes', "simple")
 ```
 
 
-## PIP Plots
+## Posterior Inclusion Of Probability Plots
 
 Below are the PIP plots from the top GO terms separated by sex. These were made on the full model( all 198 lines, no CV) rather than cross validation for prediction. The left column contains PIP plots for the distribution associated with the GO-related genes, while the right column contains PIP plot for all other genes. Each row is a GO term. 
 
-### Female Posterior Inclusion Of Probability Plots
+### Female Plots
 
 ```{r listReadF}
 sex <- 'f'
@@ -106,7 +106,7 @@ for(i in 1:(length(ggF)/2)){
 
 ```
 
-### Male Posterior Inclusion Of Probability Plots
+### Male Plots
 
 ```{r listReadM}
 sex <- 'm'
