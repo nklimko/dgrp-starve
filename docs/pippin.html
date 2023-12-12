@@ -485,16 +485,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreef1b715fbe9214f0c48264a8506a537eda31c97actargetblankf1b715fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/f1b715fbe9214f0c48264a8506a537eda31c97ac" target="_blank">f1b715f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree4db970c203eee55a514feea7f4c0aea579c7908dtargetblank4db970ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/4db970c203eee55a514feea7f4c0aea579c7908d" target="_blank">4db970c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreef1b715fbe9214f0c48264a8506a537eda31c97actargetblankf1b715fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree4db970c203eee55a514feea7f4c0aea579c7908dtargetblank4db970ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/f1b715fbe9214f0c48264a8506a537eda31c97ac" target="_blank">f1b715f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/4db970c203eee55a514feea7f4c0aea579c7908d" target="_blank">4db970c</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -622,6 +622,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/4db970c203eee55a514feea7f4c0aea579c7908d/analysis/pippin.Rmd" target="_blank">4db970c</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+<td>
+wflow_publish(“analysis/pippin.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/959eff1b995955145ac91b73d7e015987adb85a3/docs/pippin.html" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/f1b715fbe9214f0c48264a8506a537eda31c97ac/analysis/pippin.Rmd" target="_blank">f1b715f</a>
 </td>
 <td>
@@ -684,7 +718,7 @@ options(knitr.kable.NA = &#39;&#39;)</code></pre>
 <p>Our findings here are mostly consistent with initial findings. Notably, the Adipokinetic hormone Receptor(AkhR) is a top hit while the hormone itself(Akh) is not found in either sex.</p>
 <div id="female-genes" class="section level3">
 <h3>Female Genes</h3>
-<pre class="r"><code>kable(fGO_top, caption= &#39;GO genes&#39;,  &#39;simple&#39;) %&gt;%
+<pre class="r"><code>kable(fGO_top, caption= &#39;GO genes&#39;, &#39;simple&#39;) %&gt;%
   kable_styling(full_width = FALSE, position = &quot;float_left&quot;)</code></pre>
 <pre><code>Warning in kable_styling(., full_width = FALSE, position = &quot;float_left&quot;):
 Please specify format in kable. kableExtra can customize either HTML or LaTeX
@@ -1048,11 +1082,11 @@ outputs. See https://haozhu233.github.io/kableExtra/ for details.</code></pre>
 </table>
 </div>
 </div>
-<div id="pip-plots" class="section level2">
-<h2>PIP Plots</h2>
+<div id="posterior-inclusion-of-probability-plots" class="section level2">
+<h2>Posterior Inclusion Of Probability Plots</h2>
 <p>Below are the PIP plots from the top GO terms separated by sex. These were made on the full model( all 198 lines, no CV) rather than cross validation for prediction. The left column contains PIP plots for the distribution associated with the GO-related genes, while the right column contains PIP plot for all other genes. Each row is a GO term.</p>
-<div id="female-posterior-inclusion-of-probability-plots" class="section level3">
-<h3>Female Posterior Inclusion Of Probability Plots</h3>
+<div id="female-plots" class="section level3">
+<h3>Female Plots</h3>
 <pre class="r"><code>sex &lt;- &#39;f&#39;
 plotList &lt;- list.files(path=paste0(&#39;snake/data/go/26_pip/sex&#39;, sex), full.names = TRUE)
 
@@ -2204,8 +2238,8 @@ nklimko
 </div>
 </div>
 </div>
-<div id="male-posterior-inclusion-of-probability-plots" class="section level3">
-<h3>Male Posterior Inclusion Of Probability Plots</h3>
+<div id="male-plots" class="section level3">
+<h3>Male Plots</h3>
 <pre class="r"><code>sex &lt;- &#39;m&#39;
 plotList &lt;- list.files(path=paste0(&#39;snake/data/go/26_pip/sex&#39;, sex), full.names = TRUE)
 
@@ -2239,6 +2273,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-1.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/43af6b9ae34532c611477a75db3163533b3be891/docs/figure/pippin.Rmd/listReadM-1.png" target="_blank">43af6b9</a>
@@ -2279,6 +2324,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-2.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/43af6b9ae34532c611477a75db3163533b3be891/docs/figure/pippin.Rmd/listReadM-2.png" target="_blank">43af6b9</a>
 </td>
 <td>
@@ -2315,6 +2371,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-3.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/43af6b9ae34532c611477a75db3163533b3be891/docs/figure/pippin.Rmd/listReadM-3.png" target="_blank">43af6b9</a>
@@ -2355,6 +2422,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-4.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/43af6b9ae34532c611477a75db3163533b3be891/docs/figure/pippin.Rmd/listReadM-4.png" target="_blank">43af6b9</a>
 </td>
 <td>
@@ -2391,6 +2469,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-5.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/43af6b9ae34532c611477a75db3163533b3be891/docs/figure/pippin.Rmd/listReadM-5.png" target="_blank">43af6b9</a>
@@ -2431,6 +2520,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-6.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/43af6b9ae34532c611477a75db3163533b3be891/docs/figure/pippin.Rmd/listReadM-6.png" target="_blank">43af6b9</a>
 </td>
 <td>
@@ -2467,6 +2567,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-7.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/43af6b9ae34532c611477a75db3163533b3be891/docs/figure/pippin.Rmd/listReadM-7.png" target="_blank">43af6b9</a>
@@ -2507,6 +2618,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-8.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/43af6b9ae34532c611477a75db3163533b3be891/docs/figure/pippin.Rmd/listReadM-8.png" target="_blank">43af6b9</a>
 </td>
 <td>
@@ -2543,6 +2665,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-9.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/43af6b9ae34532c611477a75db3163533b3be891/docs/figure/pippin.Rmd/listReadM-9.png" target="_blank">43af6b9</a>
@@ -2583,6 +2716,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-10.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/43af6b9ae34532c611477a75db3163533b3be891/docs/figure/pippin.Rmd/listReadM-10.png" target="_blank">43af6b9</a>
 </td>
 <td>
@@ -2619,6 +2763,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-11.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/43af6b9ae34532c611477a75db3163533b3be891/docs/figure/pippin.Rmd/listReadM-11.png" target="_blank">43af6b9</a>
@@ -2659,6 +2814,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-12.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/43af6b9ae34532c611477a75db3163533b3be891/docs/figure/pippin.Rmd/listReadM-12.png" target="_blank">43af6b9</a>
 </td>
 <td>
@@ -2695,6 +2861,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-13.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/43af6b9ae34532c611477a75db3163533b3be891/docs/figure/pippin.Rmd/listReadM-13.png" target="_blank">43af6b9</a>
@@ -2735,6 +2912,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-14.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/43af6b9ae34532c611477a75db3163533b3be891/docs/figure/pippin.Rmd/listReadM-14.png" target="_blank">43af6b9</a>
 </td>
 <td>
@@ -2771,6 +2959,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-15.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/43af6b9ae34532c611477a75db3163533b3be891/docs/figure/pippin.Rmd/listReadM-15.png" target="_blank">43af6b9</a>
@@ -2811,6 +3010,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-16.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/43af6b9ae34532c611477a75db3163533b3be891/docs/figure/pippin.Rmd/listReadM-16.png" target="_blank">43af6b9</a>
 </td>
 <td>
@@ -2847,6 +3057,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-17.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/43af6b9ae34532c611477a75db3163533b3be891/docs/figure/pippin.Rmd/listReadM-17.png" target="_blank">43af6b9</a>
@@ -2887,6 +3108,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-18.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/43af6b9ae34532c611477a75db3163533b3be891/docs/figure/pippin.Rmd/listReadM-18.png" target="_blank">43af6b9</a>
 </td>
 <td>
@@ -2923,6 +3155,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-19.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/43af6b9ae34532c611477a75db3163533b3be891/docs/figure/pippin.Rmd/listReadM-19.png" target="_blank">43af6b9</a>
@@ -2963,6 +3206,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-20.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/43af6b9ae34532c611477a75db3163533b3be891/docs/figure/pippin.Rmd/listReadM-20.png" target="_blank">43af6b9</a>
 </td>
 <td>
@@ -3001,6 +3255,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-21.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/43af6b9ae34532c611477a75db3163533b3be891/docs/figure/pippin.Rmd/listReadM-21.png" target="_blank">43af6b9</a>
 </td>
 <td>
@@ -3014,7 +3279,234 @@ nklimko
 </table>
 </div>
 </div>
-<p><img src="figure/pippin.Rmd/listReadM-22.png" width="672" style="display: block; margin: auto;" /><img src="figure/pippin.Rmd/listReadM-23.png" width="672" style="display: block; margin: auto;" /><img src="figure/pippin.Rmd/listReadM-24.png" width="672" style="display: block; margin: auto;" /><img src="figure/pippin.Rmd/listReadM-25.png" width="672" style="display: block; margin: auto;" /><img src="figure/pippin.Rmd/listReadM-26.png" width="672" style="display: block; margin: auto;" /><img src="figure/pippin.Rmd/listReadM-27.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/pippin.Rmd/listReadM-22.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-listReadM-22">
+Past versions of listReadM-22.png
+</button>
+</p>
+<div id="fig-listReadM-22" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-22.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/pippin.Rmd/listReadM-23.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-listReadM-23">
+Past versions of listReadM-23.png
+</button>
+</p>
+<div id="fig-listReadM-23" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-23.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/pippin.Rmd/listReadM-24.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-listReadM-24">
+Past versions of listReadM-24.png
+</button>
+</p>
+<div id="fig-listReadM-24" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-24.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/pippin.Rmd/listReadM-25.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-listReadM-25">
+Past versions of listReadM-25.png
+</button>
+</p>
+<div id="fig-listReadM-25" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-25.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/pippin.Rmd/listReadM-26.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-listReadM-26">
+Past versions of listReadM-26.png
+</button>
+</p>
+<div id="fig-listReadM-26" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-26.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/pippin.Rmd/listReadM-27.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-listReadM-27">
+Past versions of listReadM-27.png
+</button>
+</p>
+<div id="fig-listReadM-27" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/959eff1b995955145ac91b73d7e015987adb85a3/docs/figure/pippin.Rmd/listReadM-27.png" target="_blank">959eff1</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-12-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
