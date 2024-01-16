@@ -1,0 +1,316 @@
+---
+title: "Sparse GL Comparison"
+output:
+  workflowr::wflow_html:
+    toc: true
+    latex_engine: "xelatex"
+    code_folding: "hide"
+editor_options:
+  chunk_output_type: console
+---
+
+```{r 0-setup, include=FALSE, warning=FALSE}
+#regular
+if(1){
+  library(dplyr)
+  library(data.table)
+  library(ggplot2)
+  library(cowplot)
+  library(qqman)
+  library(viridis)
+  library(scales)
+  library(tidyverse)
+  library(ggcorrplot)
+  library(melt)
+  library(reshape2)
+  library(knitr)
+  library(kableExtra)
+  library(DT)
+  
+  #options
+  options(bitmapType = "cairo")
+  options(error = function() traceback(3))
+  
+  #seed
+  set.seed(123)
+  
+  #ggplot holder list
+  gg <- vector(mode='list', length=12)
+  
+}
+```
+
+``` {r prepload}
+
+#load('snake/data/topTables.Rdata')
+
+options(knitr.kable.NA = '')
+
+```
+
+
+## Summary
+
+GBLUP had the R2 constraints removed from the model to allow each component of the model to maximally explain variance. Overall maximum still 0.8.
+
+While this does remove a degree of certainty, model accuracy not only improved significantly but was able to find similar results to bayesC. 
+
+
+``` {r femaleTop, warnings=FALSE}
+
+#function
+partMake <- function(data, sex, nullInt, upperCutoff, lowerCutoff, psize, custom.title, custom.Xlab, custom.Ylab){
+  plothole <- ggplot(data, aes(x=term, y=cor, label=term))+
+    geom_point(color=viridis(1, begin=0.5), size=psize)+
+    geom_text(aes(label=ifelse(cor>upperCutoff, as.character(term),'')), hjust=0, size=2, angle=0)+
+    geom_text(aes(label=ifelse(cor<lowerCutoff, as.character(term),'')), hjust=1, size=2, angle=90)+
+    geom_hline(yintercept = nullInt) +
+    theme_minimal() +
+    labs(x=custom.Xlab, y=custom.Ylab, tag=sex, title=custom.title) +
+    theme(text=element_text(size=10), plot.tag = element_text(size=15))
+  return(plothole)
+}
+
+#data
+load('snake/data/go/50_tables/saveTables.Rdata')
+
+
+#Cutoff selection
+sigFactor <- 3
+
+sdf <- sd(unlist(allDataF[,2]))
+meanf <- mean(unlist(allDataF[,2]))
+cutoffF <- meanf + sigFactor*sdf
+
+sdm <- sd(unlist(allDataM[,2]))
+meanm <- mean(unlist(allDataM[,2]))
+cutoffM <- meanm + sigFactor*sdm
+
+
+#graphs
+gg[[1]] <- partMake(allDataF, 'F', 0.31, cutoffF, 0.2, 1, 'Effect of GO Annotations in TBLUP models', 'GO Term', 'Prediction Accuracy')
+
+gg[[2]] <- partMake(allDataM, 'M', 0.43, cutoffM, 0.2, 1, 'Effect of GO Annotations in TBLUP models', 'GO Term', 'Prediction Accuracy')
+
+subF <- allDataF[which(cor>cutoffF),]
+subM <- allDataM[which(cor>cutoffM),]
+
+subF <- subF[order(-cor),]
+subM <- subM[order(-cor),]
+
+#write ordered GO terms to table file for enrichment purposes
+cat(unlist(subF[,1]), sep = '\n', file='snake/data/go/50_tables/topHitsF.txt')
+cat(unlist(subM[,1]), sep = '\n', file='snake/data/go/50_tables/topHitsM.txt')
+cat(unlist(subF[,1]), sep = '\n', file='snake/code/go/enrichment/blup/f/topHitsF.txt')
+cat(unlist(subM[,1]), sep = '\n', file='snake/code/go/enrichment/blup/m/topHitsM.txt')
+
+
+topBlupSoloF <- readRDS('snake/code/go/enrichment/blup/f/finalData.Rds')
+topBlupSoloM <- readRDS('snake/code/go/enrichment/blup/m/finalData.Rds')
+
+
+```
+
+### Surface Level / Sanity Check / Congruence / On course
+
+Comparison of top 20 terms from both BayesC and TBLUP yields familiar results: 11 of top 20 match for females, 10 of top 20 match for males
+
+This suggests the models are both accurate and able to detect GO terms of interest, even with delimited R2.
+
+#### Females
+
+```{r femaleMerge}
+
+kable(finF, caption = 'Female BayesC/BLUP Comparison', "simple")
+
+```
+
+#### Males
+
+```{r maleMerge}
+
+kable(finM, caption = 'Male BayesC/BLUP Comparison', "simple")
+
+```
+
+
+
+
+
+### Overall Results
+
+
+
+For GO-TBLUP, I filtered top terms that were 3 standard deviations above the mean for each sex.
+
+We then translated the top GO terms into human readable categories to assess our findings. Below are the top ten ordered by correlation.
+
+#### Female
+##### All Data
+
+```{r f1}
+plot_grid(gg[[1]], ncol=1)
+```
+
+##### Top Terms
+
+id: GO:0055088
+name: lipid homeostasis
+--
+id: GO:0008586
+name: imaginal disc-derived wing vein morphogenesis
+--
+id: GO:0045819
+name: positive regulation of glycogen catabolic process
+--
+id: GO:0043066
+name: negative regulation of apoptotic process
+--
+id: GO:0017056
+name: structural constituent of nuclear pore
+--
+id: GO:0042675
+name: compound eye cone cell differentiation
+--
+id: GO:0035556
+name: intracellular signal transduction
+--
+id: GO:0006606
+name: protein import into nucleus
+--
+id: GO:0005524
+name: ATP binding
+--
+id: GO:0000281
+name: mitotic cytokinesis
+--
+id: GO:0033500
+name: carbohydrate homeostasis
+--
+id: GO:0042749
+name: regulation of circadian sleep/wake cycle
+--
+id: GO:0006644
+name: phospholipid metabolic process
+--
+id: GO:0004672
+name: protein kinase activity
+--
+id: GO:0016042
+name: lipid catabolic process
+--
+id: GO:0046488
+name: phosphatidylinositol metabolic process
+--
+id: GO:0007368
+name: determination of left/right symmetry
+
+#### Male
+##### All Data
+```{r m1}
+plot_grid(gg[[2]], ncol=1)
+```
+
+##### Top Terms
+
+id: GO:0042593
+name: glucose homeostasis
+--
+id: GO:0035008
+name: positive regulation of melanization defense response
+--
+id: GO:0001738
+name: morphogenesis of a polarized epithelium
+--
+id: GO:0007485
+name: imaginal disc-derived male genitalia development
+--
+id: GO:0016327
+name: apicolateral plasma membrane
+--
+id: GO:0040018
+name: positive regulation of multicellular organism growth
+--
+id: GO:0042461
+name: photoreceptor cell development
+--
+id: GO:0140042
+name: lipid droplet formation
+--
+id: GO:0030295
+name: protein kinase activator activity
+--
+id: GO:0050830
+name: defense response to Gram-positive bacterium
+--
+id: GO:0006044
+name: N-acetylglucosamine metabolic process
+--
+id: GO:0070328
+name: triglyceride homeostasis
+--
+id: GO:0045793
+name: positive regulation of cell size
+--
+id: GO:0007166
+name: cell surface receptor signaling pathway
+--
+id: GO:0007419
+name: ventral cord development
+
+
+### Post Processing
+
+Beyond this, we took the models to determine if certain genes were enriched in the GO terms of interest. From the selected terms, we pooled the associated genes and totaled gene occurrence.
+
+Females involved 81 unique genes at least 3 times across top terms.
+Of these, 7 were present 4 or more times.
+
+Males had a significantly lower number of genes involved than expected.
+Only 7 genes were involved at least 3 times across top terms.
+This may suggest that the selection criteria is too stringent for males despite males having a higher base prediction accuracy.
+
+After establishing unique genes, we translated the FlyBase gene codes to human-readable genes.
+
+#### Females
+
+
+```{r fblup}
+
+kable(topBlupSoloF, caption = 'GO-TBLUP Genes', "simple")
+
+```
+
+
+
+#### Males
+
+```{r mblup}
+
+
+kable(topBlupSoloM, caption = 'GO-TBLUP Genes', "simple")
+
+```
+
+#### Comparison
+
+```{r comp}
+
+allSolo <- cbind(topBlupSoloF[1:7], topBlupSoloM)
+
+names(allSolo) <- c('Female Gene', 'Count', 'Name', 'Male Gene', 'Count', 'Name')
+
+kable(allSolo, caption = 'GO-TBLUP Gene Comparison', "simple")
+
+```
+Looking at both sexes together, the only two genes that are found in both rankings are InR and Pdk1. Coincidentally, both are significantly involved genes for both sexes.
+
++ [InR](http://flybase.org/reports/FBgn0283499) is an insulin receptor.
+
++ [Pdk](http://flybase.org/reports/FBgn0017558) is a pyruvate dehydrogenase kinase.
+
+Intuitively, both are heavily involved in carbohydrate modification activity.
+
+
+
+
