@@ -1,5 +1,5 @@
 ---
-title: "Sparse GL Comparison"
+title: "GO-TBLUP Report"
 output:
   workflowr::wflow_html:
     toc: true
