@@ -49,12 +49,11 @@ options(knitr.kable.NA = '')
 ```
 
 
-## Summary
+### Summary
 
 GBLUP had the R2 constraints removed from the model to allow each component of the model to maximally explain variance. Overall maximum still 0.8.
 
 While this does remove a degree of certainty, model accuracy not only improved significantly but was able to find similar results to bayesC. 
-
 
 ``` {r femaleTop, warnings=FALSE}
 
@@ -104,14 +103,12 @@ cat(unlist(subM[,1]), sep = '\n', file='snake/data/go/50_tables/topHitsM.txt')
 cat(unlist(subF[,1]), sep = '\n', file='snake/code/go/enrichment/blup/f/topHitsF.txt')
 cat(unlist(subM[,1]), sep = '\n', file='snake/code/go/enrichment/blup/m/topHitsM.txt')
 
-
 topBlupSoloF <- readRDS('snake/code/go/enrichment/blup/f/finalData.Rds')
 topBlupSoloM <- readRDS('snake/code/go/enrichment/blup/m/finalData.Rds')
 
-
 ```
 
-### Surface Level / Sanity Check / Congruence / On course
+### Initial Findings
 
 Comparison of top 20 terms from both BayesC and TBLUP yields familiar results: 11 of top 20 match for females, 10 of top 20 match for males
 
@@ -133,13 +130,7 @@ kable(finM, caption = 'Male BayesC/BLUP Comparison', "simple")
 
 ```
 
-
-
-
-
 ### Overall Results
-
-
 
 For GO-TBLUP, I filtered top terms that were 3 standard deviations above the mean for each sex.
 
@@ -156,52 +147,52 @@ plot_grid(gg[[1]], ncol=1)
 
 id: GO:0055088
 name: lipid homeostasis
---
+
 id: GO:0008586
 name: imaginal disc-derived wing vein morphogenesis
---
+
 id: GO:0045819
 name: positive regulation of glycogen catabolic process
---
+
 id: GO:0043066
 name: negative regulation of apoptotic process
---
+
 id: GO:0017056
 name: structural constituent of nuclear pore
---
+
 id: GO:0042675
 name: compound eye cone cell differentiation
---
+
 id: GO:0035556
 name: intracellular signal transduction
---
+
 id: GO:0006606
 name: protein import into nucleus
---
+
 id: GO:0005524
 name: ATP binding
---
+
 id: GO:0000281
 name: mitotic cytokinesis
---
+
 id: GO:0033500
 name: carbohydrate homeostasis
---
+
 id: GO:0042749
 name: regulation of circadian sleep/wake cycle
---
+
 id: GO:0006644
 name: phospholipid metabolic process
---
+
 id: GO:0004672
 name: protein kinase activity
---
+
 id: GO:0016042
 name: lipid catabolic process
---
+
 id: GO:0046488
 name: phosphatidylinositol metabolic process
---
+
 id: GO:0007368
 name: determination of left/right symmetry
 
@@ -215,46 +206,46 @@ plot_grid(gg[[2]], ncol=1)
 
 id: GO:0042593
 name: glucose homeostasis
---
+
 id: GO:0035008
 name: positive regulation of melanization defense response
---
+
 id: GO:0001738
 name: morphogenesis of a polarized epithelium
---
+
 id: GO:0007485
 name: imaginal disc-derived male genitalia development
---
+
 id: GO:0016327
 name: apicolateral plasma membrane
---
+
 id: GO:0040018
 name: positive regulation of multicellular organism growth
---
+
 id: GO:0042461
 name: photoreceptor cell development
---
+
 id: GO:0140042
 name: lipid droplet formation
---
+
 id: GO:0030295
 name: protein kinase activator activity
---
+
 id: GO:0050830
 name: defense response to Gram-positive bacterium
---
+
 id: GO:0006044
 name: N-acetylglucosamine metabolic process
---
+
 id: GO:0070328
 name: triglyceride homeostasis
---
+
 id: GO:0045793
 name: positive regulation of cell size
---
+
 id: GO:0007166
 name: cell surface receptor signaling pathway
---
+
 id: GO:0007419
 name: ventral cord development
 
@@ -303,6 +294,7 @@ names(allSolo) <- c('Female Gene', 'Count', 'Name', 'Male Gene', 'Count', 'Name'
 kable(allSolo, caption = 'GO-TBLUP Gene Comparison', "simple")
 
 ```
+
 Looking at both sexes together, the only two genes that are found in both rankings are InR and Pdk1. Coincidentally, both are significantly involved genes for both sexes.
 
 + [InR](http://flybase.org/reports/FBgn0283499) is an insulin receptor.
