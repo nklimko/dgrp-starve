@@ -37,6 +37,10 @@ if(1){
   #ggplot holder list
   gg <- vector(mode='list', length=12)
   
+  
+  options(knitr.kable.NA = '')
+  
+  
 }
 ```
 
@@ -75,21 +79,35 @@ After this, I found the correlation between the two methods to see how similar g
 
 Female Overall
 
-`r print(cor(blupF$cor, bayesF$cor))`
+```{r foll}
+
+print(cor(blupF$cor, bayesF$cor))
+
+```
 
 Female Top 200
 
-`r print(cor(blupF[1:200,cor], bayesF[1:200, cor]))`
+```{r ftop}
+
+print(cor(blupF[1:200,cor], bayesF[1:200, cor]))
+
+```
 
 Male Overall
 
-`r print(cor(blupM$cor, bayesM$cor))`
+```{r moll}
+
+print(cor(blupM$cor, bayesM$cor))
+
+```
 
 Male Top 100
 
-`r print(cor(blupM[1:200,cor], bayesM[1:200, cor]))`
+```{r mtop}
 
+print(cor(blupM[1:200,cor], bayesM[1:200, cor]))
 
+```
 
 
 
