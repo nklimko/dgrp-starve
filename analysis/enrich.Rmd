@@ -1,0 +1,113 @@
+---
+title: "Enrichment Overview"
+output:
+  workflowr::wflow_html:
+    toc: true
+    latex_engine: "xelatex"
+    code_folding: "hide"
+editor_options:
+  chunk_output_type: console
+---
+
+```{r 0-setup, include=FALSE, warning=FALSE}
+#regular
+if(1){
+  library(dplyr)
+  library(data.table)
+  library(ggplot2)
+  library(cowplot)
+  library(qqman)
+  library(viridis)
+  library(scales)
+  library(tidyverse)
+  library(ggcorrplot)
+  library(melt)
+  library(reshape2)
+  library(knitr)
+  library(kableExtra)
+  library(DT)
+  
+  #options
+  options(bitmapType = "cairo")
+  options(error = function() traceback(3))
+  
+  #seed
+  set.seed(123)
+  
+  #ggplot holder list
+  gg <- vector(mode='list', length=12)
+  
+}
+```
+
+
+
+Dive back in: 
+
+We left off looking to modify the selection cutoff for top terms. While various ideas were floated(standard devs, percentiles, flat cutoff), there was not a consistently most useful method for looking at both male and female data. As such, I opted to run a series of flat cutoffs(100, 50, 25) for both complete methods per sex.
+
+
+I first looked at the top terms ordered to look for patterns in the data. While I'm unsure of the significance, the clustering of correlations for top terms shares a shape within sexes across methods. Notably, female data had a sharper increase(negative slope) for top results
+
+```{r initialFinds}
+
+load('snake/data/go/50_tables/enrichment.Rdata')
+
+topGrid <- function(data, sex, psize, custom.title, custom.Xlab, custom.Ylab){
+  plothole <- ggplot(data, aes(x=index, y=cor, label=term))+
+    geom_point(color=viridis(1, begin=0.5), size=psize)+
+    theme_minimal() +
+    labs(x=custom.Xlab, y=custom.Ylab, tag=sex, title=custom.title) +
+    theme(text=element_text(size=10), plot.tag = element_text(size=15))
+  return(plothole)
+}
+
+gg[[1]] <- topGrid(blupF, 'F', 1, 'Top Female Results: TBLUP', 'Rank', 'Correlation')
+gg[[2]] <- topGrid(blupM, 'M', 1, 'Top Male Results: TBLUP', 'Rank', 'Correlation')
+gg[[3]] <- topGrid(bayesF, 'F', 1, 'Top Female Results: BayesC', 'Rank', 'Correlation')
+gg[[4]] <- topGrid(bayesM, 'M', 1, 'Top Male Results: BayesC', 'Rank', 'Correlation')
+
+plot_grid(gg[[1]], gg[[2]], gg[[3]], gg[[4]], ncol=2)
+
+```
+
+After this, I found the correlation between the two methods to see how similar generated results are. 
+
+Female Overall
+
+`r print(cor(blupF$cor, bayesF$cor))`
+
+Female Top 200
+
+`r print(cor(blupF[1:200,cor], bayesF[1:200, cor]))`
+
+Male Overall
+
+`r print(cor(blupM$cor, bayesM$cor))`
+
+Male Top 100
+
+`r print(cor(blupM[1:200,cor], bayesM[1:200, cor]))`
+
+
+
+
+
+Moving past this, I wanted to assess the effect of term count on enrichment
+
+
+
+
+```{r dark}
+
+load("snake/data/go/50_tables/enrich/kables.Rdata")
+
+
+kable(bayesF_Kable, caption="Female BayesC", "simple")
+kable(bayesF_Kable, caption="Male BayesC", "simple")
+kable(bayesF_Kable, caption="Female TBLUP", "simple")
+kable(bayesF_Kable, caption="Male TBLUP", "simple")
+
+
+```
+
