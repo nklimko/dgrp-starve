@@ -122,9 +122,9 @@ load("snake/data/go/50_tables/enrich/kables.Rdata")
 
 
 kable(bayesF_Kable, caption="Female BayesC", "simple")
-kable(bayesF_Kable, caption="Male BayesC", "simple")
-kable(bayesF_Kable, caption="Female TBLUP", "simple")
-kable(bayesF_Kable, caption="Male TBLUP", "simple")
+kable(bayesM_Kable, caption="Male BayesC", "simple")
+kable(blupF_Kable, caption="Female TBLUP", "simple")
+kable(blupM_Kable, caption="Male TBLUP", "simple")
 
 
 ```
