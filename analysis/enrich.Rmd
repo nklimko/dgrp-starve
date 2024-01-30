@@ -120,35 +120,32 @@ Moving past this, I wanted to assess the effect of term count on enrichment-----
 
 load("snake/data/go/50_tables/enrich/kables.Rdata")
 
-percentModder <- function(dataKable, custom.caption){
+percentModder <- function(dataKable){
   
   dataKable[,5] <- dataKable[,5]*2
   dataKable[,8] <- dataKable[,8]*2
   
   colnames(dataKable) <- rep(c('Flybase Gene', 'Percent', 'Gene'), 3)
 
-  kabled <- kable(dataKable, caption=custom.caption, "simple", header = c('Top 100 GO Terms' = 3, 'Top 50 GO Terms' = 3, 'Top 25 GO Terms' = 3))
-
-  return(kabled)
+  return(dataKable)
   
 }
-bayesF_KableMod <- percentModder(bayesF_Kable, 'Female BayesC')
 
-#print(bayesF_KableMod)
 
-kable(bayesF_Kable, caption="Female BayesC", "simple")
-
-if(0){
 bayesF_KableMod <- percentModder(bayesF_Kable)
 bayesM_KableMod <- percentModder(bayesM_Kable)
 blupF_KableMod <- percentModder(blupF_Kable )
 blupM_KableMod <- percentModder(blupM_Kable )
 
-kable(bayesF_KableMod, caption="Female BayesC", "simple")
-kable(bayesM_KableMod, caption="Male BayesC", "simple")
-kable(blupF_KableMod, caption="Female TBLUP", "simple")
-kable(blupM_KableMod, caption="Male TBLUP", "simple")
-}
+kable(bayesF_KableMod, caption="Female BayesC", "simple") %>%
+  add_header_above(c('Top 100 GO Terms' = 3, 'Top 50 GO Terms' = 3, 'Top 25 GO Terms' = 3))
+kable(bayesM_KableMod, caption="Male BayesC", "simple") %>%
+  add_header_above(c('Top 100 GO Terms' = 3, 'Top 50 GO Terms' = 3, 'Top 25 GO Terms' = 3))
+kable(blupF_KableMod, caption="Female TBLUP", "simple") %>%
+  add_header_above(c('Top 100 GO Terms' = 3, 'Top 50 GO Terms' = 3, 'Top 25 GO Terms' = 3))
+kable(blupM_KableMod, caption="Male TBLUP", "simple") %>%
+  add_header_above(c('Top 100 GO Terms' = 3, 'Top 50 GO Terms' = 3, 'Top 25 GO Terms' = 3))
+
 
 ```
 
