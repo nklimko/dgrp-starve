@@ -14,7 +14,7 @@ editor_options:
 # GO Enrichment
 + [Enrichment Comparison](enrich.html)
 
-##Sparse Group LASSO
+## Sparse Group LASSO
  +[Sparse](sparseComp.html)
 
 ## BayesC
