@@ -485,16 +485,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreed373edf98f23c786cc62cfba91ea6240312f0840targetblankd373edfa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/d373edf98f23c786cc62cfba91ea6240312f0840" target="_blank">d373edf</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreee3dd8b27e93ea00c09a304441ab1597911e86697targetblanke3dd8b2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/e3dd8b27e93ea00c09a304441ab1597911e86697" target="_blank">e3dd8b2</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreed373edf98f23c786cc62cfba91ea6240312f0840targetblankd373edfa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreee3dd8b27e93ea00c09a304441ab1597911e86697targetblanke3dd8b2a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/d373edf98f23c786cc62cfba91ea6240312f0840" target="_blank">d373edf</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/e3dd8b27e93ea00c09a304441ab1597911e86697" target="_blank">e3dd8b2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -600,6 +600,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/e3dd8b27e93ea00c09a304441ab1597911e86697/analysis/enrich.Rmd" target="_blank">e3dd8b2</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2024-01-30
+</td>
+<td>
+wflow_publish(“analysis/enrich.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/65745c378b048dcd4109ece9023e4b4cb8f7dc5f/docs/enrich.html" target="_blank">65745c3</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2024-01-30
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -831,7 +865,7 @@ nklimko
 <pre class="r"><code>print(cor(blupM[1:200,cor], bayesM[1:200, cor]))</code></pre>
 <pre><code>[1] 0.9967979</code></pre>
 <p>Male Top 100</p>
-<p>Moving past this, I wanted to assess the effect of term count on enrichment</p>
+<p>Moving past this, I wanted to assess the effect of term count on enrichment——000000——000000——000000——000000——000000</p>
 <pre class="r"><code>load(&quot;snake/data/go/50_tables/enrich/kables.Rdata&quot;)
 
 percentModder &lt;- function(dataKable, custom.caption){
@@ -848,102 +882,1006 @@ percentModder &lt;- function(dataKable, custom.caption){
 }
 bayesF_KableMod &lt;- percentModder(bayesF_Kable, &#39;Female BayesC&#39;)
 
-print(bayesF_KableMod)</code></pre>
-<pre><code>
+#print(bayesF_KableMod)
 
-Table: Female BayesC
-
-Flybase Gene    Percent  Gene        Flybase Gene    Percent  Gene      Flybase Gene    Percent  Gene    
--------------  --------  ----------  -------------  --------  --------  -------------  --------  --------
-FBgn0262738          15  norpA       FBgn0025595          18  AkhR      FBgn0025595          16  AkhR    
-FBgn0003731          13  Egfr        FBgn0003731          18  Egfr      FBgn0000575          12  emc     
-FBgn0004635          13  rho         FBgn0003205          18  Ras85D    FBgn0004552           8  Akh     
-FBgn0003205          10  Ras85D      FBgn0004635          18  rho       FBgn0283499           8  InR     
-FBgn0025595           9  AkhR        FBgn0000575          14  emc       FBgn0000490           8  dpp     
-FBgn0003310           8  NULL        FBgn0262738          14  norpA     FBgn0010303           6  hep     
-FBgn0000575           7  emc         FBgn0004552          10  Akh       FBgn0015279           6  Pi3K92E 
-FBgn0015795           7  Rab7        FBgn0015279          10  Pi3K92E   FBgn0033799           6  GLaz    
-FBgn0283499           6  InR         FBgn0283499          10  InR       FBgn0036449           6  bmm     
-FBgn0039114           6  Lsd-1       FBgn0003310          10  NULL      FBgn0003731           6  Egfr    
-FBgn0004552           5  Akh         FBgn0035586           8  CG10671   FBgn0003205           6  Ras85D  
-FBgn0015279           5  Pi3K92E     FBgn0026252           8  msk       FBgn0003463           6  sog     
-FBgn0035586           5  CG10671     FBgn0000490           8  dpp       FBgn0003719           6  tld     
-FBgn0003463           5  sog         FBgn0261648           8  salm      FBgn0262738           6  norpA   
-FBgn0003719           5  tld         FBgn0010303           6  hep                                        
-FBgn0036545           5  GXIVsPLA2   FBgn0036046           6  Ilp2                                       
-FBgn0039655           5  CG14507     FBgn0024248           6  chico                                      
-FBgn0003118           5  pnt         FBgn0033799           6  GLaz                                       
-FBgn0005672           5  spi         FBgn0036449           6  bmm                                        
-FBgn0036046           4  Ilp2        FBgn0036260           6  Rh7                                        
-FBgn0003651           4  svp         FBgn0003463           6  sog                                        
-FBgn0010379           4  Akt1        FBgn0003719           6  tld                                        
-FBgn0024248           4  chico       FBgn0003984           6  vn                                         
-FBgn0036449           4  bmm         FBgn0038197           6  foxo                                       
-FBgn0026252           4  msk         FBgn0039114           6  Lsd-1                                      
-FBgn0036260           4  Rh7         FBgn0003218           6  rdgB                                       
-FBgn0000490           4  dpp         FBgn0026207           6  mbo                                        
-FBgn0003984           4  vn          FBgn0027537           6  Nup93-1                                    
-FBgn0261648           4  salm        FBgn0031078           6  Nup205                                     
-FBgn0029720           4  CG3009      FBgn0033737           6  Nup54                                      
-FBgn0030013           4  GIIIspla2   FBgn0033766           6  CG8771                                     
-FBgn0033170           4  sPLA2       FBgn0038274           6  Nup93-2                                    
-FBgn0050503           4  CG30503     FBgn0061200           6  Nup153                                     
-FBgn0250862           4  CG42237     FBgn0003256           6  rl                                         
-FBgn0003218           4  rdgB        FBgn0034140           6  Lst                                        
-FBgn0030608           4  Lsd-2       FBgn0015795           6  Rab7                                       
-FBgn0035206           4  CG9186      FBgn0002940           6  ninaE                                      
-FBgn0040336           4  Seipin      FBgn0003295           6  ru                                         
-FBgn0026207           4  mbo                                                                             
-FBgn0004435           4  Galphaq                                                                         
-FBgn0000257           4  car                                                                             
-FBgn0000482           4  dor                                                                             
-FBgn0003256           4  rl                                                                              
-FBgn0035871           4  BI-1                                                                            
-FBgn0052350           4  Vps11                                                                           
-FBgn0285911           4  NULL                                                                            
-FBgn0015754           4  Lis-1                                                                           
-FBgn0004647           4  NULL                                                                            
-FBgn0002940           4  ninaE                                                                           
-FBgn0003295           4  ru                                                                              
-FBgn0020386           4  Pdk1                                                                            
-FBgn0262451           4  ban                                                                             
-FBgn0004784           4  inaC                                                                            
-FBgn0003169           3  put                                                                             
-FBgn0010303           3  hep                                                                             
-FBgn0028717           3  Lnk                                                                             
-FBgn0010051           3  Itp-r83A                                                                        
-FBgn0030607           3  dob                                                                             
-FBgn0033226           3  CG1882                                                                          
-FBgn0033799           3  GLaz                                                                            
-FBgn0262103           3  Sik3                                                                            
-FBgn0002576           3  lz                                                                              
-FBgn0004885           3  tok                                                                             
-FBgn0050418           3  nord                                                                            
-FBgn0039152           3  Root                                                                            
-FBgn0038197           3  foxo                                                                            
-FBgn0028741           3  fab1                                                                            
-FBgn0029870           3  Marf                                                                            
-FBgn0052703           3  Erk7                                                                            
-FBgn0027537           3  Nup93-1                                                                         
-FBgn0031078           3  Nup205                                                                          
-FBgn0033737           3  Nup54                                                                           
-FBgn0033766           3  CG8771                                                                          
-FBgn0038274           3  Nup93-2                                                                         
-FBgn0061200           3  Nup153                                                                          
-FBgn0261549           3  rdgA                                                                            
-FBgn0002566           3  lt                                                                              
-FBgn0034140           3  Lst                                                                             
-FBgn0038659           3  EndoA                                                                           
-FBgn0086676           3  spin                                                                            
-FBgn0015721           3  ktub                                                                            
-FBgn0086687           3  Desat1                                                                          
-FBgn0014010           3  Rab5                                                                            
-FBgn0025680           3  cry                                                                             
-FBgn0038167           3  Lkb1                                                                            
-FBgn0004611           3  Plc21C                                                                          
-FBgn0001263           3  inaD                                                                            
-FBgn0052699           3  LPCAT                                                                           
-FBgn0265048           3  cv-d                                                                            </code></pre>
+kable(bayesF_Kable, caption=&quot;Female BayesC&quot;, &quot;simple&quot;)</code></pre>
+<table>
+<caption>Female BayesC</caption>
+<thead>
+<tr class="header">
+<th align="left">Flybase Gene</th>
+<th align="right">Count</th>
+<th align="left">Gene</th>
+<th align="left">Flybase Gene</th>
+<th align="right">Count</th>
+<th align="left">Gene</th>
+<th align="left">Flybase Gene</th>
+<th align="right">Count</th>
+<th align="left">Gene</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">FBgn0262738</td>
+<td align="right">15</td>
+<td align="left">norpA</td>
+<td align="left">FBgn0025595</td>
+<td align="right">9</td>
+<td align="left">AkhR</td>
+<td align="left">FBgn0025595</td>
+<td align="right">8</td>
+<td align="left">AkhR</td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0003731</td>
+<td align="right">13</td>
+<td align="left">Egfr</td>
+<td align="left">FBgn0003731</td>
+<td align="right">9</td>
+<td align="left">Egfr</td>
+<td align="left">FBgn0000575</td>
+<td align="right">6</td>
+<td align="left">emc</td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0004635</td>
+<td align="right">13</td>
+<td align="left">rho</td>
+<td align="left">FBgn0003205</td>
+<td align="right">9</td>
+<td align="left">Ras85D</td>
+<td align="left">FBgn0004552</td>
+<td align="right">4</td>
+<td align="left">Akh</td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0003205</td>
+<td align="right">10</td>
+<td align="left">Ras85D</td>
+<td align="left">FBgn0004635</td>
+<td align="right">9</td>
+<td align="left">rho</td>
+<td align="left">FBgn0283499</td>
+<td align="right">4</td>
+<td align="left">InR</td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0025595</td>
+<td align="right">9</td>
+<td align="left">AkhR</td>
+<td align="left">FBgn0000575</td>
+<td align="right">7</td>
+<td align="left">emc</td>
+<td align="left">FBgn0000490</td>
+<td align="right">4</td>
+<td align="left">dpp</td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0003310</td>
+<td align="right">8</td>
+<td align="left">NULL</td>
+<td align="left">FBgn0262738</td>
+<td align="right">7</td>
+<td align="left">norpA</td>
+<td align="left">FBgn0010303</td>
+<td align="right">3</td>
+<td align="left">hep</td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0000575</td>
+<td align="right">7</td>
+<td align="left">emc</td>
+<td align="left">FBgn0004552</td>
+<td align="right">5</td>
+<td align="left">Akh</td>
+<td align="left">FBgn0015279</td>
+<td align="right">3</td>
+<td align="left">Pi3K92E</td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0015795</td>
+<td align="right">7</td>
+<td align="left">Rab7</td>
+<td align="left">FBgn0015279</td>
+<td align="right">5</td>
+<td align="left">Pi3K92E</td>
+<td align="left">FBgn0033799</td>
+<td align="right">3</td>
+<td align="left">GLaz</td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0283499</td>
+<td align="right">6</td>
+<td align="left">InR</td>
+<td align="left">FBgn0283499</td>
+<td align="right">5</td>
+<td align="left">InR</td>
+<td align="left">FBgn0036449</td>
+<td align="right">3</td>
+<td align="left">bmm</td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0039114</td>
+<td align="right">6</td>
+<td align="left">Lsd-1</td>
+<td align="left">FBgn0003310</td>
+<td align="right">5</td>
+<td align="left">NULL</td>
+<td align="left">FBgn0003731</td>
+<td align="right">3</td>
+<td align="left">Egfr</td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0004552</td>
+<td align="right">5</td>
+<td align="left">Akh</td>
+<td align="left">FBgn0035586</td>
+<td align="right">4</td>
+<td align="left">CG10671</td>
+<td align="left">FBgn0003205</td>
+<td align="right">3</td>
+<td align="left">Ras85D</td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0015279</td>
+<td align="right">5</td>
+<td align="left">Pi3K92E</td>
+<td align="left">FBgn0026252</td>
+<td align="right">4</td>
+<td align="left">msk</td>
+<td align="left">FBgn0003463</td>
+<td align="right">3</td>
+<td align="left">sog</td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0035586</td>
+<td align="right">5</td>
+<td align="left">CG10671</td>
+<td align="left">FBgn0000490</td>
+<td align="right">4</td>
+<td align="left">dpp</td>
+<td align="left">FBgn0003719</td>
+<td align="right">3</td>
+<td align="left">tld</td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0003463</td>
+<td align="right">5</td>
+<td align="left">sog</td>
+<td align="left">FBgn0261648</td>
+<td align="right">4</td>
+<td align="left">salm</td>
+<td align="left">FBgn0262738</td>
+<td align="right">3</td>
+<td align="left">norpA</td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0003719</td>
+<td align="right">5</td>
+<td align="left">tld</td>
+<td align="left">FBgn0010303</td>
+<td align="right">3</td>
+<td align="left">hep</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0036545</td>
+<td align="right">5</td>
+<td align="left">GXIVsPLA2</td>
+<td align="left">FBgn0036046</td>
+<td align="right">3</td>
+<td align="left">Ilp2</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0039655</td>
+<td align="right">5</td>
+<td align="left">CG14507</td>
+<td align="left">FBgn0024248</td>
+<td align="right">3</td>
+<td align="left">chico</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0003118</td>
+<td align="right">5</td>
+<td align="left">pnt</td>
+<td align="left">FBgn0033799</td>
+<td align="right">3</td>
+<td align="left">GLaz</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0005672</td>
+<td align="right">5</td>
+<td align="left">spi</td>
+<td align="left">FBgn0036449</td>
+<td align="right">3</td>
+<td align="left">bmm</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0036046</td>
+<td align="right">4</td>
+<td align="left">Ilp2</td>
+<td align="left">FBgn0036260</td>
+<td align="right">3</td>
+<td align="left">Rh7</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0003651</td>
+<td align="right">4</td>
+<td align="left">svp</td>
+<td align="left">FBgn0003463</td>
+<td align="right">3</td>
+<td align="left">sog</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0010379</td>
+<td align="right">4</td>
+<td align="left">Akt1</td>
+<td align="left">FBgn0003719</td>
+<td align="right">3</td>
+<td align="left">tld</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0024248</td>
+<td align="right">4</td>
+<td align="left">chico</td>
+<td align="left">FBgn0003984</td>
+<td align="right">3</td>
+<td align="left">vn</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0036449</td>
+<td align="right">4</td>
+<td align="left">bmm</td>
+<td align="left">FBgn0038197</td>
+<td align="right">3</td>
+<td align="left">foxo</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0026252</td>
+<td align="right">4</td>
+<td align="left">msk</td>
+<td align="left">FBgn0039114</td>
+<td align="right">3</td>
+<td align="left">Lsd-1</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0036260</td>
+<td align="right">4</td>
+<td align="left">Rh7</td>
+<td align="left">FBgn0003218</td>
+<td align="right">3</td>
+<td align="left">rdgB</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0000490</td>
+<td align="right">4</td>
+<td align="left">dpp</td>
+<td align="left">FBgn0026207</td>
+<td align="right">3</td>
+<td align="left">mbo</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0003984</td>
+<td align="right">4</td>
+<td align="left">vn</td>
+<td align="left">FBgn0027537</td>
+<td align="right">3</td>
+<td align="left">Nup93-1</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0261648</td>
+<td align="right">4</td>
+<td align="left">salm</td>
+<td align="left">FBgn0031078</td>
+<td align="right">3</td>
+<td align="left">Nup205</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0029720</td>
+<td align="right">4</td>
+<td align="left">CG3009</td>
+<td align="left">FBgn0033737</td>
+<td align="right">3</td>
+<td align="left">Nup54</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0030013</td>
+<td align="right">4</td>
+<td align="left">GIIIspla2</td>
+<td align="left">FBgn0033766</td>
+<td align="right">3</td>
+<td align="left">CG8771</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0033170</td>
+<td align="right">4</td>
+<td align="left">sPLA2</td>
+<td align="left">FBgn0038274</td>
+<td align="right">3</td>
+<td align="left">Nup93-2</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0050503</td>
+<td align="right">4</td>
+<td align="left">CG30503</td>
+<td align="left">FBgn0061200</td>
+<td align="right">3</td>
+<td align="left">Nup153</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0250862</td>
+<td align="right">4</td>
+<td align="left">CG42237</td>
+<td align="left">FBgn0003256</td>
+<td align="right">3</td>
+<td align="left">rl</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0003218</td>
+<td align="right">4</td>
+<td align="left">rdgB</td>
+<td align="left">FBgn0034140</td>
+<td align="right">3</td>
+<td align="left">Lst</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0030608</td>
+<td align="right">4</td>
+<td align="left">Lsd-2</td>
+<td align="left">FBgn0015795</td>
+<td align="right">3</td>
+<td align="left">Rab7</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0035206</td>
+<td align="right">4</td>
+<td align="left">CG9186</td>
+<td align="left">FBgn0002940</td>
+<td align="right">3</td>
+<td align="left">ninaE</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0040336</td>
+<td align="right">4</td>
+<td align="left">Seipin</td>
+<td align="left">FBgn0003295</td>
+<td align="right">3</td>
+<td align="left">ru</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0026207</td>
+<td align="right">4</td>
+<td align="left">mbo</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0004435</td>
+<td align="right">4</td>
+<td align="left">Galphaq</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0000257</td>
+<td align="right">4</td>
+<td align="left">car</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0000482</td>
+<td align="right">4</td>
+<td align="left">dor</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0003256</td>
+<td align="right">4</td>
+<td align="left">rl</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0035871</td>
+<td align="right">4</td>
+<td align="left">BI-1</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0052350</td>
+<td align="right">4</td>
+<td align="left">Vps11</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0285911</td>
+<td align="right">4</td>
+<td align="left">NULL</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0015754</td>
+<td align="right">4</td>
+<td align="left">Lis-1</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0004647</td>
+<td align="right">4</td>
+<td align="left">NULL</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0002940</td>
+<td align="right">4</td>
+<td align="left">ninaE</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0003295</td>
+<td align="right">4</td>
+<td align="left">ru</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0020386</td>
+<td align="right">4</td>
+<td align="left">Pdk1</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0262451</td>
+<td align="right">4</td>
+<td align="left">ban</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0004784</td>
+<td align="right">4</td>
+<td align="left">inaC</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0003169</td>
+<td align="right">3</td>
+<td align="left">put</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0010303</td>
+<td align="right">3</td>
+<td align="left">hep</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0028717</td>
+<td align="right">3</td>
+<td align="left">Lnk</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0010051</td>
+<td align="right">3</td>
+<td align="left">Itp-r83A</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0030607</td>
+<td align="right">3</td>
+<td align="left">dob</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0033226</td>
+<td align="right">3</td>
+<td align="left">CG1882</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0033799</td>
+<td align="right">3</td>
+<td align="left">GLaz</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0262103</td>
+<td align="right">3</td>
+<td align="left">Sik3</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0002576</td>
+<td align="right">3</td>
+<td align="left">lz</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0004885</td>
+<td align="right">3</td>
+<td align="left">tok</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0050418</td>
+<td align="right">3</td>
+<td align="left">nord</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0039152</td>
+<td align="right">3</td>
+<td align="left">Root</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0038197</td>
+<td align="right">3</td>
+<td align="left">foxo</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0028741</td>
+<td align="right">3</td>
+<td align="left">fab1</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0029870</td>
+<td align="right">3</td>
+<td align="left">Marf</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0052703</td>
+<td align="right">3</td>
+<td align="left">Erk7</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0027537</td>
+<td align="right">3</td>
+<td align="left">Nup93-1</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0031078</td>
+<td align="right">3</td>
+<td align="left">Nup205</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0033737</td>
+<td align="right">3</td>
+<td align="left">Nup54</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0033766</td>
+<td align="right">3</td>
+<td align="left">CG8771</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0038274</td>
+<td align="right">3</td>
+<td align="left">Nup93-2</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0061200</td>
+<td align="right">3</td>
+<td align="left">Nup153</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0261549</td>
+<td align="right">3</td>
+<td align="left">rdgA</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0002566</td>
+<td align="right">3</td>
+<td align="left">lt</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0034140</td>
+<td align="right">3</td>
+<td align="left">Lst</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0038659</td>
+<td align="right">3</td>
+<td align="left">EndoA</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0086676</td>
+<td align="right">3</td>
+<td align="left">spin</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0015721</td>
+<td align="right">3</td>
+<td align="left">ktub</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0086687</td>
+<td align="right">3</td>
+<td align="left">Desat1</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0014010</td>
+<td align="right">3</td>
+<td align="left">Rab5</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0025680</td>
+<td align="right">3</td>
+<td align="left">cry</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0038167</td>
+<td align="right">3</td>
+<td align="left">Lkb1</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0004611</td>
+<td align="right">3</td>
+<td align="left">Plc21C</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0001263</td>
+<td align="right">3</td>
+<td align="left">inaD</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">FBgn0052699</td>
+<td align="right">3</td>
+<td align="left">LPCAT</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">FBgn0265048</td>
+<td align="right">3</td>
+<td align="left">cv-d</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
 <pre class="r"><code>if(0){
 bayesF_KableMod &lt;- percentModder(bayesF_Kable)
 bayesM_KableMod &lt;- percentModder(bayesM_Kable)
