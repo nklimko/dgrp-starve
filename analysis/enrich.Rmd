@@ -137,13 +137,13 @@ bayesM_KableMod <- percentModder(bayesM_Kable)
 blupF_KableMod <- percentModder(blupF_Kable )
 blupM_KableMod <- percentModder(blupM_Kable )
 
-kable(bayesF_KableMod, caption="Female BayesC", "simple") %>%
+kable(bayesF_KableMod, caption="Female BayesC", "html") %>%
   add_header_above(c('Top 100 GO Terms' = 3, 'Top 50 GO Terms' = 3, 'Top 25 GO Terms' = 3))
-kable(bayesM_KableMod, caption="Male BayesC", "simple") %>%
+kable(bayesM_KableMod, caption="Male BayesC", "html") %>%
   add_header_above(c('Top 100 GO Terms' = 3, 'Top 50 GO Terms' = 3, 'Top 25 GO Terms' = 3))
-kable(blupF_KableMod, caption="Female TBLUP", "simple") %>%
+kable(blupF_KableMod, caption="Female TBLUP", "html") %>%
   add_header_above(c('Top 100 GO Terms' = 3, 'Top 50 GO Terms' = 3, 'Top 25 GO Terms' = 3))
-kable(blupM_KableMod, caption="Male TBLUP", "simple") %>%
+kable(blupM_KableMod, caption="Male TBLUP", "html") %>%
   add_header_above(c('Top 100 GO Terms' = 3, 'Top 50 GO Terms' = 3, 'Top 25 GO Terms' = 3))
 
 
