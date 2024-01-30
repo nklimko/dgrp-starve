@@ -111,7 +111,7 @@ print(cor(blupM[1:200,cor], bayesM[1:200, cor]))
 Male Top 100
 
 
-Moving past this, I wanted to assess the effect of term count on enrichment
+Moving past this, I wanted to assess the effect of term count on enrichment------000000------000000------000000------000000------000000
 
 
 
@@ -134,7 +134,9 @@ percentModder <- function(dataKable, custom.caption){
 }
 bayesF_KableMod <- percentModder(bayesF_Kable, 'Female BayesC')
 
-print(bayesF_KableMod)
+#print(bayesF_KableMod)
+
+kable(bayesF_Kable, caption="Female BayesC", "simple")
 
 if(0){
 bayesF_KableMod <- percentModder(bayesF_Kable)
