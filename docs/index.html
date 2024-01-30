@@ -306,7 +306,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-01-16
+<strong>Last updated:</strong> 2024-01-30
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -337,16 +337,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreeef49b95034e5a3d36e6f2671de903732e35c5c70targetblankef49b95a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/ef49b95034e5a3d36e6f2671de903732e35c5c70" target="_blank">ef49b95</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreeab7c98cd864f93eff9275a5891bea9c8527a9aeftargetblankab7c98ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/ab7c98cd864f93eff9275a5891bea9c8527a9aef" target="_blank">ab7c98c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreeef49b95034e5a3d36e6f2671de903732e35c5c70targetblankef49b95a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreeab7c98cd864f93eff9275a5891bea9c8527a9aeftargetblankab7c98ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/ef49b95034e5a3d36e6f2671de903732e35c5c70" target="_blank">ef49b95</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/ab7c98cd864f93eff9275a5891bea9c8527a9aef" target="_blank">ab7c98c</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -375,6 +375,8 @@ Ignored files:
     Ignored:    snake/gofig.yaml
     Ignored:    snake/guide/
     Ignored:    snake/logs/
+    Ignored:    snake/pbs_smake.pbs
+    Ignored:    snake/pbsmake.sbatch
     Ignored:    snake/slurm/
     Ignored:    snake/smake.sbatch
     Ignored:    snake/snubnose.sbatch
@@ -387,6 +389,7 @@ Untracked files:
     Untracked:  analysis/sparseComp.Rmd
     Untracked:  forester.R
     Untracked:  malegofind.R
+    Untracked:  moarnotes.R
     Untracked:  pippinRMDbackup.R
     Untracked:  snake/code/binner.R
     Untracked:  snake/code/combine_GO.R
@@ -402,14 +405,15 @@ Untracked files:
     Untracked:  snake/code/scheming.R
     Untracked:  snake/code/scripts/
     Untracked:  snake/code/srfile.yaml
+    Untracked:  teno.R
 
 Unstaged changes:
     Modified:   analysis/Method/BayesC.Rmd
     Modified:   analysis/bigGO.Rmd
-    Modified:   analysis/goReport.Rmd
     Modified:   snake/code/method/bayesGO.R
     Modified:   snake/code/method/goFish.R
     Modified:   snake/code/method/varbvs.R
+    Modified:   snake/temp.txt
 
 </code></pre>
 <p>
@@ -448,6 +452,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/ab7c98cd864f93eff9275a5891bea9c8527a9aef/analysis/index.Rmd" target="_blank">ab7c98c</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2024-01-30
+</td>
+<td>
+wflow_publish(“analysis/index.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/1fe0d68f90c66598517c8fe8d1d4db8d14f5e81e/docs/index.html" target="_blank">1fe0d68</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2024-01-16
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1347,6 +1385,9 @@ all files for me
 </div>
 <div id="go-enrichment" class="section level1">
 <h1>GO Enrichment</h1>
+<ul>
+<li><a href="enrich.html">Enrichment Comparison</a></li>
+</ul>
 <div id="bayesc" class="section level2">
 <h2>BayesC</h2>
 <ul>
