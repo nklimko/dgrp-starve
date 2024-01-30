@@ -12,6 +12,8 @@ editor_options:
 + [Summary of Univariate and Multivariate models](allHist.html)
 
 # GO Enrichment
++ [Enrichment Comparison](enrich.html)
+
 ## BayesC
 + [BayesGO: Layering GO annotations with Bayesian methods](goPlots.html)
 + [BayesGO preliminary results](bigGO.html)
