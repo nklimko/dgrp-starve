@@ -11,6 +11,9 @@ editor_options:
 # Overview
 + [Summary of Univariate and Multivariate models](allHist.html)
 
+
+
+
 # GO Enrichment
 + [Enrichment Comparison](enrich.html)
 
@@ -25,6 +28,9 @@ editor_options:
 
 ## TBLUP
 + [GO-TBLUP Report](blupUp.html)
+
+## Method Comparisons
++ [BayesC R2 Optimization](goBayesCor.html)
 
 # Methods
 + [BayesC](man-BayesC.html)
