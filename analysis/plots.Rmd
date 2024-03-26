@@ -1,0 +1,118 @@
+---
+title: "GO-BayesC R2 Comparison to GO-TBLUP"
+output:
+  workflowr::wflow_html:
+    toc: true
+    latex_engine: "xelatex"
+    code_folding: "hide"
+editor_options:
+  chunk_output_type: console
+---
+
+```{r 0-setup, include=FALSE, warning=FALSE}
+
+library(dplyr)
+library(data.table)
+library(ggplot2)
+library(cowplot)
+library(qqman)
+library(viridis)
+library(scales)
+library(tidyverse)
+library(ggcorrplot)
+library(melt)
+library(reshape2)
+
+#options
+options(bitmapType = "cairo")
+options(error = function() traceback(3))
+
+#seed
+set.seed(123)
+
+#ggplot holder list
+gg <- vector(mode='list', length=12)
+
+```
+
+```{r 0-functions}
+#plotmaker functions----
+
+
+ggMake2 <- function(data, sex, yint, psize, custom.title, custom.Xlab, custom.Ylab, scaleStart, scaleEnd){
+  plothole <- ggplot(data,aes(y=cor,x=method, fill=typeRank))+
+    geom_hline(yintercept = yint)+
+    labs(x=custom.Xlab,y=custom.Ylab, tag=sex, title=custom.title, fill='Method Type') +
+    geom_violin(color = NA, width = 0.65) +
+    geom_boxplot(color='#440154FF', width = 0.15) +
+    theme_minimal()+
+    theme(axis.text.x = element_text(angle = 90),
+          text=element_text(size=25),
+          plot.tag = element_text(size=20)) +
+    scale_fill_viridis(begin = scaleStart, end = scaleEnd, discrete=TRUE, option='turbo',
+                       labels=c('Transformation', 'Penalized', 'Bayesian', 'Mixed Model', 'Machine Learning'))+#false discrete for number ranked layover, true normally
+    stat_summary(fun=mean, color='#440154FF', geom='point', 
+                 shape=18, size=3, show.legend=FALSE)
+  return(plothole)
+}
+
+ggMakeVar <- function(data, sex, yint, psize, custom.title, custom.Xlab, custom.Ylab, scaleStart, scaleEnd){
+  plothole <- ggplot(data,aes(y=cor,x=method, fill=varSelect))+
+    geom_hline(yintercept = yint)+
+    labs(x=custom.Xlab,y=custom.Ylab, tag=sex, title=custom.title, fill='Method Type') +
+    geom_violin(color = NA, width = 0.65) +
+    geom_boxplot(color='#440154FF', width = 0.15) +
+    theme_minimal()+
+    theme(axis.text.x = element_text(angle = 90),
+          text=element_text(size=25),
+          plot.tag = element_text(size=20)) +
+    scale_fill_viridis(begin = scaleStart, end = scaleEnd, discrete=TRUE, option='turbo',
+                       labels=c('Shrinkage', 'Shrinkage + Selection'))+#false discrete for number ranked layover, true normally
+    stat_summary(fun=mean, color='#440154FF', geom='point', 
+                 shape=18, size=3, show.legend=FALSE)
+  return(plothole)
+}
+
+```
+
+
+```{r plotMakes, warning=FALSE, eval=TRUE}
+
+load('data/rmdTables/srPlots/allTables.Rdata')
+
+gg[[1]] <- ggMake2(dataF, 'F', 0, 1, 'Prediction Accuracy by Method in Females', 'Method', 'Prediction Accuracy', 0.1, 0.9)
+
+gg[[2]] <- ggMake2(dataM, 'M', 0, 1, 'Prediction Accuracy by Method in Males', 'Method', 'Prediction Accuracy', 0.1, 0.9)
+
+#gg[[3]] <- 
+gg[[3]] <- ggMakeVar(dataF, 'F', 0, 1, 'Prediction Accuracy by Method in Females', 'Method', 'Prediction Accuracy', 0.2, 0.8)
+
+gg[[4]] <- ggMakeVar(dataM, 'M', 0, 1, 'Prediction Accuracy by Method in Males', 'Method', 'Prediction Accuracy', 0.2, 0.8)
+
+
+```
+
+
+### Rundown
+
+
+
+### Updated Prediction Accuracy Plots
+
+```{r allData, warning=FALSE}
+
+plot_grid(gg[[1]], gg[[2]], ncol = 2)
+
+```
+
+
+
+
+### Variable Selection Marking
+```{r fData, warning=FALSE}
+
+plot_grid(gg[[3]],gg[[4]], ncol=2)
+
+```
+
+Variable selection has a positive effect on prediction accuracy in females and a negative effect in males. 
