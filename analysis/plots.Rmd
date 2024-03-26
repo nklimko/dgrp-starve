@@ -47,8 +47,8 @@ ggMake2 <- function(data, sex, yint, psize, custom.title, custom.Xlab, custom.Yl
     geom_boxplot(color='#440154FF', width = 0.15) +
     theme_minimal()+
     theme(axis.text.x = element_text(angle = 90),
-          text=element_text(size=25),
-          plot.tag = element_text(size=20)) +
+          text=element_text(size=5),
+          plot.tag = element_text(size=10)) +
     scale_fill_viridis(begin = scaleStart, end = scaleEnd, discrete=TRUE, option='turbo',
                        labels=c('Transformation', 'Penalized', 'Bayesian', 'Mixed Model', 'Machine Learning'))+#false discrete for number ranked layover, true normally
     stat_summary(fun=mean, color='#440154FF', geom='point', 
@@ -64,8 +64,8 @@ ggMakeVar <- function(data, sex, yint, psize, custom.title, custom.Xlab, custom.
     geom_boxplot(color='#440154FF', width = 0.15) +
     theme_minimal()+
     theme(axis.text.x = element_text(angle = 90),
-          text=element_text(size=25),
-          plot.tag = element_text(size=20)) +
+          text=element_text(size=5),
+          plot.tag = element_text(size=10)) +
     scale_fill_viridis(begin = scaleStart, end = scaleEnd, discrete=TRUE, option='turbo',
                        labels=c('Shrinkage', 'Shrinkage + Selection'))+#false discrete for number ranked layover, true normally
     stat_summary(fun=mean, color='#440154FF', geom='point', 
@@ -84,10 +84,9 @@ gg[[1]] <- ggMake2(dataF, 'F', 0, 1, 'Prediction Accuracy by Method in Females',
 
 gg[[2]] <- ggMake2(dataM, 'M', 0, 1, 'Prediction Accuracy by Method in Males', 'Method', 'Prediction Accuracy', 0.1, 0.9)
 
-#gg[[3]] <- 
-gg[[3]] <- ggMakeVar(dataF, 'F', 0, 1, 'Prediction Accuracy by Method in Females', 'Method', 'Prediction Accuracy', 0.2, 0.8)
+gg[[3]] <- ggMakeVar(dataF, 'F', 0, 1, 'Prediction Accuracy by Variable Selection in Females', 'Method', 'Prediction Accuracy', 0.2, 0.8)
 
-gg[[4]] <- ggMakeVar(dataM, 'M', 0, 1, 'Prediction Accuracy by Method in Males', 'Method', 'Prediction Accuracy', 0.2, 0.8)
+gg[[4]] <- ggMakeVar(dataM, 'M', 0, 1, 'Prediction Accuracy by Variable Selection in Males', 'Method', 'Prediction Accuracy', 0.2, 0.8)
 
 
 ```
@@ -101,17 +100,21 @@ gg[[4]] <- ggMakeVar(dataM, 'M', 0, 1, 'Prediction Accuracy by Method in Males',
 
 ```{r allData, warning=FALSE}
 
-plot_grid(gg[[1]], gg[[2]], ncol = 2)
+plot_grid(gg[[1]], ncol = 1)
+
+plot_grid(gg[[2]], ncol = 1)
 
 ```
 
-
+The 2 plots above are updated versions of the original
 
 
 ### Variable Selection Marking
 ```{r fData, warning=FALSE}
 
-plot_grid(gg[[3]],gg[[4]], ncol=2)
+plot_grid(gg[[3]], ncol = 1)
+
+plot_grid(gg[[4]], ncol = 1)
 
 ```
 
