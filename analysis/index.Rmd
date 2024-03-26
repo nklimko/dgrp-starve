@@ -10,9 +10,7 @@ editor_options:
 
 # Overview
 + [Summary of Univariate and Multivariate models](allHist.html)
-
-
-
++ [Updated Plots](plots.html)
 
 # GO Enrichment
 + [Enrichment Comparison](enrich.html)
