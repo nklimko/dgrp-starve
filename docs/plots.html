@@ -485,16 +485,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreeb029cc30c7ac32fbfe55c20e3d7b16fbb29d201ftargetblankb029cc3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/b029cc30c7ac32fbfe55c20e3d7b16fbb29d201f" target="_blank">b029cc3</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree96362fae9bb3ba3de22d8b1527845ea7f9c86935targetblank96362faa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/96362fae9bb3ba3de22d8b1527845ea7f9c86935" target="_blank">96362fa</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreeb029cc30c7ac32fbfe55c20e3d7b16fbb29d201ftargetblankb029cc3a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree96362fae9bb3ba3de22d8b1527845ea7f9c86935targetblank96362faa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/b029cc30c7ac32fbfe55c20e3d7b16fbb29d201f" target="_blank">b029cc3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/96362fae9bb3ba3de22d8b1527845ea7f9c86935" target="_blank">96362fa</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -502,6 +502,7 @@ Note that you need to be careful to ensure that all relevant files for the analy
 <pre><code>
 Ignored files:
     Ignored:    .snakemake/
+    Ignored:    analysis/figure/
     Ignored:    code/OLD/PCA/four-comp.76979.err
     Ignored:    code/OLD/PCA/four-comp.76979.out
     Ignored:    code/OLD/PCA/snpGene.77509.err
@@ -607,6 +608,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/96362fae9bb3ba3de22d8b1527845ea7f9c86935/analysis/plots.Rmd" target="_blank">96362fa</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2024-03-26
+</td>
+<td>
+wflow_publish(“analysis/plots.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/458751187b0e287239c3bdc85285fecabd4ec81f/docs/plots.html" target="_blank">4587511</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2024-03-26
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/b029cc30c7ac32fbfe55c20e3d7b16fbb29d201f/analysis/plots.Rmd" target="_blank">b029cc3</a>
 </td>
 <td>
@@ -637,8 +672,8 @@ ggMake2 &lt;- function(data, sex, yint, psize, custom.title, custom.Xlab, custom
     geom_boxplot(color=&#39;#440154FF&#39;, width = 0.15) +
     theme_minimal()+
     theme(axis.text.x = element_text(angle = 90),
-          text=element_text(size=25),
-          plot.tag = element_text(size=20)) +
+          text=element_text(size=5),
+          plot.tag = element_text(size=10)) +
     scale_fill_viridis(begin = scaleStart, end = scaleEnd, discrete=TRUE, option=&#39;turbo&#39;,
                        labels=c(&#39;Transformation&#39;, &#39;Penalized&#39;, &#39;Bayesian&#39;, &#39;Mixed Model&#39;, &#39;Machine Learning&#39;))+#false discrete for number ranked layover, true normally
     stat_summary(fun=mean, color=&#39;#440154FF&#39;, geom=&#39;point&#39;, 
@@ -654,8 +689,8 @@ ggMakeVar &lt;- function(data, sex, yint, psize, custom.title, custom.Xlab, cust
     geom_boxplot(color=&#39;#440154FF&#39;, width = 0.15) +
     theme_minimal()+
     theme(axis.text.x = element_text(angle = 90),
-          text=element_text(size=25),
-          plot.tag = element_text(size=20)) +
+          text=element_text(size=5),
+          plot.tag = element_text(size=10)) +
     scale_fill_viridis(begin = scaleStart, end = scaleEnd, discrete=TRUE, option=&#39;turbo&#39;,
                        labels=c(&#39;Shrinkage&#39;, &#39;Shrinkage + Selection&#39;))+#false discrete for number ranked layover, true normally
     stat_summary(fun=mean, color=&#39;#440154FF&#39;, geom=&#39;point&#39;, 
@@ -668,22 +703,100 @@ gg[[1]] &lt;- ggMake2(dataF, &#39;F&#39;, 0, 1, &#39;Prediction Accuracy by Meth
 
 gg[[2]] &lt;- ggMake2(dataM, &#39;M&#39;, 0, 1, &#39;Prediction Accuracy by Method in Males&#39;, &#39;Method&#39;, &#39;Prediction Accuracy&#39;, 0.1, 0.9)
 
-#gg[[3]] &lt;- 
-gg[[3]] &lt;- ggMakeVar(dataF, &#39;F&#39;, 0, 1, &#39;Prediction Accuracy by Method in Females&#39;, &#39;Method&#39;, &#39;Prediction Accuracy&#39;, 0.2, 0.8)
+gg[[3]] &lt;- ggMakeVar(dataF, &#39;F&#39;, 0, 1, &#39;Prediction Accuracy by Variable Selection in Females&#39;, &#39;Method&#39;, &#39;Prediction Accuracy&#39;, 0.2, 0.8)
 
-gg[[4]] &lt;- ggMakeVar(dataM, &#39;M&#39;, 0, 1, &#39;Prediction Accuracy by Method in Males&#39;, &#39;Method&#39;, &#39;Prediction Accuracy&#39;, 0.2, 0.8)</code></pre>
+gg[[4]] &lt;- ggMakeVar(dataM, &#39;M&#39;, 0, 1, &#39;Prediction Accuracy by Variable Selection in Males&#39;, &#39;Method&#39;, &#39;Prediction Accuracy&#39;, 0.2, 0.8)</code></pre>
 <div id="rundown" class="section level3">
 <h3>Rundown</h3>
 </div>
 <div id="updated-prediction-accuracy-plots" class="section level3">
 <h3>Updated Prediction Accuracy Plots</h3>
-<pre class="r"><code>plot_grid(gg[[1]], gg[[2]], ncol = 2)</code></pre>
+<pre class="r"><code>plot_grid(gg[[1]], ncol = 1)</code></pre>
 <p><img src="figure/plots.Rmd/allData-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-allData-1">
+Past versions of allData-1.png
+</button>
+</p>
+<div id="fig-allData-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/458751187b0e287239c3bdc85285fecabd4ec81f/docs/figure/plots.Rmd/allData-1.png" target="_blank">4587511</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2024-03-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>plot_grid(gg[[2]], ncol = 1)</code></pre>
+<p><img src="figure/plots.Rmd/allData-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The 2 plots above are updated versions of the original</p>
 </div>
 <div id="variable-selection-marking" class="section level3">
 <h3>Variable Selection Marking</h3>
-<pre class="r"><code>plot_grid(gg[[3]],gg[[4]], ncol=2)</code></pre>
+<pre class="r"><code>plot_grid(gg[[3]], ncol = 1)</code></pre>
 <p><img src="figure/plots.Rmd/fData-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fData-1">
+Past versions of fData-1.png
+</button>
+</p>
+<div id="fig-fData-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/458751187b0e287239c3bdc85285fecabd4ec81f/docs/figure/plots.Rmd/fData-1.png" target="_blank">4587511</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2024-03-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>plot_grid(gg[[4]], ncol = 1)</code></pre>
+<p><img src="figure/plots.Rmd/fData-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Variable selection has a positive effect on prediction accuracy in females and a negative effect in males.</p>
 <br>
 <p>
