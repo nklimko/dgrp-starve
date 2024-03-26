@@ -40,8 +40,8 @@ if(1){
 ```{r lasso-all, warning=FALSE}
 
 
-f <- readRDS("snake/data/zigure/lassoF.Rds")
-m <- readRDS("snake/data/zigure/lassoM.Rds")
+f <- readRDS("zz_lost/lassoF.Rds")
+m <- readRDS("zz_lost/lassoM.Rds")
 
 data <- f
 
@@ -134,7 +134,7 @@ plot_grid(gg[[7]],gg[[8]], ncol=2)
 
 ```{r allData-lasso}
 
-lassoFinal <- readRDS("snake/data/zigure/lassoFinal.Rds")
+lassoFinal <- readRDS("zz_lost/lassoFinal.Rds")
 
 print(lassoFinal)
 
@@ -145,7 +145,7 @@ print(lassoFinal)
 ```{r bayesOp, warning=FALSE, eval=TRUE}
 
 
-bayesFinal <- readRDS("snake/data/zigure/bayesFinal.Rds")
+bayesFinal <- readRDS("zz_lost/bayesFinal.Rds")
 
 data <- bayesFinal
 
@@ -184,7 +184,7 @@ print(bayesFinal)
 
 #0.364, 0.382 f m 
 
-data <- readRDS("snake/data/zigure/rf.Rds")
+data <- readRDS("zz_lost/rf.Rds")
 
 title <- "Correlation"
 tagChar <- '.'
@@ -218,7 +218,7 @@ plot_grid(gg[[11]], ncol=1)
 
 #0.364, 0.382 f m 
 
-data <- readRDS("snake/data/zigure/dd.Rds")
+data <- readRDS("zz_lost/dd.Rds")
 
 title <- "Correlation"
 tagChar <- '.'
