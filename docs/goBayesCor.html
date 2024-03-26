@@ -485,16 +485,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreefd1e7019dfe6e89193e4157c8f0333fd6fa00840targetblankfd1e701a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/fd1e7019dfe6e89193e4157c8f0333fd6fa00840" target="_blank">fd1e701</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree698ca71b20f0886d57e0c2de2610d551f606dae1targetblank698ca71a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/698ca71b20f0886d57e0c2de2610d551f606dae1" target="_blank">698ca71</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreefd1e7019dfe6e89193e4157c8f0333fd6fa00840targetblankfd1e701a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree698ca71b20f0886d57e0c2de2610d551f606dae1targetblank698ca71a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/fd1e7019dfe6e89193e4157c8f0333fd6fa00840" target="_blank">fd1e701</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/698ca71b20f0886d57e0c2de2610d551f606dae1" target="_blank">698ca71</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -502,7 +502,6 @@ Note that you need to be careful to ensure that all relevant files for the analy
 <pre><code>
 Ignored files:
     Ignored:    .snakemake/
-    Ignored:    analysis/figure/
     Ignored:    code/OLD/PCA/four-comp.76979.err
     Ignored:    code/OLD/PCA/four-comp.76979.out
     Ignored:    code/OLD/PCA/snpGene.77509.err
@@ -603,6 +602,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/698ca71b20f0886d57e0c2de2610d551f606dae1/analysis/goBayesCor.Rmd" target="_blank">698ca71</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2024-03-26
+</td>
+<td>
+wflow_publish(“analysis/goBayesCor.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/79c1c02c42bda1b4c1f5eb053ad0fadadddeefaa/docs/goBayesCor.html" target="_blank">79c1c02</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2024-03-26
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/fd1e7019dfe6e89193e4157c8f0333fd6fa00840/analysis/goBayesCor.Rmd" target="_blank">fd1e701</a>
 </td>
 <td>
@@ -663,13 +696,55 @@ gg[[3]] &lt;- methodCorMake(fCors, &#39;F&#39;, &#39;Correlation of Top GO Terms
 gg[[4]] &lt;- methodCorMake(mCors, &#39;M&#39;, &#39;Correlation of Top GO Terms in Males&#39;, &#39;# of terms included&#39;, &#39;Correlation&#39;)</code></pre>
 <div id="rundown" class="section level3">
 <h3>Rundown</h3>
-<p>The goal of this assessment was to determine the effectiveness of R2 selection retroactively. We had previously generated data using GO terms to improve prediction accuracy for two methods: - GO-BayesC a Bayesian penalized linear regression method - GO-TBLUP, a linear mixed model method In our initial trials, we set the expected proportion of variance explained(POVE), R2, to 0.8 based on <a href="lasso-OP.html">parameter optimization findings.</a> The original method had a had a single fixed effect while the GO-annotated method had two fixed effects in the model.</p>
+<p>The goal of this assessment was to determine the effectiveness of R2 selection retroactively. We had previously generated data using GO terms to improve prediction accuracy for two methods:</p>
+<ul>
+<li>GO-BayesC a Bayesian penalized linear regression method</li>
+<li>GO-TBLUP, a linear mixed model method</li>
+</ul>
+<p>In our initial trials, we set the expected proportion of variance explained(POVE), R2, to 0.8 based on <a href="lasso-OP.html">parameter optimization findings.</a> The original method had a had a single fixed effect while the GO-annotated method had two fixed effects in the model.</p>
 <p>After testing back and forth, we settled on removing the R2 limitations completely to allow the model to internally gerenate R2. In comparison, the original GO-BayesC had a hard limit on R2 alongside a relative limit between effects.</p>
 </div>
 <div id="prediction-accuracy-histogram-both-sexes" class="section level3">
 <h3>Prediction Accuracy Histogram: Both Sexes</h3>
 <pre class="r"><code>plot_grid(gg[[1]], gg[[2]], ncol = 2)</code></pre>
 <p><img src="figure/goBayesCor.Rmd/allData-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-allData-1">
+Past versions of allData-1.png
+</button>
+</p>
+<div id="fig-allData-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/79c1c02c42bda1b4c1f5eb053ad0fadadddeefaa/docs/figure/goBayesCor.Rmd/allData-1.png" target="_blank">79c1c02</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2024-03-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>In both females and males, we see that the distributions of GO-BayesC with Unlimited R2 and GO-TBLUP are more similar to each other than to GO-BayesC with 0.8 R2. R2_Unlimited contains the maximum and minimum prediction accuracies across all methods for both sexes, followed by GO-TBLUP.</p>
 <p>The following graphs were generated by finding the correlation of top subsections between methods after ordering GO terms by ‘prediction accuracy’ from Bayes Unlimited. This was done to assess the effectiveness of constraining R2 or letting the model generate R2 internally by comparing the two cases to each other along with GO-TBLUP, an ‘outgroup’ that has shown to select for biologically relevatn GO terms.</p>
 </div>
@@ -677,6 +752,43 @@ gg[[4]] &lt;- methodCorMake(mCors, &#39;M&#39;, &#39;Correlation of Top GO Terms
 <h3>Females</h3>
 <pre class="r"><code>plot_grid(gg[[3]], ncol=1)</code></pre>
 <p><img src="figure/goBayesCor.Rmd/fData-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fData-1">
+Past versions of fData-1.png
+</button>
+</p>
+<div id="fig-fData-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/79c1c02c42bda1b4c1f5eb053ad0fadadddeefaa/docs/figure/goBayesCor.Rmd/fData-1.png" target="_blank">79c1c02</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2024-03-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Expectedly, the Bayesian methods are most similar to each other across the interior section.</p>
 <p>In females, the relationships of each Bayesian method to GO-TBLUP are indistinguishable for top terms.</p>
 <p>or</p>
@@ -686,6 +798,43 @@ gg[[4]] &lt;- methodCorMake(mCors, &#39;M&#39;, &#39;Correlation of Top GO Terms
 <h3>Males</h3>
 <pre class="r"><code>plot_grid(gg[[4]], ncol=1)</code></pre>
 <p><img src="figure/goBayesCor.Rmd/mData-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-mData-1">
+Past versions of mData-1.png
+</button>
+</p>
+<div id="fig-mData-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/79c1c02c42bda1b4c1f5eb053ad0fadadddeefaa/docs/figure/goBayesCor.Rmd/mData-1.png" target="_blank">79c1c02</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2024-03-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>There is a striking difference in males. The top terms of Bayes Unlimited and TBLUP outperform the correlation of Bayesian methods by a slim margin. This effect deteriorates around the top 250 terms mark. This suggests that the top terms are correlated while the inclusion of less predictive terms decreases the correlation coefficient.</p>
 <p>Bayes Unlimited has a distinctly higher correlation to GO-TBLUP than Bayes R2 = 0.8.</p>
 </div>
