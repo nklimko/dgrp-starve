@@ -1,0 +1,249 @@
+
+#pure methods----
+rule rf:
+  input:
+    script='code/method/randomForest.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/sr/02_ids/{type}/ids_{wildset}.Rds'
+  output:
+    'data/sr/23_paropt/rf_{type}_{wildset}.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --outPath {output} \
+      --ntree {config[ntree]}
+    """
+rule nn:
+  input:
+    script='code/method/neuralnet.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/sr/02_ids/{type}/ids_{wildset}.Rds'
+  output:
+    'data/sr/23_paropt/nn_{type}_{wildset}.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --outPath {output}
+    """
+rule pcr:
+  input:
+    script='code/method/pcr.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/sr/02_ids/{type}/ids_{wildset}.Rds'
+  output:
+    'data/sr/23_paropt/pcr_{type}_{wildset}.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --outPath {output}
+    """
+rule rr:
+  input:
+    script='code/method/glmnet.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/sr/02_ids/{type}/ids_{wildset}.Rds'
+  output:
+    'data/sr/23_paropt/rr_{type}_{wildset}.Rds'
+  params:
+    wildset = lambda wildcards: int(wildcards.wildset)
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --output {output} \
+      --cpus {config[cpus]} \
+      --parallel {config[parallel]} \
+      --family gaussian \
+      --alpha 0 \
+      --nfolds 3 \
+      --dfmax 1000 \
+      --relax 0
+    """
+rule gblup:
+  input:
+    script='code/method/bglr.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/02_ids/sr/{type}/ids_{wildset}.Rds'
+  output:
+    'data/sr/23_paropt/gblup_{type}_{wildset}.Rds'
+  params:
+    wildset = lambda wildcards: int(wildcards.wildset),
+    type = lambda wildcards: str(wildcards.type)
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --output {output} \
+      --nIter {config[nIter]} \
+      --burnIn {config[burnIn]} \
+      --thin {config[thin]} \
+      --R2 {config[R2]} \
+      --model RKHS \
+      --saveAt data/bglr/sr-gblup_{params.type}_{params.wildset}
+    """
+rule varbvs:
+  input:
+    script='code/method/varbvs.R',
+    data='data/sr/10_matched/{type}_{trait}.Rds'
+  output:
+    'data/sr/20_cor/varbvs_{type}_{trait}.Rds'
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --output {output} \
+      --cpus {config[cpus]} \
+      --loopIter {config[loopIter]} \
+      --maxiter {config[maxiter]} \
+      --sa {config[sa]}
+    """
+rule mr_ash:
+  input:
+    script='code/method/multimash.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/02_ids/sr/{type}/ids_{wildset}.Rds'
+  output:
+    'data/sr/23_paropt/mrash_{type}_{wildset}.Rds'
+  params:
+    wildset = lambda wildcards: int(wildcards.wildset)
+  threads: 6
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --output {output} \
+      --cpus {threads} \
+      --tol {config[tol]} \
+      --convergence_criterion {config[convergence_criterion]} \
+      --w0_threshold {config[w0_threshold]} \
+      --compute_ELBO {config[compute_ELBO]} \
+      --verbose {config[verbose]} \
+      --hetStep {config[hetStep]} \
+      --null_weight {config[null_weight]} \
+      --traitCount 1
+    """  
+
+
+
+
+rule prcomp:
+  input:
+    script='code/method/prcomp2.R',
+    data='data/sr/12_pc/{type}/95/pcs.Rds',
+    ids='data/sr/02_ids/{type}/ids_{wildset}.Rds'
+  output:
+    'data/sr/23_paropt/{type}/95/pc_{wildset}.Rds'
+  params:
+    wildset = lambda wildcards: int(wildcards.wildset)
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+      --pcPath {input.data} \
+      --idPath {input.ids} \
+      --outPath {output}
+    """
+
+
+
+
+#parop methods
+rule pls:
+  input:
+    script='code/method/pls.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/sr/02_ids/{type}/ids_{wildset}.Rds'
+  params:
+    method = lambda wildcards: str(wildcards.pls_method)
+  output:
+    'data/sr/23_paropt/pls/{type}/{pls_method}_{wildset}.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --outPath {output} \
+      --method {params.method}
+    """
+rule lasso:
+  input:
+    script='code/method/glmnet.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/02_ids/sr/{type}/ids_{wildset}.Rds'
+  output:
+    'data/sr/23_paropt/lasso_{nfolds}_{dfmax}_{relax}_{type}_{wildset}.Rds'
+  params:
+    nfolds = lambda wildcards: int(wildcards.nfolds),
+    dfmax = lambda wildcards: int(wildcards.dfmax),
+    relax = lambda wildcards: int(wildcards.relax),
+    wildset = lambda wildcards: int(wildcards.wildset)
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --output {output} \
+      --cpus {config[cpus]} \
+      --parallel {config[parallel]} \
+      --family gaussian \
+      --alpha 1 \
+      --nfolds {params.nfolds} \
+      --dfmax {params.dfmax} \
+      --relax {params.relax}
+    """
+rule bayesC:
+  input:
+    script='code/method/bglr.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/02_ids/sr/{type}/ids_{wildset}.Rds'
+  output:
+    'data/sr/23_paropt/bayesC_{rsquare}_{type}_{wildset}.Rds'
+  params:
+    wildset = lambda wildcards: int(wildcards.wildset),
+    type = lambda wildcards: str(wildcards.type), 
+    rsquare = lambda wildcards: str(wildcards.rsquare)
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --output {output} \
+      --burnIn {config[burnIn]} \
+      --nIter {config[nIter]} \
+      --thin {config[thin]} \
+      --R2 {params.rsquare} \
+      --model SpikeSlab \
+      --saveAt data/bglr/sr-bayesC_{params.rsquare}_{params.type}_{params.wildset}
+    """
+
+#broken----
+rule inferenceTree:
+  input:
+    script='code/method/inferTree.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/sr/02_ids/{type}/ids_{wildset}.Rds'
+  output:
+    'data/sr/20_cor/inferTree_{type}_{wildset}.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --outPath {output} \
+      --ntree {config[ntree]}
+    """
+

@@ -1,0 +1,1109 @@
+configfile: 'dgrp.yaml'
+
+
+wildcard_constraints:
+    type="[a-z]+",
+    final="[a-z]+",
+    final_parop="[a-z]+",
+    all="[a-z]+",
+    goset="[0-9]+",
+    wildset="[0-9]+",
+    
+ruleorder: bayesZero > bayesGO > filter_GO_0 > filter_GO > combine_0 > combine_GO
+
+
+#TYPE=['f', 'm']
+TYPE=['f']
+MULTITRAIT=['starvation', 'cafe', 'free.glycerol', 'free.glucose']
+MULTIMETHOD=['mrmash', 'multigblup', 'multibayesC', 'mlasso', 'datamash']
+COV = ['genetic', 'residual']
+WILDSET=range(1, 50+1, 1)
+#GOSET=range(1,25+1,1)
+GOSET=range(1,1+1,1)
+
+#1k,3k,6k,10k
+DFMAX=[1000, 3000, 6000, 10000]
+NFOLDS=[3,6,9,12]
+RELAX=[0,1]
+
+#BGLR
+RSQUARE=[0.1,0.5,0.9]
+
+FINAL_TOP=['datadrive', 'mlasso', "mrmash", 'multigblup', 'multibayesC']
+FINAL_SR=['rf', 'gblup', 'pcr', 'nn', 'mrash', 'rr']
+FINAL_PAROP = ['lasso', 'pls', 'bayesC']
+
+ALL = FINAL_SR + FINAL_PAROP
+
+PLS_METHOD=['kernelpls', 'widekernelpls', 'simpls', 'oscorespls']
+
+FLOW=['sr', 'top']
+METRIC=['cor','time']
+METRIC_TOP=['topcor', 'time']
+
+#GOTERM=range(1, 3147+1,1)
+GOTERM_TEST=range(1,1000+1,1)
+#GOTERM_TEST=[96, 2870, 1667, 903, 1283, 821, 2964, 2044, 1156, 1306]
+
+#RGO=[0.001, 0.0025, 0.004, 0.0055, 0.007, 0.0085, 0.01]
+
+#RGO = [0.01, 0.02, 0.03, 0.04, 0.05]
+#RMAX = [0.4, 0.6, 0.8]
+RMAX=[0.8]
+RGO=[0.01]
+
+
+#    input:
+#        expand("output/{sample}.processed.txt", sample=glob_wildcards("input/{sample}.txt").sample)
+
+GOTERM = glob_wildcards("data/go/03_goterms/sexf/{goterm}.Rds").goterm
+#GOTERM=['GO.0000002', 'GO.0048788', 'GO.0034614', 'GO.0007166', 'GO.0034388']
+
+#all----
+rule all:
+  input:
+   #expand('data/{flow}/40_all/{type}/{metric}/all.Rds', type=TYPE, flow=FLOW, metric=METRIC),
+   #expand('data/sr/30_summary/parop/pls/{type}/{pls_method}.Rds', type=TYPE, pls_method=PLS_METHOD),
+   #expand('data/sr/24_goCor/{type}/bayesC_{goterm}_{goset}.Rds', type=TYPE, goterm=GOTERM_TEST, goset=GOSET),
+   #expand('data/sr/30_summary/parop/go/{type}/bayesC_{goterm}.Rds', type=TYPE, goterm=GOTERM_TEST),
+   #expand('data/sr/33_metric/go/{type}/cor/bayesGO_{goterm}.Rds', type=TYPE, goterm=GOTERM_TEST),
+   #expand('data/sr/30_summary/parop/prcomp{type}/95/pcFinal.Rds', type=TYPE),
+   #expand('data/sr/34_opcor/{type}/bayesC_{rsquare}.Rds', type=TYPE, rsquare=RSQUARE)
+   #expand('data/sr/25_goop/{type}/{rgo}/{goterm}/bayesC_{goset}.Rds', type=TYPE, goterm=GOTERM_TEST, rgo=RGO, goset=range(1,25+1,1)),
+   #expand('data/sr/25_goopfish/{type}/{rmax}/{rgo}/{goterm}/bayesC_{goset}.Rds', type=TYPE, goterm=GOTERM_TEST, rgo=RGO, rmax=RMAX, goset=GOSET),
+   #expand('data/sr/36_hplot/{type}/{rmax}/{rgo}/{goterm}/hplot.Rds', type=TYPE, goterm=GOTERM_TEST, rgo=RGO, rmax=RMAX),
+   #expand('data/sr/40_all/go/sex{type}/allData.Rds', type=TYPE),
+   #expand('data/sr/25_goopfish/{type}/{rmax}/0/1/bayesC_{goset}.Rds', type=TYPE, rmax=RMAX, goset=GOSET),
+   #expand('data/sr/40_all/go/sex{type}/zeroData.Rds', type=TYPE)
+   expand("data/go/03_goterms/termFlag_{type}", type=TYPE),
+   expand('data/go/24_goCor/{type}/{rmax}/{rgo}/{goterm}/bayesC_{goset}.Rds', type=TYPE, goterm=GOTERM, rgo=RGO, rmax=RMAX, goset=GOSET),
+   expand('data/go/40_all/sex{type}/allData.Rds', type=TYPE)
+
+#takes raw Gen Annotation Formnat(.gaf) file and filters for df of (go term, gene)
+rule goIndex:
+  input:
+    "data/go/00_raw/fb.gaf"
+  output:
+    "data/go/01_goIndex/goIndex"
+  shell:
+    """
+    awk -F"\t" '{{print $5, $2}}' {input} > splicedCols
+    sort -t$'\t' -n -k2 splicedCols > sortCols
+    cat sortCols | uniq > {output}
+    rm splicedCols
+    rm sortCols
+    """
+
+#takes goIndex and matches FlyBase genes to column ids in males and females separately
+#saves output to RDS with term in name
+rule goTerms:
+  input:
+    script="code/go/goTerms.R",
+    goPath="data/go/01_goIndex/goIndex",
+    xpPath='data/sr/10_matched/{type}_starvation.Rds'
+  output:
+    "data/go/03_goterms/termFlag_{type}"
+  params:
+    type = lambda wildcards: str(wildcards.type)
+  shell:
+    """
+    Rscript {input.script} \
+    --goPath {input.goPath} \
+    --xpPath {input.xpPath} \
+    --type {params.type}
+    
+    touch {output}
+    """
+
+
+
+rule bayesGO:
+  input:
+    script='code/method/bayesHome.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/sr/02_ids/{type}/ids_{goset}.Rds',
+    goPath='data/go/03_goterms/sex{type}/{goterm}.Rds'
+  output:
+    main='data/go/24_goCor/{type}/{rmax}/{rgo}/{goterm}/bayesC_{goset}.Rds'
+  params:
+    goset = lambda wildcards: int(wildcards.goset),
+    type = lambda wildcards: str(wildcards.type), 
+    goterm = lambda wildcards: str(wildcards.goterm),
+    rGO = lambda wildcards: str(wildcards.rgo),
+    rMAX = lambda wildcards: str(wildcards.rmax)
+  threads: 1
+  shell:
+    """
+    mkdir -p data/bglr/sex{params.type}/go{params.rGO}/max{params.rMAX}/term{params.goterm}/id{params.goset}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output.main} \
+      --nIter 130000 \
+      --burnIn 30000 \
+      --thin 50 \
+      --R2_max {params.rMAX} \
+      --R2_GO {params.rGO} \
+      --model BayesC \
+      --saveAt data/bglr/sex{params.type}/go{params.rGO}/max{params.rMAX}/term{params.goterm}/id{params.goset}/smallfit_
+    """
+    
+
+
+rule filterGO:
+  input:
+    script='code/filter_GO.R',
+    data=expand('data/go/24_goCor/{{type}}/{{rmax}}/{{rgo}}/{{goterm}}/bayesC_{goset}.Rds', type=TYPE, goterm=GOTERM, rgo=RGO, rmax=RMAX, goset=GOSET)
+  output:
+    'data/go/33_metric/sex{type}/rmax{rmax}/rgo{rgo}/term{goterm}/rowData.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """
+rule combineGO:
+  input:
+    script='code/combine_GO.R',
+    data=expand('data/go/33_metric/sex{type}/rmax{rmax}/rgo{rgo}/term{goterm}/rowData.Rds', type=TYPE, goterm=GOTERM, rgo=RGO, rmax=RMAX)
+  output:
+      'data/go/40_all/sex{type}/allData.Rds'
+  threads: 1
+  shell:
+    """
+     mkdir -p data/bglr/sex{params.type}/go{params.rGO}/max{params.rMAX}/term{params.goterm}/id{params.goset}
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+
+
+
+
+
+rule bayesGO_old:
+  input:
+    script='code/method/bayesHome.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/sr/02_ids/{type}/ids_{goset}.Rds',
+    goPath='data/sr/03_goterms/{type}/{goterm}.Rds'
+  output:
+    main='data/sr/25_goopfish/{type}/{rmax}/{rgo}/{goterm}/bayesC_{goset}.Rds'
+    #one='data/bglr/sex{type}/go{rgo}/max{rmax}/term{goterm}/id{goset}/bigfit_ETA_1_b.bin',
+    #two='data/bglr/sex{type}/go{rgo}/max{rmax}/term{goterm}/id{goset}/bigfit_ETA_2_b.bin'
+  params:
+    goset = lambda wildcards: int(wildcards.goset),
+    type = lambda wildcards: str(wildcards.type), 
+    goterm = lambda wildcards: int(wildcards.goterm),
+    rGO = lambda wildcards: str(wildcards.rgo),
+    rMAX = lambda wildcards: str(wildcards.rmax)
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output.main} \
+      --nIter 130000 \
+      --burnIn 30000 \
+      --thin 50 \
+      --R2_max {params.rMAX} \
+      --R2_GO {params.rGO} \
+      --model BayesC \
+      --saveAt data/bglr/sex{params.type}/go{params.rGO}/max{params.rMAX}/term{params.goterm}/id{params.goset}/smallfit_
+    """
+
+rule bayesZero:
+  input:
+    script='code/method/bayesHome.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/sr/02_ids/{type}/ids_{goset}.Rds',
+    goPath='data/sr/03_goterms/{type}/1.Rds'
+  output:
+    main='data/sr/25_goopfish/{type}/{rmax}/0/1/bayesC_{goset}.Rds'
+    #one='data/bglr/sex{type}/go{rgo}/max{rmax}/term{goterm}/id{goset}/bigfit_ETA_1_b.bin',
+    #two='data/bglr/sex{type}/go{rgo}/max{rmax}/term{goterm}/id{goset}/bigfit_ETA_2_b.bin'
+  params:
+    goset = lambda wildcards: int(wildcards.goset),
+    type = lambda wildcards: str(wildcards.type), 
+    rMAX = lambda wildcards: str(wildcards.rmax)
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output.main} \
+      --nIter 130000 \
+      --burnIn 30000 \
+      --thin 50 \
+      --R2_max {params.rMAX} \
+      --R2_GO 0 \
+      --model BayesC \
+      --saveAt data/bglr/sex{params.type}/go0/max{params.rMAX}/term1/id{params.goset}/smallfit_
+    """
+
+
+
+#hmake
+#limited to first ID, possible to check other CVs with id{goset} instead of id1 for both
+#rule hmake:
+#  input:
+#    script='code/binner.R',
+#    data='data/sr/10_matched/{type}_starvation.Rds',
+#    goPath='data/sr/03_goterms/{type}/{goterm}.Rds',
+#    onePath='data/bglr/sex{type}/go{rgo}/max{rmax}/term{goterm}/id1/bigfit_ETA_1_b.bin',
+#    twoPath='data/bglr/sex{type}/go{rgo}/max{rmax}/term{goterm}/id1/bigfit_ETA_2_b.bin'
+#  output:
+#    'data/sr/36_hplot/{type}/{rmax}/{rgo}/{goterm}/hplot.Rds'
+#  shell:
+#    """
+#    Rscript {input.script} \
+#      --inPath {input.data} \
+#      --goPath {input.goPath} \
+#      --onePath {input.onePath} \
+#      --twoPath {input.twoPath} \
+#      --outPath {output}
+#    """
+
+
+#rule h_compiler:
+#  input:
+#    script='code/combine.R',
+#    data='data/sr/36_hplot/{{type}}/{rmax}/{rgo}/{goterm}/hplot.Rds'
+#    data=expand()
+#    #data=expand('data/sr/33_metric/{type}/{metric}/{all}.Rds', all=ALL, type=TYPE, metric=METRIC)
+#  output:
+#    'data/sr/41_plotData/bayesGO/{type}/all.Rds'
+#  threads: 1
+#  shell:
+#    """
+#    Rscript {input.script} \
+#    --dataList {input.data} \
+#    --outPath {output}
+#    """
+#    
+
+rule filter_GO_0:
+  input:
+    script='code/filter_GO.R',
+    data=expand('data/sr/25_goopfish/{{type}}/0.8/0/1/bayesC_{goset}.Rds', type=TYPE, goterm=GOTERM_TEST, rgo=RGO, rmax=RMAX, goset=GOSET)
+  output:
+    'data/sr/33_metric/go/sex{type}/rmax{rmax}/rgo0/term1/rowData.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """
+
+rule filter_GO:
+  input:
+    script='code/filter_GO.R',
+    data=expand('data/sr/24_goopfish/{{type}}/{{rmax}}/{{rgo}}/{{goterm}}/bayesC_{goset}.Rds', type=TYPE, goterm=GOTERM_TEST, rgo=RGO, rmax=RMAX, goset=GOSET)
+  output:
+    'data/sr/33_metric/go/sex{type}/rmax{rmax}/rgo{rgo}/term{goterm}/rowData.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """
+rule combine_GO:
+  input:
+    script='code/combine_GO.R',
+    data=expand('data/sr/33_metric/go/sex{type}/rmax{rmax}/rgo{rgo}/term{goterm}/rowData.Rds', type=TYPE, goterm=GOTERM_TEST, rgo=RGO, rmax=RMAX)
+  output:
+      'data/sr/40_all/go/sex{type}/allData.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+
+rule combine_0:
+  input:
+    script='code/combine_GO.R',
+    data=expand('data/sr/33_metric/go/sex{type}/rmax0.8/rgo0/term1/rowData.Rds', type=TYPE)
+  output:
+      'data/sr/40_all/go/sex{type}/zeroData.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+
+###Multivariate
+
+#top_setup----
+rule top_isoadjust:
+  input:
+    'data/00_raw/pheno_{type}.csv'
+  output:
+    'data/top/01_isoadjust/{type}_{multitrait}.Rds'
+  params:
+    trait = lambda wildcards: str(wildcards.multitrait) 
+  script:
+    'code/isoadjust.R'
+rule top_multimerge:
+  input:
+    xp='data/00_raw/xp_{type}',
+    data=expand('data/01_isoadjust/{{type}}_{multitrait}.Rds', multitrait=MULTITRAIT)
+  output:
+    'data/top/11_multimatch/{type}.Rds'
+  script:
+    'code/multimatch.R'
+rule top_ids:
+  input: 
+    script='code/ids.R',
+    data='data/top/11_multimatch/{type}.Rds'
+  output:
+    'data/top/02_ids/{type}/ids_{wildset}.Rds'
+  params:
+    wildset = lambda wildcards: int(wildcards.wildset)
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --output {output} \
+      --iter {config[iter]} \
+      --fold {config[fold]} \
+      --wildset {params.wildset}
+    """
+
+#covariance----
+rule cov_multimash:
+  input:
+    script='code/method/cov_mash.R',
+    data='data/top/11_multimatch/{type}.Rds'
+  output:
+    genPath='data/top/22_cov/genetic/mrmash_{type}.Rds',
+    resPath='data/top/22_cov/residual/mrmash_{type}.Rds'
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --genPath {output.genPath} \
+      --resPath {output.resPath} \
+      --tol {config[tol]} \
+      --convergence_criterion {config[convergence_criterion]} \
+      --w0_threshold {config[w0_threshold]} \
+      --compute_ELBO {config[compute_ELBO]} \
+      --verbose {config[verbose]} \
+      --hetStep {config[hetStep]} \
+      --null_weight {config[null_weight]} \
+      --traitCount 4
+    """  
+rule cov_multibayesC:
+  input:
+    script='code/method/cov_multibglr.R',
+    data='data/top/11_multimatch/{type}.Rds'
+  output:
+    genPath='data/22_cov/genetic/multibayesC_{type}.Rds',
+    resPath='data/22_cov/residual/multibayesC_{type}.Rds'
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --genPath {output.genPath} \
+      --resPath {output.resPath} \
+      --nIter {config[nIter]} \
+      --burnIn {config[burnIn]} \
+      --thin {config[thin]} \
+      --R2 {config[R2]} \
+      --model SpikeSlab \
+      --saveAt data/bglr/cov-multibayesC_ \
+      --traitCount 4
+  """
+rule cov_multigblup:
+  input:
+    script='code/method/cov_multibglr.R',
+    data='data/top/11_multimatch/{type}.Rds'
+  output:
+    genPath='data/22_cov/genetic/multigblup_{type}.Rds',
+    resPath='data/22_cov/residual/multigblup_{type}.Rds'
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --genPath {output.genPath} \
+      --resPath {output.resPath} \
+      --nIter {config[nIter]} \
+      --burnIn {config[burnIn]} \
+      --thin {config[thin]} \
+      --R2 {config[R2]} \
+      --model RKHS \
+      --saveAt data/bglr/cov-multigblup_ \
+      --traitCount 4
+    """   
+
+#top_methods----
+rule top_multimash:
+  input:
+    script='code/method/multimash.R',
+    data='data/top/11_multimatch/{type}.Rds',
+    ids='data/top/02_ids/ids_{wildset}_{type}.Rds'
+  output:
+    'data/20_cor/mrmash_{type}_{wildset}.Rds'
+  threads: 6
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --output {output} \
+      --cpus {threads} \
+      --tol {config[tol]} \
+      --convergence_criterion {config[convergence_criterion]} \
+      --w0_threshold {config[w0_threshold]} \
+      --compute_ELBO {config[compute_ELBO]} \
+      --verbose {config[verbose]} \
+      --hetStep {config[hetStep]} \
+      --null_weight {config[null_weight]} \
+      --traitCount 4
+    """  
+rule top_multigblup:
+  input:
+    script='code/method/multibglr.R',
+    data='data/top/11_multimatch/{type}.Rds',
+    ids='data/top/02_ids/ids_{wildset}_{type}.Rds'
+  output:
+    'data/top/23_paropt/multigblup_{type}_{wildset}.Rds'
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --output {output} \
+      --cpus {config[cpus]} \
+      --nIter {config[nIter]} \
+      --burnIn {config[burnIn]} \
+      --thin {config[thin]} \
+      --R2 {config[R2]} \
+      --model RKHS \
+      --saveAt data/bglr/top_multigblup_ \
+      --traitCount 4
+    """ 
+rule top_multibayesC:
+  input:
+    script='code/method/multibglr.R',
+    data='data/top/11_multimatch/{type}.Rds',
+    ids='data/top/02_ids/ids_{wildset}_{type}.Rds'
+  output:
+    'data/top/23_paropt/multibayesC_{type}_{wildset}.Rds'
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --output {output} \
+      --cpus {config[cpus]} \
+      --nIter {config[nIter]} \
+      --burnIn {config[burnIn]} \
+      --thin {config[thin]} \
+      --R2 {config[R2]} \
+      --model SpikeSlab \
+      --saveAt data/bglr/top_multibayesC_ \
+      --traitCount 4
+    """
+rule top_mlasso:
+  input:
+    script='code/method/mlasso-glmnet.R',
+    data='data/top/11_multimatch/{type}.Rds',
+    ids='data/top/02_ids/{type}/ids_{wildset}.Rds'
+  output:
+    'data/top/23_paropt/mlasso_{type}_{wildset}.Rds'
+  shell:
+    """
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --outPath {output} \
+      --cpus {config[cpus]} \
+      --family mgaussian \
+      --alpha {config[alpha]} \
+      --nfolds {config[nfolds]} \
+      --parallel {config[parallel]} \
+      --traitCount 4
+    """
+rule top_datadrive:
+  input:
+    script='code/method/datadrive.R',
+    data='data/top/11_multimatch/{type}.Rds',
+    resPath='data/top/22_cov/residual/mrmash_{type}.Rds',
+    ids='data/top/02_ids/{type}/ids_{wildset}.Rds'
+  output:
+    'data/top/23_paropt/datadrive_{type}_{wildset}.Rds'
+  threads: 6
+  shell:
+    """
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --resPath {input.resPath} \
+      --ids {input.ids} \
+      --outPath {output} \
+      --cpus {threads} \
+      --traitCount {config[traitCount]} \
+      --npcs {config[npcs]} \
+      --Zthr {config[Zthr]} \
+      --flash_remove_singleton {config[flash_remove_singleton]} \
+      --ED_algorithm {config[ED_algorithm]} \
+      --ted_zero_thresh {config[ted_zero_thresh]} \
+      --tol {config[tol]} \
+      --convergence_criterion {config[convergence_criterion]} \
+      --w0_threshold {config[w0_threshold]} \
+      --compute_ELBO {config[compute_ELBO]} \
+      --verbose {config[verbose]} \
+      --hetStep {config[hetStep]} \
+      --null_weight {config[null_weight]}
+    """
+rule top_mash_revamp:
+  input:
+    script='code/method/mash.R',
+    data='data/top/11_multimatch/{type}.Rds',
+    ids='data/top/02_ids/{type}/ids_{wildset}.Rds'
+  output:
+    'data/top/23_paropt/mrmash_{type}_{wildset}.Rds'
+  threads: 6
+  shell:
+    """
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --outPath {output} \
+      --cpus {threads} \
+      --traitCount {config[traitCount]} \
+      --tol {config[tol]} \
+      --convergence_criterion {config[convergence_criterion]} \
+      --w0_threshold {config[w0_threshold]} \
+      --compute_ELBO {config[compute_ELBO]} \
+      --verbose {config[verbose]} \
+      --hetStep {config[hetStep]} \
+      --null_weight {config[null_weight]}
+    """
+
+
+###Univariate
+
+#setup----
+rule adjust:
+  input:
+    'data/00_raw/pheno_{type}.csv',
+    'data/00_raw/xp_{type}',
+  output:
+    'data/sr/10_matched/{type}_starvation.Rds'
+  params:
+    trait = 'starvation'
+  script:
+    'code/matcher.R'
+rule ids:
+  input: 
+    script='code/ids.R',
+    data='data/sr/10_matched/{type}_starvation.Rds'
+  output:
+    'data/02_ids/sr/{type}/ids_{wildset}.Rds'
+  params:
+    wildset = lambda wildcards: int(wildcards.wildset)
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --output {output} \
+      --iter {config[iter]} \
+      --fold {config[fold]} \
+      --wildset {params.wildset}
+    """
+
+#pure methods----
+rule rf:
+  input:
+    script='code/method/randomForest.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/sr/02_ids/{type}/ids_{wildset}.Rds'
+  output:
+    'data/sr/23_paropt/rf_{type}_{wildset}.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --outPath {output} \
+      --ntree {config[ntree]}
+    """
+rule nn:
+  input:
+    script='code/method/neuralnet.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/sr/02_ids/{type}/ids_{wildset}.Rds'
+  output:
+    'data/sr/23_paropt/nn_{type}_{wildset}.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --outPath {output}
+    """
+rule pcr:
+  input:
+    script='code/method/pcr.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/sr/02_ids/{type}/ids_{wildset}.Rds'
+  output:
+    'data/sr/23_paropt/pcr_{type}_{wildset}.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --outPath {output}
+    """
+rule rr:
+  input:
+    script='code/method/glmnet.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/sr/02_ids/{type}/ids_{wildset}.Rds'
+  output:
+    'data/sr/23_paropt/rr_{type}_{wildset}.Rds'
+  params:
+    wildset = lambda wildcards: int(wildcards.wildset)
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --output {output} \
+      --cpus {config[cpus]} \
+      --parallel {config[parallel]} \
+      --family gaussian \
+      --alpha 0 \
+      --nfolds 3 \
+      --dfmax 1000 \
+      --relax 0
+    """
+rule gblup:
+  input:
+    script='code/method/bglr.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/02_ids/sr/{type}/ids_{wildset}.Rds'
+  output:
+    'data/sr/23_paropt/gblup_{type}_{wildset}.Rds'
+  params:
+    wildset = lambda wildcards: int(wildcards.wildset),
+    type = lambda wildcards: str(wildcards.type)
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --output {output} \
+      --nIter {config[nIter]} \
+      --burnIn {config[burnIn]} \
+      --thin {config[thin]} \
+      --R2 {config[R2]} \
+      --model RKHS \
+      --saveAt data/bglr/sr-gblup_{params.type}_{params.wildset}
+    """
+rule varbvs:
+  input:
+    script='code/method/varbvs.R',
+    data='data/sr/10_matched/{type}_{trait}.Rds'
+  output:
+    'data/sr/20_cor/varbvs_{type}_{trait}.Rds'
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --output {output} \
+      --cpus {config[cpus]} \
+      --loopIter {config[loopIter]} \
+      --maxiter {config[maxiter]} \
+      --sa {config[sa]}
+    """
+rule mr_ash:
+  input:
+    script='code/method/multimash.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/02_ids/sr/{type}/ids_{wildset}.Rds'
+  output:
+    'data/sr/23_paropt/mrash_{type}_{wildset}.Rds'
+  params:
+    wildset = lambda wildcards: int(wildcards.wildset)
+  threads: 6
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --output {output} \
+      --cpus {threads} \
+      --tol {config[tol]} \
+      --convergence_criterion {config[convergence_criterion]} \
+      --w0_threshold {config[w0_threshold]} \
+      --compute_ELBO {config[compute_ELBO]} \
+      --verbose {config[verbose]} \
+      --hetStep {config[hetStep]} \
+      --null_weight {config[null_weight]} \
+      --traitCount 1
+    """  
+
+
+
+
+rule prcomp:
+  input:
+    script='code/method/prcomp2.R',
+    data='data/sr/12_pc/{type}/95/pcs.Rds',
+    ids='data/sr/02_ids/{type}/ids_{wildset}.Rds'
+  output:
+    'data/sr/23_paropt/{type}/95/pc_{wildset}.Rds'
+  params:
+    wildset = lambda wildcards: int(wildcards.wildset)
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+      --pcPath {input.data} \
+      --idPath {input.ids} \
+      --outPath {output}
+    """
+
+
+
+
+#parop methods
+rule pls:
+  input:
+    script='code/method/pls.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/sr/02_ids/{type}/ids_{wildset}.Rds'
+  params:
+    method = lambda wildcards: str(wildcards.pls_method)
+  output:
+    'data/sr/23_paropt/pls/{type}/{pls_method}_{wildset}.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --outPath {output} \
+      --method {params.method}
+    """
+rule lasso:
+  input:
+    script='code/method/glmnet.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/02_ids/sr/{type}/ids_{wildset}.Rds'
+  output:
+    'data/sr/23_paropt/lasso_{nfolds}_{dfmax}_{relax}_{type}_{wildset}.Rds'
+  params:
+    nfolds = lambda wildcards: int(wildcards.nfolds),
+    dfmax = lambda wildcards: int(wildcards.dfmax),
+    relax = lambda wildcards: int(wildcards.relax),
+    wildset = lambda wildcards: int(wildcards.wildset)
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --output {output} \
+      --cpus {config[cpus]} \
+      --parallel {config[parallel]} \
+      --family gaussian \
+      --alpha 1 \
+      --nfolds {params.nfolds} \
+      --dfmax {params.dfmax} \
+      --relax {params.relax}
+    """
+rule bayesC:
+  input:
+    script='code/method/bglr.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/02_ids/sr/{type}/ids_{wildset}.Rds'
+  output:
+    'data/sr/23_paropt/bayesC_{rsquare}_{type}_{wildset}.Rds'
+  params:
+    wildset = lambda wildcards: int(wildcards.wildset),
+    type = lambda wildcards: str(wildcards.type), 
+    rsquare = lambda wildcards: str(wildcards.rsquare)
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --output {output} \
+      --burnIn {config[burnIn]} \
+      --nIter {config[nIter]} \
+      --thin {config[thin]} \
+      --R2 {params.rsquare} \
+      --model SpikeSlab \
+      --saveAt data/bglr/sr-bayesC_{params.rsquare}_{params.type}_{params.wildset}
+    """
+
+#broken----
+rule inferenceTree:
+  input:
+    script='code/method/inferTree.R',
+    data='data/sr/10_matched/{type}_starvation.Rds',
+    ids='data/sr/02_ids/{type}/ids_{wildset}.Rds'
+  output:
+    'data/sr/20_cor/inferTree_{type}_{wildset}.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --outPath {output} \
+      --ntree {config[ntree]}
+    """
+
+
+#groupers----
+rule consolidate_parop:
+  input:
+    script='code/combine.R',
+    data=expand('data/sr/23_paropt/{{final}}_{{type}}_{wildset}.Rds', final=FINAL_SR, type=TYPE, wildset=WILDSET)
+  output:
+    'data/sr/30_summary/{final}_{type}.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+rule top_consolidate_parop:
+  input:
+    script='code/combine.R',
+    data=expand('data/top/23_paropt/{{final}}_{{type}}_{wildset}.Rds', final=FINAL_TOP, type=TYPE, wildset=WILDSET)
+  output:
+    'data/top/30_summary/{final}_{type}.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+rule consolidate_lasso:
+  input:
+    script='code/combine.R',
+    data=expand('data/sr/23_paropt/lasso_{{nfolds}}_{{dfmax}}_{{relax}}_{{type}}_{wildset}.Rds', nfolds=NFOLDS, dfmax=DFMAX, relax=RELAX, type=TYPE, wildset=WILDSET)
+  output:
+    'data/sr/30_summary/parop/lasso_{nfolds}_{dfmax}_{relax}_{type}.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+rule consolidate_pls:
+  input:
+    script='code/combine.R',
+    data=expand('data/sr/23_paropt/pls/{{type}}/{{pls_method}}_{wildset}.Rds', type=TYPE, wildset=WILDSET)
+  output:
+    'data/sr/30_summary/parop/pls/{type}/{pls_method}.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+rule consolidate_bayesC:
+  input:
+    script='code/combine.R',
+    data=expand('data/sr/23_paropt/bayesC_{{rsquare}}_{{type}}_{wildset}.Rds', rsquare=RSQUARE, type=TYPE, wildset=WILDSET)
+  output:
+    'data/sr/30_summary/parop/bayesC_{rsquare}_{type}.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+rule consolidate_bayesGO:
+  input:
+    script='code/combine.R',
+    data=expand('data/sr/24_goCor/{{type}}/bayesC_{{goterm}}_{wildset}.Rds', goterm=GOTERM_TEST, type=TYPE, wildset=WILDSET)
+  output:
+    'data/sr/30_summary/parop/go/{type}/bayesC_{goterm}.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+
+rule consolidate_prcomp:
+  input:
+    script='code/combine.R',
+    data=expand('data/sr/23_paropt/{{type}}/95/pc_{wildset}.Rds', type=TYPE, wildset=WILDSET)
+  output:
+    'data/sr/30_summary/parop/prcomp{type}/95/pcFinal.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+
+rule filter_bayesGO:
+  input:
+    script='code/extract.R',
+    data='data/sr/30_summary/parop/go/{type}/bayesC_{goterm}.Rds'
+  output:
+    'data/sr/33_metric/go/{type}/cor/bayesGO_{goterm}.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --method cor \
+    --outPath {output}
+    """
+
+
+#translators----
+#these rules copy a manually selected job from parop pipeline back into main line
+rule lasso_select:
+  input:
+    'data/sr/30_summary/parop/lasso_3_1000_0_{type}.Rds'
+  output:
+    'data/sr/30_summary/lasso_{type}.Rds'
+  threads: 1
+  shell:
+    """
+    cp {input} {output}
+    """
+rule pls_select:
+  input:
+    'data/sr/30_summary/parop/pls/{type}/widekernelpls.Rds'
+  output:
+    'data/sr/30_summary/pls_{type}.Rds'
+  threads: 1
+  shell:
+    """
+    cp {input} {output}
+    """
+rule bayes_select:
+  input:
+    'data/sr/30_summary/parop/bayesC_0.9_{type}.Rds'
+  output:
+    'data/sr/30_summary/bayesC_{type}.Rds'
+  threads: 1
+  shell:
+    """
+    cp {input} {output}
+    """
+
+#aggregation----
+
+rule filter_all:
+  input:
+    script='code/extract.R',
+    data='data/sr/30_summary/{all}_{type}.Rds'
+  output:
+    'data/sr/33_metric/{type}/{metric}/{all}.Rds'
+  threads: 1
+  params:
+    metric = lambda wildcards: str(wildcards.metric)
+  shell:
+    """
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --method {params.metric} \
+    --outPath {output}
+    """
+rule combine_all:
+  input:
+    script='code/combine.R',
+    data=expand('data/sr/33_metric/{type}/{metric}/{all}.Rds', all=ALL, type=TYPE, metric=METRIC)
+  output:
+    'data/sr/40_all/{type}/{metric}/all.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+
+rule filter_top:
+  input:
+    script='code/extract.R',
+    data='data/top/30_summary/{all}_{type}.Rds'
+  output:
+    'data/top/33_metric/{type}/{metric}/{all}.Rds'
+  threads: 1
+  params:
+    metric = lambda wildcards: str(wildcards.metric_top)
+  shell:
+    """
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --method {params.metric} \
+    --outPath {output}
+    """
+rule combine_top:
+  input:
+    script='code/combine.R',
+    data=expand('data/top/33_metric/{type}/{metric}/{all}.Rds', all=ALL, type=TYPE, metric=METRIC_TOP)
+  output:
+    'data/top/40_all/{type}/{metric}/all.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+
+rule topfix:
+  input:
+    'data/top/40_all/{type}/topcor/all.Rds'
+  output:
+    'data/top/40_all/{type}/cor/all.Rds'
+  threads: 1
+  shell:
+    """
+    cp {input} {output}
+    """
+
+rule bayes_opCor:
+  input:
+    script='code/extract.R',
+    data='data/sr/30_summary/parop/bayesC_{rsquare}_{type}.Rds'
+  output:
+    'data/sr/34_opcor/{type}/bayesC_{rsquare}.Rds'
+  threads: 1
+  #params:
+    #metric = lambda wildcards: str(wildcards.metric)
+  shell:
+    """
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --method cor \
+    --outPath {output}
+    """
+
+

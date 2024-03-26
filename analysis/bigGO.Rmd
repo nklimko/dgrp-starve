@@ -140,17 +140,11 @@ plot_grid(gg[[1]],gg[[2]], ncol=1)
 
 ```
 
-
-
-
-
 ```{r badlands}
 #Data prep 2
 
 gg[[5]] <- sortHist(dataF, 'F', yF, 'Prediction Accuracy Histogram', 'Prediction Accuracy', 'Count')
 gg[[6]] <- sortHist(dataM, 'M', yM, 'Prediction Accuracy Histogram', 'Prediction Accuracy', 'Count')
-
-
 
 #plot(dataM[order(cor),cor])
 #abline(h=c(0.32, 0.35, 0.465, 0.44))

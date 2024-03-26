@@ -1,0 +1,45 @@
+configfile: 'dgrp.yaml'
+
+wildcard_constraints:
+    sex="[a-z]+",
+    wildset="[0-9]+"
+    
+
+sex=['f', 'm']
+WILDSET=range(1, 50+1, 1)
+
+#all----
+rule all:
+  input:
+   expand('data/02_ids/{sex}/ids_{wildset}.Rds', sex=SEX, wildset=WILDSET)
+
+#setup----
+rule adjust:
+  input:
+    'data/00_raw/pheno_{sex}.csv',
+    'data/00_raw/xp_{sex}',
+  output:
+    'data/01_matched/{sex}_starvation.Rds'
+  params:
+    trait = 'starvation'
+  script:
+    'code/matcher.R'
+
+rule ids:
+  input: 
+    script='code/ids.R',
+    data='data/01_matched/{sex}_starvation.Rds'
+  output:
+    'data/02_ids/{sex}/ids_{wildset}.Rds'
+  params:
+    wildset = lambda wildcards: int(wildcards.wildset)
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --output {output} \
+      --iter {config[iter]} \
+      --fold {config[fold]} \
+      --wildset {params.wildset}
+    """
+

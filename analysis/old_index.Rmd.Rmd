@@ -1,0 +1,84 @@
+---
+title: "Table of Contents"
+site: workflowr::wflow_site
+output:
+  workflowr::wflow_html:
+    toc: false
+editor_options:
+  chunk_output_type: console
+---
+
+### [Overview](allHist.html)
+
+
+### [BayesC + Gene Ontology](goPlots.html)
+
+
+### Methods
+
+- [BayesC](man-BayesC.html)
+
+### [Optimization](lasso-OP.html)
+
+
+### Correlated Traits
+
+- [Correlations and Runtime](top3.html)
+- [Covariance](covCor.html)
+
+### Snakemake
+
+- [Snakefile](https://github.com/nklimko/dgrp-starve/tree/main/snake/Snakefile.yaml)
+- [Snakemake documentation](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html)
+
+### [Multitrait Prediction](multitraitPred.html)
+
+
+
+### [Method Comparison](methodComp.html)
+
+[Latest Goals](recap.html#20230403)
+
+
+### [Female Mulitple Regression and Prediction](predict.html)
+
+[Latest Goals](recap.html#20230220)
+
+
+### [Male Mulitple Regression and Prediction](rewrite.html) 
+
+[Latest Goals](recap.html#20230220)
+
+
+### [Linear Regression Adjusted](linearReg.html)
+
+[Latest Goals](recap.html#20221214)
+
+
+### [Multiple Regression](multiReg.html) 
+
+[Latest Goals](recap.html#20221221)
+
+
+### [Linear Regression](linReg.html)
+
+[Latest Goals](recap.html#20221214)
+
+
+### [Multiple Comparisons](multiComp.html)
+
+[Latest Goals](recap.html#20221129)
+
+
+### [PCA](pca.html)
+
+[Latest Goals](recap.html#20221122)
+
+
+### [Starvation Resistance](starve.html)
+
+[Latest Goals](recap.html#20221115)
+
+
+### [All Meeting Summaries](recap.html)
+

@@ -1,0 +1,181 @@
+configfile: 'dgrp.yaml'
+
+
+wildcard_constraints:
+    sex="[a-z]+",
+    final="[a-z]+",
+    final_parop="[a-z]+",
+    all="[a-z]+",
+    goset="[0-9]+",
+    wildset="[0-9]+",
+    
+#ruleorder: bayesZero > bayesGO > filter_GO_0 > filter_GO > combine_0 > combine_GO
+ruleorder: lasso > mr_ash > filter_all
+
+SEX=['f', 'm']
+#SEX=['f']
+MULTITRAIT=['starvation', 'cafe', 'free.glycerol', 'free.glucose']
+MULTIMETHOD=['mrmash', 'multigblup', 'multibayesC', 'mlasso', 'datamash']
+COV = ['genetic', 'residual']
+WILDSET=range(1, 25+1, 1)
+#GOSET=range(1,25+1,1)
+GOSET=range(1,1+1,1)
+
+#1k,3k,6k,10k
+DFMAX=[1000, 3000, 6000, 10000]
+NFOLDS=[3,6,9,12]
+RELAX=[0,1]
+
+#BGLR
+RSQUARE=[0.1,0.5,0.9]
+
+FINAL_TOP=['datadrive', 'mlasso', "mrmash", 'multigblup', 'multibayesC']
+FINAL_SR=['rf', 'gblup', 'pcr', 'nn', 'mrash', 'rr']
+FINAL_PAROP = ['lasso', 'pls', 'bayesC']
+
+ALL = FINAL_SR + FINAL_PAROP
+
+PLS_METHOD=['kernelpls', 'widekernelpls', 'simpls', 'oscorespls']
+
+FLOW=['sr', 'top']
+METRIC=['cor','time']
+METRIC_TOP=['topcor', 'time']
+
+#GOTERM=range(1, 3147+1,1)
+GOTERM_TEST=range(1,1000+1,1)
+#GOTERM_TEST=[96, 2870, 1667, 903, 1283, 821, 2964, 2044, 1156, 1306]
+
+#RGO=[0.001, 0.0025, 0.004, 0.0055, 0.007, 0.0085, 0.01]
+
+#RGO = [0.01, 0.02, 0.03, 0.04, 0.05]
+#RMAX = [0.4, 0.6, 0.8]
+RMAX=[0.8]
+RGO=[0.01]
+ALL=['mrash', 'lasso', 'varbvs']
+
+#    input:
+#        expand("output/{sample}.processed.txt", sample=glob_wildcards("input/{sample}.txt").sample)
+
+GOTERM = glob_wildcards("data/go/03_goterms/sexf/{goterm}.Rds").goterm
+#GOTERM=['GO.0000002', 'GO.0048788', 'GO.0034614', 'GO.0007166', 'GO.0034388']
+
+#all----
+rule all:
+  input:
+    #expand('data/sr/23_paropt/sex{sex}/varbvs/{wildset}.Rds', sex=SEX, wildset=WILDSET),
+    #expand('data/sr/23_paropt/sex{sex}/lasso/{wildset}.Rds', sex=SEX, wildset=WILDSET),
+    #expand('data/sr/23_paropt/sex{sex}/mr.ash/{wildset}.Rds', sex=SEX, wildset=WILDSET),
+    expand('data/sr/23_paropt/sex{sex}/{all}/{wildset}.Rds', sex=SEX, all=ALL, wildset=WILDSET),
+    expand('data/sr/33_metric/{sex}/cor/{all}.Rds', sex=SEX, all=ALL)
+   #expand('data/{flow}/40_all/{sex}/{metric}/all.Rds', sex=SEX, flow=FLOW, metric=METRIC),
+   #expand('data/sr/30_summary/parop/pls/{sex}/{pls_method}.Rds', sex=SEX, pls_method=PLS_METHOD),
+   #expand('data/sr/24_goCor/{sex}/bayesC_{goterm}_{goset}.Rds', sex=SEX, goterm=GOTERM_TEST, goset=GOSET),
+   #expand('data/sr/30_summary/parop/go/{sex}/bayesC_{goterm}.Rds', sex=SEX, goterm=GOTERM_TEST),
+   #expand('data/sr/33_metric/go/{sex}/cor/bayesGO_{goterm}.Rds', sex=SEX, goterm=GOTERM_TEST),
+   #expand('data/sr/30_summary/parop/prcomp{sex}/95/pcFinal.Rds', sex=SEX),
+   #expand('data/sr/34_opcor/{sex}/bayesC_{rsquare}.Rds', sex=SEX, rsquare=RSQUARE)
+   #expand('data/sr/25_goop/{sex}/{rgo}/{goterm}/bayesC_{goset}.Rds', sex=SEX, goterm=GOTERM_TEST, rgo=RGO, goset=range(1,25+1,1)),
+   #expand('data/sr/25_goopfish/{sex}/{rmax}/{rgo}/{goterm}/bayesC_{goset}.Rds', sex=SEX, goterm=GOTERM_TEST, rgo=RGO, rmax=RMAX, goset=GOSET),
+   #expand('data/sr/36_hplot/{sex}/{rmax}/{rgo}/{goterm}/hplot.Rds', sex=SEX, goterm=GOTERM_TEST, rgo=RGO, rmax=RMAX),
+   #expand('data/sr/40_all/go/sex{sex}/allData.Rds', sex=SEX),
+   #expand('data/sr/25_goopfish/{sex}/{rmax}/0/1/bayesC_{goset}.Rds', sex=SEX, rmax=RMAX, goset=GOSET),
+   ##expand('data/sr/40_all/go/sex{sex}/zeroData.Rds', sex=SEX)
+   #expand("data/go/03_goterms/termFlag_{sex}", sex=SEX),
+   #expand('data/go/24_goCor/{sex}/{rmax}/{rgo}/{goterm}/bayesC_{goset}.Rds', sex=SEX, goterm=GOTERM, rgo=RGO, rmax=RMAX, goset=GOSET),
+   #expand('data/go/40_all/sex{sex}/allData.Rds', sex=SEX)
+
+
+
+###Univariate
+
+#pure methods----
+rule varbvs:
+  input:
+    script='code/method/varbvs.R',
+    data='data/01_matched/{sex}_starvation.Rds',
+    ids='data/02_ids/{sex}/ids_{wildset}.Rds'
+  output:
+    'data/sr/23_paropt/sex{sex}/varbvs/{wildset}.Rds'
+  shell:
+    """
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --outPath {output} \
+      --maxiter 16000
+    """
+
+rule lasso:
+  input:
+    script='code/method/glmnet.R',
+    data='data/01_matched/{sex}_starvation.Rds',
+    ids='data/02_ids/{sex}/ids_{wildset}.Rds'
+  output:
+    'data/sr/23_paropt/sex{sex}/lasso/{wildset}.Rds'
+  params:
+    nfolds = 10,
+    wildset = lambda wildcards: int(wildcards.wildset)
+  threads: 4
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --output {output} \
+      --cpus {config[cpus]} \
+      --parallel {config[parallel]} \
+      --family gaussian \
+      --alpha 1 \
+      --nfolds {config[nfolds]}
+    """
+
+rule mr_ash:
+  input:
+    script='code/method/mr.ash.R',
+    data='data/01_matched/{sex}_starvation.Rds',
+    ids='data/02_ids/{sex}/ids_{wildset}.Rds',
+    lasso='data/sr/23_paropt/sex{sex}/lasso/{wildset}.Rds'
+  output:
+    'data/sr/23_paropt/sex{sex}/mrash/{wildset}.Rds'
+  params:
+    wildset = lambda wildcards: int(wildcards.wildset)
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --lasso {input.lasso} \
+      --output {output}
+    """  
+
+
+rule filter_all:
+  input:
+    script='code/filterSR.R',
+    data=expand('data/sr/23_paropt/sex{{sex}}/{{all}}/{wildset}.Rds', all=ALL, sex=SEX, wildset=WILDSET)
+  output:
+    'data/sr/33_metric/{sex}/cor/{all}.Rds'
+  threads: 1
+  resources:
+    jobweight=1
+  shell:
+    """
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """ 
+#
+##gathers all point means into one table
+#rule combineBayesGO_F:
+#  input:
+#    script='code/go/combineGO.R',
+#    data=expand('data/sr/33_metric/{sex}/cor/{{all}}.Rds', all=ALL, sex=SEX)
+#  output:
+#      'data/sr/40_all/sex{sex}/srFinalData.Rds'
+#  threads: 1
+#  shell:
+#    """
+#    Rscript {input.script} \
+#    --dataList {input.data} \
+#    --outPath {output}
+#    """

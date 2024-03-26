@@ -15,7 +15,8 @@ editor_options:
 + [Enrichment Comparison](enrich.html)
 
 ## Sparse Group LASSO
- +[Sparse](sparseComp.html)
+ + [Sparse](sparseComp.html)
+ + [Final](parsely.html)
 
 ## BayesC
 + [BayesGO: Layering GO annotations with Bayesian methods](goPlots.html)

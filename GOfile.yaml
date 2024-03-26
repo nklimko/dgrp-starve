@@ -1,0 +1,1269 @@
+include: "datafile.yaml"
+configfile: 'gofig.yaml'
+
+ruleorder:
+  nullblup > nullblupCombine
+
+
+wildcard_constraints:
+    goset="[0-9]+"
+
+WILDSET=range(1,25+1,1)
+GOSET=range(1,25+1,1)
+#GOSET=[1]
+RMAX=[0.8]
+RGO=[0.01]
+SEX=['f','m']
+
+#    input:
+#        expand("output/{sample}.processed.txt", sample=glob_wildcards("input/{sample}.txt").sample)
+
+#first 5 are topfive m
+SPARSE_M = ['GO.0035008', 'GO.0140042', 'GO.0007485', 'GO.0005811', 'GO.0045819', 'GO.0007297', 'GO.0034703', 'GO.1905515', 'GO.0090090', 'GO.0009966']
+SPARSE_F =  glob_wildcards("data/go/03_goterms/sparsef100/{goterm}.Rds").goterm
+
+SPARSEFREE_F = glob_wildcards("data/go/03_goterms/sparseFREE_F/{goterm}.Rds").goterm
+
+#M500 =  glob_wildcards("data/go/03_goterms/sparsem500/{goterm}.Rds").goterm
+
+M500 =  glob_wildcards("data/go/03_goterms/sparse/m/lambda500/{goterm}.Rds").goterm
+
+F50 = glob_wildcards("data/go/03_goterms/randSparseF/{goterm}.Rds").goterm
+temp=2
+M50 = glob_wildcards("data/go/03_goterms/randSparseM/{goterm}.Rds").goterm
+
+
+TOPSPARSE_F= ['GO.0045819']
+TOP5_F = ['GO.0045819', 'GO.0033500', 'GO.0055088', 'GO.0042675', 'GO.0042277']
+TOP5_M = ['GO.0035008', 'GO.0140042', 'GO.0007485', 'GO.0005811', 'GO.0045819']
+ 
+# GO.21551', 'GO.0000062', 'GO.1990573', 'GO.0061320', 'GO.0045476']
+
+NULL_F=['GO.0000002']
+
+BLUP_F =  glob_wildcards("data/go/03_goterms/sexf/{goterm}.Rds").goterm
+BLUP_M =  glob_wildcards("data/go/03_goterms/sexm/{goterm}.Rds").goterm
+#BLUP_F = ['GO.0000002', 'GO.0000014', 'GO.0000022']
+
+GOTERM_F =  glob_wildcards("data/go/03_goterms/sexf/{goterm}.Rds").goterm
+GOTERM_M = glob_wildcards("data/go/03_goterms/sexm/{goterm}.Rds").goterm
+
+FULL_F = glob_wildcards("data/go/03_goterms/fullf/{goterm}").goterm
+FULL_M = glob_wildcards("data/go/03_goterms/fullm/{goterm}").goterm
+#GOTERM=['GO.0000002', 'GO.0048788', 'GO.0034614', 'GO.0007166', 'GO.0034388']
+
+#main='snake/data/go/24_goCor/{sex}/{rmax}/{rgo}/{goterm}/bayesC_{goset}.Rds'
+
+#all----
+rule all:
+  input: 
+    #expand('snake/data/go/03_goterms/termFlag_{sex}', sex=SEX)
+    #expand('snake/data/go/24_goCor/f/{rmax}/{rgo}/{gotermf}/bayesC_{goset}.Rds', gotermf=GOTERM_F, rgo=RGO, rmax=RMAX, goset=GOSET),
+    #expand('snake/data/go/24_goCor/m/{rmax}/{rgo}/{gotermm}/bayesC_{goset}.Rds', gotermm=GOTERM_M, rgo=RGO, rmax=RMAX, goset=GOSET),
+    #expand('snake/data/go/25_fit/sexf/{goterm}/bayesFull.Rds', goterm=FULL_F),
+    #expand('snake/data/go/25_fit/sexm/{goterm}/bayesFull.Rds', goterm=FULL_M),
+    #expand('snake/data/go/40_all/sex{sex}/allData.Rds', sex=SEX),
+    #expand('snake/data/go/33_metric/sexf/sparse/term{goterm}/rowData.Rds', goterm=FULL_F),
+    #expand('snake/data/go/33_metric/sexm/sparse/term{goterm}/rowData.Rds', goterm=SPARSE_M),
+    #expand('snake/data/go/33_metric/sexf/sparse/term{goterm}/rowData.Rds', goterm=SPARSE_F),
+    #'snake/data/go/40_all/sexm/sparseData.Rds',
+    #'snake/data/go/testSPARSE_500lamb.Rds',
+    #expand('snake/data/go/24_goCor/f/{rmax}/{rgo}/{goterm}/gblup_{goset}.Rds', goterm=BLUP_F, rgo=RGO, rmax=RMAX, goset=GOSET),
+    #expand('snake/data/go/33_metric/sexf/gblup/{goterm}.Rds', goterm = BLUP_F),
+    #expand('snake/data/go/33_metric/sexm/gblup/{goterm}.Rds', goterm = BLUP_M),
+    #'snake/data/go/40_all/sexf/blup_allData.Rds',
+    #'snake/data/go/40_all/sexm/blup_allData.Rds',
+    ##expand('snake/data/go/23_null/sex{sex}/{wildset}.Rds', wildset=WILDSET, sex=SEX),
+    ##expand('snake/data/go/32_nullSum/sex{sex}/nullblup.Rds', sex=SEX)
+    #expand('snake/data/go/sparse/f/{spargo}/{goset}.Rds', spargo=TOPSPARSE_F, goset=GOSET),
+    #expand('snake/data/go/sparse/f/{null}/null_{goset}.Rds', null=NULL_F, goset=GOSET),
+    #expand('snake/data/go/sparse/f/{spargo}/{goset}.Rds', spargo=TOPSPARSE_F, goset=GOSET),
+    #expand('snake/data/go/sparse/f/{spargo}/default_{goset}.Rds', spargo=TOPSPARSE_F, goset=GOSET)
+    #expand('snake/data/go/sparse/f/{spargo}/custom_{goset}.Rds', spargo=TOPSPARSE_F, goset=GOSET),
+    #expand('snake/data/go/24_goCor/sparse/f/{spargo}/lambda_500/{goset}.Rds', goset=GOSET, spargo=TOP5_F),
+    #expand('snake/data/go/24_goCor/sparse/m/{spargo}/lambda_500/{goset}.Rds', goset=GOSET, spargo=TOP5_M)
+    #expand('snake/data/go/24_goCor/m/sparse/{goterm}/sparse_{goset}.Rds', goterm=M500, goset=GOSET),
+    #expand('snake/data/go/33_metric/sexm/sparse/term{goterm}/rowData.Rds', goterm=TOP5_M)
+    #expand('snake/data/go/24_goCor/m/sparseCatch/{goterm}/{goset}.Rds', goterm=M500, goset=GOSET),
+    #expand('snake/data/go/24_goCor/m/sparse/{goterm}/1000_{goset}.Rds', goterm=M1000, goset=GOSET),
+    #expand('snake/data/go/24_goCor/m/sparse/{goterm}/1000_{goset}.Rds', goterm=M1000, goset=GOSET),
+    'snake/data/go/40_all/sexf/bayesFREEfinal.Rds',
+    'snake/data/go/40_all/sexm/bayesFREEfinal.Rds',
+    expand('snake/data/go/24_goCor/f/bayesFREE/{goterm}/bayesC_{goset}.Rds', goterm=BLUP_F, goset=GOSET),
+    expand('snake/data/go/24_goCor/m/bayesFREE/{goterm}/bayesC_{goset}.Rds', goterm=BLUP_M, goset=GOSET),
+    expand('snake/data/go/24_goCor/f/sparseFREE/{goterm}/{goset}.Rds', goterm=SPARSEFREE_F, goset=GOSET),
+    'snake/data/go/40_all/sexf/sparseFREEData.Rds',
+    expand('snake/data/go/24_goCor/f/sparseMAX/{goterm}/{goset}.Rds', goterm=SPARSEFREE_F, goset=GOSET),
+    'snake/data/go/40_all/sexf/sparseMAXData.Rds'
+    #expand('snake/data/go/24_goCor/m/randSparse/{goterm}/{goset}.Rds', goterm=M50, goset=GOSET),
+    #expand('snake/data/go/24_goCor/f/randSparse/{goterm}/{goset}.Rds', goterm=F50, goset=GOSET),
+    #expand('snake/data/go/33_metric/sexf/gblupTrial/{goterm}.Rds', goterm = BLUP_F),
+    #'snake/data/go/40_all/sexf/blup_allData.Rds',
+    #expand('snake/data/go/33_metric/sexm/gblupTrial/{goterm}.Rds', goterm = BLUP_M),
+    #'snake/data/go/40_all/sexm/blup_allData.Rds',
+    #expand('snake/data/go/24_goCor/m/randTrim/{goterm}/{goset}.Rds', goterm=M50, goset=GOSET),
+    #expand('snake/data/go/24_goCor/f/randTrim/{goterm}/{goset}.Rds', goterm=F50, goset=GOSET),
+    #'snake/data/go/40_all/sexf/sparseData.Rds',
+    #'snake/data/go/40_all/sexm/sparseData.Rds'
+    #''snake/data/go/40_all/sexf/sparseMAXData.Rds'
+
+rule sparGO_FREE:
+  input:
+    script='code/go/sparseFREE.R',
+    data='snake/data/01_matched/f_starvation.Rds',
+    ids='snake/data/02_ids/f/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/sparseFREE_F/{goterm}.Rds'
+  output:
+    'snake/data/go/24_goCor/f/sparseFREE/{goterm}/{goset}.Rds'
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm),
+    jobweight=1,
+    nlambda = 2500,
+    asparse = 0.2
+  threads: 1
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/f/sparseFREE/{params.goterm}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output} \
+      --nlambda {params.nlambda} \
+      --asparse {params.asparse}
+      """
+
+rule filterSparGO_FREE:
+  input:
+    script='code/go/filterGO.R',
+    data=expand('snake/data/go/24_goCor/f/sparseFREE/{{goterm}}/{goset}.Rds', goterm=SPARSEFREE_F, goset=GOSET)
+  output:
+    'snake/data/go/33_metric/sexf/sparseFREE/term{goterm}/rowData.Rds'
+  threads: 1
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm) 
+  resources:
+    jobweight=1,
+    mem_mb=2000
+  shell:
+    """
+    mkdir -p snake/data/go/33_metric/sexf/sparseFREE/term{params.goterm}
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """
+
+rule combineSparGO_FREE:
+  input:
+    script='code/go/combineSparseFREE.R',
+    data=expand('snake/data/go/33_metric/sexf/sparseFREE/term{goterm}/rowData.Rds', goterm=SPARSEFREE_F)
+  output:
+      'snake/data/go/40_all/sexf/sparseFREEData.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+
+rule sparGO_MAX:
+  input:
+    script='code/go/sparseFREE.R',
+    data='snake/data/01_matched/f_starvation.Rds',
+    ids='snake/data/02_ids/f/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/sparseFREE_F/{goterm}.Rds'
+  output:
+    'snake/data/go/24_goCor/f/sparseMAX/{goterm}/{goset}.Rds'
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm),
+    jobweight=1,
+    nlambda = 2500,
+    asparse = 0.95
+  threads: 1
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/f/sparseMAX/{params.goterm}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output} \
+      --nlambda {params.nlambda} \
+      --asparse {params.asparse}
+      """
+
+rule filterSparGO_MAX:
+  input:
+    script='code/go/filterGO.R',
+    data=expand('snake/data/go/24_goCor/f/sparseMAX/{{goterm}}/{goset}.Rds', goterm=SPARSEFREE_F, goset=GOSET)
+  output:
+    'snake/data/go/33_metric/sexf/sparseMAX/term{goterm}/rowData.Rds'
+  threads: 1
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm) 
+  resources:
+    jobweight=1,
+    mem_mb=2000
+  shell:
+    """
+    mkdir -p snake/data/go/33_metric/sexf/sparseMAX/term{params.goterm}
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """
+
+rule combineSparGO_MAX:
+  input:
+    script='code/go/combineSparseFREE.R',
+    data=expand('snake/data/go/33_metric/sexf/sparseMAX/term{goterm}/rowData.Rds', goterm=SPARSEFREE_F)
+  output:
+      'snake/data/go/40_all/sexf/sparseMAXData.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+
+rule sparGO_F50:
+  input:
+    script='code/go/sparseN.R',
+    data='snake/data/01_matched/f_starvation.Rds',
+    ids='snake/data/02_ids/f/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/randSparseF/{goterm}.Rds'
+  output:
+    'snake/data/go/24_goCor/f/randSparse/{goterm}/{goset}.Rds'
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm),
+    jobweight=2,
+    nlambda = 5000 
+  threads: 1
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/f/randSparse/{params.goterm}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output} \
+      --nlambda {params.nlambda}
+      """
+
+rule sparGO_M50:
+  input:
+    script='code/go/sparseN.R',
+    data='snake/data/01_matched/m_starvation.Rds',
+    ids='snake/data/02_ids/m/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/randSparseM/{goterm}.Rds'
+  output:
+    'snake/data/go/24_goCor/m/randSparse/{goterm}/{goset}.Rds'
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm),
+    jobweight=2,
+    nlambda = 5000 
+  threads: 1
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/m/randSparse/{params.goterm}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output} \
+      --nlambda {params.nlambda}
+      """
+
+rule trimGO_M:
+  input:
+    script='code/go/trimGO.R',
+    data='snake/data/go/24_goCor/m/randSparse/{goterm}/{goset}.Rds'
+  output:
+    'snake/data/go/24_goCor/m/randTrim/{goterm}/{goset}.Rds'
+  threads: 1
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm) 
+  resources:
+    jobweight=1,
+    mem_mb=1000
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/m/randTrim/{params.goterm}
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """
+rule meanSparseGO_M:
+  input:
+    script='code/go/sparseMean.R',
+    data=expand('snake/data/go/24_goCor/m/randTrim/{{goterm}}/{goset}.Rds', goterm=M50, goset=GOSET)
+  output:
+    'snake/data/go/33_metric/m/randTrim/{goterm}/rowData.Rds'
+  threads: 1
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm) 
+  resources:
+    jobweight=1,
+    mem_mb=1000
+  shell:
+    """
+    mkdir -p snake/data/go/33_metric/m/randTrim/{params.goterm}
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --goterm {params.goterm} \
+    --outPath {output}
+    """
+rule allSparseGO_M:
+  input:
+    script='code/go/sparseAll.R',
+    data=expand('snake/data/go/33_metric/m/randTrim/{goterm}/rowData.Rds', goterm=M50)
+  output:
+    'snake/data/go/40_all/sexm/sparseData.Rds'
+  threads: 1
+  resources:
+    jobweight=1,
+    mem_mb=1000
+  shell:
+    """
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """
+
+#FEMALE SPARSE    
+rule trimGO_F:
+  input:
+    script='code/go/trimGO.R',
+    data='snake/data/go/24_goCor/f/randSparse/{goterm}/{goset}.Rds'
+  output:
+    'snake/data/go/24_goCor/f/randTrim/{goterm}/{goset}.Rds'
+  threads: 1
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm) 
+  resources:
+    jobweight=1,
+    mem_mb=1000
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/f/randTrim/{params.goterm}
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """
+rule meanSparseGO_F:
+  input:
+    script='code/go/sparseMean.R',
+    data=expand('snake/data/go/24_goCor/f/randTrim/{{goterm}}/{goset}.Rds', goterm=F50, goset=GOSET)
+  output:
+    'snake/data/go/33_metric/f/randTrim/{goterm}/rowData.Rds'
+  threads: 1
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm) 
+  resources:
+    jobweight=1,
+    mem_mb=1000
+  shell:
+    """
+    mkdir -p snake/data/go/33_metric/f/randTrim/{params.goterm}
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --goterm {params.goterm} \
+    --outPath {output}
+    """
+rule allSparseGO_F:
+  input:
+    script='code/go/sparseAll.R',
+    data=expand('snake/data/go/33_metric/f/randTrim/{goterm}/rowData.Rds', goterm=F50)
+  output:
+    'snake/data/go/40_all/sexf/sparseData.Rds'
+  threads: 1
+  resources:
+    jobweight=1,
+    mem_mb=1000
+  shell:
+    """
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """
+
+#engine of BayesC path, takes GO term and runs custom model spitting out correlation and runtime
+rule bayesGO_F:
+  input:
+    script='code/go/bayesHome.R',
+    data='snake/data/01_matched/f_starvation.Rds',
+    ids='snake/data/02_ids/f/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/sexf/{goterm}.Rds'
+  output:
+    'snake/data/go/24_goCor/f/{rmax}/{rgo}/{goterm}/bayesC_{goset}.Rds'
+  params:
+    goset = lambda wildcards: int(wildcards.goset),
+    goterm = lambda wildcards: str(wildcards.goterm),
+    rGO = lambda wildcards: str(wildcards.rgo),
+    rMAX = lambda wildcards: str(wildcards.rmax)
+  threads: 1
+  shell:
+    """
+    mkdir -p snake/data/bglr/sexf/go{params.rGO}/max{params.rMAX}/term{params.goterm}/id{params.goset}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output} \
+      --nIter 130000 \
+      --burnIn 30000 \
+      --thin 50 \
+      --R2_max {params.rMAX} \
+      --R2_GO {params.rGO} \
+      --model BayesC \
+      --saveAt data/bglr/sexf/go{params.rGO}/max{params.rMAX}/term{params.goterm}/id{params.goset}/smallfit_
+    """
+rule bayesGO_M:
+  input:
+    script='code/go/bayesHome.R',
+    data='snake/data/01_matched/m_starvation.Rds',
+    ids='snake/data/02_ids/m/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/sexm/{goterm}.Rds'
+  output:
+    'snake/data/go/24_goCor/m/{rmax}/{rgo}/{goterm}/bayesC_{goset}.Rds'
+  params:
+    goset = lambda wildcards: int(wildcards.goset),
+    goterm = lambda wildcards: str(wildcards.goterm),
+    rGO = lambda wildcards: str(wildcards.rgo),
+    rMAX = lambda wildcards: str(wildcards.rmax)
+  threads: 1
+  resources:
+    jobweight=2
+  shell:
+    """
+    mkdir -p snake/data/bglr/sexm/go{params.rGO}/max{params.rMAX}/term{params.goterm}/id{params.goset}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output} \
+      --nIter 130000 \
+      --burnIn 30000 \
+      --thin 50 \
+      --R2_max {params.rMAX} \
+      --R2_GO {params.rGO} \
+      --model BayesC \
+      --saveAt data/bglr/sexm/go{params.rGO}/max{params.rMAX}/term{params.goterm}/id{params.goset}/smallfit_
+    """
+
+#aggregator for engine rule, groups all 25 replicates into point mean
+rule filterBayesGO_F:
+  input:
+    script='code/go/filterGO.R',
+    data=expand('snake/data/go/24_goCor/f/{{rmax}}/{{rgo}}/{{goterm}}/bayesC_{goset}.Rds', goterm=GOTERM_F, rgo=RGO, rmax=RMAX, goset=GOSET)
+  output:
+    'snake/data/go/33_metric/sexf/rmax{rmax}/rgo{rgo}/term{goterm}/rowData.Rds'
+  threads: 1
+  resources:
+    jobweight=1
+  shell:
+    """
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """
+rule filterBayesGO_M:
+  input:
+    script='code/go/filterGO.R',
+    data=expand('snake/data/go/24_goCor/m/{{rmax}}/{{rgo}}/{{goterm}}/bayesC_{goset}.Rds', goterm=GOTERM_M, rgo=RGO, rmax=RMAX, goset=GOSET)
+  output:
+    'snake/data/go/33_metric/sexm/rmax{rmax}/rgo{rgo}/term{goterm}/rowData.Rds'
+  threads: 1
+  resources:
+    jobweight=1
+  shell:
+    """
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """ 
+
+#gathers all point means into one table
+rule combineBayesGO_F:
+  input:
+    script='code/go/combineGO.R',
+    data=expand('snake/data/go/33_metric/sexf/rmax{rmax}/rgo{rgo}/term{goterm}/rowData.Rds', goterm=GOTERM_F, rgo=RGO, rmax=RMAX)
+  output:
+      'snake/data/go/40_all/sexf/allData.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+rule combineBayesGO_M:
+  input:
+    script='code/go/combineGO.R',
+    data=expand('snake/data/go/33_metric/sexm/rmax{rmax}/rgo{rgo}/term{goterm}/rowData.Rds', goterm=GOTERM_M, rgo=RGO, rmax=RMAX)
+  output:
+      all='snake/data/go/40_all/sexm/allData.Rds',
+      top='snake/data/go/40_all/sexm/topData.Rds'
+  params: 
+    cor=0.48
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --cutoff {params.cor} \
+    --allPath {output.all} \ 
+    --topPath {output.top}
+    """
+
+rule sparGO_null:
+  input:
+    script='code/go/sparseNull.R',
+    data='snake/data/01_matched/f_starvation.Rds',
+    ids='snake/data/02_ids/f/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/sexf/{null}.Rds'
+  output:
+    'snake/data/go/sparse/f/{null}/null_{goset}.Rds'
+  params:
+    jobweight=2
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output}
+      """
+    #mkdir -p snake/data/go/24_goCor/f/sparse/GO.0000002
+      
+      
+      
+      #engine of BayesC path, takes GO term and runs custom model spitting out correlation and runtime
+
+rule sparGO_topF:
+  input:
+    script='code/go/sparseN.R',
+    data='snake/data/01_matched/f_starvation.Rds',
+    ids='snake/data/02_ids/f/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/sexf/{spargo}.Rds'
+  output:
+    'snake/data/go/24_goCor/sparse/f/{spargo}/lambda_500/{goset}.Rds'
+  params:
+    spargo = lambda wildcards: str(wildcards.spargo),
+    jobweight=2,
+    nlambda = 500 
+  threads: 1
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/sparse/f/{params.spargo}/lambda_500
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output} \
+      --nlambda {params.nlambda}
+      """
+    #mkdir -p snake/data/go/24_goCor/f/sparse/GO.0000002
+      
+      
+      
+      #engine of BayesC path, takes GO term and runs custom model spitting out correlation and runtime
+rule sparGO_topM:
+  input:
+    script='code/go/sparseN.R',
+    data='snake/data/01_matched/m_starvation.Rds',
+    ids='snake/data/02_ids/m/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/sexm/{spargo}.Rds'
+  output:
+    'snake/data/go/24_goCor/sparse/m/{spargo}/lambda_500/{goset}.Rds'
+  params:
+    spargo = lambda wildcards: str(wildcards.spargo),
+    jobweight=2,
+    nlambda = 500 
+  threads: 1
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/sparse/m/{params.spargo}/lambda_500
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output} \
+      --nlambda {params.nlambda}
+      """
+
+rule filterSparseGO_M5:
+  input:
+    script='code/go/filterGO.R',
+    data=expand('snake/data/go/24_goCor/sparse/m/{{goterm}}/lambda_500/{goset}.Rds', goterm=TOP5_M, goset=GOSET)
+  output:
+    'snake/data/go/33_metric/sexm/sparse/term{goterm}/rowData.Rds'
+  threads: 1
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm) 
+  resources:
+    jobweight=1
+  shell:
+    """
+    mkdir -p snake/data/go/33_metric/sexm/sparse/term{params.goterm}
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """
+
+rule combineBayesGO_M5:
+  input:
+    script='code/go/combineGO.R',
+    data=expand('snake/data/go/33_metric/sexm/rmax{rmax}/rgo{rgo}/term{goterm}/rowData.Rds', goterm=GOTERM_M, rgo=RGO, rmax=RMAX)
+  output:
+      all='snake/data/go/40_all/sexm/allData.Rds',
+      top='snake/data/go/40_all/sexm/topData.Rds'
+  params: 
+    cor=0.48
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --cutoff {params.cor} \
+    --allPath {output.all} \ 
+    --topPath {output.top}
+    """
+
+
+def get_nlambda(wildcards, attempt):
+    return attempt * 1000
+
+# resources: mem_mb=lambda wildcards, attempt: 1024 * 2 ** (attempt - 1) to use nlambda to stabilize
+rule sparGO_500M:
+  input:
+    script='code/go/sparseWarn.R',
+    data='snake/data/01_matched/m_starvation.Rds',
+    ids='snake/data/02_ids/m/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/sparse/m/lambda500/{goterm}.Rds'
+  output:
+    outPath='snake/data/go/24_goCor/m/sparseCatch/{goterm}/{goset}.Rds'
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm),
+    jobweight = 4,
+    warnPath = 'snake/data/go/03_goterms/sparse/m/catch/lambda1000/{goterm}_{goset}'
+  resources:
+    nlambda = get_nlambda
+  threads: 1
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/m/sparseCatch/{params.goterm}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output.outPath} \
+      --warnPath {params.warnPath} \
+      --nlambda {resources.nlambda}
+      """
+# 
+#rule TRANSLATOR_500to1kM:
+#  input:
+#    script='code/go/sparseWarn.R',
+#    data='snake/data/01_matched/m_starvation.Rds',
+#    mess='snake/data/go/03_goterms/sparse/catch/lambda1000/{goterm}_{goset}'
+#  output:
+#    outPath='snake/data/go/24_goCor/m/sparse/{goterm}/500_{goset}.Rds'
+#  params:
+#    ids='snake/data/02_ids/m/ids_{goset}.Rds',
+#    goPath='snake/data/go/03_goterms/sparse/m/lambda500/{goterm}.Rds',
+#    goterm = lambda wildcards: str(wildcards.goterm),
+#    warnPath = 'snake/data/go/03_goterms/sparse/catch/lambda1000/{goterm}_{goset}',
+#    nlambda = 500,
+#    jobweight = 4
+#
+#params3 = lambda wildcards: wildcards.sample.split("_")
+#
+#params3 = lambda wildcards: wildcards.sample.split("/")
+
+#goPath junked from goset suffix added, need regexp
+rule sparGO_1kM:
+  input:
+    script='code/go/sparseWarn.R',
+    data='snake/data/01_matched/m_starvation.Rds',
+    ids='snake/data/02_ids/m/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/sparse/m/lambda1000/{goterm}_{goset}'
+  output:
+    outPath='snake/data/go/24_goCor/m/sparse/{goterm}/1000_{goset}.Rds'
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm),
+    nlambda = 1000,
+    jobweight = 4,
+    warnPath='snake/data/go/03_goterms/sparse/m/catch/lambda2000/{goterm}_{goset}'
+  threads: 1
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/m/sparse/{params.goterm}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output.outPath} \
+      --warnPath {params.warnPath} \
+      --nlambda {params.nlambda} \
+      """
+
+rule nullblup:
+  input:
+    script='code/go/nullgblup.R',
+    data='snake/data/01_matched/{sex}_starvation.Rds',
+    ids='snake/data/02_ids/{sex}/ids_{wildset}.Rds'
+  output:
+    'snake/data/go/23_null/sex{sex}/{wildset}.Rds'
+  params:
+    wildset = lambda wildcards: int(wildcards.wildset),
+    sex = lambda wildcards: str(wildcards.sex)
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --output {output} \
+      --R2 0.8 \
+      --model RKHS \
+      --saveAt data/bglr/sex{params.sex}/nullblup/gblup_{params.wildset}-
+    """
+rule nullblupCombine:    
+  input:
+    script='code/go/nullFilt.R',
+    data=expand('snake/data/go/23_null/sex{{sex}}/{wildset}.Rds', sex=SEX, wildset=WILDSET)
+  output:
+    'snake/data/go/32_nullSum/sex{sex}/nullblup.Rds'
+  threads: 1
+  params: 
+    sex = lambda wildcards: str(wildcards.sex)
+  resources:
+    jobweight=1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --sex {params.sex} \
+    --outPath {output}
+    """
+
+#takes raw Gen Annotation Formnat(.gaf) file and filters for df of (go term, gene)
+rule goIndex:
+  input:
+    "data/go/00_raw/fb.gaf"
+  output:
+    "data/go/01_goIndex/goIndex"
+  shell:
+    """
+    awk -F"\t" '{{print $5, $2}}' {input} > splicedCols
+    sort -t$'\t' -n -k2 splicedCols > sortCols
+    cat sortCols | uniq > {output}
+    rm splicedCols
+    rm sortCols
+    """
+
+#takes goIndex and matches FlyBase genes to column ids in males and females separately
+#saves output to RDS with term in name
+rule goTerms:
+  input:
+    script="code/go/goTerms.R",
+    goPath="data/go/01_goIndex/goIndex",
+    xpPath='snake/data/01_matched/{sex}_starvation.Rds'
+  output:
+    "data/go/03_goterms/termFlag_{sex}"
+  params:
+    sex = lambda wildcards: str(wildcards.sex)
+  shell:
+    """
+    Rscript {input.script} \
+    --goPath {input.goPath} \
+    --xpPath {input.xpPath} \
+    --sex {params.sex}
+    
+    touch {output}
+    """
+
+#GO terms are specific to sex, as such all rules are halved
+
+#engine of BayesC path, takes GO term and runs custom model spitting out correlation and runtime
+rule bayesFREE_F:
+  input:
+    script='code/go/bayesFree.R',
+    data='snake/data/01_matched/f_starvation.Rds',
+    ids='snake/data/02_ids/f/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/sexf/{goterm}.Rds'
+  output:
+    'snake/data/go/24_goCor/f/bayesFREE/{goterm}/bayesC_{goset}.Rds'
+  params:
+    goset = lambda wildcards: int(wildcards.goset),
+    goterm = lambda wildcards: str(wildcards.goterm),
+    RMAX = 0.8
+  threads: 1
+  resources:
+    mem_mb = 8000,
+    jobweight = 1
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/m/bayesFREE/{params.goterm}
+    mkdir -p snake/data/bglr/sexf/bayesFREE/term{params.goterm}/id{params.goset}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output} \
+      --nIter 130000 \
+      --burnIn 30000 \
+      --thin 50 \
+      --R2_max {params.RMAX} \
+      --R2_null 0 \
+      --model BayesC \
+      --saveAt data/bglr/sexf/bayesFREE/term{params.goterm}/id{params.goset}/freefall_
+    """
+rule bayesFREE_M:
+  input:
+    script='code/go/bayesFree.R',
+    data='snake/data/01_matched/m_starvation.Rds',
+    ids='snake/data/02_ids/m/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/sexm/{goterm}.Rds'
+  output:
+    'snake/data/go/24_goCor/m/bayesFREE/{goterm}/bayesC_{goset}.Rds'
+  params:
+    goset = lambda wildcards: int(wildcards.goset),
+    goterm = lambda wildcards: str(wildcards.goterm),
+    RMAX = 0.8
+  threads: 1
+  resources:
+    mem_mb = 6000,
+    jobweight=1
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/m/bayesFREE/{params.goterm}
+    mkdir -p snake/data/bglr/sexm/bayesFREE/term{params.goterm}/id{params.goset}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output} \
+      --nIter 130000 \
+      --burnIn 30000 \
+      --thin 50 \
+      --R2_max {params.RMAX} \
+      --R2_null 0 \
+      --model BayesC \
+      --saveAt data/bglr/sexm/bayesFREE/term{params.goterm}/id{params.goset}/freefall_
+    """
+
+#aggregator for engine rule, groups all 25 replicates into point mean
+
+#####BAYES FREE F
+rule filterBayesFREE_F:
+  input:
+    script='code/go/filterGO.R',
+    data=expand('snake/data/go/24_goCor/f/bayesFREE/{{goterm}}/bayesC_{goset}.Rds', goterm=GOTERM_F, goset=GOSET)
+  output:
+    'snake/data/go/33_metric/sexf/bayesFREE/term{goterm}/rowData.Rds'
+  threads: 1
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm)
+  resources:
+    jobweight=1,
+    mem_mb = 6000
+  shell:
+    """
+    mkdir -p snake/data/go/33_metric/sexf/bayesFREE/term{params.goterm}
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """
+rule filterBayesFREE_M:
+  input:
+    script='code/go/filterGO.R',
+    data=expand('snake/data/go/24_goCor/m/bayesFREE/{{goterm}}/bayesC_{goset}.Rds', goterm=GOTERM_M, goset=GOSET)
+  output:
+    'snake/data/go/33_metric/sexm/bayesFREE/term{goterm}/rowData.Rds'
+  threads: 1
+  params: 
+    goterm = lambda wildcards: str(wildcards.goterm)
+  resources:
+    jobweight=1
+  shell:
+    """
+    mkdir -p snake/data/go/33_metric/sexm/bayesFREE/term{params.goterm}
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """ 
+
+#gathers all point means into one table
+rule combineBayesFREE_F:
+  input:
+    script='code/go/combineFREE.R',
+    data=expand('snake/data/go/33_metric/sexf/bayesFREE/term{goterm}/rowData.Rds', goterm=GOTERM_F)
+  output:
+      'snake/data/go/40_all/sexf/bayesFREEfinal.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+rule combineBayesFREE_M:
+  input:
+    script='code/go/combineFREE.R',
+    data=expand('snake/data/go/33_metric/sexm/bayesFREE/term{goterm}/rowData.Rds', goterm=GOTERM_M)
+  output:
+      'snake/data/go/40_all/sexm/bayesFREEfinal.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+
+#rerun of specific GO terms to include final model in saved RDS. Used for PIP checking
+rule bayesFull_F:
+  input:
+    script='code/go/bayesFull.R',
+    data='snake/data/01_matched/f_starvation.Rds',
+    goPath='snake/data/go/03_goterms/sexf/{goterm}.Rds'
+  output:
+    'snake/data/go/25_fit/sexf/{goterm}/bayesFull.Rds'
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm),
+    rGO = 0.01,
+    rMAX = 0.8
+  threads: 1
+  shell:
+    """
+    mkdir -p snake/data/bglr/sexf/go{params.rGO}/max{params.rMAX}/term{params.goterm}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --goPath {input.goPath} \
+      --outPath {output} \
+      --nIter 130000 \
+      --burnIn 30000 \
+      --thin 50 \
+      --R2_max {params.rMAX} \
+      --R2_GO {params.rGO} \
+      --model BayesC \
+      --saveAt data/bglr/sexf/go{params.rGO}/max{params.rMAX}/term{params.goterm}/fullfit_
+    """
+rule bayesFull_M:
+  input:
+    script='code/go/bayesFull.R',
+    data='snake/data/01_matched/m_starvation.Rds',
+    goPath='snake/data/go/03_goterms/sexm/{goterm}.Rds'
+  output:
+    'snake/data/go/25_fit/sexm/{goterm}/bayesFull.Rds'
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm),
+    rGO = 0.01,
+    rMAX = 0.8
+  threads: 1
+  shell:
+    """
+    mkdir -p snake/data/bglr/sexm/go{params.rGO}/max{params.rMAX}/term{params.goterm}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --goPath {input.goPath} \
+      --outPath {output} \
+      --nIter 130000 \
+      --burnIn 30000 \
+      --thin 50 \
+      --R2_max {params.rMAX} \
+      --R2_GO {params.rGO} \
+      --model BayesC \
+      --saveAt data/bglr/sexm/go{params.rGO}/max{params.rMAX}/term{params.goterm}/fullfit_
+    """
+
+### Sparse GL
+
+#statemandates dreamagined up by the ranged
+#engine for sparsegl pipeline. same GO ids halved, different algorithm
+rule sparGO_F:
+  input:
+    script='code/go/sparse.R',
+    data='snake/data/01_matched/f_starvation.Rds',
+    ids='snake/data/02_ids/f/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/sparsef100/{goterm}.Rds'
+  output:
+    'snake/data/go/24_goCor/f/sparse/{goterm}/sparsegl_{goset}.Rds'
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm),
+    jobweight=2
+  threads: 1
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/f/sparse/{params.goterm}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output}
+      """
+
+#aggregator for engine rule, groups all 25 replicates into point mean
+rule filterSparseGO_F:
+  input:
+    script='code/go/filterSparse.R',
+    data=expand('snake/data/go/24_goCor/f/sparse/{goterm}/sparsegl_{goset}.Rds', goterm=SPARSE_F, goset=GOSET)
+  output:
+    'snake/data/go/33_metric/sexf/sparse/term{goterm}/rowData.Rds'
+  threads: 1
+  resources:
+    jobweight=1
+  shell:
+    """
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """
+
+rule sparGO_M:
+  input:
+    script='code/go/sparse.R', # might be code/method/sparse.R
+    data='snake/data/01_matched/m_starvation.Rds',
+    ids='snake/data/02_ids/m/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/sexm/{goterm}.Rds'
+  output:
+    'snake/data/go/24_goCor/m/sparse/{goterm}/sparsegl_{goset}.Rds'
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm),
+    jobweight=2
+  threads: 1
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/m/sparse/{params.goterm}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output}
+    """
+      
+      #aggregator for engine rule, groups all 25 replicates into point mean
+rule filterSparseGO_M:
+  input:
+    script='code/go/filterGO.R',
+    data=expand('snake/data/go/24_goCor/m/sparse/{{goterm}}/sparsegl_{goset}.Rds', goterm=SPARSE_M, goset=GOSET)
+  output:
+    'snake/data/go/33_metric/sexm/sparse/term{goterm}/rowDataNORMAL.Rds'
+  threads: 1
+  resources:
+    jobweight=1
+  shell:
+    """
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """
+    
+rule combineSparseGO_M:
+  input:
+    script='code/go/combineGO.R',
+    data=expand('snake/data/go/33_metric/sexm/sparse/term{goterm}/rowData.Rds', goterm=SPARSE_M)
+  output:
+      'snake/data/go/40_all/sexm/oldsparseData.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+    
+rule lasso:
+  input:
+    script='code/go/glmGO.R',
+    data='snake/data/01_matched/f_starvation.Rds',
+    ids='snake/data/02_ids/m/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/sexm/{spargo}.Rds'
+  output:
+    'snake/data/sr/23_paropt/lasso_{nfolds}_{dfmax}_{relax}_{type}_{wildset}.Rds'
+  params:
+    nfolds = lambda wildcards: int(wildcards.nfolds),
+    dfmax = lambda wildcards: int(wildcards.dfmax),
+    relax = lambda wildcards: int(wildcards.relax),
+    wildset = lambda wildcards: int(wildcards.wildset)
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --output {output} \
+      --cpus {config[cpus]} \
+      --parallel {config[parallel]} \
+      --family gaussian \
+      --alpha 1 \
+      --nfolds {params.nfolds} \
+      --dfmax {params.dfmax} \
+      --relax {params.relax}
+    """
+    
+rule sparGO_testF:
+  input:
+    script='code/go/sparseTemp.R',
+    data='snake/data/01_matched/f_starvation.Rds',
+    ids='snake/data/02_ids/f/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/sexf/{spargo}.Rds'
+  output:
+    'snake/data/go/sparse/f/{spargo}/custom_{goset}.Rds'
+  params:
+    spargo = lambda wildcards: str(wildcards.spargo),
+    jobweight=2
+  threads: 1
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/sparse/f/{params.spargo}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output}
+      """
+    #mkdir -p snake/data/go/24_goCor/f/sparse/GO.0000002
+      
+      
+      
+      #engine of BayesC path, takes GO term and runs custom model spitting out correlation and runtime
+
+rule sparGO_test100F:
+  input:
+    script='code/go/sparseTempDefault.R',
+    data='snake/data/01_matched/f_starvation.Rds',
+    ids='snake/data/02_ids/f/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/sexf/{spargo}.Rds'
+  output:
+    'snake/data/go/sparse/f/{spargo}/default_{goset}.Rds'
+  params:
+    spargo = lambda wildcards: str(wildcards.spargo),
+    jobweight=2
+  threads: 1
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/sparse/f/{params.spargo}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output}
+      """
+
+rule gblupGO_F:
+  input:
+    script='code/go/goBlupTrial.R',
+    data='snake/data/01_matched/f_starvation.Rds',
+    goPath='snake/data/go/03_goterms/sexf/{goterm}.Rds'
+  output:
+    'snake/data/go/33_metric/sexf/gblupTrial/{goterm}.Rds'
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm),
+    #rGO = lambda wildcards: str(wildcards.rgo),
+    #rMAX = lambda wildcards: str(wildcards.rmax),
+    jobweight=1, 
+    rMAX=0.8,
+    rGO=0.01,
+    repCount = 25
+  threads: 1
+  shell:
+    """
+    mkdir -p snake/data/bglr/sexf/gblup/{params.goterm}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --goPath {input.goPath} \
+      --outPath {output} \
+      --goterm {params.goterm} \
+      --sex f \
+      --repCount {params.repCount} \
+      --R2_max {params.rMAX} \
+      --R2_GO {params.rGO} \
+      --model RKHS
+    """
+    #mkdir -p snake/data/bglr/sexf/go{params.rGO}/max{params.rMAX}/term{params.goterm}/id{params.goset}
+rule combineBlupGO_F:
+  input:
+    script='code/go/combineBlupGO.R',
+    data=expand('snake/data/go/33_metric/sexf/gblupTrial/{goterm}.Rds', goterm=BLUP_F)
+  output:
+      'snake/data/go/40_all/sexf/blup_allData.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+
+rule gblupGO_M:
+  input:
+    script='code/go/goBlupTrial.R',
+    data='snake/data/01_matched/m_starvation.Rds',
+    goPath='snake/data/go/03_goterms/sexm/{goterm}.Rds'
+  output:
+    'snake/data/go/33_metric/sexm/gblupTrial/{goterm}.Rds'
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm),
+    jobweight=1, 
+    rMAX=0.8,
+    rGO=0.01,
+    repCount = 25
+  threads: 1
+  shell:
+    """
+    mkdir -p snake/data/bglr/sexm/gblup/{params.goterm}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --goPath {input.goPath} \
+      --outPath {output} \
+      --goterm {params.goterm} \
+      --sex m \
+      --repCount {params.repCount} \
+      --R2_max {params.rMAX} \
+      --R2_GO {params.rGO} \
+      --model RKHS
+    """
+    #mkdir -p snake/data/bglr/sexf/go{params.rGO}/max{params.rMAX}/term{params.goterm}/id{params.goset}
+rule combineBlupGO_M:
+  input:
+    script='code/go/combineBlupGO.R',
+    data=expand('snake/data/go/33_metric/sexm/gblupTrial/{goterm}.Rds', goterm=BLUP_M)
+  output:
+      'snake/data/go/40_all/sexm/blup_allData.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+
+rule lassoCheck:
+  input:
+    script='code/go/glmnetGOcomp.R',
+    data='snake/data/sr/10_matched/{type}_starvation.Rds',
+    ids='snake/data/02_ids/sr/{type}/ids_{wildset}.Rds'
+  output:
+    'snake/data/sr/23_paropt/lasso_{nfolds}_{dfmax}_{relax}_{type}_{wildset}.Rds'
+  params:
+    nfolds = lambda wildcards: int(wildcards.nfolds),
+    dfmax = lambda wildcards: int(wildcards.dfmax),
+    relax = lambda wildcards: int(wildcards.relax),
+    wildset = lambda wildcards: int(wildcards.wildset)
+  shell:
+    """
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --output {output} \
+      --cpus {config[cpus]} \
+      --parallel {config[parallel]} \
+      --family gaussian \
+      --alpha 1 \
+      --nfolds {params.nfolds} \
+      --dfmax {params.dfmax} \
+      --relax {params.relax}
+    """

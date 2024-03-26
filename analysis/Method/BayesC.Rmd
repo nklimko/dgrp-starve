@@ -126,18 +126,20 @@ colnames(varFrame) <- 'varVal'
 
 gg[[3]] <- ggplot(varFrame, aes(x = 1:nrow(varFrame), y = varVal)) +
   labs(x=NULL,y='varE', tag='F', title='Residual Variance') +
-  geom_point() +
+  geom_line(linewidth=0.4) +
   geom_hline(yintercept = fit$varE, color='blue') +
   geom_vline(xintercept =  fit$burnIn/fit$thin, color='blue')
 
+
 # Samples
+#
 TMP=read.table(ETA, header=T)
 tmpFrame <- as.data.frame(TMP)
 colnames(tmpFrame) <- 'tmp'
 
 gg[[5]] <- ggplot(tmpFrame, aes(x = 1:nrow(tmpFrame), y = tmp)) +
-  labs(x=NULL,y='TMP', tag='F', title='Samples') +
-  geom_point() +
+  labs(x=NULL,y='TMP', tag='F', title='Probability of Inclusion') +
+  geom_line(linewidth=0.4) +
   geom_hline(yintercept = fit$ETA[[1]]$probIn, color='blue') +
   geom_vline(xintercept =  fit$burnIn/fit$thin, color='blue')
 
@@ -161,7 +163,7 @@ colnames(varFrame) <- 'varVal'
 
 gg[[4]] <- ggplot(varFrame, aes(x = 1:nrow(varFrame), y = varVal)) +
   labs(x=NULL,y='varE', tag='M', title='Residual Variance') +
-  geom_point() +
+  geom_line(linewidth=0.4) +
   geom_hline(yintercept = fit$varE, color='blue') +
   geom_vline(xintercept =  fit$burnIn/fit$thin, color='blue')
 
@@ -171,8 +173,8 @@ tmpFrame <- as.data.frame(TMP)
 colnames(tmpFrame) <- 'tmp'
 
 gg[[6]] <- ggplot(tmpFrame, aes(x = 1:nrow(tmpFrame), y = tmp)) +
-  labs(x=NULL,y='TMP', tag='M', title='Samples') +
-  geom_point() +
+  labs(x=NULL,y='TMP', tag='M', title='Probability of Inclusion') +
+  geom_line(linewidth=0.4) +
   geom_hline(yintercept = fit$ETA[[1]]$probIn, color='blue') +
   geom_vline(xintercept =  fit$burnIn/fit$thin, color='blue')
 

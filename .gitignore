@@ -11,6 +11,8 @@ analysis/*_cache
 analysis/site_libs
 data/*
 
+data
+
 *.err
 *.out
 

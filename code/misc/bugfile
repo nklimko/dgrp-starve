@@ -1,0 +1,15 @@
+configfile: 'dgrp.yaml'
+
+rule all:
+  input:
+    'data/bug.Rds'
+
+rule bug:
+  input: 
+    'data/00_raw/pheno_m.csv'
+  output: 
+    'data/bug.Rds'
+  params:
+    tol=1e-04
+  script:
+    'code/bug.R'

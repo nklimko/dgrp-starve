@@ -1,0 +1,148 @@
+---
+title: "Sparse GL Comparison"
+output:
+  workflowr::wflow_html:
+    toc: true
+    latex_engine: "xelatex"
+    code_folding: "hide"
+editor_options:
+  chunk_output_type: console
+---
+
+```{r 0-setup, include=FALSE, warning=FALSE}
+#regular
+if(1){
+  library(dplyr)
+  library(data.table)
+  library(ggplot2)
+  library(cowplot)
+  library(qqman)
+  library(viridis)
+  library(scales)
+  library(tidyverse)
+  library(ggcorrplot)
+  library(melt)
+  library(reshape2)
+  library(knitr)
+  library(kableExtra)
+  
+  #options
+  options(bitmapType = "cairo")
+  options(error = function() traceback(3))
+  
+  #seed
+  set.seed(123)
+  
+  #ggplot holder list
+  gg <- vector(mode='list', length=12)
+  
+}
+```
+
+``` {r prepload}
+
+load('snake/data/topTables.Rdata')
+
+options(knitr.kable.NA = '')
+
+
+```
+
+
+## Summary
+
+
+Sparse Group LASSO is able to optimize for a sequence of lambda's using group specifiers. In our case, we will be using the GO term association as a group delimiter. 
+
+
+
+### Runtime
+
+average runtime is anywhere from 30 to 55 minutes per term.
+
+
+
+### Initial GO terms: Female
+
+
+The following 122 Go terms were selected as a sample of the 
+
+``` {r femaleTop, warnings=FALSE}
+
+
+
+
+#IMPORTANT
+# need tidyverse added to final
+
+library(tidyverse)
+tempF <- readRDS('data/go/sparse/f/GO.0055088/5.Rds')
+
+
+  runtime <- system.time(fit <- cv.sparsegl(W_train, y_train, groupBase, nfolds=5))
+  
+  
+  
+  str_detect(outData[6], 'smallest')
+
+
+  
+  outData <- capture.output(print(fit))
+  
+  
+  #if largest in output
+  #print error and modify outPath
+  #add term to file to use as new wildcard
+  #save RDS as normal
+  #
+  #type = "message"
+  #in capture output call to read warnings
+  #
+  #
+  
+  
+  
+f <- function() {
+    print("printed output!")
+    return("value")
+}
+
+capture <- capture.output(result <- f())
+
+result
+
+maleTop <- readRDS('snake/data/go/topCompM.Rds')
+
+gg[[10]] <- ggplot(allthod, aes(x=id, y=cor, color=method)) +
+  geom_point(size=2)
+
+
+topMfiles <- list.files('data/go/24_goCor/sparse/m/GO.0140042/lambda_500', full.names=TRUE)
+
+temp <- sapply(topMfiles, readRDS)
+
+cors <- as.numeric(unlist(temp[1,]))
+
+termCor <- mean(cors)
+
+#data from original needs to be brought in
+#
+#data needs to be read into 2 columns one GO bayes one group lasso
+#
+#plot using color as differentiator
+
+```
+
+### Top Male Genes
+
+The following graph contains manually selected lines. The first five terms are the top GO terms from the Bayes C model, while the latter five are randomly selected to serve as a comparison. sparsegl is currently at 5/25 replicates for initial testing and will likely shift as more data is processed.
+
+``` {r maleTop, warnings=FALSE}
+
+plot_grid(gg[[10]], ncol=1)
+
+```
+
+
+
+

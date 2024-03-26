@@ -1,0 +1,205 @@
+---
+title: "Covariance Correlations"
+output:
+  workflowr::wflow_html:
+    toc: true
+    latex_engine: "xelatex"
+    code_folding: "hide"
+editor_options:
+  chunk_output_type: console
+---
+
+```{r 0-paths}
+
+#Correlation Coefficient Paths
+uniF <- readRDS('snake/data/sr/40_all/f/cor/all.Rds')
+uniM <- readRDS('snake/data/sr/40_all/m/cor/all.Rds')
+
+multiF <- readRDS('snake/data/top/40_all/f/cor/all.Rds')
+multiM <- readRDS('snake/data/top/40_all/m/cor/all.Rds')
+
+
+
+#Runtimes
+timeF <- 'snake/data/sr/40_all/f/time/all.Rds'
+timeM <- 'snake/data/sr/40_all/m/time/all.Rds'
+```
+
+
+
+```{r 0-setup, include=FALSE, warning=FALSE}
+#regular
+if(1){
+  library(dplyr)
+  library(data.table)
+  library(ggplot2)
+  library(cowplot)
+  library(qqman)
+  library(viridis)
+  library(scales)
+  library(tidyverse)
+  library(ggcorrplot)
+  library(melt)
+  library(reshape2)
+  
+  #options
+  options(bitmapType = "cairo")
+  options(error = function() traceback(3))
+  
+  #seed
+  set.seed(123)
+  
+  #ggplot holder list
+  gg <- vector(mode='list', length=12)
+  #setwd('data2/morgante_lab/nklimko/rep/dgrp-starve/')
+}
+```
+
+```{r functions, warning=FALSE}
+
+#reorders 50 X m table to a (50*m) X 2 table 
+#converts method into factor to retain order
+ggTidy <- function(data){
+
+  for(i in 1:dim(data)[2]){
+    
+    name <- colnames(data)[i]
+    temp <- cbind(rep(name, dim(data)[1]), data[,i, with=FALSE])
+    
+    if(i==1){
+      hold <- temp
+    } else{
+      hold <- rbind(hold, temp, use.names=FALSE)
+    }
+  }
+  colnames(hold) <- c("method", "cor")
+  hold$method <- factor(hold$method, levels=unique(hold$method))
+  
+  
+  return(hold)
+}
+
+#wrapper for ggplot call to custom fill sex, title, and y axis label
+ggMake <- function(data, sex, custom.title, custom.Ylab){
+  
+  plothole <- ggplot(data, aes(x=method, y=cor, fill=method)) +
+    geom_violin(color = NA, width = 0.65) +
+    geom_boxplot(color='#440154FF', width = 0.15) +
+    theme_minimal() +
+    stat_summary(fun=mean, color='#440154FF', geom='point', 
+                 shape=18, size=3, show.legend=FALSE) +
+    labs(x=NULL,y=custom.Ylab, tag=sex, title=custom.title) +
+    theme(legend.position='none',
+          axis.text.x = element_text(angle = -45, size=10),
+          text=element_text(size=10),
+          plot.tag = element_text(size=15)) +
+    scale_fill_viridis(begin = 0.4, end=0.9,discrete=TRUE)
+  
+  return(plothole)
+  
+}
+
+
+```
+
+
+### Intro to why
+
+Complex trait prediction is based on the notion that some traits are impacted by a large number of small-effect genes which makes diagnosis or prediction challenging. 
+
+We are using gene expression data over genomic frequencies as they have shown previously to provide more accurate models.
+
+This project is designed to establish a baseline comparison for statistical methods commonly used in the field.
+
+
+### Intro to methods
+
+In order to improve model accuracy, we look at shrinkage and variable selection. Too much of either can result in overfitting of the model, but failure to perform either results in large variance that diminishes model accuracy. 
+
+Shrinkage is based on the assumption that not all independent variables have the same effect on the response variable in a given model. The effects are scaled by a distribution of our choosing based on our assumption of the model. A normal distribution centered around 0 will scale most effects down while leaving more significant effects closer to 1. Changing the shape of the distribution changes the degree of shrinkage applied to the model.
+
+Variable selection takes another step in model assumptions. We assume under a general model that all variables have some effect on the response even if the effect is small. In order to reduce noise, we can select for variables that only have stronger effects by discarding weaker or insignificant independent variables from the model. With genes, this models our assumption that not all genes have an effect on the trait of interest, while a number of genes will have a pronounced effect on our complex trait. 
+
+
+### Method line by line
+
+- Random Forest: Random forest is a machine learning method that creates random networks of decision trees to create a linear regression Random Forest decision trees are used to discover impactful genes similar to how PCR selects for variance maximizing components.
+
+- Principal Component Regression (PCR): Principal Component Regression uses principal component analysis to find combinations of independent variables that maximize the change in variance on the response variable. This process greatly reduces the dimensionality of the data. Within this, variable selection can be performed optimally by finding the greatest change in total variance explained and only using principal components up to that point. 
+
+- Neural Network (NN): Neural networks are a type of machine learning method where hidden layers of hyperparameters are used to evaluate the data. Learning is rewarded by maximizing change in variance. The current model has five layers with 5000, 2500, and 1000 hyperparameters in order.
+
+- Bayesian Variable Selection (BVS): Bayesian Variable Selection(BVS) uses a spike-and-slab prior to perform effect shrinkage and variable selection. The model is fit using Variational Inference(VI) methods.
+
+- BayesC - BayesC uses a spike-and-slab prior to perform effect shrinkage and variable selection. The model is fit using Markov Chain Monte Carlo(MCMC) methods.
+
+- Genomic Best Linear Unbiased Predictor (GBLUP): GBLUP is a linear mixed model created using the covariance of genomic relationships(geneXgene) to perform effect shrinkage.
+
+- Ridge Regression (RR):Ridge Regression is a penalized regression method that performs effect shrinkage only.
+
+- Least Absolute Shrinkage and Selection Operator (LASSO): LASSO uses the same penalized regression as Ridge regression with an added parameter to perform both effect shrinkage and variable selection.
+
+- Multiple Regression with Multivariate Adaptive Shrinkage (MR.MASH): Mr. Mash performs shrinkage and variable selection by using a custom mixed prior. This prior can be generated using summary statistics alone or can be layered with covariance matrices derived from strong effects.
+
+
+### All Models
+
+With traits that are correlated, we expect that changes in the trait of interest can be described by changes in additional trait values. We sought to incorporate this by taking the top three correlated traits into account in our multivariate models. The traits capillary feeding, free glycerol, and free glucose were selected for both males and females. 
+
+In order to see if correlated traits could be used to improve model accuracy, we performed both univariate and multivariate analyses with models that permitted multiple response prediction. 
+
+For every method tested, fifty replicates were created using an 80% train/20% test data split by DGRP2 line. Each column below is a distribution of the method's correlation coefficient from all replicates.
+
+
+```{r cor-plots, warning=FALSE}
+
+#All Female
+allData <- data.table(uniF, multiF)
+print(colMeans(na.omit(allData)))
+data <- na.omit(ggTidy(allData))
+gg[[1]] <- ggMake(data, 'F', 'All Female', 'Correlation')
+
+#Univariate Female
+uniData <- uniF
+data <- na.omit(ggTidy(uniData))
+gg[[3]] <- ggMake(data, 'F', 'Univariate Female', 'Correlation')
+
+#All Male
+allData <- data.table(uniM, multiM)
+print(colMeans(na.omit(allData)))
+data <- na.omit(ggTidy(allData))
+gg[[2]] <- ggMake(data, 'M', 'All Male', 'Correlation')
+
+#Univariate Male
+uniData <- uniM
+data <- na.omit(ggTidy(uniData))
+gg[[4]] <- ggMake(data, 'M', 'Univariate Male', 'Correlation')
+
+```
+
+
+### Univariate Models
+
+```{r plot-print-all, warning=FALSE, eval=TRUE}
+
+plot_grid(gg[[1]], ncol=1)
+plot_grid(gg[[2]], ncol=1)
+
+```
+
+Comparison shows that multivariate methods do not significantly improve the model accuracy. As such, we will focus on univariate methods moving forward.
+
+Below are the univariate models alone.
+
+
+```{r plot-print-univariate, warning=FALSE, eval=TRUE}
+
+plot_grid(gg[[3]], ncol=1)
+plot_grid(gg[[4]], ncol=1)
+
+```
+
+
+
+
+

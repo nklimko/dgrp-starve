@@ -1,0 +1,118 @@
+---
+title: "Sparse Group LASSO Analysis"
+output:
+  workflowr::wflow_html:
+    toc: true
+    latex_engine: "xelatex"
+    code_folding: "hide"
+editor_options:
+  chunk_output_type: console
+---
+
+```{r 0-setup, include=FALSE, warning=FALSE}
+#regular
+if(1){
+  library(dplyr)
+  library(data.table)
+  library(ggplot2)
+  library(cowplot)
+  library(qqman)
+  library(viridis)
+  library(scales)
+  library(tidyverse)
+  library(ggcorrplot)
+  library(melt)
+  library(reshape2)
+  library(knitr)
+  library(kableExtra)
+  library(DT)
+  
+  #options
+  options(bitmapType = "cairo")
+  options(error = function() traceback(3))
+  
+  #seed
+  set.seed(123)
+  
+  #ggplot holder list
+  gg <- vector(mode='list', length=12)
+  
+  options(knitr.kable.NA = '')
+}
+```
+
+
+
+
+
+
+
+
+```{r dataReadIn}
+
+
+sparseMake <- function(data, sex, psize, custom.title, custom.Xlab, custom.Ylab){
+  plothole <- ggplot(data, aes(x=index, y=cor, label=term))+
+    geom_point(color=viridis(1, begin=0.5), size=psize)+
+    theme_minimal() +
+    labs(x=custom.Xlab, y=custom.Ylab, tag=sex, title=custom.title) +
+    theme(text=element_text(size=10), plot.tag = element_text(size=15))
+  return(plothole)
+}
+
+
+fPath <- 'snake/data/go/40_all/sexf/sparseData.Rds'
+mPath <- 'snake/data/go/40_all/sexm/sparseData.Rds'
+
+#female
+data <- readRDS(fPath)
+#male
+data <- readRDS(mPath)
+
+#custom column id vector of top hits
+topSelect <- c(1, 4 , 5, 8) #### IN ORDER ty
+
+topout <- data[topSelect,]
+bottomout <- data[-topSelect,]
+
+chunked <- rbind(topout, bottomout)
+
+finalData <-data.table(index=seq(1, dim(data)[1]), chunked)
+names(finalData) <- c('index', 'term', 'cor')
+
+
+dataF <- finalData
+gg[[1]] <- sparseMake(dataF, 'F', 0.1, 'SparseGL with GO Annotations', 'GO Term', 'Correlation Coefficient')
+
+dataM <- finalData
+gg[[2]] <- sparseMake(dataM, 'M', 0.1, 'SparseGL with GO Annotations', 'GO Term', 'Correlation Coefficient')
+
+
+
+
+```
+
+
+## Overview
+
+When we left off, we were waiting on sparsegl runs to finish. I cut down the job count from 50 to 40 dropping 500/1200 jobs in the process.
+The remaining 40 terms each are mapped for both females and males. 
+The ordering is top ten on the left followed by a random 30
+might actually be top 15 and random 25 but I'll have to confirm.
+
+todo: gather correlation coefficient of bayesC terms for all to compare
+
+```{r cars}
+plot_grid(gg[[1]], gg[[2]], ncol=2)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
