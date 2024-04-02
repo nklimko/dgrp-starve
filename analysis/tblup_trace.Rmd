@@ -33,7 +33,10 @@ gg <- vector(mode='list', length=12)
 ```{r plotReadIn}
 
 
- fileList <- list.files('snake/data/bglr/plots/m/tblup_nbt', full.names=T)
+ fileList <- list.files('plots/tblup_trace', full.names=T)
+
+#dgrp-starve/plots/tblup_trace
+
 # snake/data/bglr/plots/m/tblup_nbt/30000_10000_25.png
 # snake/data/bglr/plots/m/tblup_nbt/30000_10000_50.png
 # snake/data/bglr/plots/m/tblup_nbt/30000_5000_25.png
@@ -48,18 +51,18 @@ gg <- vector(mode='list', length=12)
 # snake/data/bglr/plots/m/tblup_nbt/80000_5000_50.png
 
 
-knitr::include_graphics("snake/data/bglr/plots/m/tblup_nbt/30000_10000_25.png", error = FALSE)
-knitr::include_graphics("snake/data/bglr/plots/m/tblup_nbt/30000_10000_50.png", error = FALSE)
-knitr::include_graphics("snake/data/bglr/plots/m/tblup_nbt/30000_5000_25.png", error = FALSE)
-knitr::include_graphics("snake/data/bglr/plots/m/tblup_nbt/30000_5000_50.png", error = FALSE)
-knitr::include_graphics("snake/data/bglr/plots/m/tblup_nbt/55000_10000_25.png", error = FALSE)
-knitr::include_graphics("snake/data/bglr/plots/m/tblup_nbt/55000_10000_50.png", error = FALSE)
-knitr::include_graphics("snake/data/bglr/plots/m/tblup_nbt/55000_5000_25.png", error = FALSE)
-knitr::include_graphics("snake/data/bglr/plots/m/tblup_nbt/55000_5000_50.png", error = FALSE)
-knitr::include_graphics("snake/data/bglr/plots/m/tblup_nbt/80000_10000_25.png", error = FALSE)
-knitr::include_graphics("snake/data/bglr/plots/m/tblup_nbt/80000_10000_50.png", error = FALSE)
-knitr::include_graphics("snake/data/bglr/plots/m/tblup_nbt/80000_5000_25.png", error = FALSE)
-knitr::include_graphics("snake/data/bglr/plots/m/tblup_nbt/80000_5000_50.png", error = FALSE)
+knitr::include_graphics("plots/tblup_trace/30000_10000_25.png", error = FALSE)
+knitr::include_graphics("plots/tblup_trace/30000_10000_50.png", error = FALSE)
+knitr::include_graphics("plots/tblup_trace/30000_5000_25.png", error = FALSE)
+knitr::include_graphics("plots/tblup_trace/30000_5000_50.png", error = FALSE)
+knitr::include_graphics("plots/tblup_trace/55000_10000_25.png", error = FALSE)
+knitr::include_graphics("plots/tblup_trace/55000_10000_50.png", error = FALSE)
+knitr::include_graphics("plots/tblup_trace/55000_5000_25.png", error = FALSE)
+knitr::include_graphics("plots/tblup_trace/55000_5000_50.png", error = FALSE)
+knitr::include_graphics("plots/tblup_trace/80000_10000_25.png", error = FALSE)
+knitr::include_graphics("plots/tblup_trace/80000_10000_50.png", error = FALSE)
+knitr::include_graphics("plots/tblup_trace/80000_5000_25.png", error = FALSE)
+knitr::include_graphics("plots/tblup_trace/80000_5000_50.png", error = FALSE)
 
 # 
 # ![temp](snake/data/bglr/plots/m/tblup_nbt/30000_10000_25.png)
