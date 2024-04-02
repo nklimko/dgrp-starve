@@ -28,6 +28,18 @@ gg <- vector(mode='list', length=12)
 
 ```
 
+![temp1](plots/tblup_trace/30000_10000_25.png)
+![temp2](plots/tblup_trace/30000_10000_50.png)
+![temp3](plots/tblup_trace/30000_5000_25.png)
+![temp4](plots/tblup_trace/30000_5000_50.png)
+![temp5](plots/tblup_trace/55000_10000_25.png)
+![temp6](plots/tblup_trace/55000_10000_50.png)
+![temp7](plots/tblup_trace/55000_5000_25.png)
+![temp8](plots/tblup_trace/55000_5000_50.png)
+![temp9](plots/tblup_trace/80000_10000_25.png)
+![temp0](plots/tblup_trace/80000_10000_50.png)
+![tempa](plots/tblup_trace/80000_5000_25.png)
+![tempb](plots/tblup_trace/80000_5000_50.png)
 
 
 ```{r plotReadIn}
@@ -50,33 +62,36 @@ gg <- vector(mode='list', length=12)
 # snake/data/bglr/plots/m/tblup_nbt/80000_5000_25.png
 # snake/data/bglr/plots/m/tblup_nbt/80000_5000_50.png
 
+# 
+# knitr::include_graphics("plots/tblup_trace/30000_10000_25.png", error = FALSE)
+# knitr::include_graphics("plots/tblup_trace/30000_10000_50.png", error = FALSE)
+# knitr::include_graphics("plots/tblup_trace/30000_5000_25.png", error = FALSE)
+# knitr::include_graphics("plots/tblup_trace/30000_5000_50.png", error = FALSE)
+# knitr::include_graphics("plots/tblup_trace/55000_10000_25.png", error = FALSE)
+# knitr::include_graphics("plots/tblup_trace/55000_10000_50.png", error = FALSE)
+# knitr::include_graphics("plots/tblup_trace/55000_5000_25.png", error = FALSE)
+# knitr::include_graphics("plots/tblup_trace/55000_5000_50.png", error = FALSE)
+# knitr::include_graphics("plots/tblup_trace/80000_10000_25.png", error = FALSE)
+# knitr::include_graphics("plots/tblup_trace/80000_10000_50.png", error = FALSE)
+# knitr::include_graphics("plots/tblup_trace/80000_5000_25.png", error = FALSE)
+# knitr::include_graphics("plots/tblup_trace/80000_5000_50.png", error = FALSE)
 
-knitr::include_graphics("plots/tblup_trace/30000_10000_25.png", error = FALSE)
-knitr::include_graphics("plots/tblup_trace/30000_10000_50.png", error = FALSE)
-knitr::include_graphics("plots/tblup_trace/30000_5000_25.png", error = FALSE)
-knitr::include_graphics("plots/tblup_trace/30000_5000_50.png", error = FALSE)
-knitr::include_graphics("plots/tblup_trace/55000_10000_25.png", error = FALSE)
-knitr::include_graphics("plots/tblup_trace/55000_10000_50.png", error = FALSE)
-knitr::include_graphics("plots/tblup_trace/55000_5000_25.png", error = FALSE)
-knitr::include_graphics("plots/tblup_trace/55000_5000_50.png", error = FALSE)
-knitr::include_graphics("plots/tblup_trace/80000_10000_25.png", error = FALSE)
-knitr::include_graphics("plots/tblup_trace/80000_10000_50.png", error = FALSE)
-knitr::include_graphics("plots/tblup_trace/80000_5000_25.png", error = FALSE)
-knitr::include_graphics("plots/tblup_trace/80000_5000_50.png", error = FALSE)
+
+
 
 # 
-# ![temp](snake/data/bglr/plots/m/tblup_nbt/30000_10000_25.png)
-# ![temp](snake/data/bglr/plots/m/tblup_nbt/30000_10000_50.png)
-# ![temp](snake/data/bglr/plots/m/tblup_nbt/30000_5000_25.png)
-# ![temp](snake/data/bglr/plots/m/tblup_nbt/30000_5000_50.png)
-# ![temp](snake/data/bglr/plots/m/tblup_nbt/55000_10000_25.png)
-# ![temp](snake/data/bglr/plots/m/tblup_nbt/55000_10000_50.png)
-# ![temp](snake/data/bglr/plots/m/tblup_nbt/55000_5000_25.png)
-# ![temp](snake/data/bglr/plots/m/tblup_nbt/55000_5000_50.png)
-# ![temp](snake/data/bglr/plots/m/tblup_nbt/80000_10000_25.png)
-# ![temp](snake/data/bglr/plots/m/tblup_nbt/80000_10000_50.png)
-# ![temp](snake/data/bglr/plots/m/tblup_nbt/80000_5000_25.png)
-# ![temp](snake/data/bglr/plots/m/tblup_nbt/80000_5000_50.png)
+# plots/tblup_trace/30000_10000_25.png
+# plots/tblup_trace/30000_10000_50.png
+# plots/tblup_trace/30000_5000_25.png
+# plots/tblup_trace/30000_5000_50.png
+# plots/tblup_trace/55000_10000_25.png
+# plots/tblup_trace/55000_10000_50.png
+# plots/tblup_trace/55000_5000_25.png
+# plots/tblup_trace/55000_5000_50.png
+# plots/tblup_trace/80000_10000_25.png
+# plots/tblup_trace/80000_10000_50.png
+# plots/tblup_trace/80000_5000_25.png
+# plots/tblup_trace/80000_5000_50.png
 
 
 ```
