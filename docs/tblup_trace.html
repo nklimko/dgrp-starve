@@ -394,7 +394,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-04-02
+<strong>Last updated:</strong> 2024-04-16
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -485,22 +485,24 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree888f8cadae54f81dd25259c7394007ce3507e0a0targetblank888f8caa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/888f8cadae54f81dd25259c7394007ce3507e0a0" target="_blank">888f8ca</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree0c614ec798dd08ac5a14cd4c5c98d50b5f869ed7targetblank0c614eca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/0c614ec798dd08ac5a14cd4c5c98d50b5f869ed7" target="_blank">0c614ec</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree888f8cadae54f81dd25259c7394007ce3507e0a0targetblank888f8caa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree0c614ec798dd08ac5a14cd4c5c98d50b5f869ed7targetblank0c614eca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/888f8cadae54f81dd25259c7394007ce3507e0a0" target="_blank">888f8ca</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/0c614ec798dd08ac5a14cd4c5c98d50b5f869ed7" target="_blank">0c614ec</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
     Ignored:    .snakemake/
     Ignored:    code/OLD/PCA/four-comp.76979.err
     Ignored:    code/OLD/PCA/four-comp.76979.out
@@ -530,12 +532,6 @@ Ignored files:
     Ignored:    code/OLD/methodComp/m/meth-m.4685.out
     Ignored:    code/OLD/methodComp/m/method-m.4745.err
     Ignored:    code/OLD/methodComp/m/method-m.4745.out
-    Ignored:    code/OLD/methodComp/method-f.4751.err
-    Ignored:    code/OLD/methodComp/method-f.4751.out
-    Ignored:    code/OLD/methodComp/method-m.4752.err
-    Ignored:    code/OLD/methodComp/method-m.4752.out
-    Ignored:    code/OLD/methodComp/method-m.4765.err
-    Ignored:    code/OLD/methodComp/method-m.4765.out
     Ignored:    code/OLD/regress/regress.81916.err
     Ignored:    code/OLD/regress/regress.81916.out
     Ignored:    code/OLD/regress/regress.81918.err
@@ -550,46 +546,48 @@ Ignored files:
     Ignored:    code/OLD/regress/regress_m_adj.109971.out
     Ignored:    code/OLD/regress/regress_m_adj.109972.err
     Ignored:    code/OLD/regress/regress_m_adj.109972.out
-    Ignored:    code/bayesC/
-    Ignored:    data/
+    Ignored:    code/analysis/
+    Ignored:    code/enrich/
+    Ignored:    code/go/method/
+    Ignored:    code/miscCode/
+    Ignored:    plots/bayesGO_trace/
+    Ignored:    plots/f/
+    Ignored:    plots/m/trace_GObayes/
+    Ignored:    plots/tblupGO_trace/
     Ignored:    snake/
     Ignored:    zz_lost/
 
 Untracked files:
-    Untracked:  SN_SR.sbatch
-    Untracked:  bayesFnew.png
-    Untracked:  bayesMnew.png
-    Untracked:  blupFnew.png
-    Untracked:  blupMnew.png
+    Untracked:  analysis/backupTRACE.R
     Untracked:  bugfile.yaml
-    Untracked:  code/bayesC_nbt_analysis.R
-    Untracked:  code/go/enrichanalysis2.R
-    Untracked:  code/go/enrichment/f/
-    Untracked:  code/go/enrichment/goFindBest.R
-    Untracked:  code/go/enrichment/lines_goFindBest.sh
-    Untracked:  code/go/enrichment/m/
-    Untracked:  code/go/newGO2x2.R
-    Untracked:  code/goTable.R
-    Untracked:  code/h2_synth.R
-    Untracked:  code/lassoPeropRecovery.R
-    Untracked:  code/method/plotmakeRework.R
-    Untracked:  code/misc/synthScratch.R
-    Untracked:  code/nn_analysis.R
-    Untracked:  code/sr_analysis.R
-    Untracked:  code/tblup_analysis.R
-    Untracked:  funi.png
-    Untracked:  muni.png
-    Untracked:  rplot.jpg
+    Untracked:  checkpoint.Rdata
+    Untracked:  finalPCR.Rds
+    Untracked:  go.sh
+    Untracked:  plots/GO_2x2/
+    Untracked:  plots/bayesFnew.png
+    Untracked:  plots/bayesMnew.png
+    Untracked:  plots/blupFnew.png
+    Untracked:  plots/blupMnew.png
+    Untracked:  plots/funi.png
+    Untracked:  plots/m/trace_GOtblup/GO.0035008/100000_50000_25/2/
+    Untracked:  plots/m/trace_GOtblup/GO.0035008/150000_50000_25/2/
+    Untracked:  plots/m/trace_GOtblup/GO.0035008/200000_50000_25/2/
+    Untracked:  plots/m/trace_GOtblup/GO.0035008/250000_50000_25/2/
+    Untracked:  plots/muni.png
+    Untracked:  plots/rplot.jpg
+    Untracked:  rdata/
+    Untracked:  reset_pcrPLS.R
     Untracked:  test_saveEffects/
 
 Unstaged changes:
+    Modified:   GOfile.yaml
     Modified:   analysis/goBayesCor.Rmd
     Modified:   analysis/plots.Rmd
-    Modified:   code/method/bglr.R
-    Modified:   code/method/neuralnet.R
-    Modified:   code/miscCode/bayesBlupPlots.R
-    Modified:   code/scripts/drymake.sh
-    Modified:   code/tempRfree.R
+    Deleted:    fig/Snakefile.yaml
+    Deleted:    fig/datafile.yaml
+    Deleted:    fig/dgrp.yaml
+    Deleted:    fig/glmGO.R
+    Deleted:    fig/gofig.yaml
     Modified:   smake.sbatch
     Modified:   snubnose.sbatch
     Modified:   srfile.yaml
@@ -631,6 +629,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/0c614ec798dd08ac5a14cd4c5c98d50b5f869ed7/analysis/tblup_trace.Rmd" target="_blank">0c614ec</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2024-04-16
+</td>
+<td>
+wflow_publish(“analysis/tblup_trace.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/fe89f8bf647e8391364f320f1e4f7b7ad9990ce9/docs/tblup_trace.html" target="_blank">fe89f8b</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2024-04-02
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -757,62 +789,17 @@ wflow_publish(“analysis/tblup_trace.Rmd”)
 </div>
 </div>
 </div>
-<p><img src="plots/tblup_trace/30000_10000_25.png" alt="temp1" /> <img src="plots/tblup_trace/30000_10000_50.png" alt="temp2" /> <img src="plots/tblup_trace/30000_5000_25.png" alt="temp3" /> <img src="plots/tblup_trace/30000_5000_50.png" alt="temp4" /> <img src="plots/tblup_trace/55000_10000_25.png" alt="temp5" /> <img src="plots/tblup_trace/55000_10000_50.png" alt="temp6" /> <img src="plots/tblup_trace/55000_5000_25.png" alt="temp7" /> <img src="plots/tblup_trace/55000_5000_50.png" alt="temp8" /> <img src="plots/tblup_trace/80000_10000_25.png" alt="temp9" /> <img src="plots/tblup_trace/80000_10000_50.png" alt="temp0" /> <img src="plots/tblup_trace/80000_5000_25.png" alt="tempa" /> <img src="plots/tblup_trace/80000_5000_50.png" alt="tempb" /></p>
-<pre class="r"><code> fileList &lt;- list.files(&#39;plots/tblup_trace&#39;, full.names=T)
+<pre class="r"><code>march &lt;- list.files(&#39;plots/m/trace_GOtblup/GO.0035008/250000_50000_25/1&#39;, full.names = T)
+april &lt;- list.files(&#39;plots/m/trace_GOtblup/GO.0035008/250000_50000_25/2&#39;, full.names = T)
 
-#dgrp-starve/plots/tblup_trace
+for(i in 1:4){
+  knitr::include_graphics(march[i])
+  knitr::include_graphics(april[i]) 
+}
 
-# snake/data/bglr/plots/m/tblup_nbt/30000_10000_25.png
-# snake/data/bglr/plots/m/tblup_nbt/30000_10000_50.png
-# snake/data/bglr/plots/m/tblup_nbt/30000_5000_25.png
-# snake/data/bglr/plots/m/tblup_nbt/30000_5000_50.png
-# snake/data/bglr/plots/m/tblup_nbt/55000_10000_25.png
-# snake/data/bglr/plots/m/tblup_nbt/55000_10000_50.png
-# snake/data/bglr/plots/m/tblup_nbt/55000_5000_25.png
-# snake/data/bglr/plots/m/tblup_nbt/55000_5000_50.png
-# snake/data/bglr/plots/m/tblup_nbt/80000_10000_25.png
-# snake/data/bglr/plots/m/tblup_nbt/80000_10000_50.png
-# snake/data/bglr/plots/m/tblup_nbt/80000_5000_25.png
-# snake/data/bglr/plots/m/tblup_nbt/80000_5000_50.png
 
-# 
-knitr::include_graphics(&quot;./plots/tblup_trace/30000_10000_25.png&quot;)</code></pre>
-<p><img src="./plots/tblup_trace/30000_10000_25.png" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>knitr::include_graphics(&quot;./plots/tblup_trace/30000_10000_50.png&quot;)</code></pre>
-<p><img src="./plots/tblup_trace/30000_10000_50.png" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>knitr::include_graphics(&quot;./plots/tblup_trace/30000_5000_25.png&quot;)</code></pre>
-<p><img src="./plots/tblup_trace/30000_5000_25.png" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>knitr::include_graphics(&quot;./plots/tblup_trace/30000_5000_50.png&quot;)</code></pre>
-<p><img src="./plots/tblup_trace/30000_5000_50.png" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>knitr::include_graphics(&quot;./plots/tblup_trace/55000_10000_25.png&quot;)</code></pre>
-<p><img src="./plots/tblup_trace/55000_10000_25.png" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>knitr::include_graphics(&quot;./plots/tblup_trace/55000_10000_50.png&quot;)</code></pre>
-<p><img src="./plots/tblup_trace/55000_10000_50.png" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>knitr::include_graphics(&quot;./plots/tblup_trace/55000_5000_25.png&quot;)</code></pre>
-<p><img src="./plots/tblup_trace/55000_5000_25.png" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>knitr::include_graphics(&quot;./plots/tblup_trace/55000_5000_50.png&quot;)</code></pre>
-<p><img src="./plots/tblup_trace/55000_5000_50.png" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>knitr::include_graphics(&quot;./plots/tblup_trace/80000_10000_25.png&quot;)</code></pre>
-<p><img src="./plots/tblup_trace/80000_10000_25.png" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>knitr::include_graphics(&quot;./plots/tblup_trace/80000_10000_50.png&quot;)</code></pre>
-<p><img src="./plots/tblup_trace/80000_10000_50.png" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>knitr::include_graphics(&quot;./plots/tblup_trace/80000_5000_25.png&quot;)</code></pre>
-<p><img src="./plots/tblup_trace/80000_5000_25.png" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>knitr::include_graphics(&quot;./plots/tblup_trace/80000_5000_50.png&quot;)</code></pre>
-<p><img src="./plots/tblup_trace/80000_5000_50.png" style="display: block; margin: auto;" /></p>
-<pre class="r"><code># 
-# plots/tblup_trace/30000_10000_25.png
-# plots/tblup_trace/30000_10000_50.png
-# plots/tblup_trace/30000_5000_25.png
-# plots/tblup_trace/30000_5000_50.png
-# plots/tblup_trace/55000_10000_25.png
-# plots/tblup_trace/55000_10000_50.png
-# plots/tblup_trace/55000_5000_25.png
-# plots/tblup_trace/55000_5000_50.png
-# plots/tblup_trace/80000_10000_25.png
-# plots/tblup_trace/80000_10000_50.png
-# plots/tblup_trace/80000_5000_25.png
-# plots/tblup_trace/80000_5000_50.png</code></pre>
+knitr::include_graphics(&#39;plots/m/trace_GOtblup/GO.0035008/250000_50000_25/1/mu.png&#39;)</code></pre>
+<p><img src="plots/m/trace_GOtblup/GO.0035008/250000_50000_25/1/mu.png" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
