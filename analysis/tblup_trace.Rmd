@@ -15,6 +15,7 @@ editor_options:
 library(ggplot2)
 library(viridis)
 library(data.table)
+library(knitr)
 
 #options
 options(bitmapType = "cairo")
@@ -44,3 +45,8 @@ for(i in 1:4){
 knitr::include_graphics('plots/m/trace_GOtblup/GO.0035008/250000_50000_25/1/mu.png')
 
 ```
+
+
+
+![temp1](plots/m/trace_GOtblup/GO.0035008/250000_50000_25/1/go.png)
+
