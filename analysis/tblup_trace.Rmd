@@ -28,76 +28,19 @@ gg <- vector(mode='list', length=12)
 
 ```
 
-![temp1](plots/tblup_trace/30000_10000_25.png)
-![temp2](plots/tblup_trace/30000_10000_50.png)
-![temp3](plots/tblup_trace/30000_5000_25.png)
-![temp4](plots/tblup_trace/30000_5000_50.png)
-![temp5](plots/tblup_trace/55000_10000_25.png)
-![temp6](plots/tblup_trace/55000_10000_50.png)
-![temp7](plots/tblup_trace/55000_5000_25.png)
-![temp8](plots/tblup_trace/55000_5000_50.png)
-![temp9](plots/tblup_trace/80000_10000_25.png)
-![temp0](plots/tblup_trace/80000_10000_50.png)
-![tempa](plots/tblup_trace/80000_5000_25.png)
-![tempb](plots/tblup_trace/80000_5000_50.png)
 
 
-```{r plotReadIn}
+```{r trial}
+
+march <- list.files('plots/m/trace_GOtblup/GO.0035008/250000_50000_25/1', full.names = T)
+april <- list.files('plots/m/trace_GOtblup/GO.0035008/250000_50000_25/2', full.names = T)
+
+for(i in 1:4){
+  knitr::include_graphics(march[i])
+  knitr::include_graphics(april[i]) 
+}
 
 
- fileList <- list.files('plots/tblup_trace', full.names=T)
-
-#dgrp-starve/plots/tblup_trace
-
-# snake/data/bglr/plots/m/tblup_nbt/30000_10000_25.png
-# snake/data/bglr/plots/m/tblup_nbt/30000_10000_50.png
-# snake/data/bglr/plots/m/tblup_nbt/30000_5000_25.png
-# snake/data/bglr/plots/m/tblup_nbt/30000_5000_50.png
-# snake/data/bglr/plots/m/tblup_nbt/55000_10000_25.png
-# snake/data/bglr/plots/m/tblup_nbt/55000_10000_50.png
-# snake/data/bglr/plots/m/tblup_nbt/55000_5000_25.png
-# snake/data/bglr/plots/m/tblup_nbt/55000_5000_50.png
-# snake/data/bglr/plots/m/tblup_nbt/80000_10000_25.png
-# snake/data/bglr/plots/m/tblup_nbt/80000_10000_50.png
-# snake/data/bglr/plots/m/tblup_nbt/80000_5000_25.png
-# snake/data/bglr/plots/m/tblup_nbt/80000_5000_50.png
-
-# 
-knitr::include_graphics("./plots/tblup_trace/30000_10000_25.png")
-knitr::include_graphics("./plots/tblup_trace/30000_10000_50.png")
-knitr::include_graphics("./plots/tblup_trace/30000_5000_25.png")
-knitr::include_graphics("./plots/tblup_trace/30000_5000_50.png")
-knitr::include_graphics("./plots/tblup_trace/55000_10000_25.png")
-knitr::include_graphics("./plots/tblup_trace/55000_10000_50.png")
-knitr::include_graphics("./plots/tblup_trace/55000_5000_25.png")
-knitr::include_graphics("./plots/tblup_trace/55000_5000_50.png")
-knitr::include_graphics("./plots/tblup_trace/80000_10000_25.png")
-knitr::include_graphics("./plots/tblup_trace/80000_10000_50.png")
-knitr::include_graphics("./plots/tblup_trace/80000_5000_25.png")
-knitr::include_graphics("./plots/tblup_trace/80000_5000_50.png")
-
-
-
-
-# 
-# plots/tblup_trace/30000_10000_25.png
-# plots/tblup_trace/30000_10000_50.png
-# plots/tblup_trace/30000_5000_25.png
-# plots/tblup_trace/30000_5000_50.png
-# plots/tblup_trace/55000_10000_25.png
-# plots/tblup_trace/55000_10000_50.png
-# plots/tblup_trace/55000_5000_25.png
-# plots/tblup_trace/55000_5000_50.png
-# plots/tblup_trace/80000_10000_25.png
-# plots/tblup_trace/80000_10000_50.png
-# plots/tblup_trace/80000_5000_25.png
-# plots/tblup_trace/80000_5000_50.png
-
+knitr::include_graphics('plots/m/trace_GOtblup/GO.0035008/250000_50000_25/1/mu.png')
 
 ```
-
-
-
-
-
-
