@@ -20,11 +20,13 @@ editor_options:
  + [Final](parsely.html)
 
 ## BayesC
++ [NBT Trace](bayes_trace.html)
 + [BayesGO: Layering GO annotations with Bayesian methods](goPlots.html)
 + [BayesGO preliminary results](bigGO.html)
 + [GObayesC Report](goReport.html)
 
 ## TBLUP
++ [NBT Trace](tblup_trace.html)
 + [GO-TBLUP Report](blupUp.html)
 
 ## Method Comparisons
