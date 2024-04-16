@@ -38,6 +38,8 @@ homemadeBGLR <- function(inPath,
                          thin,
                          R2,
                          model,
+                         verbose,
+                         saveE,
                          saveAt) {
   #read in data
   yX<- readRDS(inPath)
@@ -47,16 +49,23 @@ homemadeBGLR <- function(inPath,
   #normalize X
   W <- scale(X)
   
+  saveE <- 0
+  if(saveE==1){
+    saveE<-TRUE
+  }else{
+    saveE<-FALSE
+  }
+  
   ##model input
   #RKHS for GBLUP
   #SpikeSlab for BayesC
   if(model=='RKHS'){
     print('rkhs')
     G <- tcrossprod(W)/ncol(W)
-    customETA <- list(list(K = G, model = model))
+    customETA <- list(list(K = G, model = model, saveEffects=saveE))
   }else if(model=='SpikeSlab'){
     print('spikeslab')
-    customETA <- list(list(X = W, model = "BayesC"))
+    customETA <- list(list(X = W, model = "BayesC", save=saveE))
   }
   
   #read in test/train ids
@@ -75,7 +84,7 @@ homemadeBGLR <- function(inPath,
                                                nIter = nIter,
                                                burnIn = burnIn,
                                                thin = thin,
-                                               verbose = TRUE,
+                                               verbose = verbose,
                                                R2 = R2,
                                                saveAt = saveAt)
   )
@@ -104,6 +113,8 @@ parser$add_argument('--burnIn', type='integer')
 parser$add_argument('--thin', type='integer')
 parser$add_argument('--R2', type='double')
 parser$add_argument('--model')
+parser$add_argument('--verbose', type='integer')
+parser$add_argument('--saveE', type='integer')
 parser$add_argument('--saveAt')
 
 snake <- parser$parse_args()
@@ -118,4 +129,6 @@ homemadeBGLR(snake$input,
              snake$thin,
              snake$R2,
              snake$model,
+             snake$verbose,
+             snake$saveE,
              snake$saveAt)

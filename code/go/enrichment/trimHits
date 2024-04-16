@@ -1,0 +1,59 @@
+id: GO:0017056
+name: structural constituent of nuclear pore
+--
+id: GO:0006606
+name: protein import into nucleus
+--
+id: GO:0055088
+name: lipid homeostasis
+--
+id: GO:0045819
+name: positive regulation of glycogen catabolic process
+--
+id: GO:0016042
+name: lipid catabolic process
+--
+id: GO:0017056
+name: structural constituent of nuclear pore
+--
+id: GO:0055088
+name: lipid homeostasis
+--
+id: GO:0008586
+name: imaginal disc-derived wing vein morphogenesis
+--
+id: GO:0006606
+name: protein import into nucleus
+--
+id: GO:0045819
+name: positive regulation of glycogen catabolic process
+--
+id: GO:0042593
+name: glucose homeostasis
+--
+id: GO:0042461
+name: photoreceptor cell development
+--
+id: GO:0001738
+name: morphogenesis of a polarized epithelium
+--
+id: GO:0045186
+name: zonula adherens assembly
+--
+id: GO:0035003
+name: subapical complex
+--
+id: GO:0035008
+name: positive regulation of melanization defense response
+--
+id: GO:0007485
+name: imaginal disc-derived male genitalia development
+--
+id: GO:0042593
+name: glucose homeostasis
+--
+id: GO:0035003
+name: subapical complex
+--
+id: GO:0140042
+name: lipid droplet formation

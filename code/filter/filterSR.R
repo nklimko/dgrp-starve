@@ -26,17 +26,6 @@ if(1){
 #dataList <- c('data/sr/25_goopfish/m/0.4/0.05/1/bayesC_1.Rds', "data/sr/25_goopfish/m/0.4/0.05/1/bayesC_2.Rds")
 
 
-if(0){
-  dataList <- c('data/sr/25_goopfish/m/0.4/0.01/7/bayesC_1.Rds',
-                'data/sr/25_goopfish/m/0.4/0.01/7/bayesC_2.Rds',
-                'data/sr/25_goopfish/m/0.4/0.01/7/bayesC_3.Rds')
-  outPath <- 'data/here.Rds'
-  output <- "data/sr/33_metric/go/sexm/rmax0.4/rgo0.03/term6/rowData.Rds"
-  temp <- readRDS(output)
-}
-
-
-
 #function getCor----
 getCor <- function(dataPath){
   data <- readRDS(dataPath)
@@ -47,11 +36,12 @@ getCor <- function(dataPath){
 filt <- function(dataList, outPath){
   
   cor <- sapply(dataList, getCor)
-  meanCor <- mean(unlist(cor))
+  meanCor <- mean(na.omit(unlist(cor)))
   
   frag <- unlist(strsplit(dataList[1], '/'))
   
-  final <- c(frag[5], meanCor)
+  #6 index of filename method
+  final <- c(frag[6], meanCor)
   names(final) <- c('method', 'cor')
   
   saveRDS(final, outPath)

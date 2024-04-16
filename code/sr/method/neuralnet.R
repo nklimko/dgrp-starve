@@ -23,7 +23,7 @@ normalize <- function(x) {
   return ((x - min(x)) / (max(x) - min(x)))
 }
 
-neuralink <- function(inPath, idPath, outPath, cpus){
+neuralink <- function(inPath, idPath, neurons, outPath){
   
   yX <- na.omit(readRDS(inPath))
   test_IDs <- readRDS(idPath)
@@ -34,8 +34,9 @@ neuralink <- function(inPath, idPath, outPath, cpus){
   trainset <- maxmindf[-test_IDs, ]
   testset <- maxmindf[test_IDs, ]
   
-  runtime <- system.time(nn <- neuralnet(trait ~ ., data=trainset, hidden=c(7500,5000, 2500, 1000, 500),
-                                         lifesign = "full", linear.output=TRUE, threshold=0.01))
+  
+  print('running')
+  runtime <- system.time(nn <- neuralnet(trait ~ ., data=trainset, hidden=neurons))
   
   print(nn$result.matrix)
   
@@ -55,6 +56,7 @@ parser <- ArgumentParser(description= 'snakemake transfer')
 
 parser$add_argument("--inPath")
 parser$add_argument("--idPath")
+parser$add_argument("--neurons", type='integer')
 parser$add_argument("--outPath")
 
 snake <- parser$parse_args()
@@ -63,6 +65,7 @@ print(str(snake))
 #call----
 neuralink(snake$inPath,
           snake$idPath,
+          snake$neurons,
           snake$outPath)
 
 

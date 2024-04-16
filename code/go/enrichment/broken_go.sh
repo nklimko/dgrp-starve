@@ -25,10 +25,4 @@ grep 'id: ' rawHits -A1 > trimHits
 echo "Top Correlated GO terms, ordered:"
 cat trimHits
 
-#grep 'GO:' trimHits > termList
-grep 'GO:' trimHits > topTermList
-sed 's/^....//' topTermList > termIDs
-
-
-grep 'name:' trimHits > topTermNames
-sed 's/^......//' topTermNames > termNames
+grep 'GO:' trimHits > termList

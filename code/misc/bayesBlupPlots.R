@@ -1,7 +1,6 @@
 
 
 
-
 bayesDataF
 
 blupDataF
@@ -9,15 +8,11 @@ blupDataF
 
 load('snake/data/go/50_tables/saveTables.Rdata')
 
-
 genF <- data.table(cbind(allDataF_sorted, bayesF_sorted))
 
 genM <- data.table(cbind(allDataM_sorted, bayesM_sorted))
 
-
 data2 <- cbind(index=c(1:dim(allDataF)[1]), allDataF)
-
-
 
 blup_topF <- cbind(index=1:100, allDataF_sorted[1:100,])
 blup_topM <- cbind(index=1:100, allDataM_sorted[1:100,])
@@ -67,16 +62,12 @@ gg[[4]] <- topGrid(bayes_topM, 'M', 1, 'Top Male Results: BayesC', 'Rank', 'Corr
 plot_grid(gg[[1]], gg[[2]], gg[[3]], gg[[4]], ncol=2)
 
 #save(gg)
-
-
 for(i in 1:3){
   
   num <- 25 * (2^i)
   
   pathBase <- 'code/go/enrichment/blup/f/top'
   pathEnd <- '/topHits.txt'
-  
-  
   
   write(blup_topF[1:num,term], file='temp.txt')
   write(blup_topF[,term], file='temp.txt')
@@ -108,11 +99,6 @@ savior(blup_topM, 'm', 'blup')
 savior(bayes_topF, 'f', 'bayesC')
 savior(bayes_topM, 'm', 'bayesC')
 
-
-
-
-
-
 options(knitr.kable.NA = '')
 
 
@@ -140,8 +126,6 @@ kableWrap <- function(big, med, small, title)  {
   
 }
 
-
-
 kableWrap(jonas[[1]], jonas[[3]], jonas[[2]], "Female BayesC")
 
 kableWrap(jonas[[4]], jonas[[6]], jonas[[5]], "Male BayesC")
@@ -149,12 +133,6 @@ kableWrap(jonas[[4]], jonas[[6]], jonas[[5]], "Male BayesC")
 kableWrap(jonas[[7]], jonas[[9]], jonas[[8]], "Female TBLUP")
 
 kableWrap(jonas[[10]], jonas[[12]], jonas[[11]], "Male TBLUP")
-
-
-
-
-
-
 
 ulrich <- list.files(path = 'code/go/enrichment', pattern='*finalData.Rds', recursive=TRUE, full.names = TRUE)
   
