@@ -1,0 +1,226 @@
+configfile: 'code/snakefiles/gofig.yaml'
+
+# ruleorder:
+#   gotblup_F > combine_gotblup_F > nullblup > nullblupCombine
+#
+# ruleorder: nbt_tblupGO_M > trace_tblupGO
+# ruleorder: nbt_bayesGO_M > trace_bayesGO
+
+wildcard_constraints:
+    goset="[0-9]+"
+
+GOSET=range(1,25+1,1)
+SEX=['f','m']
+RMAX=[0.8]
+
+F40 = glob_wildcards("snake/data/go/03_goterms/randSparseF/{goterm}.Rds").goterm
+M40 = glob_wildcards("snake/data/go/03_goterms/randSparseM/{goterm}.Rds").goterm
+
+
+#all----
+rule all:
+  input:
+    expand('snake/data/go/24_goCor/f/randSparse/{goterm}/{goset}.Rds', goterm=F40, goset=GOSET),
+    expand('snake/data/go/24_goCor/m/randSparse/{goterm}/{goset}.Rds', goterm=M40, goset=GOSET),
+    'snake/data/go/40_all/f/sparseGL.Rds',
+    'snake/data/go/40_all/m/sparseGL.Rds',
+    'snake/data/go/40_all/f/sparseHist.Rds'
+
+
+
+#SparseGL engine
+rule sparGO_F40:
+  input:
+    script='code/sparse/sparseN.R',
+    data='snake/data/01_matched/f_starvation.Rds',
+    ids='snake/data/02_ids/f/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/randSparseF/{goterm}.Rds'
+  output:
+    'snake/data/go/24_goCor/f/randSparse/{goterm}/{goset}.Rds'
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm),
+    jobweight=2,
+    nlambda = 5000
+  threads: 1
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/f/randSparse/{params.goterm}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output} \
+      --nlambda {params.nlambda}
+      """
+rule sparGO_M40:
+  input:
+    script='code/sparse/sparseN.R',
+    data='snake/data/01_matched/m_starvation.Rds',
+    ids='snake/data/02_ids/m/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/randSparseM/{goterm}.Rds'
+  output:
+    'snake/data/go/24_goCor/m/randSparse/{goterm}/{goset}.Rds'
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm),
+    jobweight=2,
+    nlambda = 5000
+  threads: 1
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/m/randSparse/{params.goterm}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output} \
+      --nlambda {params.nlambda}
+      """
+
+#SparseGL data sorting
+rule trimGO_F:
+  input:
+    script='code/sparse/trimGO.R',
+    data='snake/data/go/24_goCor/f/randSparse/{goterm}/{goset}.Rds'
+  output:
+    'snake/data/go/24_goCor/f/randTrim/{goterm}/{goset}.Rds'
+  threads: 1
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm)
+  resources:
+    jobweight=1,
+    mem_mb=1000
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/f/randTrim/{params.goterm}
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """
+rule trimGO_M:
+  input:
+    script='code/sparse/trimGO.R',
+    data='snake/data/go/24_goCor/m/randSparse/{goterm}/{goset}.Rds'
+  output:
+    'snake/data/go/24_goCor/m/randTrim/{goterm}/{goset}.Rds'
+  threads: 1
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm)
+  resources:
+    jobweight=1,
+    mem_mb=1000
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/m/randTrim/{params.goterm}
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """
+rule meanSparseGO_F:
+  input:
+    script='code/sparse/sparseMean.R',
+    data=expand('snake/data/go/24_goCor/f/randTrim/{{goterm}}/{goset}.Rds', goterm=F40, goset=GOSET)
+  output:
+    'snake/data/go/33_metric/f/randTrim/{goterm}/rowData.Rds'
+  threads: 1
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm)
+  resources:
+    jobweight=1,
+    mem_mb=1000
+  shell:
+    """
+    mkdir -p snake/data/go/33_metric/f/randTrim/{params.goterm}
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --goterm {params.goterm} \
+    --outPath {output}
+    """
+rule meanSparseGO_M:
+  input:
+    script='code/sparse/sparseMean.R',
+    data=expand('snake/data/go/24_goCor/m/randTrim/{{goterm}}/{goset}.Rds', goterm=M40, goset=GOSET)
+  output:
+    'snake/data/go/33_metric/m/randTrim/{goterm}/rowData.Rds'
+  threads: 1
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm)
+  resources:
+    jobweight=1,
+    mem_mb=1000
+  shell:
+    """
+    mkdir -p snake/data/go/33_metric/m/randTrim/{params.goterm}
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --goterm {params.goterm} \
+    --outPath {output}
+    """
+rule allSparseGO_F:
+  input:
+    script='code/sparse/sparseAll.R',
+    data=expand('snake/data/go/33_metric/f/randTrim/{goterm}/rowData.Rds', goterm=F40)
+  output:
+    'snake/data/go/40_all/f/sparseGL.Rds'
+  threads: 1
+  resources:
+    jobweight=1,
+    mem_mb=1000
+  shell:
+    """
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """
+rule allSparseGO_M:
+  input:
+    script='code/sparse/sparseAll.R',
+    data=expand('snake/data/go/33_metric/m/randTrim/{goterm}/rowData.Rds', goterm=M40)
+  output:
+    'snake/data/go/40_all/m/sparseGL.Rds'
+  threads: 1
+  resources:
+    jobweight=1,
+    mem_mb=1000
+  shell:
+    """
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """
+
+rule histSparseGO_F:
+  input:
+    script='code/sparse/sparseHist.R',
+    data=expand('snake/data/go/24_goCor/f/randTrim/{{goterm}}/{goset}.Rds', goterm=F40, goset=GOSET)
+  output:
+    'snake/data/go/33_metric/f/randHist/{goterm}/colData.Rds'
+  threads: 1
+  resources:
+    jobweight=1,
+    mem_mb=1000
+  shell:
+    """
+    mkdir -p snake/data/go/33_metric/f/randHist/{wildcards.goterm}
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --goterm {wildcards.goterm} \
+    --outPath {output}
+    """
+rule allHistSparseGO_F:
+  input:
+    script='code/sparse/sparseAllHist.R',
+    data=expand('snake/data/go/33_metric/f/randHist/{goterm}/colData.Rds', goterm=F40)
+  output:
+    'snake/data/go/40_all/f/sparseHist.Rds'
+  threads: 1
+  resources:
+    jobweight=1,
+    mem_mb=1000
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+
+

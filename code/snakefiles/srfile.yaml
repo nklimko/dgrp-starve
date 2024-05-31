@@ -1,249 +1,340 @@
+configfile: 'code/snakefiles/dgrp.yaml'
 
-#pure methods----
-rule rf:
+wildcard_constraints:
+    sex="[a-z]+",
+    final="[a-z]+",
+    final_parop="[a-z]+",
+    all="[A-Za-z]+",
+    goset="[0-9]+",
+    wildset="[0-9]+",
+
+#ruleorder: lasso > mr_ash > nn > bayesC > filter_all > combine_sr
+
+SEX=['f', 'm']
+
+#WILDSET=range(1, 25+1, 1)
+WILDSET=range(1, 25+1, 1)
+
+ALL=['pcr','pls','rr','lasso','bayesC','varbvs','mrash','tblup','rf','nn']
+
+
+#all----
+rule all:
   input:
-    script='code/method/randomForest.R',
-    data='data/sr/10_matched/{type}_starvation.Rds',
-    ids='data/sr/02_ids/{type}/ids_{wildset}.Rds'
-  output:
-    'data/sr/23_paropt/rf_{type}_{wildset}.Rds'
-  threads: 1
-  shell:
-    """
-    Rscript {input.script} \
-      --inPath {input.data} \
-      --idPath {input.ids} \
-      --outPath {output} \
-      --ntree {config[ntree]}
-    """
-rule nn:
-  input:
-    script='code/method/neuralnet.R',
-    data='data/sr/10_matched/{type}_starvation.Rds',
-    ids='data/sr/02_ids/{type}/ids_{wildset}.Rds'
-  output:
-    'data/sr/23_paropt/nn_{type}_{wildset}.Rds'
-  threads: 1
-  shell:
-    """
-    Rscript {input.script} \
-      --inPath {input.data} \
-      --idPath {input.ids} \
-      --outPath {output}
-    """
+    expand('snake/data/sr/23_paropt/sex{sex}/{all}/{wildset}.Rds', sex=SEX, all=ALL, wildset=WILDSET),
+    expand('snake/data/sr/33_metric/{sex}/{all}/mean.Rds', all=ALL, sex=SEX),
+    expand('snake/data/sr/33_metric/{sex}/{all}/histCol.Rds', all=ALL, sex=SEX),
+    expand('snake/data/sr/40_all/{sex}/meanData.Rds', sex=SEX),
+    expand('snake/data/sr/40_all/{sex}/histData.Rds', sex=SEX)
+
+#methods----
 rule pcr:
   input:
-    script='code/method/pcr.R',
-    data='data/sr/10_matched/{type}_starvation.Rds',
-    ids='data/sr/02_ids/{type}/ids_{wildset}.Rds'
+    script='code/sr/pcr_pls.R',
+    data='snake/data/01_matched/{sex}_starvation.Rds',
+    ids='snake/data/02_ids/{sex}/ids_{wildset}.Rds'
   output:
-    'data/sr/23_paropt/pcr_{type}_{wildset}.Rds'
+    'snake/data/sr/23_paropt/sex{sex}/pcr/{wildset}.Rds'
   threads: 1
+  resources:
+    mem_mb=6000
+  params:
+    nfolds = 5
   shell:
     """
+    mkdir -p snake/data/sr/23_paropt/sex{wildcards.sex}/pcr
     Rscript {input.script} \
       --inPath {input.data} \
       --idPath {input.ids} \
-      --outPath {output}
-    """
-rule rr:
-  input:
-    script='code/method/glmnet.R',
-    data='data/sr/10_matched/{type}_starvation.Rds',
-    ids='data/sr/02_ids/{type}/ids_{wildset}.Rds'
-  output:
-    'data/sr/23_paropt/rr_{type}_{wildset}.Rds'
-  params:
-    wildset = lambda wildcards: int(wildcards.wildset)
-  shell:
-    """
-    Rscript {input.script} \
-      --input {input.data} \
-      --ids {input.ids} \
-      --output {output} \
-      --cpus {config[cpus]} \
-      --parallel {config[parallel]} \
-      --family gaussian \
-      --alpha 0 \
-      --nfolds 3 \
-      --dfmax 1000 \
-      --relax 0
-    """
-rule gblup:
-  input:
-    script='code/method/bglr.R',
-    data='data/sr/10_matched/{type}_starvation.Rds',
-    ids='data/02_ids/sr/{type}/ids_{wildset}.Rds'
-  output:
-    'data/sr/23_paropt/gblup_{type}_{wildset}.Rds'
-  params:
-    wildset = lambda wildcards: int(wildcards.wildset),
-    type = lambda wildcards: str(wildcards.type)
-  shell:
-    """
-    Rscript {input.script} \
-      --input {input.data} \
-      --ids {input.ids} \
-      --output {output} \
-      --nIter {config[nIter]} \
-      --burnIn {config[burnIn]} \
-      --thin {config[thin]} \
-      --R2 {config[R2]} \
-      --model RKHS \
-      --saveAt data/bglr/sr-gblup_{params.type}_{params.wildset}
-    """
-rule varbvs:
-  input:
-    script='code/method/varbvs.R',
-    data='data/sr/10_matched/{type}_{trait}.Rds'
-  output:
-    'data/sr/20_cor/varbvs_{type}_{trait}.Rds'
-  shell:
-    """
-    Rscript {input.script} \
-      --input {input.data} \
-      --output {output} \
-      --cpus {config[cpus]} \
-      --loopIter {config[loopIter]} \
-      --maxiter {config[maxiter]} \
-      --sa {config[sa]}
-    """
-rule mr_ash:
-  input:
-    script='code/method/multimash.R',
-    data='data/sr/10_matched/{type}_starvation.Rds',
-    ids='data/02_ids/sr/{type}/ids_{wildset}.Rds'
-  output:
-    'data/sr/23_paropt/mrash_{type}_{wildset}.Rds'
-  params:
-    wildset = lambda wildcards: int(wildcards.wildset)
-  threads: 6
-  shell:
-    """
-    Rscript {input.script} \
-      --input {input.data} \
-      --ids {input.ids} \
-      --output {output} \
-      --cpus {threads} \
-      --tol {config[tol]} \
-      --convergence_criterion {config[convergence_criterion]} \
-      --w0_threshold {config[w0_threshold]} \
-      --compute_ELBO {config[compute_ELBO]} \
-      --verbose {config[verbose]} \
-      --hetStep {config[hetStep]} \
-      --null_weight {config[null_weight]} \
-      --traitCount 1
-    """  
-
-
-
-
-rule prcomp:
-  input:
-    script='code/method/prcomp2.R',
-    data='data/sr/12_pc/{type}/95/pcs.Rds',
-    ids='data/sr/02_ids/{type}/ids_{wildset}.Rds'
-  output:
-    'data/sr/23_paropt/{type}/95/pc_{wildset}.Rds'
-  params:
-    wildset = lambda wildcards: int(wildcards.wildset)
-  threads: 1
-  shell:
-    """
-    Rscript {input.script} \
-      --pcPath {input.data} \
-      --idPath {input.ids} \
+      --method pcr \
+      --nfolds {params.nfolds} \
       --outPath {output}
     """
 
-
-
-
-#parop methods
 rule pls:
   input:
-    script='code/method/pls.R',
-    data='data/sr/10_matched/{type}_starvation.Rds',
-    ids='data/sr/02_ids/{type}/ids_{wildset}.Rds'
-  params:
-    method = lambda wildcards: str(wildcards.pls_method)
+    script='code/sr/pcr_pls.R',
+    data='snake/data/01_matched/{sex}_starvation.Rds',
+    ids='snake/data/02_ids/{sex}/ids_{wildset}.Rds'
   output:
-    'data/sr/23_paropt/pls/{type}/{pls_method}_{wildset}.Rds'
+    'snake/data/sr/23_paropt/sex{sex}/pls/{wildset}.Rds'
   threads: 1
+  resources:
+    mem_mb=6000
+  params:
+    nfolds = 5
   shell:
     """
+    mkdir -p snake/data/sr/23_paropt/sex{wildcards.sex}/pls
     Rscript {input.script} \
       --inPath {input.data} \
       --idPath {input.ids} \
-      --outPath {output} \
-      --method {params.method}
-    """
-rule lasso:
-  input:
-    script='code/method/glmnet.R',
-    data='data/sr/10_matched/{type}_starvation.Rds',
-    ids='data/02_ids/sr/{type}/ids_{wildset}.Rds'
-  output:
-    'data/sr/23_paropt/lasso_{nfolds}_{dfmax}_{relax}_{type}_{wildset}.Rds'
-  params:
-    nfolds = lambda wildcards: int(wildcards.nfolds),
-    dfmax = lambda wildcards: int(wildcards.dfmax),
-    relax = lambda wildcards: int(wildcards.relax),
-    wildset = lambda wildcards: int(wildcards.wildset)
-  shell:
-    """
-    Rscript {input.script} \
-      --input {input.data} \
-      --ids {input.ids} \
-      --output {output} \
-      --cpus {config[cpus]} \
-      --parallel {config[parallel]} \
-      --family gaussian \
-      --alpha 1 \
+      --method widekernelpls \
       --nfolds {params.nfolds} \
-      --dfmax {params.dfmax} \
-      --relax {params.relax}
+      --outPath {output}
     """
-rule bayesC:
+
+rule rr:
   input:
-    script='code/method/bglr.R',
-    data='data/sr/10_matched/{type}_starvation.Rds',
-    ids='data/02_ids/sr/{type}/ids_{wildset}.Rds'
+    script='code/sr/glmnet.R',
+    data='snake/data/01_matched/{sex}_starvation.Rds',
+    ids='snake/data/02_ids/{sex}/ids_{wildset}.Rds'
   output:
-    'data/sr/23_paropt/bayesC_{rsquare}_{type}_{wildset}.Rds'
+    'snake/data/sr/23_paropt/sex{sex}/rr/{wildset}.Rds'
   params:
     wildset = lambda wildcards: int(wildcards.wildset),
-    type = lambda wildcards: str(wildcards.type), 
-    rsquare = lambda wildcards: str(wildcards.rsquare)
+    alpha = 0,
+    nfolds = 5
+  threads: 1
   shell:
     """
+    mkdir -p snake/data/sr/23_paropt/sex{wildcards.sex}/rr
     Rscript {input.script} \
       --input {input.data} \
       --ids {input.ids} \
       --output {output} \
-      --burnIn {config[burnIn]} \
-      --nIter {config[nIter]} \
-      --thin {config[thin]} \
-      --R2 {params.rsquare} \
-      --model SpikeSlab \
-      --saveAt data/bglr/sr-bayesC_{params.rsquare}_{params.type}_{params.wildset}
+      --family gaussian \
+      --alpha {params.alpha} \
+      --nfolds {params.nfolds}
     """
 
-#broken----
-rule inferenceTree:
+rule lasso:
   input:
-    script='code/method/inferTree.R',
-    data='data/sr/10_matched/{type}_starvation.Rds',
-    ids='data/sr/02_ids/{type}/ids_{wildset}.Rds'
+    script='code/sr/glmnet.R',
+    data='snake/data/01_matched/{sex}_starvation.Rds',
+    ids='snake/data/02_ids/{sex}/ids_{wildset}.Rds'
   output:
-    'data/sr/20_cor/inferTree_{type}_{wildset}.Rds'
+    'snake/data/sr/23_paropt/sex{sex}/lasso/{wildset}.Rds'
+  params:
+    alpha = 1,
+    nfolds = 5
   threads: 1
   shell:
     """
+    mkdir -p snake/data/sr/23_paropt/sex{wildcards.sex}/lasso;
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --output {output} \
+      --family gaussian \
+      --alpha {params.alpha} \
+      --nfolds {params.nfolds}
+    """
+
+rule bayesC:
+  input:
+    script='code/sr/bglr.R',
+    data='snake/data/sr/10_matched/{sex}_starvation.Rds',
+    ids='snake/data/02_ids/{sex}/ids_{wildset}.Rds'
+  output:
+    'snake/data/sr/23_paropt/sex{sex}/bayesC/{wildset}.Rds'
+  params:
+    niter = 130000,
+    burnin = 30000,
+    thin = 50,
+    R2 = 0.8,
+    verbose = 0
+  resources:
+    jobweight=1,
+    mem_mb=9000
+  shell:
+    """
+    mkdir -p snake/data/sr/23_paropt/{wildcards.sex}/bayesC
+    mkdir -p snake/data/bglr/{wildcards.sex}/bayesC
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --output {output} \
+      --nIter {params.niter} \
+      --burnIn {params.burnin} \
+      --thin {params.thin} \
+      --R2 {params.R2} \
+      --model SpikeSlab \
+      --verbose {params.verbose} \
+      --saveAt snake/data/bglr/{wildcards.sex}/bayesC/sr-TruebayesC_{params.niter}_{params.burnin}_{params.thin}_{wildcards.wildset}
+    """
+
+rule varbvs:
+  input:
+    script='code/sr/varbvs.R',
+    data='snake/data/01_matched/{sex}_starvation.Rds',
+    ids='snake/data/02_ids/{sex}/ids_{wildset}.Rds'
+  output:
+    'snake/data/sr/23_paropt/sex{sex}/varbvs/{wildset}.Rds'
+  shell:
+    """
+    mkdir -p snake/data/sr/23_paropt/sex{wildcards.sex}/varbvs;
     Rscript {input.script} \
       --inPath {input.data} \
       --idPath {input.ids} \
       --outPath {output} \
-      --ntree {config[ntree]}
+      --maxiter 16000
     """
 
+rule mr_ash:
+  input:
+    script='code/sr/mr.ash.R',
+    data='snake/data/01_matched/{sex}_starvation.Rds',
+    ids='snake/data/02_ids/{sex}/ids_{wildset}.Rds',
+    lasso='snake/data/sr/23_paropt/sex{sex}/lasso/{wildset}.Rds'
+  output:
+    'snake/data/sr/23_paropt/sex{sex}/mrash/{wildset}.Rds'
+  shell:
+    """
+    mkdir -p snake/data/sr/23_paropt/sex{wildcards.sex}/mrash;
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --lasso {input.lasso} \
+      --output {output}
+    """
+
+rule tblup:
+  input:
+    script='code/sr/bglr.R',
+    data='snake/data/sr/10_matched/{sex}_starvation.Rds',
+    ids='snake/data/02_ids/{sex}/ids_{wildset}.Rds'
+  output:
+    'snake/data/sr/23_paropt/sex{sex}/tblup/{wildset}.Rds'
+  resources:
+    mem_mb = 4000
+  params:
+    niter = 85000,
+    burnin = 10000,
+    thin = 50,
+    R2 = 0.8,
+    verbose = 0,
+    saveEffects = 0
+  shell:
+    """
+    mkdir -p snake/data/sr/23_paropt/{wildcards.sex}/tblup
+    mkdir -p snake/data/bglr/{wildcards.sex}/tblup
+    Rscript {input.script} \
+      --input {input.data} \
+      --ids {input.ids} \
+      --output {output} \
+      --nIter {params.niter} \
+      --burnIn {params.burnin} \
+      --thin {params.thin} \
+      --R2 {params.R2} \
+      --model RKHS \
+      --verbose {params.verbose} \
+      --saveE {params.saveEffects} \
+      --saveAt snake/data/bglr/{wildcards.sex}/tblup/{params.niter}_{params.burnin}_{params.thin}_{wildcards.wildset}
+    """
+
+rule rf:
+  input:
+    script='code/sr/randomForest.R',
+    data='snake/data/01_matched/{sex}_starvation.Rds',
+    ids='snake/data/02_ids/{sex}/ids_{wildset}.Rds',
+  output:
+    'snake/data/sr/23_paropt/sex{sex}/rf/{wildset}.Rds'
+  threads: 1
+  params:
+    ntree=1000
+  shell:
+    """
+    mkdir -p snake/data/sr/23_paropt/sex{wildcards.sex}/rf
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --outPath {output} \
+      --ntree {params.ntree}
+    """
+
+rule nn:
+  input:
+    script='code/sr/neuralnet.R',
+    data='snake/data/sr/10_matched/{sex}_starvation.Rds',
+    ids='snake/data/02_ids/{sex}/ids_{wildset}.Rds'
+  output:
+    'snake/data/sr/23_paropt/sex{sex}/nn/{wildset}.Rds'
+  threads: 1
+  params:
+    neurons=1000
+  resources:
+    mem_mb = 32000,
+    jobweight=25
+  shell:
+    """
+    mkdir -p snake/data/sr/23_paropt/sex{wildcards.sex}/nn
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --neurons {params.neurons} \
+      --outPath {output}
+    """
+
+
+#data sorting----
+
+#calculates mean correlation and SE for each method
+rule filter_mean:
+  input:
+    script='code/filter/filterSR.R',
+    data=expand('snake/data/sr/23_paropt/sex{{sex}}/{{all}}/{wildset}.Rds', all=ALL, sex=SEX, wildset=WILDSET)
+  output:
+    'snake/data/sr/33_metric/{sex}/{all}/mean.Rds'
+  threads: 1
+  resources:
+    jobweight=1
+  shell:
+    """
+    mkdir -p snake/data/sr/33_metric/{wildcards.sex}/{wildcards.all}
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --outPath {output}
+    """
+
+#combines all means and SE into one table
+rule combine_mean:
+ input:
+   script='code/filter/combineFREE.R',
+   data=expand('snake/data/sr/33_metric/{{sex}}/{all}/mean.Rds', all=ALL, sex=SEX)
+ output:
+     'snake/data/sr/40_all/{sex}/meanData.Rds'
+ threads: 1
+ shell:
+   """
+   mkdir -p snake/data/sr/40_all/f
+   mkdir -p snake/data/sr/40_all/m
+   Rscript {input.script} \
+   --dataList {input.data} \
+   --outPath {output}
+   """
+
+#groups trials into 25x1 column for reach method
+rule filter_hist:
+  input:
+    script='code/filter/filterHist.R',
+    data=expand('snake/data/sr/23_paropt/sex{{sex}}/{{all}}/{wildset}.Rds', all=ALL, sex=SEX, wildset=WILDSET)
+  output:
+    'snake/data/sr/33_metric/{sex}/{all}/histCol.Rds'
+  threads: 1
+  resources:
+    jobweight=1
+  shell:
+    """
+    mkdir -p snake/data/sr/33_metric/{wildcards.sex}/{wildcards.all}
+    Rscript {input.script} \
+    --inPath {input.data} \
+    --method {wildcards.all} \
+    --outPath {output}
+    """
+
+#combines all method columns into one table
+rule combine_hist:
+  input:
+    script='code/filter/columnBind.R',
+    data=expand('snake/data/sr/33_metric/{{sex}}/{all}/histCol.Rds', all=ALL, sex=SEX)
+  output:
+    'snake/data/sr/40_all/{sex}/histData.Rds'
+  threads: 1
+  shell:
+    """
+    mkdir -p snake/data/sr/40_all/{wildcards.sex}
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """

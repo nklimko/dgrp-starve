@@ -1,0 +1,30 @@
+resources: [cpus=225, mem_mb=500000]
+
+cluster:
+  mkdir -p snake/logs/{rule} &&
+  sbatch
+    --partition={resources.partition}
+    --cpus-per-task={threads}
+    --mem={resources.mem_mb}
+    --job-name={rule}
+    --output=snake/logs/{rule}/%j-{wildcards}-{rule}.out
+    --time=96:00:00
+
+default-resources:
+  - partition='fm-bigmem-1,fm-bigmem-3,compute'
+# - partition='fm-bigmem-1,fm-bigmem-3,fm-bigmem-4,compute'
+# - partition='compute'
+  - mem_mb=10000
+  - time_min=1440
+  - runtime=1440
+  - nodes=1
+  - runtime="4h"
+
+local-cores: 1
+latency-wait: 60
+#jobs: 35
+keep-going: True
+rerun-incomplete: False
+printshellcmds: True
+use-conda: True
+

@@ -13,7 +13,7 @@
 
 #sfile="code/snakefiles/datafile.yaml"
 #sfile="code/snakefiles/srfile.yaml"
-#sfile="code/snakefiles/GOfile.yaml"
+sfile="code/snakefiles/GOfile.yaml"
 #sfile="code/snakefiles/sparsefile.yaml"
 #sfile="code/snakefiles/genefile.yaml"
 #sfile="code/snakefiles/figfile.yaml"
@@ -41,12 +41,13 @@ export R_LIBS=/data2/morgante_lab/nklimko/software/R/x86_64-pc-linux-gnu-library
 
 snakemake \
 -s $sfile \
+-n \
 -q \
 --profile snake/slurm \
 --nolock \
 --rerun-triggers mtime \
---resources jobweight=101
-#-F all
+--resources jobweight=101 \
+-F all
 
 module unload R/4.1.2
 

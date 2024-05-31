@@ -1,4 +1,4 @@
-configfile: 'dgrp.yaml'
+configfile: 'code/snakefiles/dgrp.yaml'
 
 wildcard_constraints:
     sex="[a-z]+",
@@ -8,29 +8,29 @@ SEX=['f', 'm']
 WILDSET=range(1, 50+1, 1)
 
 #all----
-rule all_0:
+rule all:
   input:
-   expand('data/02_ids/{sex}/ids_{wildset}.Rds', sex=SEX, wildset=WILDSET),
-   expand('data/02_ids/{sex}/fold5/ids_{wildset}.Rds', sex=SEX, wildset=WILDSET)
+   expand('snake/data/02_ids/{sex}/ids_{wildset}.Rds', sex=SEX, wildset=WILDSET)
+#   expand('snake/data/02_ids/{sex}/fold5/ids_{wildset}.Rds', sex=SEX, wildset=WILDSET)
 
 #setup----
 rule adjust:
   input:
-    'data/00_raw/pheno_{sex}.csv',
-    'data/00_raw/xp_{sex}',
+    'snake/data/00_raw/pheno_{sex}.csv',
+    'snake/data/00_raw/xp_{sex}',
   output:
-    'data/01_matched/{sex}_starvation.Rds'
+    'snake/data/01_matched/{sex}_starvation.Rds'
   params:
     trait = 'starvation'
   script:
-    'code/matcher.R'
+    'code/dataprocess/matcher.R'
 
 rule ids:
-  input: 
-    script='code/ids.R',
-    data='data/01_matched/{sex}_starvation.Rds'
+  input:
+    script='code/dataprocess/ids.R',
+    data='snake/data/01_matched/{sex}_starvation.Rds'
   output:
-    'data/02_ids/{sex}/ids_{wildset}.Rds'
+    'snake/data/02_ids/{sex}/ids_{wildset}.Rds'
   params:
     wildset = lambda wildcards: int(wildcards.wildset)
   shell:
@@ -42,23 +42,23 @@ rule ids:
       --fold {config[fold]} \
       --wildset {params.wildset}
     """
-    
-    
-rule ids_5:
-  input: 
-    script='code/ids.R',
-    data='data/01_matched/{sex}_starvation.Rds'
-  output:
-    'data/02_ids/{sex}/fold5/ids_{wildset}.Rds'
-  params:
-    wildset = lambda wildcards: int(wildcards.wildset),
-    jobweight=10
-  shell:
-    """
-    Rscript {input.script} \
-      --input {input.data} \
-      --output {output} \
-      --iter 50 \
-      --fold 5 \
-      --wildset {params.wildset}
-    """
+
+
+# rule ids_5:
+#   input:
+#     script='code/ids.R',
+#     data='snake/data/01_matched/{sex}_starvation.Rds'
+#   output:
+#     'snake/data/02_ids/{sex}/fold5/ids_{wildset}.Rds'
+#   params:
+#     wildset = lambda wildcards: int(wildcards.wildset),
+#     jobweight=10
+#   shell:
+#     """
+#     Rscript {input.script} \
+#       --input {input.data} \
+#       --output {output} \
+#       --iter 50 \
+#       --fold 5 \
+#       --wildset {params.wildset}
+#     """

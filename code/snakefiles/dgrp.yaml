@@ -23,7 +23,7 @@ fold: 10
 
 
 #mr.mash
-tol: 1e-2
+tol: 1e-3
 convergence_criterion: "ELBO"
 w0_threshold: 0 
 compute_ELBO: 1 # TRUE

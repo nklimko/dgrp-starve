@@ -34,12 +34,6 @@ filt <- function(dataList, method, outPath){
   
 }
 
-
-
-
-
-
-
 #args----
 parser <- ArgumentParser(description= 'snakemake transfer')
 

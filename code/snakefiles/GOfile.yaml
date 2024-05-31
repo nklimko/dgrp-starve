@@ -1,0 +1,339 @@
+#include: "datafile.yaml"
+configfile: 'code/snakefiles/gofig.yaml'
+
+# ruleorder:
+#   gotblup_F > combine_gotblup_F > nullblup > nullblupCombine
+#
+# ruleorder: nbt_tblupGO_M > trace_tblupGO
+# ruleorder: nbt_bayesGO_M > trace_bayesGO
+
+wildcard_constraints:
+    goset="[0-9]+"
+
+GOSET=range(1,25+1,1)
+SEX=['f','m']
+RMAX=[0.8]
+
+GOTERM_F = glob_wildcards("snake/data/go/03_goterms/sexf/{goterm}.Rds").goterm
+GOTERM_M = glob_wildcards("snake/data/go/03_goterms/sexm/{goterm}.Rds").goterm
+
+PIP_F = ['GO.0017056','GO.0006606','GO.0055088']
+PIP_M = ['GO.0042593','GO.0042461','GO.0001738']
+
+#all----
+rule all:
+  input:
+    'snake/data/go/40_all/f/go_bayes.Rds',
+    'snake/data/go/40_all/m/go_bayes.Rds',
+    'snake/data/go/40_all/f/go_tblup.Rds',
+    'snake/data/go/40_all/m/go_tblup.Rds'
+
+#matches GO term to all flybase gene codes that exist
+rule goIndex:
+  input:
+    "data/go/00_raw/fb.gaf"
+  output:
+    "data/go/01_goIndex/goIndex"
+  shell:
+    """
+    awk -F"\t" '{{print $5, $2}}' {input} > splicedCols
+    sort -t$'\t' -n -k2 splicedCols > sortCols
+    cat sortCols | uniq > {output}
+    rm splicedCols
+    rm sortCols
+    """
+
+#takes goIndex and matches FlyBase genes to column ids in males and females separately
+#saves output to RDS with term in name
+rule goTerms:
+  input:
+    script="code/go/goTerms.R",
+    goPath="data/go/01_goIndex/goIndex",
+    xpPath='snake/data/01_matched/{sex}_starvation.Rds'
+  output:
+    "data/go/03_goterms/termFlag_{sex}"
+  params:
+    sex = lambda wildcards: str(wildcards.sex)
+  shell:
+    """
+    Rscript {input.script} \
+    --goPath {input.goPath} \
+    --xpPath {input.xpPath} \
+    --sex {params.sex}
+
+    touch {output}
+    """
+
+#GO-BayesC engine
+rule bayesFREE_F:
+  input:
+    script='code/go/bayesFree.R',
+    data='snake/data/01_matched/f_starvation.Rds',
+    ids='snake/data/02_ids/f/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/sexf/{goterm}.Rds'
+  output:
+    'snake/data/go/24_goCor/f/bayesFREE/{goterm}/bayesC_{goset}.Rds'
+  params:
+    goset = lambda wildcards: int(wildcards.goset),
+    goterm = lambda wildcards: str(wildcards.goterm),
+    RMAX = 0.8
+  threads: 1
+  resources:
+    mem_mb = 8000,
+    jobweight = 1
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/m/bayesFREE/{params.goterm}
+    mkdir -p snake/data/bglr/sexf/bayesFREE/term{params.goterm}/id{params.goset}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output} \
+      --nIter 130000 \
+      --burnIn 30000 \
+      --thin 50 \
+      --R2_max {params.RMAX} \
+      --R2_null 0 \
+      --model BayesC \
+      --saveAt data/bglr/sexf/bayesFREE/term{params.goterm}/id{params.goset}/freefall_
+    """
+rule bayesFREE_M:
+  input:
+    script='code/go/bayesFree.R',
+    data='snake/data/01_matched/m_starvation.Rds',
+    ids='snake/data/02_ids/m/ids_{goset}.Rds',
+    goPath='snake/data/go/03_goterms/sexm/{goterm}.Rds'
+  output:
+    'snake/data/go/24_goCor/m/bayesFREE/{goterm}/bayesC_{goset}.Rds'
+  params:
+    goset = lambda wildcards: int(wildcards.goset),
+    goterm = lambda wildcards: str(wildcards.goterm),
+    RMAX = 0.8
+  threads: 1
+  resources:
+    mem_mb = 6000,
+    jobweight=1
+  shell:
+    """
+    mkdir -p snake/data/go/24_goCor/m/bayesFREE/{params.goterm}
+    mkdir -p snake/data/bglr/sexm/bayesFREE/term{params.goterm}/id{params.goset}
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --idPath {input.ids} \
+      --goPath {input.goPath} \
+      --outPath {output} \
+      --nIter 130000 \
+      --burnIn 30000 \
+      --thin 50 \
+      --R2_max {params.RMAX} \
+      --R2_null 0 \
+      --model BayesC \
+      --saveAt data/bglr/sexm/bayesFREE/term{params.goterm}/id{params.goset}/freefall_
+    """
+
+#GO-BayesC data sorting
+rule filter_gobayes_F:
+  input:
+    script='code/filter/filterGO.R',
+    data=expand('snake/data/go/24_goCor/f/bayesFREE/{{goterm}}/bayesC_{goset}.Rds', goterm=GOTERM_F, goset=GOSET)
+  output:
+      'snake/data/go/34_altmetric/f/bayes/{goterm}.Rds'
+  threads: 1
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm)
+  shell:
+    """
+    mkdir -p snake/data/go/34_altmetric/f/bayes;
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --term {params.goterm} \
+    --outPath {output}
+    """
+rule filter_gobayes_M:
+  input:
+    script='code/filter/filterGO.R',
+    data=expand('snake/data/go/24_goCor/m/bayesFREE/{{goterm}}/bayesC_{goset}.Rds', goterm=GOTERM_M, goset=GOSET)
+  output:
+      'snake/data/go/34_altmetric/m/bayes/{goterm}.Rds'
+  threads: 1
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm)
+  shell:
+    """
+    mkdir -p snake/data/go/34_altmetric/m/bayes;
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --term {params.goterm} \
+    --outPath {output}
+    """
+rule combine_gobayes_F:
+  input:
+    script='code/filter/combineBlupGO.R',
+    data=expand('snake/data/go/34_altmetric/f/bayes/{goterm}.Rds', goterm=GOTERM_F)
+  output:
+      'snake/data/go/40_all/f/go_bayes.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+rule combine_gobayes_M:
+  input:
+    script='code/filter/combineBlupGO.R',
+    data=expand('snake/data/go/34_altmetric/m/bayes/{goterm}.Rds', goterm=GOTERM_M)
+  output:
+      'snake/data/go/40_all/m/go_bayes.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+
+
+# GO-TBLUP engine
+rule gotblup_F:
+  input:
+    script='code/go/tblupGO.R',
+    data='snake/data/01_matched/f_starvation.Rds',
+    goPath='snake/data/go/03_goterms/sexf/{goterm}.Rds'
+  output:
+    'snake/data/go/33_metric/f/tblup/{goterm}.Rds'
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm),
+    niter = 85000,
+    burnin = 10000,
+    thin = 50,
+    RMAX=0.8,
+    repCount = 25,
+    sex=['f']
+  threads: 1
+  resources:
+    jobweight = 1,
+    mem_mb=10000
+  shell:
+    """
+    mkdir -p snake/data/go/33_metric/{params.sex}/tblup;
+    mkdir -p snake/data/go/24_goCor/{params.sex}/tblup/{params.goterm};
+    mkdir -p snake/data/bglr/{params.sex}/tblup/{params.goterm};
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --goPath {input.goPath} \
+      --outPath {output} \
+      --goterm {params.goterm} \
+      --sex {params.sex} \
+      --niter {params.niter} \
+      --burnin {params.burnin} \
+      --thin {params.thin} \
+      --repCount {params.repCount} \
+      --RMAX {params.RMAX} \
+      --model RKHS
+    """
+
+    #mkdir -p snake/data/bglr/sexf/go{params.rGO}/max{params.rMAX}/term{params.goterm}/id{params.goset}
+rule gotblup_M:
+  input:
+    script='code/go/tblupGO.R',
+    data='snake/data/01_matched/m_starvation.Rds',
+    goPath='snake/data/go/03_goterms/sexm/{goterm}.Rds'
+  output:
+    'snake/data/go/33_metric/m/tblup/{goterm}.Rds'
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm),
+    niter = 85000,
+    burnin = 10000,
+    thin = 50,
+    RMAX=0.8,
+    repCount = 25,
+    sex=['m']
+  threads: 1
+  resources:
+    jobweight = 1,
+    mem_mb=10000
+  shell:
+    """
+    mkdir -p snake/data/go/33_metric/{params.sex}/tblup;
+    mkdir -p snake/data/go/24_goCor/{params.sex}/tblup/{params.goterm};
+    mkdir -p snake/data/bglr/{params.sex}/tblup/{params.goterm};
+    Rscript {input.script} \
+      --inPath {input.data} \
+      --goPath {input.goPath} \
+      --outPath {output} \
+      --goterm {params.goterm} \
+      --sex {params.sex} \
+      --niter {params.niter} \
+      --burnin {params.burnin} \
+      --thin {params.thin} \
+      --repCount {params.repCount} \
+      --RMAX {params.RMAX} \
+      --model RKHS
+    """
+
+    #mkdir -p snake/data/bglr/sexf/go{params.rGO}/max{params.rMAX}/term{params.goterm}/id{params.goset}
+
+#GO-TBLUP data sorting
+rule filter_gotblup_F:
+  input:
+    script='code/filter/filterGO.R',
+    data=expand('snake/data/go/24_goCor/f/tblup/{{goterm}}/{goset}.Rds', goterm=GOTERM_F,  goset=GOSET)
+  output:
+      'snake/data/go/34_altmetric/f/tblup/{goterm}.Rds'
+  threads: 1
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm)
+  shell:
+    """
+    mkdir -p snake/data/go/34_altmetric/f/tblup;
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --term {params.goterm} \
+    --outPath {output}
+    """
+rule filter_gotblup_M:
+  input:
+    script='code/filter/filterGO.R',
+    data=expand('snake/data/go/24_goCor/m/tblup/{{goterm}}/{goset}.Rds', goterm=GOTERM_M, goset=GOSET)
+  output:
+      'snake/data/go/34_altmetric/m/tblup/{goterm}.Rds'
+  threads: 1
+  params:
+    goterm = lambda wildcards: str(wildcards.goterm)
+  shell:
+    """
+    mkdir -p snake/data/go/34_altmetric/m/tblup;
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --term {params.goterm} \
+    --outPath {output}
+    """
+rule combine_gotblup_F:
+  input:
+    script='code/filter/combineBlupGO.R',
+    data=expand('snake/data/go/34_altmetric/f/tblup/{goterm}.Rds', goterm=GOTERM_F)
+  output:
+      'snake/data/go/40_all/f/go_tblup.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+rule combine_gotblup_M:
+  input:
+    script='code/filter/combineBlupGO.R',
+    data=expand('snake/data/go/34_altmetric/m/tblup/{goterm}.Rds', goterm=GOTERM_M)
+  output:
+      'snake/data/go/40_all/m/go_tblup.Rds'
+  threads: 1
+  shell:
+    """
+    Rscript {input.script} \
+    --dataList {input.data} \
+    --outPath {output}
+    """
+

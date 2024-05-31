@@ -1,0 +1,109 @@
+SEX=['f','m']
+METHOD=['bayes', 'tblup']
+
+#all----
+rule all:
+  input:
+    expand('snake/data/gene/3_topCounts/{sex}/{method}/topCounts.Rds', sex=SEX, method=METHOD),
+    'snake/data/gene/4_geneLabels/preLabels.txt'
+
+rule topSelect:
+  input:
+    script='code/gene/1_topSelect.R',
+    data='snake/data/go/40_all/{sex}/go_{method}.Rds'
+  output:
+    "snake/data/gene/1_topSelect/{sex}/{method}/topHits.txt"
+  shell:
+    """
+    mkdir -p snake/data/gene/1_topSelect/{wildcards.sex}/{wildcards.method}
+    Rscript {input.script} \
+    --input {input.data} \
+    --centile 1 \
+    --output {output}
+    """
+
+
+rule goLookup:
+  input:
+    script='code/gene/2_goLookup.R',
+    goDB='snake/data/go/01_goIndex/goIndex',
+    data="snake/data/gene/1_topSelect/{sex}/{method}/topHits.txt"
+  output:
+    'snake/data/gene/2_goLookup/{sex}/{method}/allCounts.Rds'
+  resources:
+    mem_mb=6000
+  params:
+  shell:
+    """
+    mkdir -p snake/data/gene/2_goLookup/{wildcards.sex}/{wildcards.method}
+    Rscript {input.script} \
+    --goDB {input.goDB} \
+    --data {input.data} \
+    --output {output}
+    """
+  
+rule topCounts_M:
+  input:
+    script='code/gene/3_topCounts.R',
+    data='snake/data/gene/2_goLookup/m/{method}/allCounts.Rds'
+  output:
+    Rds='snake/data/gene/3_topCounts/m/{method}/topCounts.Rds',
+    human='snake/data/gene/3_topCounts/m/{method}/topGenes.txt'
+  shell:
+    """
+    mkdir -p snake/data/gene/3_topCounts/m/{wildcards.method}
+    Rscript {input.script} \
+    --input {input.data} \
+    --cutoff 3 \
+    --hrPath {output.human} \
+    --output {output.Rds}
+    """
+      
+      
+rule topCounts_bayesF:
+  input:
+    script='code/gene/3_topCounts.R',
+    data='snake/data/gene/2_goLookup/f/bayes/allCounts.Rds'
+  output:
+    Rds='snake/data/gene/3_topCounts/f/bayes/topCounts.Rds',
+    human='snake/data/gene/3_topCounts/f/bayes/topGenes.txt'
+  shell:
+    """
+    mkdir -p snake/data/gene/3_topCounts/f/bayes
+    Rscript {input.script} \
+    --input {input.data} \
+    --cutoff 3 \
+    --hrPath {output.human} \
+    --output {output.Rds}
+    """
+    
+rule topCounts_tblupF:
+  input:
+    script='code/gene/3_topCounts.R',
+    data='snake/data/gene/2_goLookup/f/tblup/allCounts.Rds'
+  output:
+    Rds='snake/data/gene/3_topCounts/f/tblup/topCounts.Rds',
+    human='snake/data/gene/3_topCounts/f/tblup/topGenes.txt'
+  shell:
+    """
+    mkdir -p snake/data/gene/3_topCounts/f/tblup
+    Rscript {input.script} \
+    --input {input.data} \
+    --cutoff 4 \
+    --hrPath {output.human} \
+    --output {output.Rds}
+    """
+    
+rule geneLabels:
+  input:
+    bayesF='snake/data/gene/3_topCounts/f/bayes/topGenes.txt',
+    tblupF='snake/data/gene/3_topCounts/f/tblup/topGenes.txt',
+    bayesM='snake/data/gene/3_topCounts/m/bayes/topGenes.txt',
+    tblupM='snake/data/gene/3_topCounts/m/tblup/topGenes.txt'
+  output:
+    'snake/data/gene/4_geneLabels/preLabels.txt'
+  shell:
+    """
+    mkdir -p snake/data/gene/4_geneLabels
+    cat {input.bayesF} {input.tblupF} {input.bayesM} {input.tblupM} > {output}
+    """
