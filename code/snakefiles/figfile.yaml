@@ -1,0 +1,154 @@
+
+#all----
+rule all:
+  input:
+    'output/figs/Fig1.pdf',
+    'output/figs/Fig2.pdf',
+    'output/figs/Fig3.pdf',
+#    'output/figs/Fig4.pdf',
+    'output/figs/S1_Fig.pdf',
+    'output/figs/S2_Fig.pdf',
+    'output/tabs/geneBayesF.csv',
+    'output/tabs/sup_standardF.csv',
+    'output/tabs/sup_goBayesF.csv',
+    'output/tabs/sup_geneBayesF.csv'
+
+
+rule standard:
+  input:
+    script='code/figures/standard_paper.R',
+    femalePath='snake/data/sr/40_all/f/histData.Rds',
+    malePath='snake/data/sr/40_all/m/histData.Rds'
+  output:
+    'output/figs/Fig1.pdf'
+  shell:
+    """
+    mkdir -p output/figs
+    Rscript {input.script} \
+    --femalePath {input.femalePath} \
+    --malePath {input.malePath} \
+    --W 7.5 \
+    --H 5 \
+    --output Fig1.pdf
+    """
+
+rule fig2_go2x2:
+  input:
+    script='code/figures/go_2x2_paper.R',
+    bayesPathF='snake/data/go/40_all/f/go_bayes.Rds',
+    bayesPathM='snake/data/go/40_all/m/go_bayes.Rds',
+    tblupPathF='snake/data/go/40_all/f/go_tblup.Rds',
+    tblupPathM='snake/data/go/40_all/m/go_tblup.Rds'
+  output:
+    'output/figs/Fig2.pdf'
+  shell:
+    """
+    mkdir -p output/figs
+    Rscript {input.script} \
+    --bayesPathF {input.bayesPathF} \
+    --bayesPathM {input.bayesPathM} \
+    --tblupPathF {input.tblupPathF} \
+    --tblupPathM {input.tblupPathM} \
+    --output Fig2.pdf
+    """
+
+rule fig3_go_scatter:
+  input:
+    script='code/figures/fig3_scatter.R',
+    bayesPathF='snake/data/go/40_all/f/go_bayes.Rds',
+    bayesPathM='snake/data/go/40_all/m/go_bayes.Rds',
+    tblupPathF='snake/data/go/40_all/f/go_tblup.Rds',
+    tblupPathM='snake/data/go/40_all/m/go_tblup.Rds'
+  output:
+    'output/figs/Fig3.pdf'
+  shell:
+    """
+    mkdir -p output/figs
+    Rscript {input.script} \
+    --bayesPathF {input.bayesPathF} \
+    --tblupPathF {input.tblupPathF} \
+    --bayesPathM {input.bayesPathM} \
+    --tblupPathM {input.tblupPathM} \
+    --output Fig3.pdf
+    """
+
+rule S1_Fig_sparseViolins:
+  input:
+    script='code/figures/sup_sparseHist.R',
+    data="snake/data/go/40_all/f/sparseHist.Rds"
+  output:
+    'output/figs/S1_Fig.pdf'
+  shell:
+    """
+    mkdir -p output/figs
+    Rscript {input.script} \
+    --data {input.data} \
+    --output S1_Fig.pdf
+    """
+
+rule S2_Fig_geneHist:
+  input:
+    script='code/figures/sup_hist2x2.R',
+    bayesPathF='snake/data/gene/2_goLookup/f/bayes/allCounts.Rds',
+    bayesPathM='snake/data/gene/2_goLookup/m/bayes/allCounts.Rds',
+    tblupPathF='snake/data/gene/2_goLookup/f/tblup/allCounts.Rds',
+    tblupPathM='snake/data/gene/2_goLookup/m/tblup/allCounts.Rds'
+  output:
+    'output/figs/S2_Fig.pdf'
+  shell:
+    """
+    mkdir -p output/figs
+    Rscript {input.script} \
+    --bayesPathF {input.bayesPathF} \
+    --tblupPathF {input.tblupPathF} \
+    --bayesPathM {input.bayesPathM} \
+    --tblupPathM {input.tblupPathM} \
+    --output S2_Fig.pdf
+    """
+
+
+
+rule gene:
+  input:
+    script='code/figures/geneTables.R'
+  output:
+    'output/tabs/geneBayesF.csv'
+  shell:
+    """
+    mkdir -p output/tabs
+    Rscript {input.script}
+    """
+
+
+rule sup_standard:
+  input:
+    script='code/figures/sup_standardTables.R'
+  output:
+    'output/tabs/sup_standardF.csv'
+  shell:
+    """
+    mkdir -p output/tabs
+    Rscript {input.script}
+    """
+
+rule sup_go:
+  input:
+    script='code/figures/sup_goTables.R'
+  output:
+    'output/tabs/sup_goBayesF.csv'
+  shell:
+    """
+    mkdir -p output/tabs
+    Rscript {input.script}
+    """
+
+rule sup_gene:
+  input:
+    script='code/figures/sup_geneTables.R'
+  output:
+    'output/tabs/sup_geneBayesF.csv'
+  shell:
+    """
+    mkdir -p output/tabs
+    Rscript {input.script}
+    """
