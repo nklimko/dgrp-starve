@@ -1,0 +1,5 @@
+top <- c(16, 40)
+all <- c(328, 17728)
+data <- rbind(top, all)
+colnames(data) <- c('kinase', 'total')
+fisher.test(data)
