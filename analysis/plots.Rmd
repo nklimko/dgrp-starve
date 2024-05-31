@@ -10,29 +10,29 @@ editor_options:
 ---
 
 ```{r 0-setup, include=FALSE, warning=FALSE}
-
-library(dplyr)
-library(data.table)
-library(ggplot2)
-library(cowplot)
-library(qqman)
-library(viridis)
-library(scales)
-library(tidyverse)
-library(ggcorrplot)
-library(melt)
-library(reshape2)
-
-#options
-options(bitmapType = "cairo")
-options(error = function() traceback(3))
-
-#seed
-set.seed(123)
-
-#ggplot holder list
-gg <- vector(mode='list', length=12)
-
+if(1){
+  library(dplyr)
+  library(data.table)
+  library(ggplot2)
+  library(cowplot)
+  library(qqman)
+  library(viridis)
+  library(scales)
+  library(tidyverse)
+  library(ggcorrplot)
+  library(melt)
+  library(reshape2)
+  
+  #options
+  options(bitmapType = "cairo")
+  options(error = function() traceback(3))
+  
+  #seed
+  set.seed(123)
+  
+  #ggplot holder list
+  gg <- vector(mode='list', length=12)
+}
 ```
 
 ```{r 0-functions}
@@ -119,3 +119,197 @@ plot_grid(gg[[4]], ncol = 1)
 ```
 
 Variable selection has a positive effect on prediction accuracy in females and a negative effect in males. 
+
+
+
+
+
+```{r geneTables}
+
+library(kableExtra)
+options(knitr.kable.NA = '')
+
+filesF <- list.files(path = 'code/go/enrichment/f', pattern='*finalData.Rds', recursive=TRUE, full.names = TRUE)
+filesM <- list.files(path = 'code/go/enrichment/m', pattern='*finalData.Rds', recursive=TRUE, full.names = TRUE)
+allFiles <- c(filesF, filesM)
+
+at <- lapply(allFiles, readRDS)
+
+big <- at[[1]]
+med <- at[[2]]
+small <- at[[3]]
+mini <- at[[4]]
+
+
+
+
+#.     readin(a, 129/131, outfile
+percentile <- function(data, basecount, cutoff){
+  
+  pcent <- data[,count] / basecount * 100 
+  
+  midway <- data.table(data, percent=pcent)
+  
+  clipped <- midway[which(pcent > cutoff),]
+  return(clipped)
+  
+}
+
+
+a <- readRDS('code/go/enrichment/f/bayes/finalData.Rds')
+b <- readRDS('code/go/enrichment/f/blup/finalData.Rds')
+c <- readRDS('code/go/enrichment/m/bayes/finalData.Rds')
+d <- readRDS('code/go/enrichment/m/blup/finalData.Rds')
+
+bayesF <- percentile(a, 131, 5)
+blupF <- percentile(b, 129, 5)
+bayesM <- percentile(c, 131, 5)
+blupM <- percentile(d, 129, 5)
+
+dim(bayesF)
+dim(blupF)
+dim(bayesM)
+dim(blupM)
+
+
+if(0){
+  
+  percentModder <- function(dataKable){
+    dataKable[,5] <- dataKable[,5]*2
+    dataKable[,8] <- dataKable[,8]*2
+    colnames(dataKable) <- rep(c('Flybase Gene', 'Percent', 'Gene Name'), 3)
+    setcolorder(dataKable, c(1,3,2,4,6,5,7,9,8))
+    return(dataKable)
+  }
+  
+  bayesF_KableMod <- percentModder(bayesF_Kable)
+  bayesM_KableMod <- percentModder(bayesM_Kable)
+  blupF_KableMod <- percentModder(blupF_Kable )
+  blupM_KableMod <- percentModder(blupM_Kable )
+  
+  alignCust <- rep(c('l','c','c'),3)
+  
+  kable(bayesF_KableMod, align=alignCust, caption="Female BayesC", "html") %>%
+    add_header_above(c('Top 100 GO Terms' = 3, 'Top 50 GO Terms' = 3, 'Top 25 GO Terms' = 3))
+  kable(bayesM_KableMod, align=alignCust, caption="Male BayesC", "html") %>%
+    add_header_above(c('Top 100 GO Terms' = 3, 'Top 50 GO Terms' = 3, 'Top 25 GO Terms' = 3))
+  kable(blupF_KableMod, align=alignCust, caption="Female TBLUP", "html") %>%
+    add_header_above(c('Top 100 GO Terms' = 3, 'Top 50 GO Terms' = 3, 'Top 25 GO Terms' = 3))
+  kable(blupM_KableMod, align=alignCust, caption="Male TBLUP", "html") %>%
+    add_header_above(c('Top 100 GO Terms' = 3, 'Top 50 GO Terms' = 3, 'Top 25 GO Terms' = 3))
+  
+  
+  
+}
+
+kableWrap4 <- function(big, med, small, mini, title, customW, outPath)  {
+  
+  #find gap size
+  fillmed <- dim(big)[1] - dim(med)[1]
+  fillsmall <- dim(big)[1] - dim(small)[1]
+  fillmini <- dim(big)[1] - dim(mini)[1]
+  #fill gap with NA
+  fillermed <- data.table(matrix(rep(NA, customW*fillmed), ncol=customW))
+  fillersmall <- data.table(matrix(rep(NA, customW*fillsmall), ncol=customW))
+  fillermini <- data.table(matrix(rep(NA, customW*fillmini), ncol=customW))
+  #bind stopper to real data
+  fullMed <- rbind(med, fillermed, use.names=FALSE)
+  fullSmall <- rbind(small, fillersmall, use.names=FALSE)
+  fullMini <- rbind(mini, fillermini, use.names=FALSE)
+  #join 'equal length tables'
+  dataKable <- cbind(big, fullMed, fullSmall, fullMini)
+  #set column names
+  #colnames(dataKable) <- rep(c('Flybase Gene', 'Count', 'Gene'), customW)
+  #colnames(dataKable) <- rep(finalNames, customW)
+  #print side by side comparison
+  saveRDS(dataKable, outPath)
+  kable(dataKable, caption = title, "simple")
+  return(dataKable)
+}
+
+test <- kableWrap4(bayesF, blupF, bayesM, blupM, 'All Tables', 5, 'data/megaTable2.Rds')
+
+colSelect <- c(2,4,7,9,12,14,17,19)
+testFinal <- test[,colSelect, with=FALSE]
+
+colnames(testFinal) <- rep(c('Gene', 'Count'), 4)
+
+  alignCust <- rep(c('c','c'), 4)
+
+kable(testFinal,align=alignCust, 'html') %>%
+  add_header_above(c('GO-BayesC Female' = 2,
+                     'GO-TBLUP Female' = 2,
+                     'GO-BayesC Male' = 2,
+                     'GO-TBLUP Male' = 2)
+  )
+
+
+write.csv(testFinal, 'data/enrich.csv')
+saveRDS(testFinal, 'data/kablefinal.Rds')
+
+#saveRDS(test, 'data/megaKable.Rds')
+# #kable(temp9, caption = title, "simple")
+# 
+# #load("snake/data/go/50_tables/enrich/kables.Rdata")
+# 
+# percentModder <- function(dataKable){
+#   
+#   dataKable[,5] <- dataKable[,5]*2
+#   dataKable[,8] <- dataKable[,8]*2
+#   
+#   colnames(dataKable) <- rep(c('Flybase Gene', 'Percent', 'Gene'), 3)
+#   
+#   return(dataKable)
+#   
+# }
+# 
+# bayesF_KableMod <- percentModder(bayesF_Kable)
+# bayesM_KableMod <- percentModder(bayesM_Kable)
+# blupF_KableMod <- percentModder(blupF_Kable )
+# blupM_KableMod <- percentModder(blupM_Kable )
+# 
+# kable(bayesF_KableMod, caption="Female BayesC", "html") %>%
+#   add_header_above(c('Top 100 GO Terms' = 3, 'Top 50 GO Terms' = 3, 'Top 25 GO Terms' = 3))
+
+
+
+```
+
+
+
+```{r scrapped}
+
+# 
+# temp <- readRDS('code/go/enrichment/f/blup/finalData.Rds')
+# 
+# 
+# ggMakeGene <- function(data, sex, psize, custom.title, custom.Xlab, custom.Ylab){
+#   
+#   #data <- readRDS(dataPath)
+# 
+#   plothole <- ggplot(data, aes(x=gene, y=count))+
+#     labs(x=custom.Xlab,y=custom.Ylab, tag=sex, title=custom.title) +
+#     geom_col(
+#       ) + 
+#     theme_minimal()+
+#     theme(axis.text.x = element_text(angle = 90),
+#           text=element_text(size=5),
+#           plot.tag = element_text(size=10))
+#   return(plothole)
+# }
+# 
+# 
+# ggMakeGene(temp, 'F', 1, 'Female Blup Top Genes', 'Gene', 'Count')
+# 
+# 
+# 
+# ggMakeGene('code/go/enrichment/f/blup/finalData.Rds', 'F', 1, 'Female Blup Top Genes', 'Gene', 'Count')
+# 
+# 
+# 
+
+
+
+
+
+```

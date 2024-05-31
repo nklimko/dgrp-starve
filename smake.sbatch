@@ -9,9 +9,12 @@
 
 #Set output above to snake/logs/{foldername of choice}
 
-#Choose snakefile: start with datafile to process starvation
 
-#sfile="code/snakefiles/datafile.yaml"
+#this file submits jobs to slurm. Recommended to run submit snake.sbatch first to ensure desired rules are rerun
+
+#Choose snakefile by uncommenting: start with datafile to process starvation
+
+sfile="code/snakefiles/datafile.yaml"
 #sfile="code/snakefiles/srfile.yaml"
 #sfile="code/snakefiles/GOfile.yaml"
 #sfile="code/snakefiles/sparsefile.yaml"

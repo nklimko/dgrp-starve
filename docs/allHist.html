@@ -16,7 +16,7 @@
 <script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -394,7 +394,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-11-07
+<strong>Last updated:</strong> 2024-03-26
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -485,16 +485,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree49ed229a9e4acb05361705e6008c720ef7587742targetblank49ed229a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/49ed229a9e4acb05361705e6008c720ef7587742" target="_blank">49ed229</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreecba32ac6971f79f3a6685264236a080e1d8cac8btargetblankcba32aca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/nklimko/dgrp-starve/tree/cba32ac6971f79f3a6685264236a080e1d8cac8b" target="_blank">cba32ac</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetree49ed229a9e4acb05361705e6008c720ef7587742targetblank49ed229a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomnklimkodgrpstarvetreecba32ac6971f79f3a6685264236a080e1d8cac8btargetblankcba32aca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/49ed229a9e4acb05361705e6008c720ef7587742" target="_blank">49ed229</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/nklimko/dgrp-starve/tree/cba32ac6971f79f3a6685264236a080e1d8cac8b" target="_blank">cba32ac</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -502,53 +502,66 @@ Note that you need to be careful to ensure that all relevant files for the analy
 <pre><code>
 Ignored files:
     Ignored:    .snakemake/
-    Ignored:    code/methodComp/bglr/err-bglr-f.5381.err
-    Ignored:    code/methodComp/bglr/err-bglr-m.5382.err
-    Ignored:    code/methodComp/m/meth-m.4676.err
-    Ignored:    code/methodComp/m/meth-m.4685.err
-    Ignored:    code/methodComp/method-f.4751.out
-    Ignored:    data/fb/
-    Ignored:    data/snake/
-    Ignored:    snake/.snakemake/
-    Ignored:    snake/GOfile.yaml
-    Ignored:    snake/ReadMe.md
-    Ignored:    snake/Snakefile.yaml
-    Ignored:    snake/bayesCheck.R
-    Ignored:    snake/bayesTest.Rds
-    Ignored:    snake/binner2.R
-    Ignored:    snake/code/misc/
-    Ignored:    snake/data/
-    Ignored:    snake/dgrp.yaml
-    Ignored:    snake/h2_synth.R
-    Ignored:    snake/labMake.R
-    Ignored:    snake/logs/
-    Ignored:    snake/slurm/
-    Ignored:    snake/snakemake_submitter.sbatch
-    Ignored:    snake/temp/
-    Ignored:    snake/vavrfile.yaml
-    Ignored:    snake/vavrmake
-    Ignored:    snake/zz_lost/
+    Ignored:    code/OLD/PCA/four-comp.76979.err
+    Ignored:    code/OLD/PCA/four-comp.76979.out
+    Ignored:    code/OLD/PCA/snpGene.77509.err
+    Ignored:    code/OLD/PCA/snpGene.77509.out
+    Ignored:    code/OLD/PCA/snpGene.77515.err
+    Ignored:    code/OLD/PCA/snpGene.77515.out
+    Ignored:    code/OLD/methodComp/bayesC/method-f.4753.err
+    Ignored:    code/OLD/methodComp/bayesC/method-f.4753.out
+    Ignored:    code/OLD/methodComp/bayesC/method-m.4754.err
+    Ignored:    code/OLD/methodComp/bayesC/method-m.4754.out
+    Ignored:    code/OLD/methodComp/bglr/err-bglr-f.5381.err
+    Ignored:    code/OLD/methodComp/bglr/err-bglr-m.5382.err
+    Ignored:    code/OLD/methodComp/bglr/out-bglr-f.5381.out
+    Ignored:    code/OLD/methodComp/bglr/out-bglr-m.5382.out
+    Ignored:    code/OLD/methodComp/f/3330.trace-f.out
+    Ignored:    code/OLD/methodComp/f/meth-f.4682.out
+    Ignored:    code/OLD/methodComp/f/method-f.3892.out
+    Ignored:    code/OLD/methodComp/f/method-f.4065.out
+    Ignored:    code/OLD/methodComp/f/method-f.4664.out
+    Ignored:    code/OLD/methodComp/f/method-f.4743.out
+    Ignored:    code/OLD/methodComp/m/3331.trace-m.err
+    Ignored:    code/OLD/methodComp/m/3331.trace-m.out
+    Ignored:    code/OLD/methodComp/m/meth-m.4676.err
+    Ignored:    code/OLD/methodComp/m/meth-m.4676.out
+    Ignored:    code/OLD/methodComp/m/meth-m.4685.err
+    Ignored:    code/OLD/methodComp/m/meth-m.4685.out
+    Ignored:    code/OLD/methodComp/m/method-m.4745.err
+    Ignored:    code/OLD/methodComp/m/method-m.4745.out
+    Ignored:    code/OLD/methodComp/method-f.4751.err
+    Ignored:    code/OLD/methodComp/method-f.4751.out
+    Ignored:    code/OLD/methodComp/method-m.4752.err
+    Ignored:    code/OLD/methodComp/method-m.4752.out
+    Ignored:    code/OLD/methodComp/method-m.4765.err
+    Ignored:    code/OLD/methodComp/method-m.4765.out
+    Ignored:    code/OLD/regress/regress.81916.err
+    Ignored:    code/OLD/regress/regress.81916.out
+    Ignored:    code/OLD/regress/regress.81918.err
+    Ignored:    code/OLD/regress/regress.81918.out
+    Ignored:    code/OLD/regress/regressF.81919.err
+    Ignored:    code/OLD/regress/regressF.81919.out
+    Ignored:    code/OLD/regress/regress_f_adj.109973.err
+    Ignored:    code/OLD/regress/regress_f_adj.109973.out
+    Ignored:    code/OLD/regress/regress_f_adj.109974.err
+    Ignored:    code/OLD/regress/regress_f_adj.109974.out
+    Ignored:    code/OLD/regress/regress_m_adj.109971.err
+    Ignored:    code/OLD/regress/regress_m_adj.109971.out
+    Ignored:    code/OLD/regress/regress_m_adj.109972.err
+    Ignored:    code/OLD/regress/regress_m_adj.109972.out
+    Ignored:    code/bayesC/
+    Ignored:    data/
+    Ignored:    snake/
     Ignored:    zz_lost/
 
 Untracked files:
-    Untracked:  analysis/old_index.Rmd.Rmd
-    Untracked:  forester.R
-    Untracked:  snake/code/binner.R
-    Untracked:  snake/code/combine_GO.R
-    Untracked:  snake/code/dataFinGO.R
-    Untracked:  snake/code/filterNcombine_GO.R
-    Untracked:  snake/code/filter_GO.R
-    Untracked:  snake/code/go/
-    Untracked:  snake/code/method/bayesHome.R
-    Untracked:  snake/code/method/gofig.yaml
-    Untracked:  snake/code/method/multiplotGO.Rmd
+    Untracked:  analysis/goBayesCor.Rmd
 
 Unstaged changes:
-    Modified:   analysis/Method/BayesC.Rmd
-    Modified:   analysis/bigGO.Rmd
-    Modified:   snake/code/method/bayesGO.R
-    Modified:   snake/code/method/goFish.R
-    Modified:   snake/code/method/varbvs.R
+    Modified:   code/scripts/drymake.sh
+    Modified:   code/tempRfree.R
+    Modified:   srfile.yaml
 
 </code></pre>
 <p>
@@ -587,6 +600,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/nklimko/dgrp-starve/bd929f726ee49ba9324c865ea016c551b44d7f48/docs/allHist.html" target="_blank">bd929f7</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1097,6 +1127,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/bd929f726ee49ba9324c865ea016c551b44d7f48/docs/figure/allHist.Rmd/plot-print-all-1.png" target="_blank">bd929f7</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-07
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/41506b05da60d693fda45b4d7160d05302b52d55/docs/figure/allHist.Rmd/plot-print-all-1.png" target="_blank">41506b0</a>
 </td>
 <td>
@@ -1189,6 +1230,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/bd929f726ee49ba9324c865ea016c551b44d7f48/docs/figure/allHist.Rmd/plot-print-all-2.png" target="_blank">bd929f7</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-07
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/41506b05da60d693fda45b4d7160d05302b52d55/docs/figure/allHist.Rmd/plot-print-all-2.png" target="_blank">41506b0</a>
@@ -1379,6 +1431,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/nklimko/dgrp-starve/blob/bd929f726ee49ba9324c865ea016c551b44d7f48/docs/figure/allHist.Rmd/plot-print-univariate-2.png" target="_blank">bd929f7</a>
+</td>
+<td>
+nklimko
+</td>
+<td>
+2023-11-07
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/nklimko/dgrp-starve/blob/41506b05da60d693fda45b4d7160d05302b52d55/docs/figure/allHist.Rmd/plot-print-univariate-2.png" target="_blank">41506b0</a>

@@ -9,11 +9,14 @@
 
 #Set output above to snake/logs/{foldername of choice}
 
-#Choose snakefile: start with datafile to process starvation
 
-#sfile="code/snakefiles/datafile.yaml"
+#This file runs snakemake in safe mode "-n flag" to ensure that desired rules are rerun correctly. 
+
+#Choose snakefile by uncommenting: start with datafile to process starvation
+
+sfile="code/snakefiles/datafile.yaml"
 #sfile="code/snakefiles/srfile.yaml"
-sfile="code/snakefiles/GOfile.yaml"
+#sfile="code/snakefiles/GOfile.yaml"
 #sfile="code/snakefiles/sparsefile.yaml"
 #sfile="code/snakefiles/genefile.yaml"
 #sfile="code/snakefiles/figfile.yaml"
@@ -46,8 +49,7 @@ snakemake \
 --profile snake/slurm \
 --nolock \
 --rerun-triggers mtime \
---resources jobweight=101 \
--F all
+--resources jobweight=101
 
 module unload R/4.1.2
 

@@ -11,6 +11,8 @@ analysis/*_cache
 analysis/site_libs
 data/*
 
+*.snakemake_timestamp*
+
 data
 
 *.err
@@ -19,11 +21,16 @@ data
 notes
 zz_lost
 
+!snake/slurm
+snake/logs/*
+
 .snakemake
 snake/*
 !snake/code
-snake/code/misc/*
-
+snake/code/BACKUPS/*
+code/BACKUPS/*
+!code
+!snake/slurm
 
 code/methodComp/bglr/err-bglr-f.5381.err
 code/methodComp/bglr/err-bglr-m.5382.err
