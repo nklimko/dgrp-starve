@@ -13,13 +13,13 @@ Welcome! A brief overview of this repository can be found below
 
 ### code
 - snakefiles subdirectory contains all pipeline snakefiles
-- other directories contain scripts specific to pipeline
+- other subdirectories contain scripts specific to pipeline
 
 ### snake
 - this folder is the core for all pipelines
-- data folder
-- slurm folder contains config file specific to computing cluster
-- log folder contains output/error messages from all rules
+- data subfolder contains intermediate files for pipelines, procedurally generates by running smake.sbatch
+- slurm subfolder contains config file specific to computing cluster
+- log subfolder contains output/error messages from all rules
 
 ### output
 - figures and csv tables for use in publication
@@ -27,11 +27,13 @@ Welcome! A brief overview of this repository can be found below
 ## Job submission:
 
 ### snake.sbatch
+- important: set working directory and output directory within script
 - safe-mode debug tool for job submissions
-- allows prior confirmatino that snakemake will run proper rules without overwriting existing files
+- allows prior confirmation that snakemake will run proper rules without overwriting existing files
 - select snakefile within script to confirm pipeline
 
 ### smake.sbatch
+- important: set working directory and output directory within script
 - job submitter for pipeline
 - select snakefile within script to confirm pipeline
 
