@@ -12,6 +12,10 @@ editor_options:
 + [Summary of Univariate and Multivariate models](allHist.html)
 + [Updated Plots](plots.html)
 
+
+# Startle Response
++ [Initial report](startle_report.html)
+
 # GO Enrichment
 + [Enrichment Comparison](enrich.html)
 
