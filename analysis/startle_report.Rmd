@@ -1,0 +1,218 @@
+---
+title: "Startle Response Report"
+output:
+  workflowr::wflow_html:
+    toc: true
+    latex_engine: "xelatex"
+    code_folding: "hide"
+editor_options:
+  chunk_output_type: console
+---
+
+```{r 0-setup, include=FALSE, warning=FALSE}
+if(1){
+  library(dplyr)
+  library(data.table)
+  library(ggplot2)
+  library(cowplot)
+  library(qqman)
+  library(viridis)
+  library(scales)
+  library(tidyverse)
+  library(ggcorrplot)
+  library(melt)
+  library(reshape2)
+  library(ggrepel)
+  
+  #options
+  options(bitmapType = "cairo")
+  options(error = function() traceback(3))
+  
+  #seed
+  set.seed(123)
+  
+  #ggplot holder list
+  gg <- vector(mode='list', length=12)
+}
+```
+
+```{r 0-functions}
+
+finalLabel <- function(data){
+  
+  names(data) <- c('PCR', 'PLS', 'RR', 'LASSO', 'BayesC', 'VARBVS', 'MR.ASH', 'TBLUP', 'RF', 'NN')
+  
+  halfdata <- melt(data)
+  
+  type <- c(rep('Dimension Reduction', 50), rep('Penalized', 50), rep('Bayesian', 75), rep('Mixed Model', 25), rep('Machine Learning', 50))
+  typeRank <- c(rep(1, 50), rep(2, 50), rep(3, 75), rep(4, 25), rep(5, 50))
+  
+  select <- c(rep(0,75), rep(1,100), rep(0,25), rep(1,25), rep(0,25))
+  
+  tableStep <- cbind(halfdata, type, typeRank = as.factor(typeRank), varSelect = as.factor(select))
+  
+  #final <- na.omit(tableStep)
+  final <- tableStep
+  
+  names(final) <- c('Method', 'Cor', 'Type', 'TypeRank', 'varSelect')
+  return(final)
+}
+
+ggMakePaper <- function(data, sex, yint, psize, custom.title, custom.Xlab, custom.Ylab, scaleStart, scaleEnd){
+  plothole <- ggplot(data,aes(y=Cor,x=Method, fill=TypeRank))+
+    geom_hline(yintercept = yint)+
+    labs(x=custom.Xlab,y=custom.Ylab, tag=sex, title=custom.title, fill='Method Type') +
+    geom_violin(color = NA, width = 0.8) +
+    geom_boxplot(color='#440154FF', width = 0.15, outlier.size = 1) +
+    theme_minimal()+
+    ylim(-0.65, 0.7)+
+    theme(axis.text.x = element_text(angle = 45),
+          text=element_text(size=10),
+          legend.position="none",
+          plot.tag = element_text(size=15),
+          legend.text = element_text(size=8),
+          legend.title = element_text(size=10)) +
+    scale_fill_viridis(begin = scaleStart, end = scaleEnd, discrete=TRUE, option='turbo',
+                       labels=c('Dimension Reduction', 'Penalized', 'Bayesian', 'Mixed Model', 'Machine Learning'))+#false discrete for number ranked layover, true normally
+    stat_summary(fun=mean, color='#440154FF', geom='point',
+                 shape=18, size=1, show.legend=TRUE)
+  return(plothole)
+}
+
+score_plot <- function(raw) {
+  
+  means <- colMeans(raw, na.rm=1)
+  
+  nas <-  sapply(raw, function(x){sum(is.na(x))})
+  
+  reps <- dim(raw)[1]
+  
+  data <- data.table(method=names(means), cor=means, score=(reps-nas) / reps)
+  
+  gg <- ggplot(data, aes(x=score, y=cor, label=method))+
+    geom_point(size=1)+
+    geom_label_repel(aes(label=method), min.segment.length = 0)
+  return(gg)
+}
+
+```
+
+```{r standard_plot, warning=FALSE, eval=TRUE}
+
+fata <- readRDS('snake/data/startle/40_all/f/histData.Rds')
+mata <- readRDS('snake/data/startle/40_all/m/histData.Rds')
+
+dataF <- finalLabel(fata)
+dataM <- finalLabel(mata)
+
+gg[[1]] <- ggMakePaper(dataF, 'A', 0, 1, 'Startle Response - Females', 'Method', 'Prediction Accuracy', 0.1, 0.9)
+gg[[2]] <- ggMakePaper(dataM, 'B', 0, 1, 'Startle Response - Males', 'Method', 'Prediction Accuracy', 0.1, 0.9)
+
+```
+
+
+```{r na_plots, warning=FALSE, eval=TRUE}
+
+### 25 replicates -----------
+f_nas <- sapply(fata, function(x){sum(is.na(x))})
+m_nas <- sapply(mata, function(x){sum(is.na(x))})
+
+Sex <- rep(c('f','m'), each=10)
+all_nas <- c(f_nas, m_nas)
+
+demo <- data.table(Sex, Method=names(all_nas), NA_Counts=all_nas)
+
+gg[[3]] <- ggplot(demo, aes(x=Method, y=NA_Counts, fill=Sex))+
+  geom_bar(stat="identity", position=position_dodge())+
+  theme_minimal()+
+  labs(title="Startle Response: NAs out of 25 replicates")
+
+### 150 replicates -----------
+f150 <- readRDS('snake/data/startle/40_all/150/f/histData.Rds')
+m150 <- readRDS('snake/data/startle/40_all/150/m/histData.Rds')
+
+f_nas <- sapply(f150, function(x){sum(is.na(x))})
+m_nas <- sapply(m150, function(x){sum(is.na(x))})
+
+Sex <- rep(c('f','m'), each=10)
+all_nas <- c(f_nas, m_nas)
+
+demo <- data.table(Sex, Method=names(all_nas), NA_Counts=all_nas)
+
+gg[[4]] <- ggplot(demo, aes(x=Method, y=NA_Counts, fill=Sex))+
+  geom_bar(stat="identity", position=position_dodge())+
+  theme_minimal()+
+  labs(title="Startle Response: NAs out of 150 replicates")
+
+```
+
+
+```{r score_plots, warning=FALSE, eval=TRUE}
+
+gg[[5]] <- score_plot(mata)
+gg[[6]] <- score_plot(fata)
+
+```
+
+```{r raw_mean_plots, warning=FALSE, eval=TRUE}
+
+f_means <- readRDS('snake/data/startle/40_all/f/meanData.Rds')
+m_means <- readRDS('snake/data/startle/40_all/m/meanData.Rds')
+
+f_means$cor <- as.numeric(f_means$cor)
+m_means$cor <- as.numeric(m_means$cor)
+
+gg[[7]] <- ggplot(f_means, aes(x=method, y=cor))+
+  geom_bar(stat='identity', fill='red')+
+  ggtitle("Prediction accuracy - Females")
+
+gg[[8]] <- ggplot(m_means, aes(x=method, y=cor))+
+  geom_bar(stat='identity', fill='turquoise')+
+  ggtitle("Prediction accuracy - Males")
+
+```
+
+### Standard Methods
+
+```{r plots}
+
+#standard F
+plot_grid(gg[[1]], ncol=1)
+
+#standard M
+plot_grid(gg[[2]], ncol=1)
+
+```
+
+### NA Counts by method
+
+```{r}
+
+#NAs
+plot_grid(gg[[3]], gg[[4]], ncol=1)
+
+```
+
+Increasing the iteration count from 25 to 150 yields similar failure rates for model convergence. As such, we are sticking to the 25 replicates data in our analysis, noting the number of successful replicates per method where appropriate.
+
+### Score plots
+
+```{r}
+#Score plots
+plot_grid(gg[[5]], gg[[6]], ncol=1)
+
+```
+
+Score indicates the number of successful trials out of 25 replicates, where a score of 1 means all replicates produced models.
+Cor is the mean prediction accuracy across successful replicates in the 25-replicate data
+
+### Raw Means
+
+```{r}
+
+#Raw Means
+plot_grid(gg[[7]], gg[[8]], ncol=1)
+
+```
+
+Simpler visual depiction of top methods. PLSR, BayesC, and TBLUP are the top 3 for both sexes. In males, random forest and MR ASH perform "better" than other methods (anecdotal, no tests performed). The same methods are also ranked 4th and 5th in females, but are less distinguished from the bottom 5 methods.
