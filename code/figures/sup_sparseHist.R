@@ -38,9 +38,9 @@ ggMakePaper <- function(data, sex, yint, psize, custom.title, custom.Xlab, custo
     theme_minimal()+
     ylim(-0.1, 0.75)+
     theme(axis.text.x = element_blank(),
-          text=element_text(size=15),
+          text=element_text(size=10),
           legend.position="none",
-          plot.tag = element_text(size=10))
+          plot.tag = element_text(size=15))
   return(plothole)
 }
 

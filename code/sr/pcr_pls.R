@@ -37,7 +37,7 @@ prince <- function(inPath,
     runtime <- system.time(fitPCA <- pcr(trait ~.,  data = yX, subset = test_IDs, validation = "CV", segments=nfolds))
   }else{
     print(paste0('PLS Method : ', method))
-    runtime <- system.time(fitPCA <- plsr(trait ~., data = yX, subset = test_IDs, validation = "CV", segments=nfolds, method=method))
+    runtime <- system.time(fitPCA <- plsr(trait ~., data = yX, subset = test_IDs, validation = "CV", segments=nfolds, method=method, maxit=500))
   }
 
   #pulls errors, morphs 2 x ncomp table into vector of cv / adjCV alternating, extract ncomp from

@@ -25,7 +25,7 @@ ggMakeCorPaper <- function(data, tag, psize, custom.Xlab, custom.Ylab, limStart,
     ylim(limStart, limStop)+
     annotate("text", x=limStop-0.1, y=limStart+0.05, label=corLabel) +
     theme_minimal()+
-    theme(text=element_text(size=15),
+    theme(text=element_text(size=10),
           plot.tag = element_text(size=15))
   return(plothole)
 }

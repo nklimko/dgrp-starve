@@ -80,9 +80,9 @@ ggMakePaper <- function(data, sex, yint, psize, custom.title, custom.Xlab, custo
     theme_minimal()+
     ylim(-0.5, 0.9)+
     theme(axis.text.x = element_text(angle = 45),
-          text=element_text(size=15),
+          text=element_text(size=10),
           legend.position="none",
-          plot.tag = element_text(size=10),
+          plot.tag = element_text(size=15),
           legend.text = element_text(size=8),
           legend.title = element_text(size=10)) +
     scale_fill_viridis(begin = scaleStart, end = scaleEnd, discrete=TRUE, option='turbo',

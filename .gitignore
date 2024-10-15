@@ -23,6 +23,10 @@ zz_lost
 
 !snake/slurm
 snake/logs/*
+snakelogs/
+
+rdata/
+benchmark/
 
 .snakemake
 snake/*
